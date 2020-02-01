@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>gastos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Fecha de Emisión</ion-label>
+    <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">SEÑOR(ES) <ion-text color="danger"></ion-text></ion-label>
+    <ion-input type="text" (keyup)="filtrarCliente()" [(ngModel)]="nombreCliente"></ion-input>
+  </ion-item>
+
+  <ion-list *ngIf="nombreCliente != ''">
+    <ion-radio-group>
+      <ion-list-header>Clientes</ion-list-header>
+        <ion-item  *ngFor="let cliente of clientesFiltrado" (click)="verCliente(cliente)">
+          <ion-label>{{cliente.nombre}}</ion-label>
+          <ion-radio slot="start"></ion-radio>
+          <!--<ion-checkbox color="primary" slot="start" ></ion-checkbox>-->
+        </ion-item>
+     </ion-radio-group>
+  </ion-list>
+
+  <div class="lista-clientes" *ngIf="cliente">
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.nombre}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.rut}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.giro}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.direccion}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.comuna}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.ciudad}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.contacto}}</h1>
+    </ion-item>
+
+    <ion-item>
+      <h1 class="texto-formulario">{{cliente.tipoCompra}}</h1>
+    </ion-item>
+  </div>
+
+
+
+<!--
+  <ion-item>
+    <ion-label>Documento de <ion-text color="danger">*</ion-text></ion-label>
+    <ion-select interface="popover" required>
+      <ion-select-option value="nes">Boleta</ion-select-option>
+      <ion-select-option value="n64">Factura</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Origen Factura <ion-text color="danger"></ion-text></ion-label>
+    <ion-input type="text" oninput="handleFirstNameValue(event)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Nro Factura <ion-text color="danger">*</ion-text></ion-label>
+    <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">N° OC Asociada <ion-text color="danger"></ion-text></ion-label>
+    <ion-input type="text" oninput="handleFirstNameValue(event)"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Fecha de Emisión</ion-label>
+    <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+</ion-item>
+
+<ion-item>
+  <ion-label>Fecha Contable</ion-label>
+  <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+</ion-item>
+
+<ion-item>
+  <ion-label>Fecha de Vencimiento</ion-label>
+  <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+</ion-item>
+
+<ion-item>
+  <ion-label>Aplica Impuesto</ion-label>
+  <ion-select  [(ngModel)]="opcion" name="opcion" interface="popover">
+    <ion-select-option value="1">Si</ion-select-option>
+    <ion-select-option value="2">No</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item *ngIf="opcion==1">
+  <ion-label>Impuesto</ion-label>
+  <ion-select  [(ngModel)]="tipoImpuesto" name="ordenar" interface="popover">
+    <ion-select-option value="1">I.V.A</ion-select-option>
+    <ion-select-option value="2">I.S.D</ion-select-option>
+    <ion-select-option value="3">N.A</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Observación<ion-text color="danger"></ion-text></ion-label>
+  <ion-input type="text" oninput="handleFirstNameValue(event)"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Origen Factura <ion-text color="danger"></ion-text></ion-label>
+  <ion-input type="text" oninput="handleFirstNameValue(event)"></ion-input>
+</ion-item>
+-->
+</ion-content>

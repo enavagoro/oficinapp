@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button (click)="insertar()" *ngIf="!flag">add</ion-button>
+  <ion-button (click)="flag = false" *ngIf="flag">cerrar</ion-button>
+  <div *ngIf="flag">
+    <ion-item>
+      <ion-label>Producto</ion-label>
+      <ion-select placeholder="Select One">
+        <ion-select-option value="f">p1</ion-select-option>
+        <ion-select-option value="m">p54</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+    <ion-input></ion-input>
+    <ion-button (click)="add();flag = false;">agregar</ion-button>
+      </ion-item>
+  </div>
+  <ion-item *ngFor="let p of producto;index as i">
+    <p>Agregew un producto  x 5600 <br> total 290517092</p>
+
+  <ion-button (click)="borrar(i)">borrar</ion-button>
+  </ion-item>
+
+<ion-button (click)="guardar()">Cerrreichon</ion-button>
+</ion-content>
