@@ -1,9 +1,34 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>administrar</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button style="--color:white;"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Administrar</ion-title>
+  </ion-toolbar>
 
+  <ion-list class="ion-list" lines="none">
+    <ion-list-header>
+      <ion-label>Crear</ion-label>
+    </ion-list-header>
+    <ion-item href="administrar/cliente">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+      </ion-avatar>
+      <ion-label class="ion-label">Crear Cliente</ion-label>
+    </ion-item>
+    <ion-item href="administrar/producto">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+      </ion-avatar>
+      <ion-label class="ion-label">Crear Producto</ion-label>
+    </ion-item>
+    <ion-item href="administrar/tipo-gasto">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+      </ion-avatar>
+      <ion-label class="ion-label">Crear Tipo de Gasto</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -37,7 +37,7 @@ import { DetallePage } from './ventas/detalle/detalle.page';
     TipoGastoService,
     GastoService,
     VentaService,
-    
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

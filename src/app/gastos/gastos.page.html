@@ -1,31 +1,48 @@
-<ion-header>
-  <ion-toolbar>
+<ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button style="--color:white;"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
     <ion-title>Gastos</ion-title>
   </ion-toolbar>
-</ion-header>
 
-<ion-content>
+  <ion-list-header>
+    Ingrese un Gasto
+  </ion-list-header>
+
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+    </ion-avatar>
     <ion-label position="stacked">Gasto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.titulo"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1907/1907591.svg">
+    </ion-avatar>
     <ion-label position="stacked">Descripcion<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.descripcion"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
+    </ion-avatar>
     <ion-label position="stacked">Monto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.monto"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
+    </ion-avatar>
     <ion-label>Fecha</ion-label>
     <ion-datetime value="1990-02-19" placeholder="Select Date" [(ngModel)]="gasto.fecha"></ion-datetime>
   </ion-item>
 
-  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
-
-
+  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 </ion-content>

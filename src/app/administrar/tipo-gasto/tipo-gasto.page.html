@@ -1,21 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Tipo de Gasto</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button href="administrar" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Tipo de Gasto</ion-title>
+  </ion-toolbar>
+
+  <ion-list-header>
+    <ion-label>Datos del Tipo de Gasto</ion-label>
+  </ion-list-header>
+
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+    </ion-avatar>
     <ion-label position="stacked">Tipo de Gasto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="tipoGasto.titulo"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
+    </ion-avatar>
     <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="tipoGasto.codigo"></ion-input>
   </ion-item>
 
-  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 
 
 </ion-content>

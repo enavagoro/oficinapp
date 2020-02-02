@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Crear Cliente</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <!--
 interface Cliente {
   id: number;
@@ -20,40 +14,78 @@ interface Cliente {
 -->
 
 <ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button href="administrar" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Cliente</ion-title>
+  </ion-toolbar>
+
+  <ion-list-header>
+    Datos de Identificación
+  </ion-list-header>
+
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+    </ion-avatar>
     <ion-label position="stacked">Nombre Cliente</ion-label>
     <ion-input  [(ngModel)]="cliente.nombre"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+    </ion-avatar>
     <ion-label position="stacked">Rut</ion-label>
     <ion-input  [(ngModel)]="cliente.rut"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
+    </ion-avatar>
     <ion-label position="stacked">Giro</ion-label>
     <ion-input  [(ngModel)]="cliente.giro"></ion-input>
   </ion-item>
 
+  <ion-list-header>
+    Datos de Contacto
+  </ion-list-header>
+
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
+    </ion-avatar>
     <ion-label position="stacked">Direccion</ion-label>
     <ion-input  [(ngModel)]="cliente.direccion"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+    </ion-avatar>
     <ion-label position="stacked">Comuna</ion-label>
     <ion-input  [(ngModel)]="cliente.comuna"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
+    </ion-avatar>
     <ion-label position="stacked">Ciudad</ion-label>
     <ion-input  [(ngModel)]="cliente.ciudad"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
+    </ion-avatar>
     <ion-label position="stacked">Contacto</ion-label>
     <ion-input  [(ngModel)]="cliente.contacto"></ion-input>
   </ion-item>
 
-  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 </ion-content>
