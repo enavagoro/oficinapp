@@ -56,4 +56,13 @@ interface Cliente {
   </ion-item>
 
   <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+
+  <ion-list>
+
+    <ion-item *ngFor="let c of clientes">
+      <ion-label>{{c.nombre}}</ion-label>
+      {{c.rut}}
+    </ion-item>
+    <h2 *ngIf="clientes.length == 0">No hay Clientes aun...</h2>
+  </ion-list>
 </ion-content>

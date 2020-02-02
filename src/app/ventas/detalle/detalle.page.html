@@ -11,21 +11,19 @@
   <div *ngIf="flag">
     <ion-item>
       <ion-label>Producto</ion-label>
-      <ion-select placeholder="Select One">
-        <ion-select-option value="f">p1</ion-select-option>
-        <ion-select-option value="m">p54</ion-select-option>
+      <ion-select placeholder="Selecciona" [(ngModel)]="producto">
+        <ion-select-option  *ngFor="let p of productos;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-    <ion-input></ion-input>
+    <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad"></ion-input>
     <ion-button (click)="add();flag = false;">agregar</ion-button>
       </ion-item>
   </div>
-  <ion-item *ngFor="let p of producto;index as i">
-    <p>Agregew un producto  x 5600 <br> total 290517092</p>
-
-  <ion-button (click)="borrar(i)">borrar</ion-button>
+  <ion-item *ngFor="let p of detalle;index as i">
+    <p>{{p.titulo}} a {{p.precio}} x {{p.cantidad}} <br> total {{p.precio * p.cantidad}}</p>
+    <ion-button (click)="borrar(i)">borrar</ion-button>
   </ion-item>
 
-<ion-button (click)="guardar()">Cerrreichon</ion-button>
+<ion-button (click)="guardar()" size="block">OK</ion-button>
 </ion-content>

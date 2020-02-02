@@ -6,10 +6,15 @@
 
 <ion-content>
   <ion-item>
+    <ion-label>Tipo de gasto</ion-label>
+    <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo">
+      <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{i}}">{{p.titulo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
     <ion-label position="stacked">Gasto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.titulo"></ion-input>
   </ion-item>
-
   <ion-item>
     <ion-label position="stacked">Descripcion<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.descripcion"></ion-input>
@@ -27,5 +32,12 @@
 
   <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
 
+  <ion-list>
+    <ion-item *ngFor="let v of gastos">
+      <ion-label>{{v.titulo}}</ion-label>
+      ${{v.monto| number}}
+    </ion-item>
+    <h2 *ngIf="gastos.length == 0">No hay gastos aun...</h2>
+  </ion-list>
 
 </ion-content>

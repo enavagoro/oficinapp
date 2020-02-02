@@ -4,15 +4,6 @@
   </ion-toolbar>
 </ion-header>
 
-<!--
-interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-}
--->
-
 <ion-content>
   <ion-item>
     <ion-label position="stacked">Producto<ion-text color="danger">*</ion-text></ion-label>
@@ -30,11 +21,13 @@ interface Producto{
   </ion-item>
 
   <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
-<!--
-  <ion-item>
-    <ion-label position="stacked">Tipo de Compra<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input type="text" formControlName="rut" [(ngModel)]="cliente.rut"></ion-input>
-  </ion-item>
--->
+
+  <ion-list>
+
+    <ion-item *ngFor="let p of productos">
+      <ion-label>{{p.titulo}}</ion-label>
+    </ion-item>
+    <h2 *ngIf="productos.length == 0">No hay productos aun...</h2>
+  </ion-list>
 
 </ion-content>
