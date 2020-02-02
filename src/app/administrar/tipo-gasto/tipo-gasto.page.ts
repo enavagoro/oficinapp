@@ -1,28 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { GastoService } from '../_servicios/gasto.service';
+import { TipoGastoService } from '../../_servicios/tipo-gasto.service';
 
-interface Gasto {
-  id: number;
-  titulo: string;
-  tipo: number;
-  descripcion: string;
-  monto: number;
-  fecha: Date;
+interface TipoGasto{
+  id:number;
+  titulo:string;
+  codigo:string;
 }
 
 @Component({
-  selector: 'app-gastos',
-  templateUrl: './gastos.page.html',
-  styleUrls: ['./gastos.page.scss'],
+  selector: 'app-tipo-gasto',
+  templateUrl: './tipo-gasto.page.html',
+  styleUrls: ['./tipo-gasto.page.scss'],
 })
 
-export class GastosPage implements OnInit {
+export class TipoGastoPage implements OnInit {
+  tipoGastos= [];
+  public tipoGasto : TipoGasto = {id:0,titulo:'',codigo:''};
 
-  gastos = [];
-  public gasto : Gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
-
-  constructor(private gastoService:GastoService,
+  constructor(private tipoGastoService : TipoGastoService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) { }
@@ -30,23 +26,23 @@ export class GastosPage implements OnInit {
   ngOnInit() {
   }
 
-  public guardarGasto(){
+  public guardarTipoGasto(){
     console.log('entra');
-    this.gasto.id = 0 + (this.gastos.length + 1);
-    this.gastoService.insertar(this.gasto).subscribe(gasto=>{
+    this.tipoGasto.id = 0 + (this.tipoGastos.length + 1);
+    this.tipoGastoService.insertar(this.tipoGasto).subscribe(tipoGasto=>{
       console.log('entra2');
     })
     console.log('entra3');
-    this.gastos.push(this.gasto);
-    this.gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
+    this.tipoGastos.push(this.tipoGasto);
+    this.tipoGasto = {id:0,titulo:'',codigo:''};
   }
 
   async confirmar() {
-    console.log(this.gasto);
+    console.log(this.tipoGasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>Agregar un Gasto</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UN TIPO GASTO</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
@@ -58,7 +54,7 @@ export class GastosPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.guardarGasto();
+            this.guardarTipoGasto();
           }
         }
       ]

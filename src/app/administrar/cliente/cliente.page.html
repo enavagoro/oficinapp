@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--
+interface Cliente {
+  id: number;
+  nombre: string;
+  rut: string;
+  giro: string;
+  direccion: string;
+  comuna: string;
+  ciudad: string;
+  contacto: string;
+  tipoCompra: number;
+  detalle : Array<Producto>;
+}
+-->
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Nombre Cliente</ion-label>
+    <ion-input  [(ngModel)]="cliente.nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Rut</ion-label>
+    <ion-input  [(ngModel)]="cliente.rut"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Giro</ion-label>
+    <ion-input  [(ngModel)]="cliente.giro"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Direccion</ion-label>
+    <ion-input  [(ngModel)]="cliente.direccion"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Comuna</ion-label>
+    <ion-input  [(ngModel)]="cliente.comuna"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Ciudad</ion-label>
+    <ion-input  [(ngModel)]="cliente.ciudad"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Contacto</ion-label>
+    <ion-input  [(ngModel)]="cliente.contacto"></ion-input>
+  </ion-item>
+
+  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+</ion-content>

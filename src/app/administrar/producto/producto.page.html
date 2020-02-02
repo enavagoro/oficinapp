@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--
+interface Producto{
+  id:number;
+  titulo:string;
+  precio:number;
+  codigo:string;
+}
+-->
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Producto<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="producto.titulo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Precio<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="producto.precio"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="producto.codigo"></ion-input>
+  </ion-item>
+
+  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+<!--
+  <ion-item>
+    <ion-label position="stacked">Tipo de Compra<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input type="text" formControlName="rut" [(ngModel)]="cliente.rut"></ion-input>
+  </ion-item>
+-->
+
+</ion-content>

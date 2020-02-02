@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../_servicios/cliente.service';
-import { ModalController } from '@ionic/angular';
+import { VentaService } from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
+import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 
-
-interface Cliente {
+interface  Cliente {
   id: number;
   nombre: string;
   rut: string;
@@ -14,7 +14,7 @@ interface Cliente {
   ciudad: string;
   contacto: string;
   tipoCompra: number;
-  detalle : Array<Producto>
+  detalle : Array<Producto>;
 }
 
 interface Producto{
@@ -24,6 +24,12 @@ interface Producto{
   codigo:string;
 }
 
+interface Venta {
+  id: number;
+  id_cliente: number;
+  fecha: Date;
+}
+
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.page.html',
@@ -31,16 +37,23 @@ interface Producto{
 })
 
 export class VentasPage implements OnInit {
+
   nombreCliente = "";
   clientesFiltrado = [];
   private clientes : Cliente[] = [];
-  cliente : Cliente ;
+  cliente : Cliente;
+  ventas = [];
+  public venta : Venta = {id:0,id_cliente:0,fecha:new Date()};
 
-  constructor(private clienteService:ClienteService,private modalCtrl:ModalController) {
-    clienteService.listar().subscribe(clientes=>{
-      this.clientes = clientes;
-      console.log(clientes);
-    })
+  constructor(private clienteService:ClienteService,
+              private ventaService:ClienteService,
+              private toastController : ToastController,
+              private alertController :AlertController,
+              private modalCtrl : ModalController) {
+      clienteService.listar().subscribe(clientes=>{
+        this.clientes = clientes;
+        console.log(clientes);
+      })
   }
 
   ngOnInit() {
@@ -93,14 +106,42 @@ export class VentasPage implements OnInit {
 
     return await modal.present();
   }
-  
-/*
 
-  guardar(){
-
-    this.clienteService.insertar({ID:'HOLA'}).subscribe(clientes => {
+  public guardarVenta(){
+    console.log('entra');
+    this.venta.id = 0 + (this.ventas.length + 1);
+    this.venta.id_cliente = this.cliente.id;
+    this.ventaService.insertar(this.venta).subscribe(venta=>{
+      console.log('entra2',this.venta);
     })
+    console.log('entra3');
+    this.ventas.push(this.venta);
+    this.venta = {id:0,id_cliente:0,fecha:new Date()};
   }
 
-  */
+  async confirmar() {
+    console.log(this.venta);
+
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.guardarVenta();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

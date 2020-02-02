@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },
-  {
     path: 'gastos',
     loadChildren: () => import('./gastos/gastos.module').then( m => m.GastosPageModule)
   },
@@ -28,12 +24,8 @@ const routes: Routes = [
     loadChildren: () => import('./transacciones/transacciones.module').then( m => m.TransaccionesPageModule)
   },
   {
-    path: 'cliente',
-    loadChildren: () => import('./cliente/cliente.module').then( m => m.ClientePageModule)
-  },
-  {
-    path: 'producto',
-    loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
+    path: 'administrar',
+    loadChildren: () => import('./administrar/administrar.module').then( m => m.AdministrarPageModule)
   }
 ];
 

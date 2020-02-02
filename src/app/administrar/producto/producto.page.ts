@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { GastoService } from '../_servicios/gasto.service';
+import { ProductoService } from '../../_servicios/producto.service';
 
-interface Gasto {
-  id: number;
-  titulo: string;
-  tipo: number;
-  descripcion: string;
-  monto: number;
-  fecha: Date;
+interface Producto{
+  id:number;
+  titulo:string;
+  precio:number;
+  codigo:string;
 }
 
 @Component({
-  selector: 'app-gastos',
-  templateUrl: './gastos.page.html',
-  styleUrls: ['./gastos.page.scss'],
+  selector: 'app-producto',
+  templateUrl: './producto.page.html',
+  styleUrls: ['./producto.page.scss'],
 })
 
-export class GastosPage implements OnInit {
+export class ProductoPage implements OnInit {
+  productos = [];
+  public producto : Producto = {id:0,titulo:'',precio:0,codigo:''};
 
-  gastos = [];
-  public gasto : Gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
-
-  constructor(private gastoService:GastoService,
+  constructor(private productoService : ProductoService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) { }
@@ -30,23 +27,23 @@ export class GastosPage implements OnInit {
   ngOnInit() {
   }
 
-  public guardarGasto(){
+  public guardarProducto(){
     console.log('entra');
-    this.gasto.id = 0 + (this.gastos.length + 1);
-    this.gastoService.insertar(this.gasto).subscribe(gasto=>{
+    this.producto.id = 0 + (this.productos.length + 1);
+    this.productoService.insertar(this.producto).subscribe(producto=>{
       console.log('entra2');
     })
     console.log('entra3');
-    this.gastos.push(this.gasto);
-    this.gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
+    this.productos.push(this.producto);
+    this.producto = {id:0,titulo:'',precio:0,codigo:''};
   }
 
   async confirmar() {
-    console.log(this.gasto);
+    console.log(this.producto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>Agregar un Gasto</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
@@ -58,7 +55,7 @@ export class GastosPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.guardarGasto();
+            this.guardarProducto();
           }
         }
       ]

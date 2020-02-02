@@ -11,7 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { ClienteService } from './_servicios/cliente.service'
+import { ClienteService } from './_servicios/cliente.service';
+import { ProductoService } from './_servicios/producto.service';
+import { TipoGastoService } from './_servicios/tipo-gasto.service';
+import { GastoService } from './_servicios/gasto.service';
+import { VentaService } from './_servicios/venta.service';
 
 import { DetallePage } from './ventas/detalle/detalle.page';
 
@@ -29,6 +33,11 @@ import { DetallePage } from './ventas/detalle/detalle.page';
     StatusBar,
     SplashScreen,
     ClienteService,
+    ProductoService,
+    TipoGastoService,
+    GastoService,
+    VentaService,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

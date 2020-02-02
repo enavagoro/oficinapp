@@ -17,11 +17,6 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
-    {
       title: 'Transacciones',
       url: '/transacciones',
       icon: 'list'
@@ -34,6 +29,11 @@ export class AppComponent {
     {
       title: 'Gastos',
       url: '/gastos',
+      icon: 'list'
+    },
+    {
+      title: 'Administrar',
+      url: '/administrar',
       icon: 'list'
     }
   ];

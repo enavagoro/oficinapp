@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tipo de Gasto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Tipo de Gasto<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="tipoGasto.titulo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="tipoGasto.codigo"></ion-input>
+  </ion-item>
+
+  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
+
+
+</ion-content>

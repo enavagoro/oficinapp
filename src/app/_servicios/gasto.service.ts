@@ -2,70 +2,65 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-interface Cliente {
+interface Gasto {
   id: number;
-  nombre: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  comuna: string;
-  ciudad: string;
-  contacto: string;
-  tipoCompra: number;
-  detalle : Array<Producto>;
+  titulo: string;
+  tipo: number;
+  descripcion: string;
+  monto: number;
+  fecha: Date;
 }
 
-interface Producto{
+interface TipoGasto{
   id:number;
   titulo:string;
-  precio:number;
   codigo:string;
 }
 
 @Injectable()
 
-export class ClienteService {
+export class GastoService {
 
   private url: string = "http://178.128.71.20:3500";
 
   constructor(private http: HttpClient) { }
 
   listar() {
-    return this.http.get<Cliente[]>(`${this.url}/api/clientes/`,{
+    return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  insertar(cliente : Cliente){
-    return this.http.post<Cliente>(`${this.url}/api/clientes/`,cliente, {
+  insertar(gasto : Gasto){
+    return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,cliente : Cliente){
-    return this.http.patch<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
+  actualizar(id:string,gasto : Gasto){
+    return this.http.patch<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
   borrar(id:string){
-    return this.http.delete<Cliente>(`${this.url}/api/clientes/${id}`,{
+    return this.http.delete<Gasto>(`${this.url}/api/gastos/${id}`,{
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   gathering(id:string){
-    return this.http.get<Cliente>(`${this.url}/api/clientes/${id}` , {
+    return this.http.get<Gasto>(`${this.url}/api/gastos/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
   listarById(id:string){
-    return this.http.get<Cliente>(`${this.url}/api/clientes/${id}` , {
+    return this.http.get<Gasto>(`${this.url}/api/gastos/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
