@@ -1,0 +1,31 @@
+ion-toolbar{
+  --background: url("https://cdn.dribbble.com/users/3178178/screenshots/6287074/cormorant_fishing_1600x1200_final_04_05_2019_2x.jpg")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 15%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #d18e79;
+  --background-activated:#d18e79;
+  --background-focused:#d18e79;
+  --background-hover:#d18e79;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}

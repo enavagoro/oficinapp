@@ -1,0 +1,42 @@
+ion-toolbar{
+  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/5478211/landscapes.png")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 15%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #1250ad;
+  --background-activated:#1250ad;
+  --background-focused:#1250ad;
+  --background-hover:#1250ad;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button2{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}

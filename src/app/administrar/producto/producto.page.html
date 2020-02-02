@@ -1,24 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Producto</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button href="administrar" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Producto</ion-title>
+  </ion-toolbar>
+
+  <ion-list-header>
+    Datos del Producto
+  </ion-list-header>
+
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+    </ion-avatar>
     <ion-label position="stacked">Producto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="producto.titulo"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/755/755193.svg">
+    </ion-avatar>
     <ion-label position="stacked">Precio<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input [(ngModel)]="producto.precio"></ion-input>
+    <ion-input type="number" [(ngModel)]="producto.precio"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
+    </ion-avatar>
     <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="producto.codigo"></ion-input>
   </ion-item>
+
+
+  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 
   <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
 
@@ -29,5 +48,6 @@
     </ion-item>
     <h2 *ngIf="productos.length == 0">No hay productos aun...</h2>
   </ion-list>
+
 
 </ion-content>

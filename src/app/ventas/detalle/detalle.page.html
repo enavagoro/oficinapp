@@ -1,29 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>detalle</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-  <ion-button (click)="insertar()" *ngIf="!flag">add</ion-button>
-  <ion-button (click)="flag = false" *ngIf="flag">cerrar</ion-button>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button href="home" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detalle</ion-title>
+  </ion-toolbar>
+
+  <ion-button class="ion-button-agregar" size="medium" (click)="insertar()" *ngIf="!flag">Agregar</ion-button>
+  <ion-button class="ion-button-cerrar" size="medium" (click)="flag = false" *ngIf="flag">Cerrar</ion-button>
+
   <div *ngIf="flag">
     <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+      </ion-avatar>
       <ion-label>Producto</ion-label>
       <ion-select placeholder="Selecciona" [(ngModel)]="producto">
         <ion-select-option  *ngFor="let p of productos;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
-    <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad"></ion-input>
-    <ion-button (click)="add();flag = false;">agregar</ion-button>
-      </ion-item>
+
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
+      </ion-avatar>
+      <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad"></ion-input>
+      <ion-button class="boton-cerrar"(click)="add();flag = false;">agregar</ion-button>
+    </ion-item>
   </div>
+
+
   <ion-item *ngFor="let p of detalle;index as i">
     <p>{{p.titulo}} a {{p.precio}} x {{p.cantidad}} <br> total {{p.precio * p.cantidad}}</p>
     <ion-button (click)="borrar(i)">borrar</ion-button>
   </ion-item>
 
-<ion-button (click)="guardar()" size="block">OK</ion-button>
+
+  <ion-button (click)="guardar()" class="boton-ok" size="block">OK</ion-button>
+  
 </ion-content>

@@ -1,0 +1,33 @@
+ion-toolbar{
+  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/7437297/media/44ab548d4335bcf079c66134eaf5605b.jpg")  no-repeat center / 100%;
+  padding-bottom: 15%;
+}
+
+ion-content{
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #1282d5;
+  --background-activated: #1282d5;
+  --background-focused: #1282d5;
+  --background-hover: #1282d5;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}
