@@ -31,5 +31,11 @@
 
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 
+  <ion-list>
 
+    <ion-item *ngFor="let g of tipoGastos">
+      <ion-label>{{g.titulo}}</ion-label>
+    </ion-item>
+    <h2 *ngIf="tipoGastos.length == 0">No hay tipos de gastos aun...</h2>
+  </ion-list>
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 import { GastoService } from '../_servicios/gasto.service';
+import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 
 interface Gasto {
   id: number;
@@ -21,13 +22,21 @@ export class GastosPage implements OnInit {
 
   gastos = [];
   public gasto : Gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
-
-  constructor(private gastoService:GastoService,
-              private toastController : ToastController,
-              private alertController :AlertController,
-              private modalCtrl : ModalController) { }
+  tiposGastos = []
+  constructor(
+      private tipoGastoService : TipoGastoService,
+      private gastoService:GastoService,
+      private toastController : ToastController,
+      private alertController :AlertController,
+      private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    this.tipoGastoService.listar().subscribe(tipos=>{
+      this.tiposGastos = tipos;
+    })
+    this.gastoService.listar().subscribe(gastos =>{
+      this.gastos = gastos;
+    })
   }
 
   public guardarGasto(){
@@ -36,8 +45,7 @@ export class GastosPage implements OnInit {
     this.gastoService.insertar(this.gasto).subscribe(gasto=>{
       console.log('entra2');
     })
-    console.log('entra3');
-    this.gastos.push(this.gasto);
+    this.ngOnInit();
     this.gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
   }
 

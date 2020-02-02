@@ -1,17 +1,3 @@
-<!--
-interface Cliente {
-  id: number;
-  nombre: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  comuna: string;
-  ciudad: string;
-  contacto: string;
-  tipoCompra: number;
-  detalle : Array<Producto>;
-}
--->
 
 <ion-content>
   <ion-toolbar class="toolbar">
@@ -87,5 +73,16 @@ interface Cliente {
     <ion-input  [(ngModel)]="cliente.contacto"></ion-input>
   </ion-item>
 
+
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
+  
+    <ion-list>
+
+      <ion-item *ngFor="let c of clientes">
+        <ion-label>{{c.nombre}}</ion-label>
+        {{c.rut}}
+      </ion-item>
+      <h2 *ngIf="clientes.length == 0">No hay Clientes aun...</h2>
+    </ion-list>
+
 </ion-content>

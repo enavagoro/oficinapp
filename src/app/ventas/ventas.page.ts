@@ -14,7 +14,7 @@ interface  Cliente {
   ciudad: string;
   contacto: string;
   tipoCompra: number;
-  detalle : Array<Producto>;
+
 }
 
 interface Producto{
@@ -28,6 +28,7 @@ interface Venta {
   id: number;
   id_cliente: number;
   fecha: Date;
+  detalles : Array<Producto>;
 }
 
 @Component({
@@ -42,11 +43,12 @@ export class VentasPage implements OnInit {
   clientesFiltrado = [];
   private clientes : Cliente[] = [];
   cliente : Cliente;
-  ventas = [];
-  public venta : Venta = {id:0,id_cliente:0,fecha:new Date()};
+  ventas : Venta[] = [];
+  public venta : Venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[]};
+  detalle = [];
 
   constructor(private clienteService:ClienteService,
-              private ventaService:ClienteService,
+              private ventaService:VentaService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
@@ -57,6 +59,19 @@ export class VentasPage implements OnInit {
   }
 
   ngOnInit() {
+    this.ventaService.listar().subscribe(ventas =>{
+      console.log(ventas);
+      this.ventas = ventas;
+    })
+  }
+  encontrarCliente(id_cliente){
+    for(let i = 0 ; i < this.clientes.length;i++){
+      let cli = this.clientes[i];
+      if(cli.id == id_cliente){
+        return cli.nombre;
+      }
+    }
+    return "cliente no existe";
   }
 
   public traerclientes(){
@@ -94,14 +109,16 @@ export class VentasPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: DetallePage,
       cssClass: 'modals',
+      componentProps:{
+        'detalle' : this.detalle
+      }
     });
 
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
-        console.log("preguntas conseguidas",modal.data);
-        this.cliente.detalle = modal.data;
+        console.log("detalle conseguido",modal.data);
+        this.detalle = modal.data;
       }
-
     });
 
     return await modal.present();
@@ -111,12 +128,12 @@ export class VentasPage implements OnInit {
     console.log('entra');
     this.venta.id = 0 + (this.ventas.length + 1);
     this.venta.id_cliente = this.cliente.id;
-    this.ventaService.insertar(this.venta).subscribe(venta=>{
-      console.log('entra2',this.venta);
+    this.venta.detalles = this.detalle;
+    this.ventaService.insertar(this.venta).subscribe(data=>{
+      console.log(data);
     })
-    console.log('entra3');
-    this.ventas.push(this.venta);
-    this.venta = {id:0,id_cliente:0,fecha:new Date()};
+    this.ngOnInit();
+    this.venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[]};
   }
 
   async confirmar() {

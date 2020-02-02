@@ -25,6 +25,10 @@ export class ProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    this.productoService.listar().subscribe(productos=>{
+      this.productos = productos;
+      console.log(productos);
+    })
   }
 
   public guardarProducto(){
@@ -33,8 +37,7 @@ export class ProductoPage implements OnInit {
     this.productoService.insertar(this.producto).subscribe(producto=>{
       console.log('entra2');
     })
-    console.log('entra3');
-    this.productos.push(this.producto);
+    this.ngOnInit();
     this.producto = {id:0,titulo:'',precio:0,codigo:''};
   }
 

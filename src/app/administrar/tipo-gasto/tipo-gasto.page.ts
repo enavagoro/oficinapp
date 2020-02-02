@@ -24,6 +24,9 @@ export class TipoGastoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    this.tipoGastoService.listar().subscribe(gastos=>{
+      this.tipoGastos = gastos;
+    })
   }
 
   public guardarTipoGasto(){
@@ -31,9 +34,8 @@ export class TipoGastoPage implements OnInit {
     this.tipoGasto.id = 0 + (this.tipoGastos.length + 1);
     this.tipoGastoService.insertar(this.tipoGasto).subscribe(tipoGasto=>{
       console.log('entra2');
-    })
-    console.log('entra3');
-    this.tipoGastos.push(this.tipoGasto);
+    })    
+    this.ngOnInit();
     this.tipoGasto = {id:0,titulo:'',codigo:''};
   }
 

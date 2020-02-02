@@ -13,13 +13,21 @@
   </ion-list-header>
 
   <ion-item>
+
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
     </ion-avatar>
+
+    <ion-label>Tipo de gasto</ion-label>
+    <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo">
+      <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{i}}">{{p.titulo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+
     <ion-label position="stacked">Gasto<ion-text color="danger">*</ion-text></ion-label>
     <ion-input [(ngModel)]="gasto.titulo"></ion-input>
   </ion-item>
-
   <ion-item>
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1907/1907591.svg">
@@ -44,5 +52,17 @@
     <ion-datetime value="1990-02-19" placeholder="Select Date" [(ngModel)]="gasto.fecha"></ion-datetime>
   </ion-item>
 
+
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
+
+
+
+  <ion-list>
+    <ion-item *ngFor="let v of gastos">
+      <ion-label>{{v.titulo}}</ion-label>
+      ${{v.monto| number}}
+    </ion-item>
+    <h2 *ngIf="gastos.length == 0">No hay gastos aun...</h2>
+  </ion-list>
+
 </ion-content>

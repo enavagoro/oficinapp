@@ -40,6 +40,9 @@ export class ClientePage implements OnInit {
               private modalCtrl : ModalController) {}
 
   ngOnInit() {
+    this.clienteService.listar().subscribe(clientes=>{
+      this.clientes= clientes;
+    })
   }
 
   public guardarCliente(){
@@ -48,8 +51,7 @@ export class ClientePage implements OnInit {
     this.clienteService.insertar(this.cliente).subscribe(cliente=>{
       console.log('entra2');
     })
-    console.log('entra3');
-    this.clientes.push(this.cliente);
+    this.ngOnInit();
     this.cliente = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : []};
   }
 

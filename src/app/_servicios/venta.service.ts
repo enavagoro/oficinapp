@@ -6,6 +6,13 @@ interface Venta {
   id: number;
   id_cliente: number;
   fecha: Date;
+  detalles : Array<Producto>;
+}
+interface Producto{
+  id:number;
+  titulo:string;
+  precio:number;
+  codigo:string;
 }
 
 @Injectable()
