@@ -2,7 +2,7 @@
 <ion-content>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-button href="administrar" color="light">
+      <ion-button routerLink="/administrar" routerDirection="root" color="light">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -75,7 +75,7 @@
 
 
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
-  
+
     <ion-list>
 
       <ion-item *ngFor="let c of clientes">
