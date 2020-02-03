@@ -42,8 +42,14 @@
   <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
 
   <ion-list>
+    <ion-list-header>
+      Lista de Productos
+    </ion-list-header>
 
     <ion-item *ngFor="let p of productos">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+      </ion-avatar>
       <ion-label>{{p.titulo}}</ion-label>
     </ion-item>
     <h2 *ngIf="productos.length == 0">No hay productos aun...</h2>

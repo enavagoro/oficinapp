@@ -1,3 +1,21 @@
+ion-toolbar{
+  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/6080532/kerala_paddy_field_2x.png")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 15%;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+
+.header-md::after{
+  width: 0% !important;
+}
+
 .welcome-card img {
   max-height: 35vh;
   overflow: hidden;

@@ -94,10 +94,16 @@
 
 
 <ion-list>
+  <ion-list-header>
+    Lista de Ventas
+  </ion-list-header>
 
     <ion-item *ngFor="let v of ventas">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+      </ion-avatar>
       <ion-label>{{encontrarCliente(v.id_cliente)}}</ion-label>
     </ion-item>
-    <h2 *ngIf="ventas.length == 0">No hay ventas aun...</h2>
+    <ion-label *ngIf="ventas.length == 0">No hay ventas aun...</ion-label>
   </ion-list>
 </ion-content>

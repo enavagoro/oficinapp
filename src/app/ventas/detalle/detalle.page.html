@@ -28,17 +28,19 @@
         <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
       </ion-avatar>
       <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad"></ion-input>
-      <ion-button class="boton-cerrar"(click)="add();flag = false;">agregar</ion-button>
+      <ion-button class="boton-cerrar" (click)="add();flag = false;">agregar</ion-button>
     </ion-item>
   </div>
 
-
   <ion-item *ngFor="let p of detalle;index as i">
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+    </ion-avatar>
     <p>{{p.titulo}} a {{p.precio}} x {{p.cantidad}} <br> total {{p.precio * p.cantidad}}</p>
-    <ion-button (click)="borrar(i)">borrar</ion-button>
+    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
   </ion-item>
 
 
   <ion-button (click)="guardar()" class="boton-ok" size="block">OK</ion-button>
-  
+
 </ion-content>

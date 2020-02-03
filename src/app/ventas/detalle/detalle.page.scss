@@ -64,3 +64,11 @@ ion-title{
 ion-avatar{
   --border-radius: 0%;
 }
+
+.boton-borrar{
+  --background: #fb745b;
+  --background-activated: #fb745b;
+  --background-focused: #fb745b;
+  --background-hover: #fb745b;
+  margin-left: 7%;
+}

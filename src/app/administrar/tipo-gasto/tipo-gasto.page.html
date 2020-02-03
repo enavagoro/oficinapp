@@ -1,5 +1,4 @@
 <ion-content>
-
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">
@@ -32,8 +31,13 @@
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
 
   <ion-list>
-
+    <ion-list-header>
+      Lista de Gastos
+    </ion-list-header>
     <ion-item *ngFor="let g of tipoGastos">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+      </ion-avatar>
       <ion-label>{{g.titulo}}</ion-label>
     </ion-item>
     <h2 *ngIf="tipoGastos.length == 0">No hay tipos de gastos aun...</h2>
