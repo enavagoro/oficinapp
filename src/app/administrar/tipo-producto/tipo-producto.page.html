@@ -1,0 +1,45 @@
+<ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/administrar" routerDirection="root" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Tipo de Producto/Servicio</ion-title>
+  </ion-toolbar>
+
+  <ion-list-header>
+    <ion-label>Datos del Tipo de Producto/Servicio</ion-label>
+  </ion-list-header>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Tipo de Producto/Servicio<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="tipoProducto.titulo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="tipoProducto.codigo"></ion-input>
+  </ion-item>
+
+  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
+
+  <ion-list>
+    <ion-list-header>
+      Lista de Productos/Servicios
+    </ion-list-header>
+    <ion-item *ngFor="let g of tipoProductos">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+      </ion-avatar>
+      <ion-label>{{g.titulo}}</ion-label>
+    </ion-item>
+    <ion-label *ngIf="tipoProductos.length == 0">No hay tipos de Productos/Servicios aun...</ion-label>
+  </ion-list>
+</ion-content>

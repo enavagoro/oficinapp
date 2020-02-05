@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { TipoGastoService } from '../../_servicios/tipo-gasto.service';
-
-interface TipoGasto{
-  id:number;
-  titulo:string;
-  codigo:string;
-}
+import { TipoGastoService, TipoGasto } from '../../_servicios/tipo-gasto.service';
 
 @Component({
   selector: 'app-tipo-gasto',
@@ -34,7 +28,7 @@ export class TipoGastoPage implements OnInit {
     this.tipoGasto.id = 0 + (this.tipoGastos.length + 1);
     this.tipoGastoService.insertar(this.tipoGasto).subscribe(tipoGasto=>{
       console.log('entra2');
-    })    
+    })
     this.ngOnInit();
     this.tipoGasto = {id:0,titulo:'',codigo:''};
   }

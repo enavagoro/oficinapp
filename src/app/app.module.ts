@@ -14,8 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from './_servicios/cliente.service';
 import { ProductoService } from './_servicios/producto.service';
 import { TipoGastoService } from './_servicios/tipo-gasto.service';
+import { TipoProductoService } from './_servicios/tipo-producto.service';
 import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
+import { CotizacionService } from './_servicios/cotizacion.service';
 
 import { DetallePage } from './ventas/detalle/detalle.page';
 
@@ -35,8 +37,10 @@ import { DetallePage } from './ventas/detalle/detalle.page';
     ClienteService,
     ProductoService,
     TipoGastoService,
+    TipoProductoService,
     GastoService,
     VentaService,
+    CotizacionService,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

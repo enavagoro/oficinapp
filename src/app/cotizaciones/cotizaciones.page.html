@@ -1,0 +1,83 @@
+<ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button style="--color:white;"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title>Cotizaciones</ion-title>
+  </ion-toolbar>
+
+  <ion-item>
+    <ion-label>Usuario Existente</ion-label>
+    <ion-toggle [(ngModel)]="pepperoni"></ion-toggle>
+  </ion-item>
+
+  <ion-item *ngIf="!pepperoni">
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Ingresar Cliente<ion-text color="danger"></ion-text></ion-label>
+    <ion-input type="text" [(ngModel)]="nombreCliente"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="pepperoni">
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Buscar Cliente<ion-text color="danger"></ion-text></ion-label>
+    <ion-input type="text" (keyup)="filtrarCliente()" [(ngModel)]="nombreCliente"></ion-input>
+  </ion-item>
+
+  <ion-list *ngIf="nombreCliente != ''">
+    <ion-radio-group>
+      <ion-list-header>Clientes</ion-list-header>
+        <ion-item  *ngFor="let cliente of clientesFiltrado" (click)="verCliente(cliente)">
+          <ion-avatar slot="start">
+            <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          </ion-avatar>
+          <ion-label>{{cliente.nombre}}</ion-label>
+          <ion-radio slot="start"></ion-radio>
+          <!-- <ion-checkbox color="primary" slot="start" ></ion-checkbox>-->
+        </ion-item>
+     </ion-radio-group>
+  </ion-list>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
+    </ion-avatar>
+    <ion-label>Fecha de Emisión</ion-label>
+    <ion-datetime placeholder="Select Date"></ion-datetime>
+  </ion-item>
+
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+      </ion-avatar>
+      <ion-label>Producto</ion-label>
+      <ion-select placeholder="Selecciona" [(ngModel)]="producto">
+        <ion-select-option  *ngFor="let p of productos;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
+      </ion-avatar>
+      <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad"></ion-input>
+      <ion-button *ngIf="producto" class="boton-cerrar" (click)="add();flag = false;">agregar</ion-button>
+    </ion-item>
+
+  <ion-item *ngFor="let p of detalle;index as i">
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+    </ion-avatar>
+    <p>{{p.titulo}} a {{p.precio}} x {{p.cantidad}} <br> total {{p.precio * p.cantidad}}</p>
+    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
+  </ion-item>
+
+  <ion-button (click)="guardar()" class="boton-ok" size="block">OK</ion-button>
+
+</ion-content>

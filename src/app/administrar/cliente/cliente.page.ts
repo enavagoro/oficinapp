@@ -1,26 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { ClienteService } from '../../_servicios/cliente.service';
-
-interface Cliente {
-  id: number;
-  nombre: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  comuna: string;
-  ciudad: string;
-  contacto: string;
-  tipoCompra: number;
-  detalle : Array<Producto>;
-}
-
-interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-}
+import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.service';
 
 @Component({
   selector: 'app-cliente',

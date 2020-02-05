@@ -19,7 +19,11 @@ const routes: Routes = [
   {
     path: 'producto',
     loadChildren: () => import('./producto/producto.module').then( m => m.ProductoPageModule)
+  },  {
+    path: 'tipo-producto',
+    loadChildren: () => import('./tipo-producto/tipo-producto.module').then( m => m.TipoProductoPageModule)
   }
+
 ];
 
 @NgModule({

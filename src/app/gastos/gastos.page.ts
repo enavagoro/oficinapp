@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { GastoService } from '../_servicios/gasto.service';
-import { TipoGastoService } from '../_servicios/tipo-gasto.service';
-
-interface Gasto {
-  id: number;
-  titulo: string;
-  tipo: number;
-  descripcion: string;
-  monto: number;
-  fecha: Date;
-}
+import { GastoService, Gasto } from '../_servicios/gasto.service';
+import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
 
 @Component({
   selector: 'app-gastos',
@@ -21,8 +12,9 @@ interface Gasto {
 export class GastosPage implements OnInit {
 
   gastos = [];
-  public gasto : Gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
-  tiposGastos = []
+  public gasto : Gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0};
+  tiposGastos = [];
+
   constructor(
       private tipoGastoService : TipoGastoService,
       private gastoService:GastoService,
@@ -46,7 +38,7 @@ export class GastosPage implements OnInit {
       console.log('entra2');
     })
     this.ngOnInit();
-    this.gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date()};
+    this.gasto = {id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0};
   }
 
   async confirmar() {

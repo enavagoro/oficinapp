@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { ProductoService } from '../../_servicios/producto.service';
-
-interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-}
+import { ProductoService, Producto } from '../../_servicios/producto.service';
+import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-producto.service';
 
 @Component({
   selector: 'app-producto',
@@ -18,13 +12,18 @@ interface Producto{
 export class ProductoPage implements OnInit {
   productos = [];
   public producto : Producto = {id:0,titulo:'',precio:0,codigo:''};
-
-  constructor(private productoService : ProductoService,
+  tiposProductos = [];
+  constructor(
+              private tipoProductoService : TipoProductoService,
+              private productoService : ProductoService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    this.tipoProductoService.listar().subscribe(tipos=>{
+      this.tiposProductos = tipos;
+    })
     this.productoService.listar().subscribe(productos=>{
       this.productos = productos;
       console.log(productos);

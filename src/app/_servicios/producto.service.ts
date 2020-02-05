@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-interface Producto{
+export interface Producto{
   id:number;
   titulo:string;
   precio:number;

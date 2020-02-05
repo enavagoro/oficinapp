@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-interface TipoGasto{
+export interface TipoGasto{
   id:number;
   titulo:string;
   codigo:string;

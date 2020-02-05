@@ -37,6 +37,28 @@ ion-title{
   margin-bottom: 5%;
 }
 
+.ion-button3{
+  --background: #1250ad;
+  --background-activated:#1250ad;
+  --background-focused:#1250ad;
+  --background-hover:#1250ad;
+  width: 50% !important;
+  margin-left: 25% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button4{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 50% !important;
+  margin-left: 25% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
 ion-avatar{
   --border-radius: 0%;
 }

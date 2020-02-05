@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ProductoService, Producto } from '../_servicios/producto.service';
 
-interface Cliente {
+export interface Cliente {
   id: number;
   nombre: string;
   rut: string;
@@ -15,7 +16,7 @@ interface Cliente {
   detalle : Array<Producto>;
 }
 
-interface Producto{
+export interface Producto{
   id:number;
   titulo:string;
   precio:number;

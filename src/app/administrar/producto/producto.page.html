@@ -14,6 +14,16 @@
 
   <ion-item>
     <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+    </ion-avatar>
+    <ion-label>Tipo de Producto</ion-label>
+    <ion-select placeholder="Selecciona" [(ngModel)]="producto.codigo">
+      <ion-select-option  *ngFor="let p of tiposProductos;index as i" value="{{p.codigo}}">{{p.titulo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
     </ion-avatar>
     <ion-label position="stacked">Producto<ion-text color="danger">*</ion-text></ion-label>
@@ -28,18 +38,7 @@
     <ion-input type="number" [(ngModel)]="producto.precio"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input [(ngModel)]="producto.codigo"></ion-input>
-  </ion-item>
-
-
   <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
-
-  <ion-button size="medium" (click)="confirmar()">Guardar</ion-button>
 
   <ion-list>
     <ion-list-header>

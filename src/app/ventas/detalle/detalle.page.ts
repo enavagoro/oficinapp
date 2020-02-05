@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,NavParams } from '@ionic/angular';
 import { ProductoService } from '../../_servicios/producto.service';
+
 interface Producto{
   id:number;
   titulo:string;
@@ -21,7 +22,8 @@ export class DetallePage implements OnInit {
   cantidad : Number = undefined;
   flag = false;
   productos : Producto[] = [];
-  constructor(private navParams : NavParams,private productoService: ProductoService,private modalCtrl : ModalController) {
+  
+  constructor(private navParams : NavParams, private productoService: ProductoService,private modalCtrl : ModalController) {
       var ps = navParams.get("detalle");
       console.log(ps);
       if(ps){
@@ -31,6 +33,10 @@ export class DetallePage implements OnInit {
   }
 
   ngOnInit() {
+    this.traerDatos();
+  }
+
+  traerDatos(){
     this.productoService.listar().subscribe(ps=>{
       this.productos = ps;
     })

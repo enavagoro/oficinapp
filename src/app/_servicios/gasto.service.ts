@@ -1,20 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
 
-interface Gasto {
+export interface Gasto {
   id: number;
   titulo: string;
   tipo: number;
   descripcion: string;
   monto: number;
   fecha: Date;
-}
-
-interface TipoGasto{
-  id:number;
-  titulo:string;
-  codigo:string;
+  documento: number;
 }
 
 @Injectable()

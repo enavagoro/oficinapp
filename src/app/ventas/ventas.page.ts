@@ -1,35 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../_servicios/cliente.service';
-import { VentaService } from '../_servicios/venta.service';
+import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
+import { VentaService, Venta} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-
-interface  Cliente {
-  id: number;
-  nombre: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  comuna: string;
-  ciudad: string;
-  contacto: string;
-  tipoCompra: number;
-
-}
-
-interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-}
-
-interface Venta {
-  id: number;
-  id_cliente: number;
-  fecha: Date;
-  detalles : Array<Producto>;
-}
 
 @Component({
   selector: 'app-ventas',
@@ -38,13 +11,12 @@ interface Venta {
 })
 
 export class VentasPage implements OnInit {
-
   nombreCliente = "";
   clientesFiltrado = [];
   private clientes : Cliente[] = [];
   cliente : Cliente;
   ventas : Venta[] = [];
-  public venta : Venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[]};
+  public venta : Venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[], documento: 0};
   detalle = [];
 
   constructor(private clienteService:ClienteService,
@@ -133,7 +105,7 @@ export class VentasPage implements OnInit {
       console.log(data);
     })
     this.ngOnInit();
-    this.venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[]};
+    this.venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0};
   }
 
   async confirmar() {
