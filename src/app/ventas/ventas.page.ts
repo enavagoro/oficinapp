@@ -60,7 +60,7 @@ export class VentasPage implements OnInit {
     {
       var nombre = this.clientes[i].nombre.toUpperCase();
 
-      if(nombre.includes(this.nombreCliente.toUpperCase())){
+      if(nombre.includes(this.nombreCliente.toUpperCase()) && this.clientes[i].estado != 0 ){
         this.clientesFiltrado.push(this.clientes[i]);
       }
     }

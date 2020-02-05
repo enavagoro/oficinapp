@@ -14,6 +14,7 @@ export interface Cliente {
   contacto: string;
   tipoCompra: number;
   detalle : Array<Producto>;
+  estado: number;
 }
 
 export interface Producto{
@@ -45,16 +46,24 @@ export class ClienteService {
     });
   }
 
-  actualizar(id:string,cliente : Cliente){
-    return this.http.patch<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
+  actualizar(id:number,cliente : Cliente){
+    return this.http.put<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<Cliente>(`${this.url}/api/clientes/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,cliente : Cliente){
+
+    if(cliente.estado == 0){
+      cliente.estado = 1;
+    }else{
+      cliente.estado = 0;
+    }
+
+    return this.http.put<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 

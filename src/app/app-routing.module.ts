@@ -29,10 +29,6 @@ const routes: Routes = [
   },  {
     path: 'cotizaciones',
     loadChildren: () => import('./cotizaciones/cotizaciones.module').then( m => m.CotizacionesPageModule)
-  },
-  {
-    path: 'tipo-producto',
-    loadChildren: () => import('./administrador/tipo-producto/tipo-producto.module').then( m => m.TipoProductoPageModule)
   }
 
 ];

@@ -74,15 +74,32 @@
   </ion-item>
 
 
-  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="cliente.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="cliente.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
+
   <ion-list-header>
     Lista de Clientes
+    <ion-toggle color="dark" [(ngModel)]="verTodos"></ion-toggle>
   </ion-list-header>
 
-    <ion-list>
-      <ion-item *ngFor="let c of clientes">
+    <ion-list *ngIf="!verTodos">
+      <ion-item *ngFor="let c of filtrarClientes()" (click)="opciones(c)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+        </ion-avatar>
+        <ion-label>{{c.nombre}}</ion-label>
+        {{c.rut}}
+      </ion-item>
+      <h2 *ngIf="clientes.length == 0">No hay Clientes aun...</h2>
+    </ion-list>
+
+    <ion-list *ngIf="verTodos">
+      <ion-item *ngFor="let c of clientes" (click)="opciones(c)">
+        <ion-avatar slot="start" *ngIf="c.estado">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+        </ion-avatar>
+        <ion-avatar slot="start" *ngIf="!c.estado">
+          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
         </ion-avatar>
         <ion-label>{{c.nombre}}</ion-label>
         {{c.rut}}
