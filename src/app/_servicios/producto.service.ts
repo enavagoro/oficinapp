@@ -7,6 +7,9 @@ export interface Producto{
   titulo:string;
   precio:number;
   codigo:string;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -25,22 +28,32 @@ export class ProductoService {
   }
 
   insertar(producto : Producto){
+    producto.idUsuario = sessionStorage.get("idUsuario");
+    producto.idEmpresa = sessionStorage.get("idEmpresa");
     return this.http.post<Producto>(`${this.url}/api/productos/`,producto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,producto : Producto){
-    return this.http.patch<Producto>(`${this.url}/api/productos/${id}`, producto,{
+  actualizar(id:number,producto : Producto){
+    return this.http.put<Producto>(`${this.url}/api/productos/${id}`, producto,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<Producto>(`${this.url}/api/productos/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,producto: Producto){
+
+    if(producto.estado == 0){
+      producto.estado = 1;
+    }else{
+      producto.estado = 0;
+    }
+
+    return this.http.put<Producto>(`${this.url}/api/productos/${id}`, producto,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 

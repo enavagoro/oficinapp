@@ -11,6 +11,9 @@ export interface Gasto {
   monto: number;
   fecha: Date;
   documento: number;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -29,22 +32,32 @@ export class GastoService {
   }
 
   insertar(gasto : Gasto){
+    gasto.idUsuario = sessionStorage.get("idUsuario");
+    gasto.idEmpresa = sessionStorage.get("idEmpresa");
     return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,gasto : Gasto){
-    return this.http.patch<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
+  actualizar(id:number,gasto : Gasto){
+    return this.http.put<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<Gasto>(`${this.url}/api/gastos/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,gasto: Gasto){
+
+    if(gasto.estado == 0){
+      gasto.estado = 1;
+    }else{
+    gasto.estado = 0;
+    }
+
+    return this.http.put<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 

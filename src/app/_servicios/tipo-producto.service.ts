@@ -6,6 +6,9 @@ export interface TipoProducto{
   id:number;
   titulo:string;
   codigo:string;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -24,22 +27,32 @@ export class TipoProductoService {
   }
 
   insertar(tipoProducto : TipoProducto){
+    tipoProducto.idUsuario = sessionStorage.get("idUsuario");
+    tipoProducto.idEmpresa = sessionStorage.get("idEmpresa");
     return this.http.post<TipoProducto>(`${this.url}/api/tipoProducto/`,tipoProducto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,tipoProducto : TipoProducto){
-    return this.http.patch<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, tipoProducto,{
+  actualizar(id:number,tipoProducto : TipoProducto){
+    return this.http.put<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, tipoProducto,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<TipoProducto>(`${this.url}/api/tipoProducto/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,tipoProducto: TipoProducto){
+
+    if(tipoProducto.estado == 0){
+      tipoProducto.estado = 1;
+    }else{
+    tipoProducto.estado = 0;
+    }
+
+    return this.http.put<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, tipoProducto,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 

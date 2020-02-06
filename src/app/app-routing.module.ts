@@ -29,6 +29,10 @@ const routes: Routes = [
   },  {
     path: 'cotizaciones',
     loadChildren: () => import('./cotizaciones/cotizaciones.module').then( m => m.CotizacionesPageModule)
+  },
+  {
+    path: 'exportar',
+    loadChildren: () => import('./exportar/exportar.module').then( m => m.ExportarPageModule)
   }
 
 ];

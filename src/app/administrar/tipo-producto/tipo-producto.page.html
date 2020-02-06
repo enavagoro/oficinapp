@@ -28,8 +28,45 @@
     <ion-input [(ngModel)]="tipoProducto.codigo"></ion-input>
   </ion-item>
 
-  <ion-button class="ion-button" size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="tipoProducto.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="tipoProducto.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
 
+  <ion-list-header>
+    Lista de Tipos de Productos
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label *ngIf="verTodos">Todos los Tipos de Productos</ion-label>
+    <ion-label *ngIf="!verTodos">Tipos de Productos Activos</ion-label>
+    <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+  </ion-item>
+
+    <ion-list *ngIf="!verTodos">
+      <ion-item *ngFor="let p of filtrarTipoProductos()" (click)="opciones(p)">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+        </ion-avatar>
+        <ion-label>{{p.titulo}}</ion-label>
+        {{p.codigo}}
+      </ion-item>
+      <h2 *ngIf="tipoProductos.length == 0">No hay Tipos de Productos aún...</h2>
+    </ion-list>
+
+    <ion-list *ngIf="verTodos">
+      <ion-item *ngFor="let p of tipoProductos" (click)="opciones(p)">
+        <ion-avatar slot="start" *ngIf="p.estado">
+          <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+        </ion-avatar>
+        <ion-avatar slot="start" *ngIf="!p.estado">
+          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+        </ion-avatar>
+        <ion-label>{{p.titulo}}</ion-label>
+        {{p.codigo}}
+      </ion-item>
+      <h2 *ngIf="tipoProductos.length == 0">No hay Tipos de Productos aún...</h2>
+    </ion-list>
+
+<!--
   <ion-list>
     <ion-list-header>
       Lista de Productos/Servicios
@@ -42,4 +79,5 @@
     </ion-item>
     <ion-label *ngIf="tipoProductos.length == 0">No hay tipos de Productos/Servicios aun...</ion-label>
   </ion-list>
+  -->
 </ion-content>

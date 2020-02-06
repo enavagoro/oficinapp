@@ -8,6 +8,9 @@ export interface Cotizacion {
   usuario: number;
   fecha: Date;
   detalle : Array<Producto>;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -26,22 +29,31 @@ export class CotizacionService {
   }
 
   insertar(gasto : Cotizacion){
+
     return this.http.post<Cotizacion>(`${this.url}/api/cotizacion/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,gasto : Cotizacion){
-    return this.http.patch<Cotizacion>(`${this.url}/api/cotizacion/${id}`, gasto,{
+  actualizar(id:number,cotizacion : Cotizacion){
+    return this.http.put<Cotizacion>(`${this.url}/api/cotizacion/${id}`, cotizacion,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<Cotizacion>(`${this.url}/api/cotizacion/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,cotizacion: Cotizacion){
+
+    if(cotizacion.estado == 0){
+      cotizacion.estado = 1;
+    }else{
+    cotizacion.estado = 0;
+    }
+
+    return this.http.put<Cotizacion>(`${this.url}/api/cotizacion/${id}`, cotizacion,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 
