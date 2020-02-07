@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { UsuarioService } from './_servicios/usuario.service';
 import { ClienteService } from './_servicios/cliente.service';
 import { ProductoService } from './_servicios/producto.service';
 import { TipoGastoService } from './_servicios/tipo-gasto.service';
@@ -34,6 +35,7 @@ import { DetallePage } from './ventas/detalle/detalle.page';
   providers: [
     StatusBar,
     SplashScreen,
+    UsuarioService,
     ClienteService,
     ProductoService,
     TipoGastoService,
