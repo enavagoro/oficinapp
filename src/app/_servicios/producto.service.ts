@@ -21,15 +21,17 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<Producto[]>(`${this.url}/api/productos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(producto : Producto){
-    producto.idUsuario = sessionStorage.get("idUsuario");
-    producto.idEmpresa = sessionStorage.get("idEmpresa");
+    producto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    producto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Producto>(`${this.url}/api/productos/`,producto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

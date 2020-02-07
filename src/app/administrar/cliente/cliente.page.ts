@@ -23,6 +23,7 @@ export class ClientePage implements OnInit {
   ngOnInit() {
     this.clienteService.listar().subscribe(clientes=>{
       this.clientes= clientes;
+      console.log(clientes);
       this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
   }
@@ -32,11 +33,12 @@ export class ClientePage implements OnInit {
     this.cliente.id = 0 + (this.clientes.length + 1);
     this.clienteService.insertar(this.cliente).subscribe(cliente=>{
       console.log('entra2');
+      this.ngOnInit();
+      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
+
   }
-  
+
   public actualizarCliente(){
     this.clienteService.actualizar(this.cliente.id,this.cliente).subscribe(cliente=>{
       console.log(cliente);

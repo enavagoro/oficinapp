@@ -25,15 +25,17 @@ export class GastoService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(gasto : Gasto){
-    gasto.idUsuario = sessionStorage.get("idUsuario");
-    gasto.idEmpresa = sessionStorage.get("idEmpresa");
+    gasto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    gasto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

@@ -29,9 +29,10 @@ export class TipoProductoPage implements OnInit {
     this.tipoProducto.id = 0 + (this.tipoProductos.length + 1);
     this.tipoProductoService.insertar(this.tipoProducto).subscribe(tipoProducto=>{
       console.log('entra2');
+      this.ngOnInit();
+      this.tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+
   }
   public actualizarTipoProducto(){
     this.tipoProductoService.actualizar(this.tipoProducto.id,this.tipoProducto).subscribe(tipoProducto=>{

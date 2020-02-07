@@ -38,15 +38,18 @@ export class ClienteService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
+    console.log(idEmpresa);
     return this.http.get<Cliente[]>(`${this.url}/api/clientes/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(cliente : Cliente){
-    cliente.idUsuario = sessionStorage.get("idUsuario");
-    cliente.idEmpresa = sessionStorage.get("idEmpresa");
+    cliente.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    cliente.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Cliente>(`${this.url}/api/clientes/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

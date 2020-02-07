@@ -20,9 +20,11 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<Usuario[]>(`${this.url}/api/usuarios/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
   login(usuario,clave){

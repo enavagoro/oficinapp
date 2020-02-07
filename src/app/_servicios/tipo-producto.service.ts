@@ -20,15 +20,17 @@ export class TipoProductoService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<TipoProducto[]>(`${this.url}/api/tipoProducto/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(tipoProducto : TipoProducto){
-    tipoProducto.idUsuario = sessionStorage.get("idUsuario");
-    tipoProducto.idEmpresa = sessionStorage.get("idEmpresa");
+    tipoProducto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    tipoProducto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<TipoProducto>(`${this.url}/api/tipoProducto/`,tipoProducto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

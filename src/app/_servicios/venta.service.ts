@@ -23,18 +23,21 @@ export class VentaService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<Venta[]>(`${this.url}/api/ventas/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(venta : Venta){
-    venta.idUsuario = sessionStorage.get("idUsuario");
-    venta.idEmpresa = sessionStorage.get("idEmpresa");
+    venta.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    venta.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Venta>(`${this.url}/api/ventas/`,venta, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+
     });
   }
 

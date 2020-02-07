@@ -20,15 +20,17 @@ export class TipoGastoService {
   constructor(private http: HttpClient) { }
 
   listar() {
+    var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<TipoGasto[]>(`${this.url}/api/tipoGasto/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',idEmpresa)
     });
   }
 
   insertar(tipoGasto : TipoGasto){
-    tipoGasto.idUsuario = sessionStorage.get("idUsuario");
-    tipoGasto.idEmpresa = sessionStorage.get("idEmpresa");
+    tipoGasto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
+    tipoGasto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<TipoGasto>(`${this.url}/api/tipoGasto/`,tipoGasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
