@@ -51,7 +51,7 @@ export class CotizacionesPage implements OnInit {
       console.log(data);
     })
     this.ngOnInit();
-    this.cotizacion = {id:0,usuario:0,fecha:new Date(),detalle:[]};
+    this.cotizacion = {estado:0,id:0,usuario:0,fecha:new Date(),detalle:[],idEmpresa:0,idUsuario:0};
   }
 
   async confirmar() {

@@ -9,6 +9,9 @@ export interface Venta {
   fecha: Date;
   detalles : Array<Producto>;
   documento: number;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -27,22 +30,32 @@ export class VentaService {
   }
 
   insertar(venta : Venta){
+    venta.idUsuario = sessionStorage.get("idUsuario");
+    venta.idEmpresa = sessionStorage.get("idEmpresa");
     return this.http.post<Venta>(`${this.url}/api/ventas/`,venta, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  actualizar(id:string,venta : Venta){
-    return this.http.patch<Venta>(`${this.url}/api/ventas/${id}`, venta,{
+  actualizar(id:number,venta : Venta){
+    return this.http.put<Venta>(`${this.url}/api/ventas/${id}`, venta,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:string){
-    return this.http.delete<Venta>(`${this.url}/api/ventas/${id}`,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+  borrar(id:number,venta: Venta){
+
+    if(venta.estado == 0){
+      venta.estado = 1;
+    }else{
+    venta.estado = 0;
+    }
+
+    return this.http.put<Venta>(`${this.url}/api/ventas/${id}`, venta,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
     });
   }
 

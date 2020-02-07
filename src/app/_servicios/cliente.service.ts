@@ -15,6 +15,8 @@ export interface Cliente {
   tipoCompra: number;
   detalle : Array<Producto>;
   estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 export interface Producto{
@@ -22,6 +24,9 @@ export interface Producto{
   titulo:string;
   precio:number;
   codigo:string;
+  estado: number;
+  idEmpresa: number;
+  idUsuario: number;
 }
 
 @Injectable()
@@ -40,6 +45,8 @@ export class ClienteService {
   }
 
   insertar(cliente : Cliente){
+    cliente.idUsuario = sessionStorage.get("idUsuario");
+    cliente.idEmpresa = sessionStorage.get("idEmpresa");
     return this.http.post<Cliente>(`${this.url}/api/clientes/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

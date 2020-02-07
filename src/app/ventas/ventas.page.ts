@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
 import { VentaService, Venta} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
-import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-ventas',
@@ -16,10 +16,11 @@ export class VentasPage implements OnInit {
   private clientes : Cliente[] = [];
   cliente : Cliente;
   ventas : Venta[] = [];
-  public venta : Venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[], documento: 0};
+  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[], documento: 0,idEmpresa:0,idUsuario:0};
   detalle = [];
 
-  constructor(private clienteService:ClienteService,
+  constructor(public actionSheetController: ActionSheetController,
+              private clienteService:ClienteService,
               private ventaService:VentaService,
               private toastController : ToastController,
               private alertController :AlertController,
@@ -105,7 +106,71 @@ export class VentasPage implements OnInit {
       console.log(data);
     })
     this.ngOnInit();
-    this.venta = {id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0};
+    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+  }
+
+  public actualizarVenta(){
+    this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
+      console.log(venta);
+      this.ngOnInit();
+      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+    })
+  }
+  public eliminacionLogica(){
+    this.ventaService.borrar(this.venta.id,this.venta).subscribe(datos=>{
+      console.log(datos);
+      this.ngOnInit();
+    })
+  }
+  async eliminar(opcion) {
+    console.log(this.venta);
+
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>'+opcion+' UNA VENTA</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.eliminacionLogica();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  async confirmarActualizar() {
+    console.log(this.venta);
+
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>ACTUALIZAR UNA VENTA</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.actualizarVenta();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async confirmar() {
@@ -132,5 +197,57 @@ export class VentasPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async opciones(venta) {
+    console.log(venta)
+    var opcion = "BORRAR";
+    if(venta.estado == 0){
+      opcion = "RECUPERAR"
+    }
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [{
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.venta = venta;
+          this.eliminar(opcion);
+        }
+      }, {
+        text: 'Actualizar',
+        icon: 'share',
+        handler: () => {
+          this.venta = venta;
+          console.log(venta);
+        }
+      },{
+        text: 'Duplicar',
+        icon: 'heart',
+        handler: () => {
+          venta.id == 0;
+          this.venta = venta;
+          this.venta.id = 0;
+          console.log(this.venta);
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+  filtrarVentas(){
+    var ventas = [];
+    for(let i = 0 ; i < this.ventas.length ; i ++){
+      if(this.ventas[i].estado){
+        ventas.push(this.ventas[i]);
+      }
+    }
+    return ventas;
   }
 }

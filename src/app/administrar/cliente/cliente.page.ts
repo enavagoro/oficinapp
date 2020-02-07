@@ -11,8 +11,8 @@ import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.serv
 export class ClientePage implements OnInit {
 
   clientes = [];
-  public cliente : Cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : []};
-  public producto : Producto = {id:0,titulo:'',precio:0,codigo:''};
+  public cliente : Cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
+  public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService : ClienteService,
@@ -23,7 +23,7 @@ export class ClientePage implements OnInit {
   ngOnInit() {
     this.clienteService.listar().subscribe(clientes=>{
       this.clientes= clientes;
-      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : []};
+      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
   }
 
@@ -34,13 +34,14 @@ export class ClientePage implements OnInit {
       console.log('entra2');
     })
     this.ngOnInit();
-    this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : []};
+    this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
   }
+  
   public actualizarCliente(){
     this.clienteService.actualizar(this.cliente.id,this.cliente).subscribe(cliente=>{
       console.log(cliente);
       this.ngOnInit();
-      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : []};
+      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
