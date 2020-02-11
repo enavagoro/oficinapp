@@ -1,11 +1,21 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-input placeholder="usuario" [(ngModel)]="usuario"></ion-input>
-  <ion-input placeholder="clave" [(ngModel)]="clave"></ion-input>
-  <ion-button (click)="login()">Login</ion-button>
+  <div class="contenedor">
+
+    <div class="contenedor-image">
+      <img class="imagen-logo" src="./assets/icon/icono-jazmin.png">
+    </div>
+
+    <ion-item>
+      <!--<ion-label position="stacked" color="light">Usuario</ion-label>-->
+      <ion-input class="usuario" [(ngModel)]="usuario" placeholder="Usuario"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <!--<ion-label position="stacked" color="light">Contraseña</ion-label>-->
+      <ion-input class="clave" [(ngModel)]="clave" placeholder="Contraseña"></ion-input>
+    </ion-item>
+
+    <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
+
+  </div>
 </ion-content>

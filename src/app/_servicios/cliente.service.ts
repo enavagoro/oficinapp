@@ -54,6 +54,7 @@ export class ClienteService {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
+
   }
 
   actualizar(id:number,cliente : Cliente){

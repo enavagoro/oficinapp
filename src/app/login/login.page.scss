@@ -1,0 +1,54 @@
+ion-content{
+  --background: url("/assets/icon/imagen-fondo-escritorio.jpg")  no-repeat center / 100%;
+}
+
+ion-item{
+  margin-top: 4%;
+  --background: white;
+  padding: none;
+}
+
+.contenedor{
+  width: 45%;
+  margin-left: 27.5%;
+  background: none;
+  margin-top: 15%;
+}
+
+.imagen-logo{
+  margin-left: calc((100% - 200px)/2);
+  width: 200px;
+}
+
+.usuario{
+  color: black;
+}
+
+.clave{
+  color: black;
+}
+
+.ion-button{
+  --background: #82afec;
+  --background-activated:#82afec;
+  --background-focused:#82afec;
+  --background-hover:#82afec;
+  width: 100% !important;
+  margin-left: 0% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+@media (max-width:800px) {
+  ion-content{
+    --background: url("/assets/icon/imagen-fondo.jpg")  no-repeat center / 100%;
+  }
+
+  .contenedor{
+    width: 80%;
+    margin-left: 10%;
+    background: none;
+    margin-top: 15%;
+  }
+
+}
