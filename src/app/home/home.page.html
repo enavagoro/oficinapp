@@ -1,68 +1,132 @@
+
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button color="light"></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        Home
-      </ion-title>
+      <ion-slides pager="true" [options]="slideOpts">
+          <ion-slide>
+            <div class="contenedor-mitades">
+              <div class="derecha">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Productos más vendidos</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="centro">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="izquierda">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+            </div>
+          </ion-slide>
+
+          <ion-slide>
+            <div class="contenedor-mitades">
+              <div class="derecha">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Productos más vendidos</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="centro">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="izquierda">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+            </div>
+          </ion-slide>
+
+          <ion-slide>
+            <div class="contenedor-mitades">
+              <div class="derecha">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Productos más vendidos</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="centro">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+              <div class="izquierda">
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{productos.length}}</h1>
+                </ion-card>
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slides>
     </ion-toolbar>
   </ion-header>
 
-  <ion-slides pager="true" [options]="slideOpts">
-      <ion-slide>
-        <ion-card >
-            <ion-card-header class="header-card">
-              <ion-item>
-               <ion-buttons>
-                 <ion-label>Tipo grafico</ion-label>
-                 <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
-                   <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
-                 </ion-select>
-                </ion-buttons>
-                <ion-buttons>
-                  <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
-                    <ion-icon name="cloud-download"></ion-icon>
-                  </ion-button>
-                </ion-buttons>
-
-              </ion-item>
-          </ion-card-header>
-
-          <ion-card-content>
-
-            <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
-            <h2 *ngIf="!chart1"> No se ha cargado grafico aun</h2>
-
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-
-      <ion-slide>
-        <ion-card>
+  <div class="contenedor-grafico">
+    <ion-card>
+        <ion-card-header class="header-card">
           <ion-item>
-            <ion-icon name="pin" slot="start"></ion-icon>
-            <ion-label>ion-item in a card, icon left, button right</ion-label>
-            <ion-button fill="outline" slot="end">View</ion-button>
+           <ion-buttons>
+             <ion-label>Tipo grafico</ion-label>
+             <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
+               <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+             </ion-select>
+            </ion-buttons>
+            <ion-buttons>
+              <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
+                <ion-icon name="cloud-download"></ion-icon>
+              </ion-button>
+            </ion-buttons>
           </ion-item>
+      </ion-card-header>
 
-          <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-
-      <ion-slide>
-        <ion-card>
-
-          <h1>$245.025.025</h1>
-
-        </ion-card>
-      </ion-slide>
-    </ion-slides>
-
+      <ion-card-content>
+        <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
+        <h2 *ngIf="!chart1"> No se ha cargado grafico aun</h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+<!--
     <ion-card>
       <ion-label>Productos</ion-label>
       <h1 style="text-align:center">{{productos.length}}</h1>
@@ -80,5 +144,5 @@
       <h1 style="text-align:center">$245.025.025</h1>
     </ion-card>
 
-
+-->
 </ion-content>

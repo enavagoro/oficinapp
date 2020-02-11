@@ -3,7 +3,7 @@
   --background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
-  --background: #263238;
+  --background: #82afec;
   --color: white !important;
 }
 
@@ -12,8 +12,14 @@
   --background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
-  --background: #263238;
+  --background: #82afec;
   --color: white !important;
+}
+
+.imagen-logo{
+  margin-left: calc((100% - 120px)/2);
+  width: 120px;
+  margin-top: 20%;
 }
 
 .header-md::after{
@@ -40,7 +46,7 @@ ion-content {
   --background: rgb(2,0,36);
   --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
   */
-    --background: #263238;
+    --background: #82afec;
 }
 
 ion-item{
@@ -49,7 +55,7 @@ ion-item{
   --background: rgb(2,0,36);
   --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
   */
-  --background: #263238;
+  --background: #82afec;
 }
 
 .list-md{
@@ -60,9 +66,9 @@ ion-item{
 
 .item-menu{
       /** background **/
-  --background-focused:#263238;
-  --background-hover:#263238;
-  --background: #263238;
+  --background-focused:#82afec;
+  --background-hover:#82afec;
+  --background: #82afec;
     /** objetos del item **/
     /** color del item (dentro objetos,letras) **/
  --color:#fff;
@@ -109,6 +115,7 @@ ion-content{
     min-width: 19vw;
     max-width: 0%;
     margin: 0%;
+    border: none;
 }
 
 .imagen-menu{
@@ -129,9 +136,13 @@ ion-content{
 
 .item-menu-perfil{
   padding-top: 5% !important;
-  --background-focused:#263238;
-  --background-hover:#263238;
-  --background: #263238;
-  background: #263238 !important;
+  --background-focused:#82afec;
+  --background-hover:#82afec;
+  --background: #82afec;
+  background: #82afec !important;
    --border-color: transparent;
+}
+
+.lista{
+  margin-top: 40% !important;
 }

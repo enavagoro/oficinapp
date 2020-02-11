@@ -18,12 +18,12 @@ export class AppComponent {
     {
       title: 'Ventas',
       url: '/ventas',
-      icon: 'list'
+      icon: 'pricetags'
     },
     {
       title: 'Gastos',
       url: '/gastos',
-      icon: 'list'
+      icon: 'cart'
     },
     {
       title: 'Cotizaciones',
@@ -33,7 +33,7 @@ export class AppComponent {
     {
       title: 'Administrar',
       url: '/administrar',
-      icon: 'list'
+      icon: 'cog'
     }
   ];
 

@@ -1,7 +1,7 @@
 ion-toolbar{
   --background: url("https://cdn.dribbble.com/users/1803663/screenshots/6080532/kerala_paddy_field_2x.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 15%;
+  padding-bottom: 5%;
 }
 
 ion-title{
@@ -19,4 +19,56 @@ ion-title{
 .welcome-card img {
   max-height: 35vh;
   overflow: hidden;
+}
+
+.card-slider{
+  background: white;
+  width: auto !important;
+}
+
+.contenedor-mitades{
+  width: 100%;
+  display: flex;
+}
+
+.icono-card{
+  width: 15%;
+  margin-left: 42.5%;
+}
+
+.ion-card{
+  background: white;
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 10%;
+}
+
+.derecha{
+  width: 50%;
+}
+
+.centro{
+  width: 50%;
+}
+
+.izquierda{
+  width: 50%;
+}
+
+.contenedor-grafico{
+  height: 50% !important;
+}
+
+@media (max-width: 1000px){
+  .derecha{
+    display: none;
+  }
+
+  .centro{
+    width: 100%;
+  }
+
+  .izquierda{
+    display: none;
+  }
 }
