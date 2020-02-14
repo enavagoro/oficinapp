@@ -12,7 +12,7 @@ import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
 export class GastosPage implements OnInit {
   file = File = null;
   gastos = [];
-  public gasto : Gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0};
+  public gasto : Gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   tiposGastos = [];
   url : string;
 
@@ -40,18 +40,19 @@ export class GastosPage implements OnInit {
       console.log('entra2');
     })
     this.ngOnInit();
-    this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0};
+    this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
   public actualizarGasto(){
     this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
       console.log(gasto);
       this.ngOnInit();
-      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0};
+      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
   public eliminacionLogica(){
     this.gastoService.borrar(this.gasto.id,this.gasto).subscribe(datos=>{
       console.log(datos);
+      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
       this.ngOnInit();
     })
   }

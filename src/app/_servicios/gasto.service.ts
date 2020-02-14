@@ -14,6 +14,7 @@ export interface Gasto {
   estado: number;
   idEmpresa: number;
   idUsuario: number;
+  tipoDocumento: number;
 }
 
 @Injectable()
