@@ -1,11 +1,15 @@
 import { Component, Directive, Input, ViewChild, ElementRef } from '@angular/core';
 import { ProductoService } from '../_servicios/producto.service';
 import { GastoService } from '../_servicios/gasto.service';
+import { VentaService } from '../_servicios/venta.service';
 import { ClienteService } from '../_servicios/cliente.service';
+import { DetalleService } from '../_servicios/detalle.service';
+
 import * as jsPDF from 'jspdf';
 import { Chart } from "chart.js";
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-home',
@@ -21,11 +25,17 @@ export class HomePage {
   productos = [];
   gastos = [];
   clientes = [];
+  ventas = [];
+  detalles = [];
+  listaProductos = [];
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"];
   private chart1: Chart;
+
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
 
-  constructor(public router:Router,public storage : Storage,public cService:ClienteService,public gService:GastoService,public pService : ProductoService) {
+
+  constructor(public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
+
     pService.listar().subscribe(ps =>{
       this.addActivos(this.productos,ps)
     })
@@ -35,9 +45,78 @@ export class HomePage {
     cService.listar().subscribe(cs=>{
       this.addActivos(this.clientes,cs);
     })
+
     var menu = document.querySelector('ion-menu')
     menu.hidden = false;
+
+    vService.listar().subscribe(vs=>{
+      this.ventas = vs;
+        for (let i=0; i<this.ventas.length; i++)
+        {
+          console.log("entre");
+          dService.listar(this.ventas[i].id).subscribe(ds=>{
+            console.log("esto es el ds:",ds);
+
+            for(let j =0; j < ds.length; j++)
+            {
+              var producto = this.listaProductos[ds[j].titulo];
+              if(producto){
+                this.listaProductos[ds[j].titulo] += ds[j].cantidad;
+              }else{
+                this.listaProductos[ds[j].titulo] = 0;
+                this.listaProductos[ds[j].titulo] += ds[j].cantidad;
+              }
+            }
+            console.log('lista producto:',this.listaProductos);
+          })
+        }
+
+      })
+
   }
+
+  filtrarVentaMes(){
+    let mes= new Date();
+    let arregloTemporal = [];
+    let fechaTemporal = new Date();
+
+    for (let i = 0; i<this.ventas.length; i++)
+    {
+      fechaTemporal = new Date(this.ventas[i].fecha);
+
+      if(fechaTemporal.getMonth()==mes.getMonth() && fechaTemporal.getFullYear()==mes.getFullYear()){
+        arregloTemporal.push(this.ventas[i]);
+      }
+    }
+    return arregloTemporal.length;
+  }
+
+  filtrarVentaYear(){
+    let año= new Date();
+    let arregloTemporal = [];
+    let fechaTemporal = new Date();
+
+    for (let i = 0; i<this.ventas.length; i++)
+    {
+      fechaTemporal = new Date(this.ventas[i].fecha);
+
+      if(fechaTemporal.getFullYear()==año.getFullYear()){
+        arregloTemporal.push(this.ventas[i]);
+      }
+    }
+    return arregloTemporal.length;
+  }
+
+  filtrarProductoVendido(){
+    let arregloTemporal = [];
+
+
+    for (let i = 0; i<this.detalles.length; i++)
+    {
+      console.log('detalle:',this.detalles[i]);
+    }
+  }
+
   addActivos(original,arr){
     for(let i = 0 ; i < arr.length ; i++){
       if(arr[i].estado == 1){

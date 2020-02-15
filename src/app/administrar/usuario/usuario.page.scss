@@ -1,0 +1,31 @@
+ion-toolbar{
+  --background: url("https://cdn.dribbble.com/users/1846841/screenshots/5200239/yosemite1.jpg")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 15%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}

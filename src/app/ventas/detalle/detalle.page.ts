@@ -22,7 +22,7 @@ export class DetallePage implements OnInit {
   cantidad : Number = undefined;
   flag = false;
   productos : Producto[] = [];
-  
+
   constructor(private navParams : NavParams, private productoService: ProductoService,private modalCtrl : ModalController) {
       var ps = navParams.get("detalle");
       console.log(ps);
@@ -58,13 +58,13 @@ export class DetallePage implements OnInit {
   borrar(index){
     console.log(index);
     var nuevo = [];
-    for(let i = 0 ; i< this.productos.length;i++){
+    for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
-        nuevo.push(this.productos[i]);
+        nuevo.push(this.detalle[i]);
       }
     }
     console.log(nuevo);
-    this.productos = nuevo;
+    this.detalle = nuevo;
   }
 
   guardar(){

@@ -19,6 +19,7 @@ import { TipoProductoService } from './_servicios/tipo-producto.service';
 import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
+import { DetalleService } from './_servicios/detalle.service';
 import { DetallePage } from './ventas/detalle/detalle.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppUtilService } from './_servicios/app-util.service';
@@ -56,6 +57,7 @@ import { IonicStorageModule } from '@ionic/storage';
     //Storage,
     VentaService,
     CotizacionService,
+    DetalleService,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

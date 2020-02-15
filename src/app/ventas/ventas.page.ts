@@ -241,6 +241,19 @@ export class VentasPage implements OnInit {
     });
     await actionSheet.present();
   }
+
+  borrar(index){
+    console.log(index);
+    var nuevo = [];
+    for(let i = 0 ; i< this.detalle.length;i++){
+      if(i != index){
+        nuevo.push(this.detalle[i]);
+      }
+    }
+    console.log(nuevo);
+    this.detalle = nuevo;
+  }
+
   filtrarVentas(){
     var ventas = [];
     for(let i = 0 ; i < this.ventas.length ; i ++){
@@ -250,4 +263,6 @@ export class VentasPage implements OnInit {
     }
     return ventas;
   }
+
+
 }

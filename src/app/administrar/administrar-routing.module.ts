@@ -22,6 +22,10 @@ const routes: Routes = [
   },  {
     path: 'tipo-producto',
     loadChildren: () => import('./tipo-producto/tipo-producto.module').then( m => m.TipoProductoPageModule)
+  },
+  {
+    path: 'usuario',
+    loadChildren: () => import('./usuario/usuario.module').then( m => m.UsuarioPageModule)
   }
 
 ];

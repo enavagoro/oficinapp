@@ -16,6 +16,7 @@ export interface Gasto {
   img : string;
   idEmpresa: number;
   idUsuario: number;
+  tipoDocumento: number;
 }
 
 @Injectable()
