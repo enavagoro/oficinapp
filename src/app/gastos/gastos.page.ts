@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { GastoService, Gasto } from '../_servicios/gasto.service';
 import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
+import { Storage } from '@ionic/storage';
+const URL = "http://178.128.71.20:3950/";
 
 @Component({
   selector: 'app-gastos',
@@ -12,11 +14,15 @@ import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
 export class GastosPage implements OnInit {
   file = File = null;
   gastos = [];
+  avance = 0;
+  errorSubida = undefined;
   public gasto : Gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0};
   tiposGastos = [];
   url : string;
+  cargando : boolean = false;
 
   constructor(
+      public storage : Storage,
       public actionSheetController: ActionSheetController,
       private tipoGastoService : TipoGastoService,
       private gastoService:GastoService,
@@ -26,16 +32,22 @@ export class GastosPage implements OnInit {
 
   ngOnInit() {
     this.tipoGastoService.listar().subscribe(tipos=>{
-      this.tiposGastos = tipos;
+      this.tiposGastos = tipos.filter(this.filtros);
     })
     this.gastoService.listar().subscribe(gastos =>{
       this.gastos = gastos;
     })
   }
-
-  public guardarGasto(){
+  filtros(gasto){
+    if(gasto.estado){
+      return true;
+    }
+    return false;
+  }
+  public guardarGasto(img){
     console.log('entra');
     this.gasto.id = 0 + (this.gastos.length + 1);
+    this.gasto.img = img;
     this.gastoService.insertar(this.gasto).subscribe(gasto=>{
       console.log('entra2');
     })
@@ -52,7 +64,9 @@ export class GastosPage implements OnInit {
   public eliminacionLogica(){
     this.gastoService.borrar(this.gasto.id,this.gasto).subscribe(datos=>{
       console.log(datos);
+      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0};
       this.ngOnInit();
+
     })
   }
   async eliminar(opcion) {
@@ -122,7 +136,7 @@ export class GastosPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.guardarGasto();
+            this.uploadFile();
           }
         }
       ]
@@ -151,6 +165,10 @@ export class GastosPage implements OnInit {
         icon: 'share',
         handler: () => {
           this.gasto = gasto;
+          this.storage.get('idEmpresa').then((value) => {
+            this.url = URL+"/"+value+"/"+gasto.img;
+          });
+
           console.log(gasto);
         }
       },{
@@ -210,5 +228,33 @@ export class GastosPage implements OnInit {
   public vaciarArchivo(){
     this.file = 0;
   }
+  uploadFile(){
+
+      this.cargando = true;
+      var BaseClass = function (data) {
+        Object.assign(this, data);
+      };
+      var info = {};
+      var currentTime = new Date().getTime();
+      console.log(this.file);
+      if(this.file){
+        var formData = new FormData();
+        var timestamp = new Date();
+        var tipo = this.file.name.split('.').pop();
+        var name = currentTime +"."+tipo;
+        Object.defineProperty(this.file, 'name', {
+          writable: true,
+          value: name
+        });
+        console.log(this.file);
+        formData.append('name',name);
+        formData.append('file',this.file);
+
+        this.gastoService.guardar(formData);
+        this.guardarGasto(name);
+      }else{
+        this.guardarGasto("Sin imagen");
+      }
+    }
 
 }

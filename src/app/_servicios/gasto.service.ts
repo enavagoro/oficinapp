@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
+import { Storage } from '@ionic/storage';
 
 export interface Gasto {
   id: number;
@@ -12,6 +13,7 @@ export interface Gasto {
   fecha: Date;
   documento: number;
   estado: number;
+  img : string;
   idEmpresa: number;
   idUsuario: number;
 }
@@ -22,14 +24,30 @@ export class GastoService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  constructor(private http: HttpClient) { }
-
+  idEmpresa = 0;
+  idUsuario = 0;
+  constructor(private http: HttpClient,private storage : Storage) {
+    this.storage.get('idUsuario').then((value) => {
+      this.idUsuario = value;
+    });
+    this.storage.get('idEmpresa').then((value)=>{
+      this.idEmpresa = value;
+    });
+  }
+  guardar(form){
+    console.log(form);
+    form.append('idEmpresa',this.idEmpresa);
+    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            console.log(event);
+        });
+  }
   listar() {
     var idEmpresa = sessionStorage.getItem("idEmpresa");
     return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',idEmpresa)
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 
@@ -39,6 +57,7 @@ export class GastoService {
     return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 

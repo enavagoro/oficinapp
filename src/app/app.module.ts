@@ -19,8 +19,14 @@ import { TipoProductoService } from './_servicios/tipo-producto.service';
 import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
-
 import { DetallePage } from './ventas/detalle/detalle.page';
+//import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { AppUtilService } from './_servicios/app-util.service';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+import { AuthGaurdService } from './_servicios/auth-gaurd.service';
+import { AuthenticationService } from './_servicios/authentication.service';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [AppComponent,DetallePage],
@@ -30,17 +36,24 @@ import { DetallePage } from './ventas/detalle/detalle.page';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    IonicStorageModule.forRoot(),
     FormsModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    FingerprintAIO,
+    AuthGaurdService,
+    AuthenticationService,
+    AppUtilService,
+    //NativeStorage,
     UsuarioService,
     ClienteService,
     ProductoService,
     TipoGastoService,
     TipoProductoService,
     GastoService,
+    //Storage,
     VentaService,
     CotizacionService,
 

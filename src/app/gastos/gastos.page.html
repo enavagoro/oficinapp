@@ -80,12 +80,12 @@
     <ion-label class="ion-label">...No has subido ningún comprobante</ion-label>
   </ion-item>
 
-  <ion-item *ngIf="file" class="item-card">
+  <ion-item *ngIf="url" class="item-card">
     <ion-card class="card">
       <img class="imagen" [src]="url">
       <ion-card-header>
         <ion-card-subtitle>Comprobante</ion-card-subtitle>
-        <ion-card-title>{{file.name}}</ion-card-title>
+        <ion-card-title>{{(file.name||url)}}</ion-card-title>
       </ion-card-header>
     </ion-card>
   </ion-item>
@@ -94,6 +94,8 @@
   </ion-item>
 
   <ion-button class="ion-button" *ngIf="gasto.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="gasto.id == 0 " size="medium" (click)="uploadFile()">Upload File</ion-button>
+
   <ion-button class="ion-button" *ngIf="gasto.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
 
 <!--

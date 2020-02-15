@@ -19,7 +19,7 @@ export class CotizacionService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private storage : Storage) { }
 
   listar() {
     return this.http.get<Cotizacion[]>(`${this.url}/api/cotizacion/`,{

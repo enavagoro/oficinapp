@@ -20,6 +20,7 @@ export class TipoGastoPage implements OnInit {
 
   ngOnInit() {
     this.tipoGastoService.listar().subscribe(gastos=>{
+      alert(gastos.length);
       this.tipoGastos = gastos;
     })
   }
