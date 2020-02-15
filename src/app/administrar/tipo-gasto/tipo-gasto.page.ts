@@ -11,6 +11,7 @@ import { TipoGastoService, TipoGasto } from '../../_servicios/tipo-gasto.service
 export class TipoGastoPage implements OnInit {
   tipoGastos= [];
   public tipoGasto : TipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoGastoService : TipoGastoService,
@@ -46,6 +47,21 @@ export class TipoGastoPage implements OnInit {
       this.ngOnInit();
     })
   }
+
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+  }
+
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  }
+
   async eliminar(opcion) {
     console.log(this.tipoGasto);
 
@@ -123,35 +139,50 @@ export class TipoGastoPage implements OnInit {
   }
   async opciones(tipoGasto) {
     console.log(tipoGasto)
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(tipoGasto.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          tipoGasto.tipo=''+tipoGasto.tipo;
           this.tipoGasto = tipoGasto;
-          this.eliminar(opcion);
+          console.log(tipoGasto);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
-      }, {
+      },{
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.tipoGasto = tipoGasto;
           console.log(tipoGasto);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           tipoGasto.id == 0;
           this.tipoGasto = tipoGasto;
           this.tipoGasto.id = 0;
           console.log(this.tipoGasto);
+        }
+      }, {
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.tipoGasto = tipoGasto;
+          this.eliminar(opcion);
         }
       }, {
         text: 'Cancelar',

@@ -19,7 +19,7 @@ import { TipoProductoService } from './_servicios/tipo-producto.service';
 import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
-
+import { DetalleService } from './_servicios/detalle.service';
 import { DetallePage } from './ventas/detalle/detalle.page';
 
 @NgModule({
@@ -43,6 +43,7 @@ import { DetallePage } from './ventas/detalle/detalle.page';
     GastoService,
     VentaService,
     CotizacionService,
+    DetalleService,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

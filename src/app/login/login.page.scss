@@ -12,12 +12,22 @@ ion-item{
   width: 45%;
   margin-left: 27.5%;
   background: none;
-  margin-top: 15%;
+  margin-top: 10%;
+}
+
+.contenedor-image{
+  margin-left: calc((100% - 300px)/2);
+  width: 300px;
 }
 
 .imagen-logo{
   margin-left: calc((100% - 200px)/2);
   width: 200px;
+  box-sizing: border-box;
+}
+
+.texto{
+
 }
 
 .usuario{
@@ -39,6 +49,63 @@ ion-item{
   margin-bottom: 5%;
 }
 
+#imagen{
+  animation: aparecer 2.5s;
+  transform-origin: center center;
+}
+
+#texto-imagen{
+  animation: aparecer 2.5s;
+  transform-origin: center center;
+
+}
+
+#hojas{
+  animation: hojas 2.5s ease infinite !important;
+  transform-origin: center;
+}
+
+#grande{
+  animation: graficos 2.5s ease infinite !important;
+  transform-origin: center center;
+}
+
+#chico{
+  animation: graficos 2.5s ease infinite !important;
+  transform-origin: center center;
+}
+
+#mediano{
+  animation: graficos 2.5s ease infinite !important;
+  transform-origin: center center;
+}
+
+@keyframes graficos{
+  from{
+    transform: rotateZ(360deg);
+  }
+  to{
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes hojas{
+  from{
+    transform: rotateZ(0deg);
+  }
+  to{
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes aparecer{
+  from{
+    transform: scale(0);
+  }
+  to{
+    transform: scale(1);
+  }
+}
 @media (max-width:800px) {
   ion-content{
     --background: url("/assets/icon/imagen-fondo.jpg")  no-repeat center / 100%;

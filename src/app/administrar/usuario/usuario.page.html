@@ -1,0 +1,84 @@
+<ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/administrar" routerDirection="root" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear Usuario</ion-title>
+  </ion-toolbar>
+
+  <ion-list-header>
+    Datos de Identificación
+  </ion-list-header>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Nombre Usuario</ion-label>
+    <ion-input [(ngModel)]="usuario.nombre" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Apellido</ion-label>
+    <ion-input [(ngModel)]="usuario.apellido"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Correo</ion-label>
+    <ion-input [(ngModel)]="usuario.correo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Clave</ion-label>
+    <ion-input [(ngModel)]="usuario.clave"></ion-input>
+  </ion-item>
+
+  <ion-button class="ion-button" *ngIf="usuario.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
+  <ion-button class="ion-button" *ngIf="usuario.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
+
+  <ion-list-header>
+    Lista de Usuarios
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label *ngIf="verTodos">Todos los usuarios</ion-label>
+    <ion-label *ngIf="!verTodos">Usuarios Activos</ion-label>
+    <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+  </ion-item>
+
+    <ion-list *ngIf="!verTodos">
+      <ion-item *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+        </ion-avatar>
+        <ion-label>{{u.nombre}}</ion-label>
+        {{u.rut}}
+      </ion-item>
+      <h2 *ngIf="usuarios.length == 0">No hay Usuarios aún...</h2>
+    </ion-list>
+
+    <ion-list *ngIf="verTodos">
+      <ion-item *ngFor="let u of usuarios" (click)="opciones(u)">
+        <ion-avatar slot="start" *ngIf="u.estado">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+        </ion-avatar>
+        <ion-avatar slot="start" *ngIf="!u.estado">
+          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+        </ion-avatar>
+        <ion-label>{{u.nombre}}</ion-label>
+        {{u.rut}}
+      </ion-item>
+      <h2 *ngIf="usuarios.length == 0">No hay Usuarios aún...</h2>
+    </ion-list>
+</ion-content>

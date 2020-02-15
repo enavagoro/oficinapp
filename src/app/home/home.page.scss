@@ -1,7 +1,8 @@
 ion-toolbar{
-  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/6080532/kerala_paddy_field_2x.png")  no-repeat center / 100%;
+  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/6080532/kerala_paddy_field_2x.png")  no-repeat center / 100% 100%;
   --opacity: 0.9;
-  padding-bottom: 5%;
+  padding-bottom: 2%;
+  object-fit: cover;
 }
 
 ion-title{
@@ -9,8 +10,13 @@ ion-title{
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size: 24px;
+  padding-top: 2%;
+  padding-bottom: 3%;
 }
 
+ion-content{
+  --background: #f5f5f5;
+}
 
 .header-md::after{
   width: 0% !important;
@@ -36,6 +42,10 @@ ion-title{
   margin-left: 42.5%;
 }
 
+ion-card{
+  background: white;
+}
+
 .ion-card{
   background: white;
   width: 80%;
@@ -55,11 +65,21 @@ ion-title{
   width: 50%;
 }
 
+.contenedor-cards{
+  display: flex;
+  width: 100%;
+}
+
 .contenedor-grafico{
-  height: 50% !important;
+  width: 50% !important;
+}
+
+.contenedor-estadisticas{
+  width: 50% !important;
 }
 
 @media (max-width: 1000px){
+
   .derecha{
     display: none;
   }
@@ -71,4 +91,18 @@ ion-title{
   .izquierda{
     display: none;
   }
+
+  .contenedor-cards{
+    display: inline-block;
+    width: 100%;
+  }
+
+  .contenedor-grafico{
+    width: 100% !important;
+  }
+
+  .contenedor-estadisticas{
+    width: 100% !important;
+  }
+
 }
