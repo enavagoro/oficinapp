@@ -23,9 +23,22 @@ ion-title{
   width: 70% !important;
   margin-left: 15% !important;
   margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button-cancelar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
   margin-bottom: 5%;
 }
 
 ion-avatar{
   --border-radius: 0%;
 }
+
+.grayscale { filter: grayscale(80%) !important; }

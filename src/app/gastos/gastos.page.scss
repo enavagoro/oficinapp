@@ -23,6 +23,17 @@ ion-title{
   width: 70% !important;
   margin-left: 15% !important;
   margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button-cancelar{
+  --background: #9f5953;
+  --background-activated: #9f5953;
+  --background-focused: #9f5953;
+  --background-hover: #9f5953;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
   margin-bottom: 5%;
 }
 
@@ -56,6 +67,16 @@ ion-avatar{
   background: transparent;
   cursor: pointer;
   line-height: 350%;
+  color: black;
+}
+
+.seleccionador-archivo-gris{
+  height: 100%;
+  width: 100% !important;
+  background: transparent;
+  cursor: pointer;
+  line-height: 350%;
+  color: #b3b3b3;
 }
 
 .texto-complementario{
@@ -100,6 +121,8 @@ ion-avatar{
 .ion-label{
   text-align: center;
 }
+
+.grayscale { filter: grayscale(80%) !important; }
 
 @media (max-width: 900px) {
   .card{

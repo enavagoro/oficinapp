@@ -18,7 +18,7 @@
       </ion-avatar>
 
       <ion-label>Tipo de Documento</ion-label>
-      <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required>
+      <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
         <ion-select-option>Boleta</ion-select-option>
         <ion-select-option>Factura</ion-select-option>
       </ion-select>
@@ -30,7 +30,7 @@
       </ion-avatar>
 
       <ion-label>Tipo de gasto</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo" name="tipo" required>
+      <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo" name="tipo" required [disabled]="bandera==true">
         <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{i}}">{{p.titulo}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -39,7 +39,7 @@
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
       </ion-avatar>
-      <ion-label position="stacked">Gasto<ion-text color="danger">*</ion-text></ion-label>
+      <ion-label position="stacked">Nombre del Gasto<ion-text color="danger">*</ion-text></ion-label>
       <ion-input [(ngModel)]="gasto.titulo" name="titulo" required></ion-input>
     </ion-item>
 
@@ -64,7 +64,7 @@
         <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
       </ion-avatar>
       <ion-label>Fecha</ion-label>
-      <ion-datetime placeholder="Select Date" [(ngModel)]="gasto.fecha" name="gasto" required></ion-datetime>
+      <ion-datetime placeholder="Select Date" [(ngModel)]="gasto.fecha" name="gasto" required [disabled]="bandera==true"></ion-datetime>
     </ion-item>
 
     <ion-item class="item-archivo" for="input-archivo">
@@ -72,7 +72,7 @@
         <img src="https://image.flaticon.com/icons/svg/423/423804.svg">
       </ion-avatar>
       <input class="input-archivo" type="file" name="input-archivo" id="input-archivo" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)">
-      <label class="seleccionador-archivo" for="input-archivo">Subir una imagen Comprobante (Opcional)</label>
+      <label id="seleccionador-archivo" class="seleccionador-archivo" for="input-archivo">Subir una imagen Comprobante (Opcional)</label>
       <!--<label class="texto-complementario" for="input-archivo">Sube una foto</label>-->
     </ion-item>
 
@@ -92,10 +92,13 @@
     <ion-item *ngIf="file">
       <ion-button class="ion-button-card" *ngIf="gasto.id == 0 " size="small" (click)="vaciarArchivo()">cancelar</ion-button>
     </ion-item>
-  </form>
 
-  <ion-button class="ion-button" *ngIf="gasto.id == 0 " size="medium" (click)="confirmar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ">Guardar</ion-button>
-  <ion-button class="ion-button" *ngIf="gasto.id != 0" size="medium" (click)="confirmarActualizar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ">Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ">Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ">Actualizar</ion-button>
+    <ion-button class="ion-button-cancelar" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+
+  </form>
 
 <!--
   <ion-list>
@@ -125,7 +128,7 @@
     <ion-list *ngIf="!verTodos">
       <ion-item *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
         <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
         <ion-label>{{g.titulo}}</ion-label>
         ${{g.monto| number}}
@@ -136,10 +139,10 @@
     <ion-list *ngIf="verTodos">
       <ion-item *ngFor="let g of gastos" (click)="opciones(g)">
         <ion-avatar slot="start" *ngIf="g.estado">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!g.estado">
-          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+          <img class="grayscale" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
         <ion-label>{{g.titulo}}</ion-label>
         ${{g.monto| number}}

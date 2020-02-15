@@ -16,15 +16,17 @@ export class VentasPage implements OnInit {
   private clientes : Cliente[] = [];
   cliente : Cliente;
   ventas : Venta[] = [];
-  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[], documento: 0,idEmpresa:0,idUsuario:0};
+  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[], TipoDocumento: 0,idEmpresa:0,idUsuario:0};
   detalle = [];
+  bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
               private ventaService:VentaService,
               private toastController : ToastController,
               private alertController :AlertController,
-              private modalCtrl : ModalController) {
+              private modalCtrl : ModalController
+             ) {
       clienteService.listar().subscribe(clientes=>{
         this.clientes = clientes;
         console.log(clientes);
@@ -106,14 +108,14 @@ export class VentasPage implements OnInit {
       console.log(data);
     })
     this.ngOnInit();
-    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
   }
 
   public actualizarVenta(){
     this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
       console.log(venta);
       this.ngOnInit();
-      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
@@ -122,9 +124,22 @@ export class VentasPage implements OnInit {
       this.ngOnInit();
     })
   }
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+  }
+
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+  }
+
   async eliminar(opcion) {
     console.log(this.venta);
-
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>'+opcion+' UNA VENTA</strong>!!!',
@@ -200,37 +215,53 @@ export class VentasPage implements OnInit {
   }
   async opciones(venta) {
     console.log(venta)
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(venta.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
+    this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          venta.tipo=''+venta.tipo;
           this.venta = venta;
-          this.eliminar(opcion);
+          console.log(venta);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
-      }, {
+      },{
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.venta = venta;
           console.log(venta);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           venta.id == 0;
           this.venta = venta;
           this.venta.id = 0;
           console.log(this.venta);
         }
-      }, {
+      },{
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.venta = venta;
+          this.eliminar(opcion);
+        }
+      },{
         text: 'Cancelar',
         icon: 'close',
         role: 'cancel',
@@ -263,6 +294,4 @@ export class VentasPage implements OnInit {
     }
     return ventas;
   }
-
-
 }

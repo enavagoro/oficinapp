@@ -15,6 +15,8 @@ export class GastosPage implements OnInit {
   public gasto : Gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   tiposGastos = [];
   url : string;
+  bandera = false;
+  arregloInputs=[];
 
   constructor(
       public actionSheetController: ActionSheetController,
@@ -56,6 +58,35 @@ export class GastosPage implements OnInit {
       this.ngOnInit();
     })
   }
+  public verGasto(){
+    this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
+      console.log(gasto);
+      this.ngOnInit();
+      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+    })
+  }
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+
+    if(estado)
+    {
+      document.getElementById("seleccionador-archivo").classList.add('seleccionador-archivo-gris');
+    }
+    else{
+      document.getElementById("seleccionador-archivo").classList.remove('seleccionador-archivo-gris');
+    }
+  }
+
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+  }
+
   async eliminar(opcion) {
     console.log(this.gasto);
 
@@ -133,35 +164,51 @@ export class GastosPage implements OnInit {
   }
   async opciones(gasto) {
     console.log(gasto)
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(gasto.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
+    this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          gasto.tipo=''+gasto.tipo;
           this.gasto = gasto;
-          this.eliminar(opcion);
+          console.log(gasto);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
-      }, {
+      },{
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.gasto = gasto;
           console.log(gasto);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           gasto.id == 0;
           this.gasto = gasto;
           this.gasto.id = 0;
           console.log(this.gasto);
+        }
+      }, {
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.gasto = gasto;
+          this.eliminar(opcion);
         }
       }, {
         text: 'Cancelar',
