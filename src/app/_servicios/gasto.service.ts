@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
-import { Storage } from '@ionic/storage';
+
+import { StorageService } from './storage.service';
 
 export interface Gasto {
   id: number;
@@ -27,13 +28,8 @@ export class GastoService {
 
   idEmpresa = 0;
   idUsuario = 0;
-  constructor(private http: HttpClient,private storage : Storage) {
-    this.storage.get('idUsuario').then((value) => {
-      this.idUsuario = value;
-    });
-    this.storage.get('idEmpresa').then((value)=>{
-      this.idEmpresa = value;
-    });
+  constructor(private sService:StorageService,private http: HttpClient) {
+
   }
   guardar(form){
     console.log(form);
@@ -43,8 +39,9 @@ export class GastoService {
             console.log(event);
         });
   }
-  listar() {
-    var idEmpresa = sessionStorage.getItem("idEmpresa");
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -53,8 +50,6 @@ export class GastoService {
   }
 
   insertar(gasto : Gasto){
-    gasto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
-    gasto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

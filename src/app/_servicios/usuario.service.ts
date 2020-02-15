@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { StorageService } from './storage.service';
 
 export interface Usuario{
   id : number;
@@ -19,18 +19,14 @@ export class UsuarioService {
   private url: string = "http://178.128.71.20:3500";
   idEmpresa = 0;
   idUsuario = 0;
-  constructor(private http: HttpClient,private storage : Storage) {
-    this.storage.get('idUsuario').then((value) => {
-      this.idUsuario = value;
-    });
-    this.storage.get('idEmpresa').then((value)=>{
-      this.idEmpresa = value;
-    });
+  constructor(private sService:StorageService,private http: HttpClient) {
+
   }
 
 
-  listar() {
-
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<Usuario[]>(`${this.url}/api/usuarios/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -48,6 +44,7 @@ export class UsuarioService {
     return this.http.post<Usuario>(`${this.url}/api/usuarios/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 

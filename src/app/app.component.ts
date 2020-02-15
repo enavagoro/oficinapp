@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from './_servicios/app-util.service';
+import { StorageService } from './_servicios/storage.service';
+
 
 @Component({
   selector: 'app-root',
@@ -37,7 +39,7 @@ export class AppComponent {
   ];
 
   constructor(
-    //private nativeStorage: NativeStorage,
+    private sService : StorageService,
     private storage : Storage,
     private router : Router,
     private appUtil: AppUtilService,
@@ -47,7 +49,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-
+  
   initializeApp() {
     this.platform.ready().then(() => {
       //this.checkFingerPrint();

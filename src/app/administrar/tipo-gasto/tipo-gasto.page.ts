@@ -19,9 +19,14 @@ export class TipoGastoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().subscribe(gastos=>{
-      alert(gastos.length);
-      this.tipoGastos = gastos;
+    var self = this;
+    this.tipoGastoService.listar().then(gastos=>{
+      console.log(gastos);
+      gastos.subscribe(results=>{
+          self.tipoGastos = results;
+          console.log(results)
+      })
+
     })
   }
 
@@ -30,9 +35,10 @@ export class TipoGastoPage implements OnInit {
     this.tipoGasto.id = 0 + (this.tipoGastos.length + 1);
     this.tipoGastoService.insertar(this.tipoGasto).subscribe(tipoGasto=>{
       console.log('entra2');
+      this.ngOnInit();
+      this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+
   }
   public actualizarTipoGasto(){
     this.tipoGastoService.actualizar(this.tipoGasto.id,this.tipoGasto).subscribe(tipoGasto=>{

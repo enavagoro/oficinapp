@@ -27,6 +27,7 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { AuthGaurdService } from './_servicios/auth-gaurd.service';
 import { AuthenticationService } from './_servicios/authentication.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { StorageService } from './_servicios/storage.service';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { IonicStorageModule } from '@ionic/storage';
     TipoGastoService,
     TipoProductoService,
     GastoService,
+    StorageService,
     //Storage,
     VentaService,
     CotizacionService,

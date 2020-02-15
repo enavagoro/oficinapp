@@ -19,9 +19,9 @@ export class UsuarioPage implements OnInit {
 
               ngOnInit() {
                 this.usuarioService.listar().subscribe(usuarios=>{
-                  this.usuarios= usuarios;
-                  console.log(usuarios);
-                  this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+                  usuarios.subscribe(u=>{
+                    this.usuarios= u;
+                  })                  
                 })
               }
 

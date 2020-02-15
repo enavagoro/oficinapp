@@ -7,7 +7,6 @@ import { Storage } from '@ionic/storage';
 import { AppUtilService } from '../_servicios/app-util.service';
 import { FingerprintAIO ,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,7 +17,8 @@ export class LoginPage implements OnInit {
   fingerprintOptions : FingerprintOptions;
   clave = "";
   permitirDedo = false;
-  constructor(private fingerAuth: FingerprintAIO,
+  constructor(
+    private fingerAuth: FingerprintAIO,
     private storage : Storage,
     private authenticationService: AuthenticationService,
     private appUtil: AppUtilService,
@@ -30,7 +30,9 @@ export class LoginPage implements OnInit {
       .then(
         data => {
           //this.router.navigate(['/gastos'])
-          this.permitirDedo = true;
+          if(data){
+              this.permitirDedo = true;
+          }
         }
       );
     var menu = document.querySelector('ion-menu');

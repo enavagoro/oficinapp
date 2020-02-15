@@ -19,8 +19,10 @@ export class TipoProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoProductoService.listar().subscribe(gastos=>{
-      this.tipoProductos = gastos;
+    this.tipoProductoService.listar().then(gastos=>{
+      gastos.subscribe(g=>{
+        this.tipoProductos = g;
+      })
     })
   }
 

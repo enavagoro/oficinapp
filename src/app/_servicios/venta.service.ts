@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductoService, Producto } from '../_servicios/producto.service';
-import { Storage } from '@ionic/storage';
+import { StorageService } from './storage.service';
 
 export interface Venta {
   id: number;
@@ -23,20 +23,13 @@ export class VentaService {
   idEmpresa = 0;
 
   idUsuario = 0;
-  constructor(private http: HttpClient,private storage : Storage) {
-    (async function() {
-        this.idEmpresa = await this.storage.get('idEmpresa');
-    })()
-    this.storage.get('idUsuario').then((value) => {
-      this.idUsuario = value;
-    });
-    this.storage.get('idEmpresa').then((value)=>{
-      this.idEmpresa = value;
-    });
+  constructor(private sService:StorageService,private http: HttpClient) {
+
   }
 
-  listar() {
-
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<Venta[]>(`${this.url}/api/ventas/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -45,6 +38,7 @@ export class VentaService {
   }
 
   insertar(venta : Venta){
+    console.log(this.idEmpresa);
     return this.http.post<Venta>(`${this.url}/api/ventas/`,venta, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

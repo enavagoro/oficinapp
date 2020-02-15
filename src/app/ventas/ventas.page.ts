@@ -25,16 +25,21 @@ export class VentasPage implements OnInit {
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
-      clienteService.listar().subscribe(clientes=>{
-        this.clientes = clientes;
+      clienteService.listar().then(clientes=>{
+        clientes.subscribe(c=>{
+            this.clientes = c;
+        })
+
         console.log(clientes);
       })
   }
 
   ngOnInit() {
-    this.ventaService.listar().subscribe(ventas =>{
-      console.log(ventas);
-      this.ventas = ventas;
+    this.ventaService.listar().then(ventas =>{
+      ventas.subscribe(v=>{
+        this.ventas = v;
+      })
+
     })
   }
   encontrarCliente(id_cliente){
@@ -48,10 +53,7 @@ export class VentasPage implements OnInit {
   }
 
   public traerclientes(){
-    this.clienteService.listar().subscribe(clientes => {
-      console.log(clientes);
-      this.clientes = clientes;
-    })
+    this.ngOnInit();
   }
 
   filtrarCliente(){
@@ -104,9 +106,10 @@ export class VentasPage implements OnInit {
     this.venta.detalles = this.detalle;
     this.ventaService.insertar(this.venta).subscribe(data=>{
       console.log(data);
+      this.ngOnInit();
+      this.venta = {detalle:[],estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+
   }
 
   public actualizarVenta(){

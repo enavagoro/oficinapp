@@ -1,4 +1,6 @@
 <ion-content>
+
+
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">
@@ -7,6 +9,10 @@
     </ion-buttons>
     <ion-title>Crear Producto</ion-title>
   </ion-toolbar>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-list-header>
     Datos del Producto
