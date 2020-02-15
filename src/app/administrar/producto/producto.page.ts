@@ -23,15 +23,34 @@ export class ProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoProductoService.listar().subscribe(tipos=>{
-      this.tiposProductos = tipos;
+    this.tipoGastoService.listar().then(gastos=>{
+      console.log(gastos);
+      gastos.subscribe(results=>{
+          self.tipoGastos = results;
+          console.log(results)
+      })
+
     })
-    this.productoService.listar().subscribe(productos=>{
-      this.productos = productos;
-      console.log(productos);
+    this.tipoProductoService.listar().then(tipos=>{
+      tipos.subscribe(t=>{
+        this.tiposProductos = t;
+      })
+    })
+    this.productoService.listar().then(productos=>{
+
+      productos.subscribe(p=>{
+        this.productos = p;
+      })
     })
   }
+  doRefresh(event) {
+    console.log('Begin async operation');
 
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
   public guardarProducto(){
     console.log('entra');
     this.producto.id = 0 + (this.productos.length + 1);

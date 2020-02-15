@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductoService, Producto } from '../_servicios/producto.service';
+import { StorageService } from './storage.service';
 
 export interface Cliente {
   id: number;
@@ -35,24 +36,27 @@ export class ClienteService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  constructor(private http: HttpClient) { }
+  idEmpresa = 0;
+  idUsuario = 0;
+  constructor(private sService:StorageService,private http: HttpClient) {
 
-  listar() {
-    var idEmpresa = sessionStorage.getItem("idEmpresa");
-    console.log(idEmpresa);
+  }
+
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<Cliente[]>(`${this.url}/api/clientes/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',idEmpresa)
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 
   insertar(cliente : Cliente){
-    cliente.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
-    cliente.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Cliente>(`${this.url}/api/clientes/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
     });
 
   }

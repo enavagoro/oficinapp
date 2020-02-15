@@ -22,10 +22,10 @@ export class ClientePage implements OnInit {
               private modalCtrl : ModalController) {}
 
   ngOnInit() {
-    this.clienteService.listar().subscribe(clientes=>{
-      this.clientes= clientes;
-      console.log(clientes);
-      this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
+    this.clienteService.listar().then(clientes=>{
+      clientes.subscribe(c=>{
+        this.clientes= c;
+      })      
     })
   }
 

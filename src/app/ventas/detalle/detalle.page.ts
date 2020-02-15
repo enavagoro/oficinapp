@@ -37,11 +37,18 @@ export class DetallePage implements OnInit {
   }
 
   traerDatos(){
-    this.productoService.listar().subscribe(ps=>{
-      this.productos = ps;
+    this.productoService.listar().then(ps=>{
+      ps.subscribe(p=>{
+        this.productos = p.filter(this.filtros);;
+      })
     })
   }
-
+  filtros(gasto){
+    if(gasto.estado){
+      return true;
+    }
+    return false;
+  }
   insertar(){
   this.flag = true;
   }

@@ -1,5 +1,7 @@
 {
   "name": "oficinapp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

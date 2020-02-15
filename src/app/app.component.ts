@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from '@angular/router';
+//import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
+import { AppUtilService } from './_servicios/app-util.service';
+import { StorageService } from './_servicios/storage.service';
+
 
 @Component({
   selector: 'app-root',
@@ -31,6 +37,7 @@ export class AppComponent {
       icon: 'list'
     },*/
     {
+
       title: 'Administrar',
       url: '/administrar',
       icon: 'cog'
@@ -38,17 +45,47 @@ export class AppComponent {
   ];
 
   constructor(
+    private sService : StorageService,
+    private storage : Storage,
+    private router : Router,
+    private appUtil: AppUtilService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
   ) {
     this.initializeApp();
   }
-
+  
   initializeApp() {
     this.platform.ready().then(() => {
+      //this.checkFingerPrint();
+      /*
+      this.storage.get('idUsuario')
+        .then((val) => {
+          alert("idUsuario "+val);
+        });
+
+
+      if(sessionStorage.getItem('idUsuario')){
+        this.router.navigate(['/home'])
+      }else{
+        this.router.navigate(['/login'])
+      }
+      */
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+  checkFingerPrint() {
+
+    if (this.appUtil.isFingerprintAvailable) {
+      this.appUtil.presentFingerPrint()
+      .then((result: any) => {
+        this.router.navigate(['/home']);
+      })
+      .catch((error: any) => {
+        console.error('fingerprint : ', 'error');
+      });
+    }
   }
 }

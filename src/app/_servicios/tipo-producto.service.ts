@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { StorageService } from './storage.service';
 
 export interface TipoProducto{
   id:number;
@@ -17,23 +18,28 @@ export class TipoProductoService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  constructor(private http: HttpClient) { }
+  idEmpresa = 0;
+  idUsuario = 0;
+  constructor(private sService:StorageService,private http: HttpClient) {
 
-  listar() {
-    var idEmpresa = sessionStorage.getItem("idEmpresa");
+  }
+
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<TipoProducto[]>(`${this.url}/api/tipoProducto/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',idEmpresa)
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 
   insertar(tipoProducto : TipoProducto){
-    tipoProducto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
-    tipoProducto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
+    tipoProducto.idUsuario = this.idUsuario;
     return this.http.post<TipoProducto>(`${this.url}/api/tipoProducto/`,tipoProducto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 

@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
 
+import { StorageService } from './storage.service';
+
 export interface Gasto {
   id: number;
   titulo: string;
@@ -12,6 +14,7 @@ export interface Gasto {
   fecha: Date;
   documento: number;
   estado: number;
+  img : string;
   idEmpresa: number;
   idUsuario: number;
   tipoDocumento: number;
@@ -23,23 +26,34 @@ export class GastoService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  constructor(private http: HttpClient) { }
+  idEmpresa = 0;
+  idUsuario = 0;
+  constructor(private sService:StorageService,private http: HttpClient) {
 
-  listar() {
-    var idEmpresa = sessionStorage.getItem("idEmpresa");
+  }
+  guardar(form){
+    console.log(form);
+    form.append('idEmpresa',this.idEmpresa);
+    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            console.log(event);
+        });
+  }
+  async listar() {
+    this.idEmpresa = await this.sService.getIdEmpresa();
+    this.idUsuario = await this.sService.getIdUsuario();
     return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',idEmpresa)
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 
   insertar(gasto : Gasto){
-    gasto.idUsuario = parseInt(sessionStorage.getItem("idUsuario"));
-    gasto.idEmpresa = parseInt(sessionStorage.getItem("idEmpresa"));
     return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
 

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductoService, Producto } from '../_servicios/producto.service';
 
+
 export interface Cotizacion {
   id: number;
   usuario: number;
@@ -21,7 +22,7 @@ export class CotizacionService {
 
   constructor(private http: HttpClient) { }
 
-  listar() {
+  async listar() {
     return this.http.get<Cotizacion[]>(`${this.url}/api/cotizacion/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
