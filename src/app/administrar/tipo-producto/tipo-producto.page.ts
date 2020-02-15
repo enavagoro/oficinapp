@@ -11,6 +11,7 @@ import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-product
 export class TipoProductoPage implements OnInit {
   tipoProductos= [];
   public tipoProducto : TipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -49,6 +50,21 @@ export class TipoProductoPage implements OnInit {
       this.ngOnInit();
     })
   }
+
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+  }
+
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  }
+
   async eliminar(opcion) {
     console.log(this.tipoProducto);
 
@@ -126,35 +142,51 @@ export class TipoProductoPage implements OnInit {
   }
   async opciones(tipoProducto) {
     console.log(tipoProducto)
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(tipoProducto.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
+    this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          tipoProducto.tipo=''+tipoProducto.tipo;
           this.tipoProducto = tipoProducto;
-          this.eliminar(opcion);
+          console.log(tipoProducto);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
       }, {
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.tipoProducto = tipoProducto;
           console.log(tipoProducto);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           tipoProducto.id == 0;
           this.tipoProducto = tipoProducto;
           this.tipoProducto.id = 0;
           console.log(this.tipoProducto);
+        }
+      },{
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.tipoProducto = tipoProducto;
+          this.eliminar(opcion);
         }
       }, {
         text: 'Cancelar',

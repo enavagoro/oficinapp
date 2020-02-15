@@ -13,6 +13,8 @@ export class ProductoPage implements OnInit {
   productos = [];
   public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   tiposProductos = [];
+  bandera = false;
+
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
               private productoService : ProductoService,
@@ -72,6 +74,21 @@ export class ProductoPage implements OnInit {
       this.ngOnInit();
     })
   }
+
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  }
+
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+  }
+
   async eliminar(opcion) {
     console.log(this.producto);
 
@@ -97,7 +114,6 @@ export class ProductoPage implements OnInit {
 
     await alert.present();
   }
-
   async confirmarActualizar() {
     console.log(this.producto);
 
@@ -151,35 +167,51 @@ export class ProductoPage implements OnInit {
   async opciones(producto) {
     console.log('entró');
     console.log(producto);
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(producto.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
+    this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          producto.tipo=''+producto.tipo;
           this.producto = producto;
-          this.eliminar(opcion);
+          console.log(producto);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
-      }, {
+      },{
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.producto = producto;
           console.log(producto);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           producto.id == 0;
           this.producto = producto;
           this.producto.id = 0;
           console.log(this.producto);
+        }
+      }, {
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.producto = producto;
+          this.eliminar(opcion);
         }
       }, {
         text: 'Cancelar',

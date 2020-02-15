@@ -9,7 +9,7 @@ export interface Venta {
   id_cliente: number;
   fecha: Date;
   detalles : Array<Producto>;
-  documento: number;
+  TipoDocumento: number;
   estado: number;
   idEmpresa: number;
   idUsuario: number;

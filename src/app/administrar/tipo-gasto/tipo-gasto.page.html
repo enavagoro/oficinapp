@@ -24,13 +24,16 @@
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
         </ion-avatar>
-        <ion-label position="stacked" >Codigo<ion-text color="danger">*</ion-text></ion-label>
+        <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
         <ion-input name="codigo" [(ngModel)]="tipoGasto.codigo" required></ion-input>
       </ion-item>
 
-      <ion-button class="ion-button" *ngIf="tipoGasto.id == 0 " size="medium" (click)="confirmar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Guardar</ion-button>
-      <ion-button class="ion-button" *ngIf="tipoGasto.id != 0" size="medium" (click)="confirmarActualizar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Actualizar</ion-button>
+      <ion-button class="ion-button" *ngIf="tipoGasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Guardar</ion-button>
+      <ion-button class="ion-button" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Actualizar</ion-button>
+      <ion-button class="ion-button-cancelar" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
     </form>
+
   <ion-list-header>
     Lista de Tipos de Gastos
   </ion-list-header>
@@ -58,7 +61,7 @@
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!g.estado">
-          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+          <img src="https://image.flaticon.com/icons/svg/609/609147.svg" class="grayscale">
         </ion-avatar>
         <ion-label>{{g.titulo}}</ion-label>
         {{g.codigo}}

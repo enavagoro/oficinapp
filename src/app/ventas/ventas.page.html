@@ -11,33 +11,34 @@
   <ion-list-header>
     Ingrese una venta
   </ion-list-header>
+  <form>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+      </ion-avatar>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
-    </ion-avatar>
+      <ion-label>Tipo de Documento</ion-label>
+      <ion-select [(ngModel)]="venta.TipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
+        <ion-select-option>Boleta</ion-select-option>
+        <ion-select-option selected>Factura</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-    <ion-label>Tipo de Documento</ion-label>
-    <ion-select>
-      <ion-select-option>Boleta</ion-select-option>
-      <ion-select-option selected>Factura</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
-    </ion-avatar>
-    <ion-label>Fecha de Emisión</ion-label>
-    <ion-datetime placeholder="Select Date" [(ngModel)]="venta.fecha"></ion-datetime>
-  </ion-item>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
+      </ion-avatar>
+      <ion-label>Fecha de Emisión</ion-label>
+      <ion-datetime placeholder="Select Date" name="fecha" [(ngModel)]="venta.fecha" required [disabled]="bandera==true"></ion-datetime>
+    </ion-item>
+  </form>
 
   <ion-item>
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
     </ion-avatar>
     <ion-label position="stacked">SEÑOR(ES) <ion-text color="danger"></ion-text></ion-label>
-    <ion-input type="text" (keyup)="filtrarCliente()" [(ngModel)]="nombreCliente"></ion-input>
+    <ion-input type="text" (keyup)="filtrarCliente()" name="nombreCliente" [(ngModel)]="nombreCliente"></ion-input>
   </ion-item>
 
   <ion-list *ngIf="nombreCliente != ''">
@@ -114,17 +115,21 @@
     <ion-list-header>Detalle Productos</ion-list-header>
     <ion-item *ngFor="let p of detalle;index as i">
       <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1958/1958778.svg">
+        <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
-      <p>{{p.titulo}} a {{p.precio}} x {{p.cantidad}} <br> total {{p.precio * p.cantidad | number }}</p>
+      <p>Producto: {{p.titulo}} <br>
+         Precio: {{p.precio}} <br>
+         Cantidad: {{p.cantidad}} <br><br>
+         Total: {{p.precio * p.cantidad | number }}</p>
       <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
     </ion-item>
   </div>
 
   <ion-button size="medium" class="ion-button" (click)="abrirDetalle();" [disabled]="!cliente">Detalle</ion-button>
-  <ion-button class="ion-button2" *ngIf="venta.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
-  <ion-button class="ion-button2" *ngIf="venta.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
-
+  <ion-button class="ion-button2" *ngIf="venta.id == 0 && bandera==false " size="medium" (click)="confirmar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Guardar</ion-button>
+  <ion-button class="ion-button2" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Actualizar</ion-button>
+  <ion-button class="ion-button-cancelar" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+  <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 <!--
 <ion-list>
   <ion-list-header>
@@ -153,7 +158,7 @@
     <ion-list *ngIf="!verTodos">
       <ion-item *ngFor="let v of filtrarVentas()" (click)="opciones(v)">
         <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="/assets/icon/ventas.svg">
         </ion-avatar>
         <ion-label>{{encontrarCliente(v.id_cliente)}}</ion-label>
       </ion-item>
@@ -163,10 +168,10 @@
     <ion-list *ngIf="verTodos">
       <ion-item *ngFor="let v of ventas" (click)="opciones(v)">
         <ion-avatar slot="start" *ngIf="v.estado">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="/assets/icon/ventas.svg">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!v.estado">
-          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+          <img class="grayscale" src="/assets/icon/ventas.svg">
         </ion-avatar>
         <ion-label>{{encontrarCliente(v.id_cliente)}}</ion-label>
       </ion-item>

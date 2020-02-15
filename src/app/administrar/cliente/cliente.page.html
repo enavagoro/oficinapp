@@ -73,8 +73,11 @@
       <ion-input  [(ngModel)]="cliente.contacto" name="contacto" required></ion-input>
     </ion-item>
 
-    <ion-button class="ion-button" *ngIf="cliente.id == 0 " size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
-    <ion-button class="ion-button" *ngIf="cliente.id != 0" size="medium" (click)="confirmarActualizar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="cliente.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Actualizar</ion-button>
+    <ion-button class="ion-button-cancelar" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+
   </form>
   <ion-list-header>
     Lista de Clientes
@@ -103,7 +106,7 @@
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!c.estado">
-          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+          <img class="grayscale" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
         <ion-label>{{c.nombre}}</ion-label>
         {{c.rut}}

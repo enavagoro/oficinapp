@@ -29,13 +29,19 @@ export class AppComponent {
     {
       title: 'Gastos',
       url: '/gastos',
-      icon: 'cart'
-    },
+      icon: 'bicycle'
+    },/*
     {
+      title: 'Cotizaciones',
+      url: '/cotizaciones',
+      icon: 'list'
+    },*/
+    {
+
       title: 'Administrar',
       url: '/administrar',
       icon: 'cog'
-    }
+    },
   ];
 
   constructor(

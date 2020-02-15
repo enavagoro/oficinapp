@@ -13,6 +13,7 @@ export class ClientePage implements OnInit {
   clientes = [];
   public cliente : Cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
   public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService : ClienteService,
@@ -51,6 +52,18 @@ export class ClientePage implements OnInit {
       console.log(datos);
       this.ngOnInit();
     })
+  }
+  public deshabilitarInputs(estado){
+    var form = document.querySelector('form');
+    for (let i=0; i<form.elements.length; i++)
+    {
+      (form.elements[i] as any).disabled=estado;
+    }
+  }
+  public cancelar(){
+    this.bandera=false;
+    this.deshabilitarInputs(false);
+    this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
   }
   async eliminar(opcion) {
     console.log(this.cliente);
@@ -129,37 +142,53 @@ export class ClientePage implements OnInit {
   }
   async opciones(cliente) {
     console.log(cliente)
-    var opcion = "BORRAR";
+    var opcion = "Borrar";
     if(cliente.estado == 0){
-      opcion = "RECUPERAR"
+      opcion = "Recuperar"
     }
+    this.deshabilitarInputs(false);
+    this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: 'Opciones',
       buttons: [{
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
+        text: 'Ver',
+        icon: 'eye',
         handler: () => {
+          cliente.tipo=''+cliente.tipo;
           this.cliente = cliente;
-          this.eliminar(opcion);
+          console.log(cliente);
+          console.log('bandera',this.bandera);
+          this.deshabilitarInputs(true);
+          this.bandera=true;
         }
       }, {
         text: 'Actualizar',
-        icon: 'share',
+        icon: 'sync',
         handler: () => {
+          this.bandera=false;
           this.cliente = cliente;
           console.log(cliente);
         }
       },{
         text: 'Duplicar',
-        icon: 'heart',
+        icon: 'albums',
         handler: () => {
+          this.bandera=false;
           cliente.id == 0;
           this.cliente = cliente;
           this.cliente.id = 0;
           console.log(this.cliente);
         }
       }, {
+        text: opcion,
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.bandera=false;
+          this.cliente = cliente;
+          this.eliminar(opcion);
+        }
+      },{
         text: 'Cancelar',
         icon: 'close',
         role: 'cancel',
