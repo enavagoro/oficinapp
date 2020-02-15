@@ -7,6 +7,8 @@ import { DetalleService } from '../_servicios/detalle.service';
 
 import * as jsPDF from 'jspdf';
 import { Chart } from "chart.js";
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -31,7 +33,9 @@ export class HomePage {
 
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
 
+
   constructor(public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
+
     pService.listar().subscribe(ps =>{
       this.addActivos(this.productos,ps)
     })
@@ -41,6 +45,10 @@ export class HomePage {
     cService.listar().subscribe(cs=>{
       this.addActivos(this.clientes,cs);
     })
+
+    var menu = document.querySelector('ion-menu')
+    menu.hidden = false;
+
     vService.listar().subscribe(vs=>{
       this.ventas = vs;
         for (let i=0; i<this.ventas.length; i++)
@@ -64,6 +72,7 @@ export class HomePage {
         }
 
       })
+
   }
 
   filtrarVentaMes(){
@@ -114,6 +123,10 @@ export class HomePage {
         original.push(arr[i]);
       }
     }
+  }
+  deslogear(){
+    this.storage.clear();
+    this.router.navigate(['/login']);
   }
   ngAfterViewInit(){
     this.dibujarGrafico();

@@ -41,6 +41,7 @@
     </ion-item>
 
     <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
-
+    <ion-button class="ion-button" size="medium" (click)="loginWithFingerprint()" *ngIf="permitirDedo">DEDITO</ion-button>
+    <ion-button class="ion-button" size="medium" (click)="alert()">alert nombre</ion-button>
   </div>
 </ion-content>

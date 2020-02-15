@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 export interface Usuario{
   id : number;
@@ -16,15 +17,24 @@ export interface Usuario{
 export class UsuarioService {
 
   private url: string = "http://178.128.71.20:3500";
+  idEmpresa = 0;
+  idUsuario = 0;
+  constructor(private http: HttpClient,private storage : Storage) {
+    this.storage.get('idUsuario').then((value) => {
+      this.idUsuario = value;
+    });
+    this.storage.get('idEmpresa').then((value)=>{
+      this.idEmpresa = value;
+    });
+  }
 
-  constructor(private http: HttpClient) { }
 
   listar() {
-    var idEmpresa = sessionStorage.getItem("idEmpresa");
+
     return this.http.get<Usuario[]>(`${this.url}/api/usuarios/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',idEmpresa)
+      .set('idEmpresa',""+this.idEmpresa)
     });
   }
   login(usuario,clave){
