@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">

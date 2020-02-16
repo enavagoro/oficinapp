@@ -55,7 +55,10 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-  
+  cerrarSesion(){    
+    this.storage.clear();
+    this.router.navigate(['/home'], {replaceUrl: true});
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       //this.checkFingerPrint();

@@ -25,7 +25,7 @@ export class DetallePage implements OnInit {
 
   constructor(private navParams : NavParams, private productoService: ProductoService,private modalCtrl : ModalController) {
       var ps = navParams.get("detalle");
-      console.log(ps);
+      //console.log(ps);
       if(ps){
         this.detalle = ps;
       }
@@ -59,18 +59,18 @@ export class DetallePage implements OnInit {
     this.detalle.push(d);
     this.cantidad = undefined;
     this.producto = undefined;
-    console.log(this.detalle);
+    //console.log(this.detalle);
   }
 
   borrar(index){
-    console.log(index);
+    //console.log(index);
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
         nuevo.push(this.detalle[i]);
       }
     }
-    console.log(nuevo);
+    //console.log(nuevo);
     this.detalle = nuevo;
   }
 

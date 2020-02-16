@@ -26,12 +26,18 @@ export class TipoProductoPage implements OnInit {
       })
     })
   }
+  refrescar(event) {
+    setTimeout(() => {
+
+      event.target.complete();
+    }, 2000);
+  }
 
   public guardarTipoProducto(){
-    console.log('entra');
+    //console.log('entra');
     this.tipoProducto.id = 0 + (this.tipoProductos.length + 1);
     this.tipoProductoService.insertar(this.tipoProducto).subscribe(tipoProducto=>{
-      console.log('entra2');
+      //console.log('entra2');
       this.ngOnInit();
       this.tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
@@ -39,14 +45,14 @@ export class TipoProductoPage implements OnInit {
   }
   public actualizarTipoProducto(){
     this.tipoProductoService.actualizar(this.tipoProducto.id,this.tipoProducto).subscribe(tipoProducto=>{
-      console.log(tipoProducto);
+      //console.log(tipoProducto);
       this.ngOnInit();
       this.tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
     this.tipoProductoService.borrar(this.tipoProducto.id,this.tipoProducto).subscribe(datos=>{
-      console.log(datos);
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -66,7 +72,7 @@ export class TipoProductoPage implements OnInit {
   }
 
   async eliminar(opcion) {
-    console.log(this.tipoProducto);
+    //console.log(this.tipoProducto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -77,7 +83,7 @@ export class TipoProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -91,7 +97,7 @@ export class TipoProductoPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.tipoProducto);
+    //console.log(this.tipoProducto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -102,7 +108,7 @@ export class TipoProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -116,7 +122,7 @@ export class TipoProductoPage implements OnInit {
     await alert.present();
   }
   async confirmar() {
-    console.log(this.tipoProducto);
+    //console.log(this.tipoProducto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -127,7 +133,7 @@ export class TipoProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -141,7 +147,7 @@ export class TipoProductoPage implements OnInit {
     await alert.present();
   }
   async opciones(tipoProducto) {
-    console.log(tipoProducto)
+    //console.log(tipoProducto)
     var opcion = "Borrar";
     if(tipoProducto.estado == 0){
       opcion = "Recuperar"
@@ -156,8 +162,8 @@ export class TipoProductoPage implements OnInit {
         handler: () => {
           tipoProducto.tipo=''+tipoProducto.tipo;
           this.tipoProducto = tipoProducto;
-          console.log(tipoProducto);
-          console.log('bandera',this.bandera);
+          //console.log(tipoProducto);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -167,7 +173,7 @@ export class TipoProductoPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.tipoProducto = tipoProducto;
-          console.log(tipoProducto);
+          //console.log(tipoProducto);
         }
       },{
         text: 'Duplicar',
@@ -177,7 +183,7 @@ export class TipoProductoPage implements OnInit {
           tipoProducto.id == 0;
           this.tipoProducto = tipoProducto;
           this.tipoProducto.id = 0;
-          console.log(this.tipoProducto);
+          //console.log(this.tipoProducto);
         }
       },{
         text: opcion,
@@ -193,7 +199,7 @@ export class TipoProductoPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });

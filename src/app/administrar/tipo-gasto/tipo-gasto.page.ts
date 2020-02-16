@@ -22,20 +22,25 @@ export class TipoGastoPage implements OnInit {
   ngOnInit() {
     var self = this;
     this.tipoGastoService.listar().then(gastos=>{
-      console.log(gastos);
+      //console.log(gastos);
       gastos.subscribe(results=>{
           self.tipoGastos = results;
-          console.log(results)
+          //console.log(results)
       })
 
     })
   }
+  refrescar(event) {
+    setTimeout(() => {
 
+      event.target.complete();
+    }, 2000);
+  }
   public guardarTipoGasto(){
-    console.log('entra');
+    //console.log('entra');
     this.tipoGasto.id = 0 + (this.tipoGastos.length + 1);
     this.tipoGastoService.insertar(this.tipoGasto).subscribe(tipoGasto=>{
-      console.log('entra2');
+      //console.log('entra2');
       this.ngOnInit();
       this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
@@ -43,14 +48,14 @@ export class TipoGastoPage implements OnInit {
   }
   public actualizarTipoGasto(){
     this.tipoGastoService.actualizar(this.tipoGasto.id,this.tipoGasto).subscribe(tipoGasto=>{
-      console.log(tipoGasto);
+      //console.log(tipoGasto);
       this.ngOnInit();
       this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
     this.tipoGastoService.borrar(this.tipoGasto.id,this.tipoGasto).subscribe(datos=>{
-      console.log(datos);
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -70,7 +75,7 @@ export class TipoGastoPage implements OnInit {
   }
 
   async eliminar(opcion) {
-    console.log(this.tipoGasto);
+    //console.log(this.tipoGasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -81,7 +86,7 @@ export class TipoGastoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -95,7 +100,7 @@ export class TipoGastoPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.tipoGasto);
+    //console.log(this.tipoGasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -106,7 +111,7 @@ export class TipoGastoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -120,7 +125,7 @@ export class TipoGastoPage implements OnInit {
     await alert.present();
   }
   async confirmar() {
-    console.log(this.tipoGasto);
+    //console.log(this.tipoGasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -131,7 +136,7 @@ export class TipoGastoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -145,7 +150,7 @@ export class TipoGastoPage implements OnInit {
     await alert.present();
   }
   async opciones(tipoGasto) {
-    console.log(tipoGasto)
+    //console.log(tipoGasto)
     var opcion = "Borrar";
     if(tipoGasto.estado == 0){
       opcion = "Recuperar"
@@ -159,8 +164,8 @@ export class TipoGastoPage implements OnInit {
         handler: () => {
           tipoGasto.tipo=''+tipoGasto.tipo;
           this.tipoGasto = tipoGasto;
-          console.log(tipoGasto);
-          console.log('bandera',this.bandera);
+          //console.log(tipoGasto);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -170,7 +175,7 @@ export class TipoGastoPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.tipoGasto = tipoGasto;
-          console.log(tipoGasto);
+          //console.log(tipoGasto);
         }
       },{
         text: 'Duplicar',
@@ -180,7 +185,7 @@ export class TipoGastoPage implements OnInit {
           tipoGasto.id == 0;
           this.tipoGasto = tipoGasto;
           this.tipoGasto.id = 0;
-          console.log(this.tipoGasto);
+          //console.log(this.tipoGasto);
         }
       }, {
         text: opcion,
@@ -196,7 +201,7 @@ export class TipoGastoPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });

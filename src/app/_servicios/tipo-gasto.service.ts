@@ -26,10 +26,10 @@ export class TipoGastoService {
   }
 
   async listar() {
-    console.log("LISTAR");
+    //console.log("LISTAR");
     this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
     this.idUsuario = (await this.sService.getIdUsuario()).toString();
-    console.log("con async ",this.idEmpresa)
+    //console.log("con async ",this.idEmpresa)
     return this.http.get<TipoGasto[]>(`${this.url}/api/tipoGasto/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

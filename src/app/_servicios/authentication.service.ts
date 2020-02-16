@@ -30,7 +30,7 @@ export class AuthenticationService {
     var userService = this.injector.get(UsuarioService);
     var res = await userService.login(userId,password);
     this.storeUserData({id:2, nombre:'admin',apellido:' admin' ,correo:' admin' ,clave:' admin' ,estado : 1 })
-    console.log(res);
+    //console.log(res);
     const promise = new Promise((resolve, reject ) => {
           res.subscribe(datos=>{
             resolve(datos)
@@ -40,8 +40,8 @@ export class AuthenticationService {
     /*
     const promise = new Promise((resolve, reject ) => {
       if (this.userList[userId] !== undefined) {
-        console.log(this.userList[userId].password, ' : json password');
-        console.log(password, ' : password');
+        //console.log(this.userList[userId].password, ' : json password');
+        //console.log(password, ' : password');
         if (this.userList[userId].password === password) {
           const user = new User();
           user.userId = userId;
@@ -76,9 +76,9 @@ export class AuthenticationService {
     let userData: Usuario;
     await this.storage.get('usuario').then((value => {
          userData = value;
-         console.log('User Data 1:', userData);
+         //console.log('User Data 1:', userData);
     }));
-    console.log('User Data 2:', userData);
+    //console.log('User Data 2:', userData);
     return userData;
   }
 

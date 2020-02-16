@@ -44,7 +44,6 @@ export class LoginPage implements OnInit {
     if (this.appUtil.isFingerprintAvailable) {
       this.appUtil.presentFingerPrint()
       .then((result: any) => {
-        alert(result);
         //window.location.href = "/gastos";
         this.router.navigate(['/home'], {replaceUrl: true});
       })
@@ -55,21 +54,10 @@ export class LoginPage implements OnInit {
     }
 
   }
-  async alert(){
-    this.storage.get('usuario').then((value) => {
-      alert(value.nombre);
-    });
-    this.storage.get('idUsuario').then((value) => {
-      alert("idusuario : "+value);
-    });
-    this.storage.get('idEmpresa').then((value)=>{
-      alert("idEmpresa : "+value);
-    });
 
-  }
   async login(){
     this.authenticationService.login(this.usuario,this.clave).then(datos=>{
-      console.log(datos);
+      //console.log(datos);
       var i = 0 ;
       var datas = []
       for(let obj in datos){
@@ -83,8 +71,8 @@ export class LoginPage implements OnInit {
         var empresa = datos[datas[1]][0].id;
         this.storage.set('idUsuario', usuario);
         this.storage.set('idEmpresa', empresa)
-        console.log(usuario);
-        console.log(empresa);
+        //console.log(usuario);
+        //console.log(empresa);
         this.router.navigate(['/home'], {replaceUrl: true});
       }
     })

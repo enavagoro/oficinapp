@@ -32,11 +32,11 @@ export class GastoService {
 
   }
   guardar(form){
-    console.log(form);
+    //console.log(form);
     form.append('idEmpresa',this.idEmpresa);
     this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
-            console.log(event);
+            //console.log(event);
         });
   }
   async listar() {

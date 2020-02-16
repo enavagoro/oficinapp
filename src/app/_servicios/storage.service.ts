@@ -18,7 +18,7 @@ export class StorageService {
     });
     this.storage.get('idEmpresa').then((value)=>{
       this.idEmpresa = value;
-      console.log(value)
+      //console.log(value)
     });
   }
 

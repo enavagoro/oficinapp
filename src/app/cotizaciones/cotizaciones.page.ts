@@ -34,7 +34,7 @@ export class CotizacionesPage implements OnInit {
     /*
     this.productoService.listar().subscribe(ps=>{
       this.productos = ps;
-      console.log(ps);
+      //console.log(ps);
 
     })
 
@@ -45,19 +45,19 @@ export class CotizacionesPage implements OnInit {
   }
 
   public guardarCotizacion(){
-    console.log('entra');
+    //console.log('entra');
     this.cotizacion.id = 0 + (this.cotizaciones.length + 1);
     /*this.cotizacion.id_cliente = this.cliente.id; */
     this.cotizacion.detalle = this.detalle;
     this.cotizacionService.insertar(this.cotizacion).subscribe(data=>{
-      console.log(data);
+      //console.log(data);
     })
     this.ngOnInit();
     this.cotizacion = {estado:0,id:0,usuario:0,fecha:new Date(),detalle:[],idEmpresa:0,idUsuario:0};
   }
 
   async confirmar() {
-    console.log(this.cotizacion);
+    //console.log(this.cotizacion);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -68,7 +68,7 @@ export class CotizacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -90,18 +90,18 @@ export class CotizacionesPage implements OnInit {
     this.detalle.push(d);
     this.cantidad = undefined;
     this.producto = undefined;
-    console.log(this.detalle);
+    //console.log(this.detalle);
   }
 
   borrar(index){
-    console.log(index);
+    //console.log(index);
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
         nuevo.push(this.detalle[i]);
       }
     }
-    console.log(nuevo);
+    //console.log(nuevo);
     this.detalle = nuevo;
   }
 
@@ -125,7 +125,7 @@ export class CotizacionesPage implements OnInit {
     this.nombreCliente = cliente.nombre;
     this.cliente = cliente;
     this.filtrarCliente();
-    console.log(cliente);
+    //console.log(cliente);
   }
 
 

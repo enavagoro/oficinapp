@@ -28,10 +28,10 @@ export class UsuarioPage implements OnInit {
               }
 
               public guardarUsuario(){
-                console.log('entra');
+                //console.log('entra');
                 this.usuario.id = 0 + (this.usuarios.length + 1);
                 this.usuarioService.insertar(this.usuario).subscribe(usuario=>{
-                  console.log('entra2');
+                  //console.log('entra2');
                   this.ngOnInit();
                   this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
                 })
@@ -40,19 +40,19 @@ export class UsuarioPage implements OnInit {
 
               public actualizarUsuario(){
                 this.usuarioService.actualizar(this.usuario.id,this.usuario).subscribe(usuario=>{
-                  console.log(usuario);
+                  //console.log(usuario);
                   this.ngOnInit();
                   this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
                 })
               }
               public eliminacionLogica(){
                 this.usuarioService.borrar(this.usuario.id,this.usuario).subscribe(datos=>{
-                  console.log(datos);
+                  //console.log(datos);
                   this.ngOnInit();
                 })
               }
               async eliminar(opcion) {
-                console.log(this.usuario);
+                //console.log(this.usuario);
 
                 const alert = await this.alertController.create({
                   header: 'Favor confirmar!',
@@ -63,7 +63,7 @@ export class UsuarioPage implements OnInit {
                       role: 'cancel',
                       cssClass: 'secondary',
                       handler: (blah) => {
-                        console.log('Cancelado');
+                        //console.log('Cancelado');
                       }
                     }, {
                       text: 'Okay',
@@ -77,7 +77,7 @@ export class UsuarioPage implements OnInit {
                 await alert.present();
               }
               async confirmarActualizar() {
-                console.log(this.usuario);
+                //console.log(this.usuario);
 
                 const alert = await this.alertController.create({
                   header: 'Favor confirmar!',
@@ -88,7 +88,7 @@ export class UsuarioPage implements OnInit {
                       role: 'cancel',
                       cssClass: 'secondary',
                       handler: (blah) => {
-                        console.log('Cancelado');
+                        //console.log('Cancelado');
                       }
                     }, {
                       text: 'Okay',
@@ -102,7 +102,7 @@ export class UsuarioPage implements OnInit {
                 await alert.present();
               }
               async confirmar() {
-                console.log(this.usuario);
+                //console.log(this.usuario);
 
                 const alert = await this.alertController.create({
                   header: 'Favor confirmar!',
@@ -113,7 +113,7 @@ export class UsuarioPage implements OnInit {
                       role: 'cancel',
                       cssClass: 'secondary',
                       handler: (blah) => {
-                        console.log('Cancelado');
+                        //console.log('Cancelado');
                       }
                     }, {
                       text: 'Okay',
@@ -127,7 +127,7 @@ export class UsuarioPage implements OnInit {
                 await alert.present();
               }
               async opciones(usuario) {
-                console.log(usuario)
+                //console.log(usuario)
                 var opcion = "BORRAR";
                 if(usuario.estado == 0){
                   opcion = "RECUPERAR"
@@ -147,7 +147,7 @@ export class UsuarioPage implements OnInit {
                     icon: 'share',
                     handler: () => {
                       this.usuario = usuario;
-                      console.log(usuario);
+                      //console.log(usuario);
                     }
                   },{
                     text: 'Duplicar',
@@ -156,14 +156,14 @@ export class UsuarioPage implements OnInit {
                       usuario.id == 0;
                       this.usuario = usuario;
                       this.usuario.id = 0;
-                      console.log(this.usuario);
+                      //console.log(this.usuario);
                     }
                   }, {
                     text: 'Cancelar',
                     icon: 'close',
                     role: 'cancel',
                     handler: () => {
-                      console.log('Cancel clicked');
+                      //console.log('Cancel clicked');
                     }
                   }]
                 });

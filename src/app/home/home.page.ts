@@ -43,7 +43,7 @@ export class HomePage {
 
 
   constructor(public router:Router,public storage:Storage,public tService :TipoGastoService,public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
-    console.log("constructor");
+    //console.log("constructor");
     pService.listar().then(ps =>{
       ps.subscribe(p=>{
         this.productos = p.filter(this.filtros);
@@ -55,7 +55,7 @@ export class HomePage {
         gService.listar().then(gs=>{
           gs.subscribe(g=>{
               this.gastos = g.filter(this.filtros);
-              console.log(this.gastos);
+              //console.log(this.gastos);
               for(let gasto of this.gastos){
 
                 var fechaTemporal = new Date(gasto.fecha);
@@ -72,7 +72,7 @@ export class HomePage {
                   this.listaGastos[this.tiposGastos[gasto.tipo].titulo] += 1;
                 }
               }
-              console.log(this.listaGastos)
+              //console.log(this.listaGastos)
           })
 
         })
@@ -94,9 +94,9 @@ export class HomePage {
         for (let i=0; i<this.ventas.length; i++)
         {
 
-          console.log("entre");
+          //console.log("entre");
           dService.listar(this.ventas[i].id).subscribe(ds=>{
-            console.log("esto es el ds:",ds);
+            //console.log("esto es el ds:",ds);
             var fechaTemporal = new Date(this.ventas[contador].fecha);
             let fecha= new Date();
             contador ++;
@@ -117,7 +117,7 @@ export class HomePage {
               }
 
             }
-            console.log('lista producto:',this.listaProductos);
+            //console.log('lista producto:',this.listaProductos);
             if(contador == this.ventas.length){
                 this.dibujarGrafico();
             }
@@ -204,7 +204,7 @@ export class HomePage {
 
     for (let i = 0; i<this.detalles.length; i++)
     {
-      console.log('detalle:',this.detalles[i]);
+      //console.log('detalle:',this.detalles[i]);
     }
   }
 
@@ -223,12 +223,12 @@ export class HomePage {
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
     var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
-    console.log(rgb)
+    //console.log(rgb)
     return rgb;
   }
 
   dibujarGrafico(){
-    console.log("dibujao");
+    //console.log("dibujao");
     if(this.labels.length == 0){
       return ;
     }

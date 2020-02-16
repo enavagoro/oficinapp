@@ -41,6 +41,12 @@ export class VentasPage implements OnInit {
 
     })
   }
+  refrescar(event) {
+    setTimeout(() => {
+
+      event.target.complete();
+    }, 2000);
+  }
   encontrarCliente(id_cliente){
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
@@ -54,7 +60,12 @@ export class VentasPage implements OnInit {
   public traerclientes(){
     this.ngOnInit();
   }
+  refrescar(event) {
+    setTimeout(() => {
 
+      event.target.complete();
+    }, 2000);
+  }
   filtrarCliente(){
     this.clientesFiltrado = [];
 
@@ -75,7 +86,7 @@ export class VentasPage implements OnInit {
     this.nombreCliente = cliente.nombre;
     this.cliente = cliente;
     this.filtrarCliente();
-    console.log(cliente);
+    //console.log(cliente);
   }
 
   async abrirDetalle() {
@@ -90,7 +101,7 @@ export class VentasPage implements OnInit {
 
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
-        console.log("detalle conseguido",modal.data);
+        //console.log("detalle conseguido",modal.data);
         this.detalle = modal.data;
       }
     });
@@ -99,12 +110,12 @@ export class VentasPage implements OnInit {
   }
 
   public guardarVenta(){
-    console.log('entra');
+    //console.log('entra');
     this.venta.id = 0 + (this.ventas.length + 1);
     this.venta.id_cliente = this.cliente.id;
     this.venta.detalles = this.detalle;
     this.ventaService.insertar(this.venta).subscribe(data=>{
-      console.log(data);
+      //console.log(data);
       this.ngOnInit();
       this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
     })
@@ -112,14 +123,14 @@ export class VentasPage implements OnInit {
 
   public actualizarVenta(){
     this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
-      console.log(venta);
+      //console.log(venta);
       this.ngOnInit();
       this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
     this.ventaService.borrar(this.venta.id,this.venta).subscribe(datos=>{
-      console.log(datos);
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -138,7 +149,7 @@ export class VentasPage implements OnInit {
   }
 
   async eliminar(opcion) {
-    console.log(this.venta);
+    //console.log(this.venta);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>'+opcion+' UNA VENTA</strong>!!!',
@@ -148,7 +159,7 @@ export class VentasPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -162,7 +173,7 @@ export class VentasPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.venta);
+    //console.log(this.venta);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -173,7 +184,7 @@ export class VentasPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -188,7 +199,7 @@ export class VentasPage implements OnInit {
   }
 
   async confirmar() {
-    console.log(this.venta);
+    //console.log(this.venta);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -199,7 +210,7 @@ export class VentasPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -213,7 +224,7 @@ export class VentasPage implements OnInit {
     await alert.present();
   }
   async opciones(venta) {
-    console.log(venta)
+    //console.log(venta)
     var opcion = "Borrar";
     if(venta.estado == 0){
       opcion = "Recuperar"
@@ -228,8 +239,8 @@ export class VentasPage implements OnInit {
         handler: () => {
           venta.tipo=''+venta.tipo;
           this.venta = venta;
-          console.log(venta);
-          console.log('bandera',this.bandera);
+          //console.log(venta);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -239,7 +250,7 @@ export class VentasPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.venta = venta;
-          console.log(venta);
+          //console.log(venta);
         }
       },{
         text: 'Duplicar',
@@ -249,7 +260,7 @@ export class VentasPage implements OnInit {
           venta.id == 0;
           this.venta = venta;
           this.venta.id = 0;
-          console.log(this.venta);
+          //console.log(this.venta);
         }
       },{
         text: opcion,
@@ -265,7 +276,7 @@ export class VentasPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });
@@ -273,14 +284,14 @@ export class VentasPage implements OnInit {
   }
 
   borrar(index){
-    console.log(index);
+    //console.log(index);
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
         nuevo.push(this.detalle[i]);
       }
     }
-    console.log(nuevo);
+    //console.log(nuevo);
     this.detalle = nuevo;
   }
 

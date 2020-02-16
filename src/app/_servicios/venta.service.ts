@@ -37,7 +37,7 @@ export class VentaService {
   }
 
   insertar(venta : Venta){
-    console.log(this.idEmpresa);
+    //console.log(this.idEmpresa);
     return this.http.post<Venta>(`${this.url}/api/ventas/`,venta, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
