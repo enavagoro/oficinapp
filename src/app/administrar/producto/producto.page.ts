@@ -23,10 +23,11 @@ export class ProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().then(gastos=>{
-      console.log(gastos);
-      gastos.subscribe(results=>{
-          self.tipoGastos = results;
+    var self = this;
+    this.tipoProductoService.listar().then(productos=>{
+      console.log(productos);
+      productos.subscribe(results=>{
+          self.tiposProductos = results;
           console.log(results)
       })
 

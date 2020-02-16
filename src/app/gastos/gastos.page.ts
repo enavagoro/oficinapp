@@ -83,7 +83,7 @@ export class GastosPage implements OnInit {
     this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
       console.log(gasto);
       this.ngOnInit();
-      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+      this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
   public deshabilitarInputs(estado){
@@ -105,7 +105,7 @@ export class GastosPage implements OnInit {
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
-    this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+    this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
 
   async eliminar(opcion) {

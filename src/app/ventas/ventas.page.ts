@@ -16,7 +16,7 @@ export class VentasPage implements OnInit {
   private clientes : Cliente[] = [];
   cliente : Cliente;
   ventas : Venta[] = [];
-  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[], TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
 
@@ -106,7 +106,7 @@ export class VentasPage implements OnInit {
     this.ventaService.insertar(this.venta).subscribe(data=>{
       console.log(data);
       this.ngOnInit();
-      this.venta = {detalle:[],estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
+      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
     })
   }
 
@@ -114,7 +114,7 @@ export class VentasPage implements OnInit {
     this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
       console.log(venta);
       this.ngOnInit();
-      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
@@ -134,7 +134,7 @@ export class VentasPage implements OnInit {
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
-    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   }
 
   async eliminar(opcion) {

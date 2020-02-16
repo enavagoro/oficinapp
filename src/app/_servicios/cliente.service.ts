@@ -36,15 +36,15 @@ export class ClienteService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  idEmpresa = 0;
-  idUsuario = 0;
+  idEmpresa = '';
+  idUsuario = '';
   constructor(private sService:StorageService,private http: HttpClient) {
 
   }
 
   async listar() {
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
+    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
+    this.idUsuario = (await this.sService.getIdUsuario()).toString();
     return this.http.get<Cliente[]>(`${this.url}/api/clientes/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

@@ -19,16 +19,16 @@ export class TipoGastoService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  idEmpresa = 0;
-  idUsuario = 0;
+  idEmpresa = '';
+  idUsuario = '';
   constructor(private sService:StorageService,private http: HttpClient) {
-    
+
   }
 
   async listar() {
     console.log("LISTAR");
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
+    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
+    this.idUsuario = (await this.sService.getIdUsuario()).toString();
     console.log("con async ",this.idEmpresa)
     return this.http.get<TipoGasto[]>(`${this.url}/api/tipoGasto/`,{
       headers: new HttpHeaders()

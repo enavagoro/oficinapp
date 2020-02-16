@@ -18,15 +18,15 @@ export class TipoProductoService {
 
   private url: string = "http://178.128.71.20:3500";
 
-  idEmpresa = 0;
-  idUsuario = 0;
+  idEmpresa = '';
+  idUsuario = '';
   constructor(private sService:StorageService,private http: HttpClient) {
 
   }
 
   async listar() {
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
+    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
+    this.idUsuario = (await this.sService.getIdUsuario()).toString();
     return this.http.get<TipoProducto[]>(`${this.url}/api/tipoProducto/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -35,7 +35,7 @@ export class TipoProductoService {
   }
 
   insertar(tipoProducto : TipoProducto){
-    tipoProducto.idUsuario = this.idUsuario;
+    tipoProducto.idUsuario = parseInt(this.idUsuario);
     return this.http.post<TipoProducto>(`${this.url}/api/tipoProducto/`,tipoProducto, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

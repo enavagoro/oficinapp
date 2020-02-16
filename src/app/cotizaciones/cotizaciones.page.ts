@@ -31,6 +31,7 @@ export class CotizacionesPage implements OnInit {
   }
 
   traerDatos(){
+    /*
     this.productoService.listar().subscribe(ps=>{
       this.productos = ps;
       console.log(ps);
@@ -40,6 +41,7 @@ export class CotizacionesPage implements OnInit {
     this.clienteService.listar().subscribe(ps=>{
       this.clientes = ps;
     })
+    */
   }
 
   public guardarCotizacion(){
