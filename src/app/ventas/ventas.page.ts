@@ -41,12 +41,7 @@ export class VentasPage implements OnInit {
 
     })
   }
-  refrescar(event) {
-    setTimeout(() => {
 
-      event.target.complete();
-    }, 2000);
-  }
   encontrarCliente(id_cliente){
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
