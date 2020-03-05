@@ -23,7 +23,6 @@ export class GastosPage implements OnInit {
   bandera = false;
   arregloInputs=[];
 
-
   constructor(
       public storage : Storage,
       public actionSheetController: ActionSheetController,
