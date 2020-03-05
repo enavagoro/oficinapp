@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { EmpresaService } from './_servicios/empresa.service';
 import { UsuarioService } from './_servicios/usuario.service';
 import { ClienteService } from './_servicios/cliente.service';
 import { ProductoService } from './_servicios/producto.service';
@@ -49,6 +50,7 @@ import { StorageService } from './_servicios/storage.service';
     AuthenticationService,
     AppUtilService,
     //NativeStorage,
+    EmpresaService,
     UsuarioService,
     ClienteService,
     ProductoService,

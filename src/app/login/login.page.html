@@ -40,6 +40,15 @@
       <ion-input class="clave" [(ngModel)]="clave" placeholder="Contraseña" type="password"></ion-input>
     </ion-item>
     <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
-    <ion-button class="ion-button" size="medium" (click)="loginWithFingerprint()" *ngIf="permitirDedo">Inicia con huella</ion-button>
+    <div>
+      <img class="imagen-finger-print" (click)="loginWithFingerprint()" *ngIf="permitirDedo" src="/assets/icon/fingerprint.svg">
+    </div>
+    <!--<ion-button class="ion-button" size="medium" >Inicia con huella</ion-button>-->
   </div>
+
+  <div class="contenedor">
+    <ion-label color="light">¿No tienes cuenta?</ion-label>
+    <ion-button class="ion-button" size="medium" routerLink="/registrar" routerDirection="root">Regístrate Gratis</ion-button>
+  </div>
+
 </ion-content>

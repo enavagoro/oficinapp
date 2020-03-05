@@ -3,65 +3,58 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 
-export interface Usuario{
+export interface Empresa{
   id : number;
   nombre : string;
-  apellido : string;
-  correo : string;
-  clave : string;
+  rut : string;
+  giro : string;
+  direccion : string;
+  comuna : string;
+  ciudad : string;
+  contacto : string;
   estado : number;
 }
 
 @Injectable()
 
-export class UsuarioService {
+export class EmpresaService {
 
   private url: string = "http://178.128.71.20:3500";
   idEmpresa = '';
-  idUsuario = '';
   constructor(private sService:StorageService,private http: HttpClient) {
 
   }
 
   async listar() {
     this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    this.idUsuario = (await this.sService.getIdUsuario()).toString();
-    return this.http.get<Usuario[]>(`${this.url}/api/usuarios/`,{
+    return this.http.get<Empresa[]>(`${this.url}/api/empresas/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('idEmpresa',""+this.idEmpresa)
     });
   }
-  login(usuario,clave){
-    let cliente = {usuario:usuario,clave:clave};
-    return this.http.post<Usuario>(`${this.url}/api/login/`,cliente, {
+  login(empresa,clave){
+    let cliente = {empresa:empresa,clave:clave};
+    return this.http.post<Empresa>(`${this.url}/api/login/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
-  insertar(cliente : Usuario){
-    return this.http.post<Usuario>(`${this.url}/api/usuarios/`,cliente, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
-  }
-  insertarDesdeRegistrar(cliente : Usuario,id){
-    return this.http.post<Usuario>(`${this.url}/api/usuarios/`,cliente, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+id)
-    });
-  }
-
-  actualizar(id:number,cliente : Usuario){
-    return this.http.put<Usuario>(`${this.url}/api/usuarios/${id}`, cliente,{
+  insertar(cliente : Empresa){
+    return this.http.post<Empresa>(`${this.url}/api/empresas/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
-  borrar(id:number,cliente : Usuario){
+  actualizar(id:number,cliente : Empresa){
+    return this.http.put<Empresa>(`${this.url}/api/empresas/${id}`, cliente,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+    });
+  }
+
+  borrar(id:number,cliente : Empresa){
 
     if(cliente.estado == 0){
       cliente.estado = 1;
@@ -69,21 +62,21 @@ export class UsuarioService {
       cliente.estado = 0;
     }
 
-    return this.http.put<Usuario>(`${this.url}/api/usuarios/${id}`, cliente,{
+    return this.http.put<Empresa>(`${this.url}/api/empresas/${id}`, cliente,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
   gathering(id:string){
-    return this.http.get<Usuario>(`${this.url}/api/usuarios/${id}` , {
+    return this.http.get<Empresa>(`${this.url}/api/empresas/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });
   }
 
   listarById(id:string){
-    return this.http.get<Usuario>(`${this.url}/api/usuarios/${id}` , {
+    return this.http.get<Empresa>(`${this.url}/api/empresas/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
     });

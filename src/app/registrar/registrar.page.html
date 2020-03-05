@@ -1,0 +1,150 @@
+<ion-content>
+  <div class="contenedor">
+    <div class="parte-izquierda">
+      <div class="contenedor-imagen">
+        <img class="imagen-logo" src="./assets/icon/icono-jazmin.png">
+      </div>
+    </div>
+
+    <div class="parte-derecha" *ngIf="bandera==0">
+      <ion-item>
+        <h1 class="titulo">Regístrate Gratis</h1>
+      </ion-item>
+      <div class="contenedor-inicio">
+        <svg id="Layer1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 713.21 620.04"><defs><style>.cls-1{fill:#dbdbdb;opacity:0.2;isolation:isolate;}.cls-2,.cls-3,.cls-4,.cls-5,.cls-6,.cls-7,.cls-8{fill:none;stroke:#e0e0e0;stroke-miterlimit:10;stroke-width:4px;}.cls-2{stroke-dasharray:10.75 10.75;}.cls-3{stroke-dasharray:12.5 12.5;}.cls-4{stroke-dasharray:11.48 11.48;}.cls-5{stroke-dasharray:12.07 12.07;}.cls-6{stroke-dasharray:11.7 11.7;}.cls-7{stroke-dasharray:11.81 11.81;}.cls-8{stroke-dasharray:12.06 12.06;}.cls-9{fill:#82afec;}</style></defs><title>grafico</title><g id="poligono"><polygon class="cls-1" points="35.29 620.04 35.29 532.82 120.49 445.61 196.84 389.88 276.51 306.3 370.57 268.75 491.18 268.75 590.77 147.61 677.08 41.01 677.08 620.04 35.29 620.04"/></g><line id="raya_1" class="cls-2" x1="37.7" y1="560" x2="37.7" y2="619.1"/><line id="raya_2" class="cls-3" x1="130.98" y1="474.54" x2="130.98" y2="618.23"/><line id="raya_3" class="cls-4" x1="219.08" y1="417.8" x2="219.08" y2="618.74"/><line id="raya_4" class="cls-5" x1="310.81" y1="334.8" x2="310.81" y2="618.44"/><line id="raya_5" class="cls-6" x1="404.74" y1="296.88" x2="404.74" y2="618.63"/><line id="raya_6" class="cls-6" x1="493.87" y1="296.88" x2="493.87" y2="618.63"/><line id="raya_7" class="cls-7" x1="587.08" y1="175.85" x2="587.08" y2="618.57"/><g id="raya_8"><line class="cls-8" x1="677.05" y1="69.51" x2="677.05" y2="618.45"/></g><g id="flor_1"><circle class="cls-9" cx="38" cy="541.23" r="10.74"/><path class="cls-9" d="M166.16,539.35c-5.75-2.93-13.23-3.15-19.59-1.75,1.24,5,1.67,11.68-.26,16.42a13.81,13.81,0,0,1-1.12,8.38c10.55-2.62,19.75-11.78,22.13-20.42a2.27,2.27,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M119.64,551.5a13.94,13.94,0,0,1,7.65-7.88C117.8,539,103.72,540.29,96,546.5a2.27,2.27,0,0,0-.61,2.81c3,5.84,9,10.42,15,13C112.36,558.23,115.62,553.7,119.64,551.5Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M133.6,542.59a14,14,0,0,1,9.44,4.67c.48-10.52-5.25-21.78-12.63-26.64a2.27,2.27,0,0,0-2.86.29c-4.09,4.1-6.5,10.14-7.42,15.82,4.32.67,10,2.4,13.47,5.86Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M154.3,563.68c-3.73,2-8.91,3.9-13.16,3.77a13.89,13.89,0,0,1-10.76,2.74c6.17,10.37,19.16,16,26.69,15.21a2.26,2.26,0,0,0,2-1.9c1-6.6-1.24-14.08-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M124.44,567.7a13.87,13.87,0,0,1-5.65-9.79c-7.78,8.53-9.81,21.92-6.64,30.37a2.29,2.29,0,0,0,2.36,1.46c4.4-.45,11.64-3.9,17.3-10.45-3.05-3-6.36-7.4-7.37-11.59Z" transform="translate(-95.09 -15.25)"/></g><g id="flor_2"><circle class="cls-9" cx="131.34" cy="452.31" r="10.74"/><path class="cls-9" d="M259.5,450.43c-5.76-2.93-13.23-3.16-19.6-1.75,1.25,5,1.67,11.68-.25,16.42a13.86,13.86,0,0,1-1.12,8.37c10.55-2.61,19.75-11.78,22.13-20.41a2.28,2.28,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M213,462.57a14,14,0,0,1,7.66-7.87c-9.5-4.67-23.57-3.33-31.34,2.88a2.27,2.27,0,0,0-.61,2.81c3,5.83,9,10.42,15,13C205.69,469.31,209,464.78,213,462.57Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M226.93,453.67a13.94,13.94,0,0,1,9.44,4.67c.49-10.52-5.25-21.79-12.62-26.65a2.27,2.27,0,0,0-2.86.3c-4.1,4.09-6.5,10.13-7.42,15.81,4.32.67,10,2.41,13.46,5.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M247.64,474.75c-3.73,2-8.91,3.9-13.16,3.77a13.86,13.86,0,0,1-10.76,2.75c6.17,10.37,19.16,16,26.68,15.21a2.27,2.27,0,0,0,2-1.91c1-6.6-1.24-14.07-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M217.77,478.77a13.85,13.85,0,0,1-5.64-9.78c-7.79,8.53-9.81,21.92-6.64,30.36a2.29,2.29,0,0,0,2.36,1.47c4.4-.45,11.64-3.9,17.3-10.46-3.06-3-6.36-7.39-7.38-11.59Z" transform="translate(-95.09 -15.25)"/></g><g id="flor_3"><path class="cls-9" d="M349.08,388.18c-5.75-2.93-13.22-3.15-19.59-1.75,1.24,5,1.67,11.69-.26,16.43a13.79,13.79,0,0,1-1.12,8.37c10.56-2.61,19.76-11.78,22.13-20.42a2.27,2.27,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M302.56,400.33a14,14,0,0,1,7.65-7.87c-9.49-4.68-23.56-3.33-31.34,2.88a2.28,2.28,0,0,0-.61,2.81c3,5.83,9,10.41,15,13C295.28,407.07,298.54,402.54,302.56,400.33Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M316.52,391.43A13.92,13.92,0,0,1,326,396.1c.48-10.52-5.25-21.79-12.62-26.65a2.3,2.3,0,0,0-2.87.29c-4.09,4.1-6.49,10.14-7.42,15.82,4.32.67,10,2.4,13.47,5.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M337.22,412.51c-3.73,2-8.9,3.9-13.15,3.77A13.9,13.9,0,0,1,313.31,419c6.16,10.37,19.15,16,26.68,15.22a2.28,2.28,0,0,0,2-1.91c1.05-6.6-1.23-14.08-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M307.36,416.53a13.9,13.9,0,0,1-5.65-9.79c-7.78,8.53-9.81,21.93-6.63,30.37a2.26,2.26,0,0,0,2.36,1.46c4.39-.45,11.63-3.9,17.29-10.45-3.05-3-6.35-7.4-7.37-11.59Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="220.92" cy="390.07" r="10.74"/></g><g id="flor_4"><path class="cls-9" d="M440.82,299.65c-5.76-2.93-13.23-3.16-19.6-1.75,1.25,5,1.67,11.68-.25,16.42a13.88,13.88,0,0,1-1.12,8.38c10.55-2.62,19.75-11.79,22.13-20.42a2.28,2.28,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M394.29,311.79a14,14,0,0,1,7.66-7.87c-9.5-4.67-23.57-3.33-31.34,2.88a2.27,2.27,0,0,0-.61,2.81c3,5.84,9,10.42,15,13C387,318.53,390.28,314,394.29,311.79Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M408.25,302.89a13.94,13.94,0,0,1,9.44,4.67c.49-10.52-5.24-21.78-12.62-26.64a2.27,2.27,0,0,0-2.86.29c-4.09,4.1-6.5,10.14-7.42,15.82,4.32.66,10,2.4,13.46,5.86Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M429,324c-3.73,2-8.91,3.9-13.16,3.77A13.89,13.89,0,0,1,405,330.49c6.17,10.37,19.16,16,26.68,15.21a2.27,2.27,0,0,0,2-1.91c1-6.59-1.24-14.07-4.78-19.81Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M399.09,328a13.86,13.86,0,0,1-5.64-9.79c-7.78,8.53-9.81,21.92-6.64,30.37a2.29,2.29,0,0,0,2.36,1.46c4.4-.45,11.64-3.9,17.3-10.45-3.06-3-6.36-7.4-7.38-11.59Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="312.66" cy="301.53" r="10.74"/></g><g id="flor_5"><path class="cls-9" d="M534.75,250.73c-5.75-2.93-13.23-3.16-19.59-1.75,1.24,5,1.67,11.68-.26,16.42a13.81,13.81,0,0,1-1.12,8.38c10.55-2.62,19.75-11.79,22.13-20.42a2.27,2.27,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M488.23,262.87a14,14,0,0,1,7.65-7.87c-9.49-4.67-23.57-3.33-31.34,2.88a2.28,2.28,0,0,0-.61,2.81c3,5.83,9,10.42,15,13C481,269.61,484.21,265.08,488.23,262.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M502.19,254a14,14,0,0,1,9.44,4.67c.48-10.52-5.25-21.78-12.63-26.64a2.26,2.26,0,0,0-2.86.29c-4.09,4.1-6.49,10.13-7.42,15.82,4.32.66,10,2.4,13.47,5.86Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M522.89,275.06c-3.73,2-8.91,3.9-13.16,3.76A13.86,13.86,0,0,1,499,281.57c6.17,10.37,19.16,16,26.69,15.21a2.26,2.26,0,0,0,2-1.91c1-6.6-1.23-14.07-4.78-19.81Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M493,279.08a13.87,13.87,0,0,1-5.65-9.79c-7.78,8.53-9.81,21.92-6.63,30.36a2.26,2.26,0,0,0,2.35,1.47c4.4-.45,11.64-3.9,17.3-10.46-3-3-6.35-7.39-7.37-11.58Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="406.59" cy="252.61" r="10.74"/></g><g id="flor_6"><path class="cls-9" d="M623.88,252.21c-5.76-2.93-13.23-3.15-19.6-1.75,1.24,5,1.67,11.69-.25,16.43a13.86,13.86,0,0,1-1.12,8.37c10.55-2.61,19.75-11.78,22.13-20.42a2.28,2.28,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M577.35,264.36a14,14,0,0,1,7.66-7.88c-9.5-4.67-23.57-3.33-31.34,2.88a2.27,2.27,0,0,0-.61,2.81c3,5.84,9,10.42,15,13C570.07,271.09,573.34,266.56,577.35,264.36Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M591.31,255.46a13.93,13.93,0,0,1,9.44,4.66c.49-10.52-5.25-21.78-12.62-26.64a2.27,2.27,0,0,0-2.86.29c-4.1,4.1-6.5,10.14-7.42,15.82,4.31.67,10,2.4,13.46,5.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M612,276.54c-3.73,2-8.91,3.9-13.16,3.77a13.89,13.89,0,0,1-10.76,2.74c6.17,10.37,19.15,16,26.68,15.21a2.28,2.28,0,0,0,2-1.9c1-6.6-1.24-14.08-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M582.15,280.56a13.86,13.86,0,0,1-5.64-9.79c-7.79,8.53-9.82,21.92-6.64,30.37a2.29,2.29,0,0,0,2.36,1.46c4.4-.45,11.63-3.9,17.3-10.45-3.06-3-6.36-7.4-7.38-11.59Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="495.72" cy="254.09" r="10.74"/></g><g id="flor_7"><path class="cls-9" d="M717.09,136.38c-5.76-2.93-13.23-3.16-19.59-1.75,1.24,5,1.67,11.68-.26,16.42a13.79,13.79,0,0,1-1.12,8.37c10.55-2.61,19.75-11.78,22.13-20.41a2.27,2.27,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M670.57,148.52a14,14,0,0,1,7.65-7.87c-9.49-4.67-23.57-3.33-31.34,2.88a2.27,2.27,0,0,0-.61,2.81c3,5.83,9,10.42,15,13C663.29,155.26,666.55,150.73,670.57,148.52Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M684.53,139.62a14,14,0,0,1,9.44,4.67c.48-10.52-5.25-21.79-12.63-26.65a2.27,2.27,0,0,0-2.86.3c-4.09,4.09-6.5,10.13-7.42,15.81,4.32.67,10,2.41,13.47,5.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M705.23,160.7c-3.73,2-8.91,3.9-13.16,3.77a13.86,13.86,0,0,1-10.76,2.75c6.17,10.37,19.16,16,26.68,15.21a2.26,2.26,0,0,0,2-1.91c1-6.6-1.24-14.07-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M675.37,164.72a13.87,13.87,0,0,1-5.65-9.78c-7.78,8.53-9.81,21.92-6.64,30.36a2.29,2.29,0,0,0,2.36,1.47c4.4-.45,11.64-3.9,17.3-10.46-3-3-6.36-7.39-7.37-11.59Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="588.93" cy="138.26" r="10.74"/></g><g id="flor_8"><path class="cls-9" d="M807.06,34.35c-5.76-2.93-13.23-3.15-19.59-1.75,1.24,5,1.66,11.69-.26,16.43a13.86,13.86,0,0,1-1.12,8.37c10.55-2.61,19.75-11.78,22.13-20.42a2.27,2.27,0,0,0-1.16-2.63Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M760.54,46.5a14,14,0,0,1,7.65-7.87c-9.49-4.67-23.57-3.33-31.34,2.88a2.27,2.27,0,0,0-.61,2.81c3,5.83,9,10.41,15,13C753.26,53.24,756.52,48.71,760.54,46.5Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M774.49,37.6a13.88,13.88,0,0,1,9.44,4.67c.49-10.52-5.24-21.79-12.62-26.65a2.28,2.28,0,0,0-2.86.29C764.36,20,762,26.05,761,31.73c4.32.67,10,2.4,13.46,5.87Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M795.2,58.68c-3.73,2-8.91,3.9-13.16,3.77a13.85,13.85,0,0,1-10.76,2.74c6.17,10.38,19.16,16,26.68,15.22a2.28,2.28,0,0,0,2-1.91c1-6.6-1.24-14.08-4.78-19.82Z" transform="translate(-95.09 -15.25)"/><path class="cls-9" d="M765.34,62.7a13.83,13.83,0,0,1-5.65-9.79c-7.78,8.54-9.81,21.93-6.64,30.37a2.27,2.27,0,0,0,2.36,1.46c4.4-.44,11.64-3.9,17.3-10.45-3.05-3-6.36-7.4-7.37-11.59Z" transform="translate(-95.09 -15.25)"/><circle class="cls-9" cx="678.9" cy="36.24" r="10.74"/></g></svg>
+      </div>
+      <ion-button class="ion-button" (click)="cambiarPagina()">Comienza</ion-button>
+      <div class="contenedor-texto">
+        <ion-label class="texto-registro">¿Ya tienes cuenta?</ion-label>
+        <ion-button class="ion-button" size="medium" routerLink="/login" routerDirection="root">Inicia Sesión</ion-button>
+      </div>
+    </div>
+
+    <div class="parte-derecha" *ngIf="bandera==1">
+      <ion-item>
+        <h1 class="titulo">Datos la Empresa</h1>
+      </ion-item>
+
+      <ion-item class="ion-item">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1573/1573285.svg">
+        </ion-avatar>
+        <h1 class="subtitulo">Datos de Identificación</h1>
+      </ion-item>
+
+      <div class="contenedor-imagen-formulario">
+        <img class="imagen-formulario" src="./assets/icon/empresa.svg">
+      </div>
+      <ion-list-header style="text-aling:center">
+        <h1 class="subtitulo">Datos de Identificación</h1>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.nombre" name="nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Rut</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.rut" name="rut" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Giro</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.giro" name="giro" required></ion-input>
+      </ion-item>
+
+      <ion-button class="ion-button" (click)="cambiarPagina(); registroDatos(true)" [disabled]="empresaTemporal.nombre == '' || empresaTemporal.rut == '' || empresaTemporal.giro == '' ">Siguiente</ion-button>
+      <ion-button class="ion-button" (click)="volver(); registroDatos(false)">Volver Atrás</ion-button>
+    </div>
+
+    <div class="parte-derecha" *ngIf="bandera==2">
+      <ion-item>
+        <h1 class="titulo">Datos la Empresa</h1>
+      </ion-item>
+
+      <ion-item class="ion-item">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/2427/2427283.svg">
+        </ion-avatar>
+        <h1 class="subtitulo">Datos de Contacto</h1>
+      </ion-item>
+
+      <div class="contenedor-imagen-formulario">
+        <img class="imagen-formulario" src="./assets/icon/contacto.svg">
+      </div>
+
+      <ion-list-header style="text-aling:center">
+        <h1 class="subtitulo">Datos de Contacto</h1>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="stacked">Dirección</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.direccion" name="direccion" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Comuna</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.comuna" name="comuna" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Ciudad</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.ciudad" name="ciudad" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contacto</ion-label>
+        <ion-input [(ngModel)]="empresaTemporal.contacto" name="contacto" required></ion-input>
+      </ion-item>
+
+      <ion-button class="ion-button" (click)="cambiarPagina(); registroContactos" [disabled]="empresaTemporal.direccion == '' || empresaTemporal.comuna == '' || empresaTemporal.ciudad == '' || empresaTemporal.contacto == '' ">Siguiente</ion-button>
+      <ion-button class="ion-button" (click)="volver(); registroContactos(false)">Volver Atrás</ion-button>
+    </div>
+
+    <div class="parte-derecha" *ngIf="bandera==3">
+
+      <ion-item>
+        <h1 class="titulo">Crear Administrador</h1>
+      </ion-item>
+
+      <ion-item class="ion-item">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/427/427836.svg">
+        </ion-avatar>
+        <h1 class="subtitulo">Datos del Usuario</h1>
+      </ion-item>
+
+      <div class="contenedor-imagen-formulario">
+        <img class="imagen-formulario" src="./assets/icon/jerarquia.svg">
+      </div>
+
+      <ion-list-header style="text-aling:center">
+        <h1 class="subtitulo">Datos del Usuario</h1>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input [(ngModel)]="usuario.apellido" name="apellido" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Correo</ion-label>
+        <ion-input [(ngModel)]="usuario.correo" name="correo" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Clave</ion-label>
+        <ion-input [(ngModel)]="usuario.clave" name="clave" required type="password"></ion-input>
+      </ion-item>
+
+      <ion-button class="ion-button" (click)="confirmar()" [disabled]="usuario.nombre == '' || usuario.apellido=='' || usuario.correo == '' || usuario.clave == 0 ">Guardar</ion-button>
+      <ion-button class="ion-button" (click)="volver(); registroContactos(false)">Volver Atrás</ion-button>
+    </div>
+  </div>
+</ion-content>
