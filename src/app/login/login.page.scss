@@ -1,6 +1,8 @@
+
 ion-content{
-  --background: url("/assets/icon/imagen-fondo-escritorio.jpg")  no-repeat center / 100%;
+  --background: url("/assets/icon/landscape.png")  no-repeat center / 100%;
 }
+
 
 ion-item{
   margin-top: 4%;
@@ -108,7 +110,7 @@ ion-item{
 }
 @media (max-width:800px) {
   ion-content{
-    --background: url("/assets/icon/imagen-fondo.jpg")  no-repeat center / 100%;
+    --background: url("/assets/icon/landscape.png") no-repeat center / 100% 100%;
   }
 
   .contenedor{

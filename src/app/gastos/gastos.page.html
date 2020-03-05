@@ -22,8 +22,8 @@
 
       <ion-label>Tipo de Documento</ion-label>
       <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
-        <ion-select-option>Boleta</ion-select-option>
-        <ion-select-option>Factura</ion-select-option>
+        <ion-select-option value="1">Boleta</ion-select-option>
+        <ion-select-option value="2">Factura</ion-select-option>
       </ion-select>
     </ion-item>
 

@@ -67,6 +67,7 @@ export class GastosPage implements OnInit {
       //console.log('entra2');
       this.ngOnInit();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+      this.url = "";
     })
 
   }
