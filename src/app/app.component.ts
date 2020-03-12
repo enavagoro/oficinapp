@@ -55,9 +55,10 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-  cerrarSesion(){    
+  cerrarSesion(){
+    console.log("cerrar sesion");
     this.storage.clear();
-    this.router.navigate(['/home'], {replaceUrl: true});
+    this.router.navigate(['/login'], {replaceUrl: true});
   }
   initializeApp() {
     this.platform.ready().then(() => {

@@ -121,14 +121,14 @@
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
       <p>Producto: {{p.titulo}} <br>
-         Precio: {{p.precio}} <br>
-         Cantidad: {{p.cantidad}} <br><br>
+         Precio: {{p.precio | number}} <br>
+         Cantidad: {{p.cantidad | number}} <br><br>
          Total: {{p.precio * p.cantidad | number }}</p>
-      <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
+      <ion-button class="boton-borrar" [disabled]="bandera" (click)="borrar(i)" slot="end">borrar</ion-button>
     </ion-item>
   </div>
 
-  <ion-button size="medium" class="ion-button" (click)="abrirDetalle();" [disabled]="!cliente">Detalle</ion-button>
+  <ion-button size="medium" class="ion-button" (click)="abrirDetalle();" [disabled]="!cliente || bandera">Detalle</ion-button>
   <ion-button class="ion-button2" *ngIf="venta.id == 0 && bandera==false " size="medium" (click)="confirmar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Guardar</ion-button>
   <ion-button class="ion-button2" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Actualizar</ion-button>
   <ion-button class="ion-button-cancelar" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>

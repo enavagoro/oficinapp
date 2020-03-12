@@ -39,9 +39,9 @@
       <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
     </ion-avatar>
     <p>Producto: {{p.titulo}}<br>
-       Precio: {{p.precio}} <br>
-       Cantidad Vendida: {{p.cantidad}}<br>
-       Total: {{p.precio * p.cantidad}}<br> </p>
+       Precio: {{p.precio | number}} <br>
+       Cantidad Vendida: {{p.cantidad | number}}<br>
+       Total: {{p.precio * p.cantidad | number }}<br> </p>
     <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
   </ion-item>
 

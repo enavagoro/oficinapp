@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
+import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService, Venta} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 
@@ -23,6 +24,7 @@ export class VentasPage implements OnInit {
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
               private ventaService:VentaService,
+              private detalleService:DetalleService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
@@ -41,7 +43,15 @@ export class VentasPage implements OnInit {
 
     })
   }
+  traerCliente(id){
+    var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
+    console.log(clientes);
+    if(clientes.length > 0 ){
+      this.clientesFiltrado.push(clientes[0])
+      this.cliente = clientes[0];      
+    }
 
+  }
   encontrarCliente(id_cliente){
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
@@ -76,6 +86,7 @@ export class VentasPage implements OnInit {
       this.cliente = undefined;
     }
   }
+
 
   verCliente(cliente){
     this.nombreCliente = cliente.nombre;
@@ -112,6 +123,9 @@ export class VentasPage implements OnInit {
     this.ventaService.insertar(this.venta).subscribe(data=>{
       //console.log(data);
       this.ngOnInit();
+      this.detalle = [];
+      this.cliente = undefined;
+      this.nombreCliente = "";
       this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
     })
   }
@@ -140,6 +154,9 @@ export class VentasPage implements OnInit {
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
+    this.detalle = [];
+    this.cliente = undefined;
+    this.nombreCliente = "";
     this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   }
 
@@ -234,10 +251,18 @@ export class VentasPage implements OnInit {
         handler: () => {
           venta.tipo=''+venta.tipo;
           this.venta = venta;
-          //console.log(venta);
+          console.log(venta);
+
           //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
+          this.traerCliente(venta.id_cliente);
+          this.detalleService.listar(venta.id).subscribe(detalle=>{
+            console.log(detalle);
+
+            venta.detalles = detalle;
+            this.detalle = detalle;
+          })
         }
       },{
         text: 'Actualizar',
@@ -245,7 +270,11 @@ export class VentasPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.venta = venta;
-          //console.log(venta);
+          this.traerCliente(venta.id_cliente);
+          this.detalleService.listar(venta.id).subscribe(detalle=>{
+            venta.detalles = detalle;
+            this.detalle = detalle;
+          })
         }
       },{
         text: 'Duplicar',

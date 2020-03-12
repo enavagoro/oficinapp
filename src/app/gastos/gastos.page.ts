@@ -112,6 +112,7 @@ export class GastosPage implements OnInit {
 
   public cancelar(){
     this.bandera=false;
+    this.url = "";
     this.deshabilitarInputs(false);
     this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
@@ -211,6 +212,9 @@ export class GastosPage implements OnInit {
           //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
+          this.storage.get('idEmpresa').then((value) => {
+            this.url = URL+"/"+value+"/"+gasto.img;
+          });
         }
       },{
         text: 'Actualizar',
