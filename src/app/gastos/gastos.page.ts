@@ -70,7 +70,8 @@ export class GastosPage implements OnInit {
     })
 
   }
-  public actualizarGasto(){
+  public actualizarGasto(img){
+    this.gasto.img = img;
     this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
       //console.log(gasto);
       this.ngOnInit();
@@ -159,7 +160,7 @@ export class GastosPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.actualizarGasto();
+            this.uploadFile(true);
           }
         }
       ]
@@ -184,7 +185,7 @@ export class GastosPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.uploadFile();
+            this.uploadFile(false);
           }
         }
       ]
@@ -295,7 +296,7 @@ export class GastosPage implements OnInit {
   public vaciarArchivo(){
     this.file = 0;
   }
-  uploadFile(){
+  uploadFile(actualizar){
 
       this.cargando = true;
       var BaseClass = function (data) {
@@ -318,9 +319,19 @@ export class GastosPage implements OnInit {
         formData.append('file',this.file);
 
         this.gastoService.guardar(formData);
-        this.guardarGasto(name);
+
+        if(actualizar){
+          this.actualizarGasto(name)
+        }else{
+          this.guardarGasto(name);
+        }
       }else{
-        this.guardarGasto("Sin imagen");
+        if(actualizar){
+            this.actualizarGasto("Sin imagen");
+        }else{
+            this.guardarGasto("Sin imagen");
+        }
+
       }
     }
 

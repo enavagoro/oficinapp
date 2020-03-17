@@ -14,7 +14,15 @@
 
   <ion-item>
     <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+      <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
+    </ion-avatar>
+    <ion-label position="stacked">Correo</ion-label>
+    <ion-input [(ngModel)]="usuario.correo" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
     </ion-avatar>
     <ion-label position="stacked">Nombre Usuario</ion-label>
     <ion-input [(ngModel)]="usuario.nombre" required></ion-input>
@@ -25,23 +33,15 @@
       <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
     </ion-avatar>
     <ion-label position="stacked">Apellido</ion-label>
-    <ion-input [(ngModel)]="usuario.apellido"></ion-input>
+    <ion-input [(ngModel)]="usuario.apellido" required></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Correo</ion-label>
-    <ion-input [(ngModel)]="usuario.correo"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+      <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
     </ion-avatar>
     <ion-label position="stacked">Clave</ion-label>
-    <ion-input [(ngModel)]="usuario.clave"></ion-input>
+    <ion-input [(ngModel)]="usuario.clave" required></ion-input>
   </ion-item>
 
   <ion-button class="ion-button" *ngIf="usuario.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
