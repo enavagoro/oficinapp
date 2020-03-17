@@ -18,13 +18,13 @@ export class UsuarioPage implements OnInit {
               private modalCtrl : ModalController) {}
 
               ngOnInit() {
-                /*
-                this.usuarioService.listar().subscribe(usuarios=>{
+
+                this.usuarioService.listar().then(usuarios=>{
                   usuarios.subscribe(u=>{
                     this.usuarios= u;
                   })
                 })
-                */
+
               }
 
               public guardarUsuario(){
