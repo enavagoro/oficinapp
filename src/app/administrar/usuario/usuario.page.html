@@ -12,40 +12,55 @@
     Datos de Identificación
   </ion-list-header>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Correo</ion-label>
-    <ion-input [(ngModel)]="usuario.correo" required></ion-input>
-  </ion-item>
+  <form>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Nombre Usuario</ion-label>
-    <ion-input [(ngModel)]="usuario.nombre" required></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input [(ngModel)]="usuario.correo" name="correo" required ></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Apellido</ion-label>
-    <ion-input [(ngModel)]="usuario.apellido" required></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Nombre Usuario</ion-label>
+      <ion-input [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-avatar slot="start">
-      <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
-    </ion-avatar>
-    <ion-label position="stacked">Clave</ion-label>
-    <ion-input [(ngModel)]="usuario.clave" required></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1077/1077012.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Apellido</ion-label>
+      <ion-input [(ngModel)]="usuario.apellido" name="apellido" required></ion-input>
+    </ion-item>
 
-  <ion-button class="ion-button" *ngIf="usuario.id == 0 " size="medium" (click)="confirmar()">Guardar</ion-button>
-  <ion-button class="ion-button" *ngIf="usuario.id != 0" size="medium" (click)="confirmarActualizar()">Actualizar</ion-button>
+    <ion-item *ngIf="flag == false">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
+      </ion-avatar>
+      <!-- <ion-label position="stacked">Clave</ion-label> -->
+      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Clave" type="password"></ion-input>
+      <ion-button class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar Clave</ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="flag == true">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
+      </ion-avatar>
+      <!-- <ion-label position="stacked">Clave</ion-label> -->
+      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Clave" type="text"></ion-input>
+      <ion-button class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar Clave</ion-button>
+    </ion-item>
+
+    <ion-button class="ion-button" *ngIf="usuario.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Actualizar</ion-button>
+    <ion-button class="ion-button-cancelar" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+  </form>
 
   <ion-list-header>
     Lista de Usuarios
@@ -60,7 +75,7 @@
     <ion-list *ngIf="!verTodos">
       <ion-item *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
         <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
         <ion-label>{{u.nombre}}</ion-label>
         {{u.rut}}
@@ -71,10 +86,10 @@
     <ion-list *ngIf="verTodos">
       <ion-item *ngFor="let u of usuarios" (click)="opciones(u)">
         <ion-avatar slot="start" *ngIf="u.estado">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!u.estado">
-          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+          <img class="grayscale" src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
         <ion-label>{{u.nombre}}</ion-label>
         {{u.rut}}
