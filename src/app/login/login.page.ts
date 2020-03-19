@@ -57,7 +57,6 @@ export class LoginPage implements OnInit {
 
   async login(){
     this.authenticationService.login(this.usuario,this.clave).then(datos=>{
-      //console.log(datos);
       var i = 0 ;
       var datas = []
       for(let obj in datos){
@@ -65,15 +64,21 @@ export class LoginPage implements OnInit {
         datas.push(obj) ;
       }
       if(i == 0){
-        alert("mal iniciado");
+        alert("Usuario o contraseña incorrecto");
       }else{
         var usuario = datos[datas[0]][0].id;
         var empresa = datos[datas[1]][0].id;
-        this.storage.set('idUsuario', usuario);
-        this.storage.set('idEmpresa', empresa)
-        //console.log(usuario);
-        //console.log(empresa);
-        this.router.navigate(['/home'], {replaceUrl: true});
+        if(usuario.estado){
+          this.storage.set('idUsuario', usuario);
+          this.storage.set('idEmpresa', empresa)
+          //console.log(usuario);
+          //console.log(empresa);
+          this.router.navigate(['/home'], {replaceUrl: true});
+        }else{
+          alert("Usuario no activo, contacta a tu administrador");
+        }
+
+
       }
     })
   }
