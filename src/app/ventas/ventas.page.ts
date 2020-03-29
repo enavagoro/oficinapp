@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
+import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService, Venta} from '../_servicios/venta.service';
@@ -20,6 +20,8 @@ export class VentasPage implements OnInit {
   public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
+  flag = false;
+  banderaOpciones = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
@@ -28,12 +30,12 @@ export class VentasPage implements OnInit {
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
-      clienteService.listar().then(clientes=>{
-        clientes.subscribe(c=>{
-            this.clientes = c;
-        })
-      })
-  }
+                  clienteService.listar().then(clientes=>{
+                    clientes.subscribe(c=>{
+                        this.clientes = c;
+                    })
+                  })
+              }
 
   ngOnInit() {
     this.ventaService.listar().then(ventas =>{
@@ -48,7 +50,7 @@ export class VentasPage implements OnInit {
     console.log(clientes);
     if(clientes.length > 0 ){
       this.clientesFiltrado.push(clientes[0])
-      this.cliente = clientes[0];      
+      this.cliente = clientes[0];
     }
 
   }
@@ -84,6 +86,10 @@ export class VentasPage implements OnInit {
     }
     if(this.clientesFiltrado.length == 0 ){
       this.cliente = undefined;
+    }
+
+    if(this.nombreCliente==""){
+      this.filtrarCliente();
     }
   }
 
@@ -135,6 +141,7 @@ export class VentasPage implements OnInit {
       //console.log(venta);
       this.ngOnInit();
       this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+      this.limpiar();
     })
   }
   public eliminacionLogica(){
@@ -215,7 +222,7 @@ export class VentasPage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UNA VENTA</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
@@ -252,7 +259,7 @@ export class VentasPage implements OnInit {
           venta.tipo=''+venta.tipo;
           this.venta = venta;
           console.log(venta);
-
+          this.banderaOpciones=true;
           //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
@@ -327,5 +334,10 @@ export class VentasPage implements OnInit {
       }
     }
     return ventas;
+  }
+
+  limpiar(){
+    this.cliente = undefined;
+    this.nombreCliente = "";
   }
 }

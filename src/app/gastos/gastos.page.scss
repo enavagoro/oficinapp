@@ -122,6 +122,10 @@ ion-avatar{
   text-align: center;
 }
 
+.item-lista{
+  cursor: pointer;
+}
+
 .grayscale { filter: grayscale(80%) !important; }
 
 @media (max-width: 900px) {

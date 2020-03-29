@@ -78,4 +78,7 @@ export class DetallePage implements OnInit {
     this.modalCtrl.dismiss(this.detalle);
   }
 
+  cerrarModal(){
+    this.modalCtrl.dismiss();
+  }
 }

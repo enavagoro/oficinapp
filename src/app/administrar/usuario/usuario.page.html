@@ -73,7 +73,7 @@
   </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
+      <ion-item class="item-lista" *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
@@ -84,7 +84,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let u of usuarios" (click)="opciones(u)">
+      <ion-item class="item-lista" *ngFor="let u of usuarios" (click)="opciones(u)">
         <ion-avatar slot="start" *ngIf="u.estado">
           <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
