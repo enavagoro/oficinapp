@@ -30,14 +30,13 @@ export class AppComponent {
       title: 'Gastos',
       url: '/gastos',
       icon: 'bicycle'
-    },/*
+    },
     {
       title: 'Cotizaciones',
       url: '/cotizaciones',
-      icon: 'list'
-    },*/
+      icon: 'paper'
+    },
     {
-
       title: 'Administrar',
       url: '/administrar',
       icon: 'cog'

@@ -4,7 +4,7 @@
   </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-buttons slot="start" >
+      <ion-buttons slot="start">
         <ion-menu-button style="--color:white;"></ion-menu-button>
       </ion-buttons>
     </ion-buttons>
@@ -14,6 +14,7 @@
   <ion-list-header>
     Ingrese una venta
   </ion-list-header>
+
   <form>
     <ion-item>
       <ion-avatar slot="start">
@@ -36,7 +37,7 @@
     </ion-item>
   </form>
 
-  <ion-item>
+  <ion-item *ngIf="!banderaOpciones">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
     </ion-avatar>
@@ -80,7 +81,7 @@
       <ion-label class="texto-formulario">Giro: {{cliente.giro}}</ion-label>
     </ion-item>
 
-    <div *ngIf="bandera">
+    <div *ngIf="flag">
       <ion-item>
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
@@ -110,8 +111,9 @@
       </ion-item>
     </div>
 
-    <ion-button *ngIf="!bandera" size="medium" class="ion-button3" (click)="bandera=true">Ver Más</ion-button>
-    <ion-button *ngIf="bandera" size="medium" class="ion-button4" (click)="bandera=false">Ver Menos</ion-button>
+    <ion-button *ngIf="!flag" size="medium" class="ion-button-mas" (click)="flag=true">Ver Más</ion-button>
+    <ion-button *ngIf="flag" size="medium" class="ion-button-menos" (click)="flag=false">Ver Menos</ion-button>
+    <ion-button *ngIf="!banderaOpciones" ize="medium" class="ion-button-cancelar-ver" (click)="limpiar();">Cancelar</ion-button>
   </div>
 
   <div class="lista-clientes" *ngIf="cliente && clientesFiltrado.length!=0 && detalle.length>0">
@@ -129,10 +131,10 @@
   </div>
 
   <ion-button size="medium" class="ion-button" (click)="abrirDetalle();" [disabled]="!cliente || bandera">Detalle</ion-button>
-  <ion-button class="ion-button2" *ngIf="venta.id == 0 && bandera==false " size="medium" (click)="confirmar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Guardar</ion-button>
-  <ion-button class="ion-button2" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Actualizar</ion-button>
-  <ion-button class="ion-button-cancelar" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-  <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+  <ion-button class="ion-button-confirmar" *ngIf="venta.id == 0 && bandera==false " size="medium" (click)="confirmar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Guardar</ion-button>
+  <ion-button class="ion-button-confirmar" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoDocumento == '' || ventas.fecha==''">Actualizar</ion-button>
+  <ion-button class="ion-button-cancelar" *ngIf="venta.id != 0 && bandera==false" size="medium" (click)="cancelar(); banderaOpciones=false;">Cancelar Actualizar</ion-button>
+  <ion-button class="ion-button-cancelar" *ngIf="bandera==true" size="medium" (click)="cancelar(); banderaOpciones=false;">Cancelar Ver</ion-button>
 <!--
 <ion-list>
   <ion-list-header>
@@ -159,7 +161,7 @@
   </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let v of filtrarVentas()" (click)="opciones(v)">
+      <ion-item class="item-lista" *ngFor="let v of filtrarVentas()" (click)="opciones(v)">
         <ion-avatar slot="start">
           <img src="/assets/icon/ventas.svg">
         </ion-avatar>
@@ -169,7 +171,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let v of ventas" (click)="opciones(v)">
+      <ion-item class="item-lista" *ngFor="let v of ventas" (click)="opciones(v)">
         <ion-avatar slot="start" *ngIf="v.estado">
           <img src="/assets/icon/ventas.svg">
         </ion-avatar>

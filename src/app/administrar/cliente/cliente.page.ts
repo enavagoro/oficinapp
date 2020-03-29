@@ -43,7 +43,6 @@ export class ClientePage implements OnInit {
       this.ngOnInit();
       this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
-
   }
 
   public actualizarCliente(){
@@ -53,6 +52,7 @@ export class ClientePage implements OnInit {
       this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
   }
+
   public eliminacionLogica(){
     this.clienteService.borrar(this.cliente.id,this.cliente).subscribe(datos=>{
       //console.log(datos);

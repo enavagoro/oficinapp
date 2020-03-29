@@ -1,0 +1,88 @@
+ion-content{
+  ion-toolbar{
+    --background: url("/assets/icon/bosque.png")  no-repeat center / 100%;
+    padding-bottom: 15%;
+  }
+
+
+
+  .header-md::after{
+    width: 0% !important;
+  }
+
+  ion-title{
+    --color: white;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .ion-button-agregar{
+    --background: #4748be;
+    --background-activated: #4748be;
+    --background-focused: #4748be;
+    --background-hover: #4748be;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  .ion-button-cerrar{
+    --background: #fb745b;
+    --background-activated: #fb745b;
+    --background-focused: #fb745b;
+    --background-hover: #fb745b;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  .boton-agregar{
+    --background: #554fc7;
+    --background-activated: #554fc7;
+    --background-focused: #554fc7;
+    --background-hover: #554fc7;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+
+    .boton-ok{
+      --background: #554fc7;
+      --background-activated: #554fc7;
+      --background-focused: #554fc7;
+      --background-hover: #554fc7;
+      width: 70% !important;
+      margin-left: 15% !important;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+  ion-avatar{
+    --border-radius: 0%;
+  }
+
+  .boton-borrar{
+    --background: #fb745b;
+    --background-activated: #fb745b;
+    --background-focused: #fb745b;
+    --background-hover: #fb745b;
+    margin-left: 7%;
+  }
+
+}
+
+  .boton-ok{
+    --background: #554fc7;
+    --background-activated: #554fc7;
+    --background-focused: #554fc7;
+    --background-hover: #554fc7;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }

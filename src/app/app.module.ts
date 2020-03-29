@@ -22,6 +22,8 @@ import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
 import { DetalleService } from './_servicios/detalle.service';
 import { DetallePage } from './ventas/detalle/detalle.page';
+import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
+import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppUtilService } from './_servicios/app-util.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
@@ -32,8 +34,8 @@ import { StorageService } from './_servicios/storage.service';
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage],
-  entryComponents: [DetallePage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
