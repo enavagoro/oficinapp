@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
-import { CotizacionService, Cotizacion } from '../_servicios/cotizacion.service';
+import { CotizacionService, Cotizacion, DatosPdf } from '../_servicios/cotizacion.service';
 import { DetalleCotizacionPage } from './detalle-cotizacion/detalle-cotizacion.page';
 import { CrearClientePage } from './crear-cliente/crear-cliente.page';
+import { EmpresaService } from '../_servicios/empresa.service';
 //import { ModalPage } from '../modal/modal.page';
 
 @Component({
@@ -22,10 +23,11 @@ export class CotizacionesPage implements OnInit {
   cliente : Cliente;
   nombreCliente = "";
   clientesFiltrado = [];
-
   cotizaciones = [];
   public cotizacion : Cotizacion = {id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
-
+  public datosPdf : DatosPdf = {id:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
+                                idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0};
+                                //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
   constructor(public actionSheetController: ActionSheetController,
               private clienteService: ClienteService,
               private cotizacionService: CotizacionService,
@@ -164,6 +166,45 @@ export class CotizacionesPage implements OnInit {
     })
   }
 
+  public enviarPdf(){
+    this.datosPdf.id = 0 + (this.cotizaciones.length + 1);
+    this.datosPdf.detalle = this.detalle;
+    this.datosPdf.estado = 1;
+    this.datosPdf.fechaEmision = this.cotizacion.fechaEmision;
+    this.datosPdf.fechaCaducidad = this.cotizacion.fechaCaducidad;
+
+    this.datosPdf.idCliente = this.cliente.id;
+    this.datosPdf.nombreCliente = this.cliente.nombre;
+    this.datosPdf.rutCliente = this.cliente.rut;
+    this.datosPdf.giroCliente = this.cliente.giro;
+    this.datosPdf.direccionCliente = this.cliente.direccion;
+    this.datosPdf.comunaCliente = this.cliente.comuna;
+    this.datosPdf.ciudadCliente = this.cliente.ciudad;
+    this.datosPdf.contactoCliente = this.cliente.contacto;
+
+    /*
+    this.datosPdf.idEmpresa = this.empresa.id;
+    this.datosPdf.nombreEmpresa = this.empresa.nombre;
+    this.datosPdf.rutEmpresa = this.empresa.rut;
+    this.datosPdf.giroEmpresa = this.empresa.giro;
+    this.datosPdf.direccionEmpresa = this.empresa.direccion;
+    this.datosPdf.comunaEmpresa = this.empresa.comuna;
+    this.datosPdf.ciudadEmpresa = this.empresa.ciudad;
+    this.datosPdf.contactoEmpresa = tihs.empresa.contacto;
+    */
+
+    this.cotizacionService.insertarPdf(this.datosPdf).subscribe(data=>{
+      //console.log(data);
+      this.ngOnInit();
+      this.detalle = [];
+      this.nombreCliente = "";
+      this.cliente = undefined;
+      this.datosPdf = {id:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
+                                    idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0};
+                                    //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
+    })
+  }
+
   public actualizarCotizacion(){
     this.cotizacionService.actualizar(this.cotizacion.id,this.cotizacion).subscribe(cotizacion=>{
       //console.log(cotizacion);
@@ -249,7 +290,7 @@ export class CotizacionesPage implements OnInit {
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
+      message: 'Estás a punto de <br><strong>Enviar un Cotización</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
@@ -261,7 +302,8 @@ export class CotizacionesPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            this.guardarCotizacion();
+            this.enviarPdf();
+            //this.guardarCotizacion();
           }
         }
       ]
@@ -297,30 +339,6 @@ export class CotizacionesPage implements OnInit {
             cotizacion.detalles = detalle;
             this.detalle = detalle;
           })*/
-        }
-      },{
-        text: 'Actualizar',
-        icon: 'sync',
-        handler: () => {
-          this.bandera=false;
-          this.cotizacion = cotizacion;
-          this.traerCliente(cotizacion.id_cliente);
-          /*
-          this.detalleService.listar(cotizacion.id).subscribe(detalle=>{
-            cotizacion.detalles = detalle;
-            this.detalle = detalle;
-          })
-          */
-        }
-      },{
-        text: 'Duplicar',
-        icon: 'albums',
-        handler: () => {
-          this.bandera=false;
-          cotizacion.id == 0;
-          this.cotizacion = cotizacion;
-          this.cotizacion.id = 0;
-          //console.log(this.cotizacion);
         }
       },{
         text: opcion,
