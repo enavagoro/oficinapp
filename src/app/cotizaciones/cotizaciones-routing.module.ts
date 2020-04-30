@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'crear-cliente',
     loadChildren: () => import('./crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
+  },
+  {
+    path: 'documento',
+    loadChildren: () => import('./documento/documento.module').then( m => m.DocumentoPageModule)
   }
 
 ];

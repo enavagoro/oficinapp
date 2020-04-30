@@ -24,6 +24,7 @@ import { DetalleService } from './_servicios/detalle.service';
 import { DetallePage } from './ventas/detalle/detalle.page';
 import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
 import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
+import { DocumentoPage } from './cotizaciones/documento/documento.page';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppUtilService } from './_servicios/app-util.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
@@ -31,15 +32,17 @@ import { AuthGaurdService } from './_servicios/auth-gaurd.service';
 import { AuthenticationService } from './_servicios/authentication.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './_servicios/storage.service';
-
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { EmailService } from './_servicios/email.service';
 
 @NgModule({
-  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage],
-  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    NgxDocViewerModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     FormsModule,
@@ -59,6 +62,7 @@ import { StorageService } from './_servicios/storage.service';
     TipoGastoService,
     TipoProductoService,
     GastoService,
+    EmailService,
     StorageService,
     //Storage,
     VentaService,

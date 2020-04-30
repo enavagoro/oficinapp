@@ -156,7 +156,7 @@
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/608/608905.svg">
           </ion-avatar>
-          <ion-label>{{encontrarCliente(c.id_cliente)}}</ion-label>
+          <ion-label>{{encontrarCliente(c.idCliente)}}</ion-label>
         </ion-item>
         <h2 *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h2>
       </ion-list>
@@ -170,7 +170,7 @@
           <ion-avatar slot="start" *ngIf="!c.estado">
             <img class="grayscale" src="https://image.flaticon.com/icons/svg/608/608905.svg">
           </ion-avatar>
-          <ion-label>{{encontrarCliente(c.id_cliente)}}</ion-label>
+          <ion-label>{{encontrarCliente(c.idCliente)}}</ion-label>
         </ion-item>
         <h2 *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h2>
       </ion-list>

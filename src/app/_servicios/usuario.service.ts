@@ -16,7 +16,7 @@ export interface Usuario{
 
 export class UsuarioService {
 
-  private url: string = "http://178.128.71.20:3500";
+  private url: string = "http://jazmin.reset.cl";
   idEmpresa = '';
   idUsuario = '';
   constructor(private sService:StorageService,private http: HttpClient) {

@@ -54,6 +54,11 @@ export class LoginPage implements OnInit {
     }
 
   }
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.login();
+    }
+  }
 
   async login(){
     this.authenticationService.login(this.usuario,this.clave).then(datos=>{
@@ -69,6 +74,8 @@ export class LoginPage implements OnInit {
       }else{
         var usuario = datos[datas[0]][0].id;
         var empresa = datos[datas[1]][0].id;
+        var datosEmpresa = datos[datas[1]][0];
+        this.storage.set('empresa',datosEmpresa);
         this.storage.set('idUsuario', usuario);
         this.storage.set('idEmpresa', empresa)
         //console.log(usuario);

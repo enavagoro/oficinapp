@@ -30,15 +30,18 @@
     </div>
 
 
-    <ion-item>
-      <!--<ion-label position="stacked" color="light">Usuario</ion-label>-->
-      <ion-input class="usuario" [(ngModel)]="usuario" placeholder="Correo"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <!--<ion-label position="stacked" color="light">Contraseña</ion-label>-->
-      <ion-input class="clave" [(ngModel)]="clave" placeholder="Contraseña" type="password"></ion-input>
-    </ion-item>
+    <form (keydown)="keyDownFunction($event)">
+      <ion-item>
+        <!--<ion-label position="stacked" color="light">Usuario</ion-label>-->
+        <ion-input class="usuario" name="usuario" [(ngModel)]="usuario" placeholder="Correo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <!--<ion-label position="stacked" color="light">Contraseña</ion-label>-->
+        <ion-input class="clave" name="clave" [(ngModel)]="clave" placeholder="Contraseña" type="password"></ion-input>
+      </ion-item>
+    </form>
     <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
     <div>
       <img class="imagen-finger-print" (click)="loginWithFingerprint()" *ngIf="permitirDedo" src="/assets/icon/fingerprint.svg">
