@@ -16,7 +16,7 @@ export interface Detalle {
 
 export class DetalleService {
 
-  private url: string = "http://jazmin.reset.cl";
+  private url: string = "http://178.128.71.20:3500";
 
   constructor(private http: HttpClient) { }
 

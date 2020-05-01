@@ -9,7 +9,7 @@ import { CotizacionService } from '../../_servicios/cotizacion.service';
   styleUrls: ['./documento.page.scss'],
 })
 export class DocumentoPage implements OnInit {
-  doc = "http://jazmin.reset.cl/";
+  doc = "http://178.128.71.20:3950/";
   email = "";
   creado = false;
   data = [];

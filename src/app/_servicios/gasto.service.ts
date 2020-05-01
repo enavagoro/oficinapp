@@ -24,7 +24,7 @@ export interface Gasto {
 
 export class GastoService {
 
-  private url: string = "http://jazmin.reset.cl";
+  private url: string = "http://178.128.71.20:3500";
 
   idEmpresa = '';
   idUsuario = '';
@@ -34,7 +34,7 @@ export class GastoService {
   guardar(form){
     //console.log(form);
     form.append('idEmpresa',this.idEmpresa);
-    this.http.post("http://jazmin.reset.cl/api/archivos", form, {reportProgress: true, observe: 'events'})
+    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
             //console.log(event);
         });

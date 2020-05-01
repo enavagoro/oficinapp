@@ -48,8 +48,8 @@ export interface DatosPdf{
 
 export class CotizacionService {
 
-  private url: string = "http://jazmin.reset.cl";
-  private urlFile : string = "http://jazmin.reset.cl";
+  private url: string = "http://178.128.71.20:3500";
+  private urlFile : string = "http://178.128.71.20:3950";
   idUsuario = '';
   idEmpresa = '';
 /*
