@@ -40,16 +40,25 @@
       </ion-list-header>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+        </ion-avatar>
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.nombre" name="nombre" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+        </ion-avatar>
         <ion-label position="stacked">Rut</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.rut" name="rut" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
+        </ion-avatar>
         <ion-label position="stacked">Giro</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.giro" name="giro" required></ion-input>
       </ion-item>
@@ -79,21 +88,33 @@
       </ion-list-header>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
+        </ion-avatar>
         <ion-label position="stacked">Dirección</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.direccion" name="direccion" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+        </ion-avatar>
         <ion-label position="stacked">Comuna</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.comuna" name="comuna" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
+        </ion-avatar>
         <ion-label position="stacked">Ciudad</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.ciudad" name="ciudad" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
+        </ion-avatar>
         <ion-label position="stacked">Contacto</ion-label>
         <ion-input [(ngModel)]="empresaTemporal.contacto" name="contacto" required></ion-input>
       </ion-item>
@@ -123,23 +144,45 @@
         <h1 class="subtitulo">Datos del Usuario</h1>
       </ion-list-header>
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
+        </ion-avatar>
         <ion-label position="stacked">Correo</ion-label>
         <ion-input [(ngModel)]="usuario.correo" name="correo" required></ion-input>
       </ion-item>
-      
+
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
+        </ion-avatar>
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
       </ion-item>
 
       <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1077/1077012.svg">
+        </ion-avatar>
         <ion-label position="stacked">Apellido</ion-label>
         <ion-input [(ngModel)]="usuario.apellido" name="apellido" required></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Clave</ion-label>
-        <ion-input [(ngModel)]="usuario.clave" name="clave" required type="password"></ion-input>
+      <ion-item *ngIf="flag == false">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
+        </ion-avatar>
+        <!-- <ion-label position="stacked">Clave</ion-label> -->
+        <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña" type="password"></ion-input>
+        <ion-button class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar</ion-button>
+      </ion-item>
+
+      <ion-item *ngIf="flag == true">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
+        </ion-avatar>
+
+        <ion-input [(ngModel)]="usuario.clave" name="clave" rrequired placeholder="Contraseña"></ion-input>
+        <ion-button class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar</ion-button>
       </ion-item>
 
       <ion-button class="ion-button" (click)="confirmar()" [disabled]="usuario.nombre == '' || usuario.apellido=='' || usuario.correo == '' || usuario.clave == 0 ">Guardar</ion-button>

@@ -39,7 +39,7 @@ export class DocumentoPage implements OnInit {
       var self = this;
       const alert = await this.alertController.create({
         header: 'Enviar correo',
-        subHeader : 'para multiples receptores, separar correos con coma (",")',
+        subHeader : 'Para enviar un correo a multiples receptores, separar las direcciones de correos con coma (",")',
         inputs: [
           {
             name: 'correo',

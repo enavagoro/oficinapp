@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class RegistrarPage implements OnInit {
+  flag=false;
   public usuario : Usuario = {id:0,nombre:'',apellido:'',correo:'',clave:'',estado:0};
   usuarios=[];
   bandera=0;
@@ -30,6 +31,11 @@ export class RegistrarPage implements OnInit {
     menu.hidden = true;
     console.log(this.empresas);
 
+    this.empresaService.listar().then(empresas=>{
+      empresas.subscribe(e=>{
+        this.empresas= e;
+      })
+    })
   }
 
   cambiarPagina(){

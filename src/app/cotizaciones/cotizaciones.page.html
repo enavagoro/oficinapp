@@ -139,7 +139,7 @@
     <ion-button class="ion-button-confirmar" *ngIf="cotizacion.id == 0 && bandera==false " size="medium" (click)="confirmar()" [disabled]="cotizacion.fechaCaducidad == '' || cotizacion.fechaEmision==''">Enviar Cotizacion</ion-button>
     <ion-button class="ion-button-confirmar" *ngIf="cotizacion.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="cotizacion.fechaCaducidad == '' || cotizacion.fechaEmision==''">Actualizar</ion-button>
     <ion-button class="ion-button-cancelar" *ngIf="cotizacion.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+    <ion-button class="ion-button-cancelar" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 
     <ion-list-header>
       Lista de Cotizaciones
