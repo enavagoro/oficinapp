@@ -25,6 +25,15 @@ export class EmpresaService {
 
   }
 
+  async listarById(){
+    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
+    return this.http.get<Empresa>(`${this.url}/api/empresas/${this.idEmpresa}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('idEmpresa',""+this.idEmpresa)
+    });
+  }
+
   async listar() {
     this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
     return this.http.get<Empresa[]>(`${this.url}/api/empresas/`,{
@@ -69,13 +78,6 @@ export class EmpresaService {
   }
 
   gathering(id:string){
-    return this.http.get<Empresa>(`${this.url}/api/empresas/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
     return this.http.get<Empresa>(`${this.url}/api/empresas/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

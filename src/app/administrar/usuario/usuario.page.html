@@ -43,8 +43,8 @@
         <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
       </ion-avatar>
       <!-- <ion-label position="stacked">Clave</ion-label> -->
-      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Clave" type="password"></ion-input>
-      <ion-button class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar Clave</ion-button>
+      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña" type="password"></ion-input>
+      <ion-button class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar Contraseña</ion-button>
     </ion-item>
 
     <ion-item *ngIf="flag == true">
@@ -52,8 +52,8 @@
         <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
       </ion-avatar>
       <!-- <ion-label position="stacked">Clave</ion-label> -->
-      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Clave" type="text"></ion-input>
-      <ion-button class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar Clave</ion-button>
+      <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña" type="text"></ion-input>
+      <ion-button class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar Contraseña</ion-button>
     </ion-item>
 
     <ion-button class="ion-button" *ngIf="usuario.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Guardar</ion-button>

@@ -1,0 +1,73 @@
+ion-toolbar{
+  --background: url("/assets/icon/palmeras.png")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 25%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button-cancelar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}
+
+.contenedor-imagen{
+  width: 50%;
+  margin-top: 2%;
+  margin-left: 25%;
+  padding-bottom: 2.5%;
+
+  .ion-avatar{
+    --border-radius: 200px;
+    width: 100px;
+    height: 100px;
+    margin-left: calc((100% - 100px)/2);
+  }
+}
+
+.item-lista{
+  cursor: pointer;
+}
+
+.texto-lista{
+  font-size: 20px;
+}
+
+.grayscale { filter: grayscale(80%) !important; }
+
+.boton-cerrar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+}
