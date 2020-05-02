@@ -13,6 +13,7 @@ export interface Cotizacion {
   estado: number;
   idEmpresa: number;
   idUsuario: number;
+  nota: string;
 }
 
 export interface DatosPdf{

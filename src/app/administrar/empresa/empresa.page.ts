@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmpresaService, Empresa } from '../../_servicios/empresa.service';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+const URL = "http://178.128.71.20:3950/";
 
 @Component({
   selector: 'app-empresa',
@@ -12,10 +14,16 @@ import { Router } from '@angular/router';
 export class EmpresaPage implements OnInit {
   bandera=false;
   empresas=[];
-  empresaTemporal = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',estado:0};
-  public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',estado:0};
+  img: string;
+  file = File = null;
+  cargando : boolean = false;
 
-  constructor(private empresaService : EmpresaService,
+  empresaTemporal = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:'',estado:0};
+  public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',url:'',estado:0};
+
+  constructor(
+              public storage : Storage,
+              private empresaService : EmpresaService,
               public actionSheetController: ActionSheetController,
               private toastController : ToastController,
               public router: Router,
@@ -28,7 +36,13 @@ export class EmpresaPage implements OnInit {
         console.log(this.empresa);
         this.empresa=this.empresa['response'][0];
         console.log(this.empresa);
-      })
+        this.storage.get('idEmpresa').then((value) => {
+          this.img = URL+"/"+value+"/"+this.empresa.url;
+        });
+
+        console.log(this.empresa.url);
+        console.log(this.img);
+})
     })
   }
 
@@ -48,7 +62,7 @@ export class EmpresaPage implements OnInit {
           }, {
             text: 'Okay',
             handler: () => {
-              this.actualizarEmpresa();
+              this.uploadFile(true);
             }
           }
         ]
@@ -57,7 +71,8 @@ export class EmpresaPage implements OnInit {
       await alert.present();
     }
 
-  actualizarEmpresa(){
+  actualizarEmpresa(img){
+    this.empresa.url = img;
     this.empresaService.actualizar(this.empresa.id,this.empresa).subscribe(empresa=>{
       //console.log(cliente);
       this.bandera=false;
@@ -68,5 +83,72 @@ export class EmpresaPage implements OnInit {
   cancelar(){
     this.bandera=false;
     this.ngOnInit();
+    this.cancelarImg();
   }
+
+  cancelarImg(){
+    this.img = this.empresa.url;
+  }
+
+  public subirArchivo(evento){
+    this.file= evento.target.files[0];
+    console.log(this.file);
+  }
+
+  public leerArchivo(evento){
+    if (evento.target.files && evento.target.files[0]) {
+      var lector = new FileReader();
+
+      lector.readAsDataURL(evento.target.files[0]);
+
+      lector.onload = (evento) => { // called once readAsDataURL is completed
+        console.log(evento);
+        try {
+          var pre = evento.target["result"];
+            this.img = pre;
+        } catch (error) {
+            //console.log(error);
+
+        }}
+    }
+    console.log('img:',this.img);
+  }
+
+  public vaciarArchivo(){
+    this.file = 0;
+  }
+
+  uploadFile(actualizar){
+
+      this.cargando = true;
+      var BaseClass = function (data) {
+        Object.assign(this, data);
+      };
+      var info = {};
+      var currentTime = new Date().getTime();
+      //console.log(this.file);
+      if(this.file){
+        var formData = new FormData();
+        var timestamp = new Date();
+        var tipo = this.file.name.split('.').pop();
+        var name = currentTime +"."+tipo;
+        Object.defineProperty(this.file, 'name', {
+          writable: true,
+          value: name
+        });
+        //console.log(this.file);
+        formData.append('name',name);
+        formData.append('file',this.file);
+
+        this.empresaService.guardar(formData);
+
+        if(actualizar){
+          this.actualizarEmpresa(name);
+        }
+      }else{
+        if(actualizar){
+            this.actualizarEmpresa("Sin imagen");
+        }
+      }
+    }
 }

@@ -11,7 +11,7 @@
     <ion-title>Mi Empresa</ion-title>
   </ion-toolbar>
 
-  <ion-item lines="none">
+  <ion-item lines="none" *ngIf="!img">
     <div class="contenedor-imagen">
       <ion-avatar class="ion-avatar">
         <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
@@ -19,7 +19,28 @@
     </div>
   </ion-item>
 
-<!--
+    <ion-item lines="none" *ngIf="img">
+      <div class="contenedor-imagen">
+        <ion-avatar class="ion-avatar">
+          <img [src]="img">
+        </ion-avatar>
+      </div>
+    </ion-item>
+
+  <div *ngIf="bandera==true">
+    <div class="contenedor-boton">
+      <div class="contenedor-texto">
+        <ion-label>Recuerda: La foto que utilicés aparecerá en tus cotizaciones</ion-label>
+      </div>
+      <div class="upload-btn-wrapper">
+        <button class="btn">Subir un archivo</button>
+        <input type="file" name="myfile" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)"/>
+      </div>
+    </div>
+  </div>
+
+
+  <!--
   <ion-item *ngIf="bandera==false" >
     <ion-button slot="end" class="boton-cerrar" (click)="bandera=true;">Editar</ion-button>
   </ion-item>

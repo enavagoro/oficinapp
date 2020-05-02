@@ -31,6 +31,16 @@
       <ion-label>Fecha de Caducidad</ion-label>
       <ion-datetime placeholder="Select Date" name="fechaCaducidad" [(ngModel)]="cotizacion.fechaCaducidad" required [disabled]="bandera==true"></ion-datetime>
     </ion-item>
+
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/599/599251.svg">
+      </ion-avatar>
+      <ion-label>Notas</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="cotizacion.nota" name="nota"></ion-textarea>
+    </ion-item>
   </form>
 
     <ion-item>

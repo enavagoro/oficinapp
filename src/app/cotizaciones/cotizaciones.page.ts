@@ -27,7 +27,7 @@ export class CotizacionesPage implements OnInit {
   nombreCliente = "";
   clientesFiltrado = [];
   cotizaciones = [];
-  public cotizacion : Cotizacion = {id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+  public cotizacion : Cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
   public datosPdf : DatosPdf = {id:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado: 0, idUsuario: 0,
                                 idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0};
                                 //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
@@ -169,7 +169,7 @@ export class CotizacionesPage implements OnInit {
       this.detalle = [];
       this.cliente = undefined;
       this.nombreCliente = "";
-      this.cotizacion = {id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
     })
   }
 
@@ -242,7 +242,7 @@ export class CotizacionesPage implements OnInit {
     this.cotizacionService.actualizar(this.cotizacion.id,this.cotizacion).subscribe(cotizacion=>{
       //console.log(cotizacion);
       this.ngOnInit();
-      this.cotizacion = {id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
     })
   }
   public eliminacionLogica(){
@@ -265,7 +265,7 @@ export class CotizacionesPage implements OnInit {
     this.detalle = [];
     this.cliente = undefined;
     this.nombreCliente = "";
-    this.cotizacion = {id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+    this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
   }
 
   async eliminar(opcion) {

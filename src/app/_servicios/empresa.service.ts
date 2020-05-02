@@ -13,6 +13,7 @@ export interface Empresa{
   ciudad : string;
   contacto : string;
   estado : number;
+  url : string;
 }
 
 @Injectable()
@@ -23,6 +24,15 @@ export class EmpresaService {
   idEmpresa = '';
   constructor(private sService:StorageService,private http: HttpClient) {
 
+  }
+
+  guardar(form){
+    //console.log(form);
+    form.append('idEmpresa',this.idEmpresa);
+    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            //console.log(event);
+        });
   }
 
   async listarById(){
