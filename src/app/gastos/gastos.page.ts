@@ -296,6 +296,7 @@ export class GastosPage implements OnInit {
   public vaciarArchivo(){
     this.file = 0;
   }
+
   uploadFile(actualizar){
 
       this.cargando = true;

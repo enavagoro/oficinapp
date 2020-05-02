@@ -16,8 +16,8 @@ export class RegistrarPage implements OnInit {
   usuarios=[];
   bandera=0;
   empresas=[];
-  empresaTemporal = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',estado:0};
-  public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',estado:0};
+  empresaTemporal = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',estado:0,url:''};
+  public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',estado:0,url:''};
 
   constructor(private usuarioService : UsuarioService,
               private empresaService : EmpresaService,
@@ -77,7 +77,7 @@ export class RegistrarPage implements OnInit {
     this.empresa = this.empresaTemporal;
     this.empresaService.insertar(this.empresa).subscribe(empresa=>{
       this.guardarUsuario(empresa['insertId']);
-      this.empresa = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:''};
+      this.empresa = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:''};
     })
 
   }
