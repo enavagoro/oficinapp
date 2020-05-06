@@ -7,22 +7,23 @@ import { StorageService } from './storage.service';
 export interface Cotizacion {
   id: number;
   idCliente: number;
-  fechaEmision: string;
-  fechaCaducidad: string;
+  fechaEmision: Date;
+  fechaCaducidad: Date;
   detalle : Array<Producto>;
   estado: number;
   idEmpresa: number;
   idUsuario: number;
+  url : string;
   nota: string;
 }
 
 export interface DatosPdf{
   id: number;
-  fechaEmision: string;
-  fechaCaducidad: string;
+  fechaEmision: Date;
+  fechaCaducidad: Date;
   detalle : Array<Producto>;
   estado: number;
-
+  url : string;
   idCliente: number;
   nombreCliente: string;
   rutCliente: string;
@@ -31,7 +32,7 @@ export interface DatosPdf{
   comunaCliente: string;
   ciudadCliente: string;
   contactoCliente: string;
-
+  nota : string;
   idUsuario: number;
   idEmpresa: number;
   /*
@@ -78,6 +79,7 @@ export class CotizacionService {
   }
 
   insertarPdf(datosPdf : DatosPdf){
+      datosPdf.url = this.urlFile +"/"+datosPdf.idEmpresa+"/"+datosPdf.url;
       return this.http.post<DatosPdf>(`${this.urlFile}/cotizacion/`,datosPdf, {
         headers: new HttpHeaders()
         .set('Content-Type', 'application/json')

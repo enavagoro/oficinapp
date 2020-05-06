@@ -27,9 +27,9 @@ export class CotizacionesPage implements OnInit {
   nombreCliente = "";
   clientesFiltrado = [];
   cotizaciones = [];
-  public cotizacion : Cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
-  public datosPdf : DatosPdf = {id:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado: 0, idUsuario: 0,
-                                idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0};
+  public cotizacion : Cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0,url:'', idUsuario:0};
+  public datosPdf : DatosPdf = {id:0, nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
+                                idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0,url:''};
                                 //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
   constructor(public actionSheetController: ActionSheetController,
               private clienteService: ClienteService,
@@ -169,7 +169,7 @@ export class CotizacionesPage implements OnInit {
       this.detalle = [];
       this.cliente = undefined;
       this.nombreCliente = "";
-      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0, url :''};
     })
   }
 
@@ -188,9 +188,10 @@ export class CotizacionesPage implements OnInit {
     this.datosPdf.comunaCliente = this.cliente.comuna;
     this.datosPdf.ciudadCliente = this.cliente.ciudad;
     this.datosPdf.contactoCliente = this.cliente.contacto;
-
+    this.datosPdf.nota = this.cotizacion.nota;
 
     this.datosPdf['idEmpresa'] = this.empresa.id;
+    this.datosPdf['url'] = this.empresa['url'];
     this.datosPdf['nombreEmpresa'] = this.empresa.nombre;
     this.datosPdf['rutEmpresa'] = this.empresa.rut;
     this.datosPdf['giroEmpresa'] = this.empresa.giro;
@@ -208,7 +209,7 @@ export class CotizacionesPage implements OnInit {
       this.detalle = [];
       this.nombreCliente = "";
       this.cliente = undefined;
-      this.datosPdf = {id:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado: 0, idUsuario: 0,
+      this.datosPdf = {id:0,url:'',nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
                                     idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0};
                                     //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
     })
@@ -242,7 +243,7 @@ export class CotizacionesPage implements OnInit {
     this.cotizacionService.actualizar(this.cotizacion.id,this.cotizacion).subscribe(cotizacion=>{
       //console.log(cotizacion);
       this.ngOnInit();
-      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+      this.cotizacion = {nota:'',url:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
     })
   }
   public eliminacionLogica(){
@@ -265,7 +266,7 @@ export class CotizacionesPage implements OnInit {
     this.detalle = [];
     this.cliente = undefined;
     this.nombreCliente = "";
-    this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date().toISOString(), fechaCaducidad:new Date().toISOString(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+    this.cotizacion = {nota:'',url:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
   }
 
   async eliminar(opcion) {
