@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpresaService, Empresa } from '../../_servicios/empresa.service';
+import { EmpresaService } from '../../_servicios/empresa.service';
+import { LoginService } from '../../_servicios/login.service';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
@@ -18,11 +19,12 @@ export class EmpresaPage implements OnInit {
   file = File = null;
   cargando : boolean = false;
 
-  empresaTemporal = {id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:'',estado:0};
-  public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',url:'',estado:0};
+  empresaTemporal = {id:'',nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:'',estado:true};
+  public empresa  = {id:'',nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',url:'',estado:true};
 
   constructor(
               public storage : Storage,
+              public login : LoginService,
               private empresaService : EmpresaService,
               public actionSheetController: ActionSheetController,
               private toastController : ToastController,
@@ -30,19 +32,12 @@ export class EmpresaPage implements OnInit {
               private alertController :AlertController,) { }
 
   ngOnInit() {
-    this.empresaService.listarById().then(empresa=>{
-      empresa.subscribe(e=>{
+    this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
         this.empresa= e;
         console.log(this.empresa);
-        this.empresa=this.empresa['response'][0];
-        console.log(this.empresa);
-        this.storage.get('idEmpresa').then((value) => {
-          this.img = URL+"/"+value+"/"+this.empresa.url;
-        });
-
+        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa.url;
         console.log(this.empresa.url);
         console.log(this.img);
-})
     })
   }
 
@@ -73,7 +68,7 @@ export class EmpresaPage implements OnInit {
 
   actualizarEmpresa(img){
     this.empresa.url = img;
-    this.empresaService.actualizar(this.empresa.id,this.empresa).subscribe(empresa=>{
+    this.empresaService.actualizar(this.empresa,this.empresa.id).subscribe(empresa=>{
       //console.log(cliente);
       this.bandera=false;
       this.ngOnInit();

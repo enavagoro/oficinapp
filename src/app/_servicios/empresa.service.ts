@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
 export interface Empresa{
   id : number;
@@ -20,77 +20,65 @@ export interface Empresa{
 
 export class EmpresaService {
 
-  private url: string = "http://178.128.71.20:3500";
-  idEmpresa = '';
-  constructor(private sService:StorageService,private http: HttpClient) {
+  private url: string = "http://localhost:8120";
+  constructor(private login:LoginService,private http:HttpClient) {
 
   }
 
   guardar(form){
     //console.log(form);
-    form.append('idEmpresa',this.idEmpresa);
-    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
+    this.http.post(`${this.url}/empresa/archivo`, form, {
+      headers: new HttpHeaders()      
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa()),
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe(event => {
             //console.log(event);
         });
   }
 
-  async listarById(){
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    return this.http.get<Empresa>(`${this.url}/api/empresas/${this.idEmpresa}` , {
+  listar() {
+    return this.http.get<any[]>(`${this.url}/empresa/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  getempresa(id){
+    return this.http.get<any[]>(`${this.url}/empresa/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/empresa/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/empresa/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  async listar() {
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    return this.http.get<Empresa[]>(`${this.url}/api/empresas/`,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
-  }
-  login(empresa,clave){
-    let cliente = {empresa:empresa,clave:clave};
-    return this.http.post<Empresa>(`${this.url}/api/login/`,cliente, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-  insertar(cliente : Empresa){
-    return this.http.post<Empresa>(`${this.url}/api/empresas/`,cliente, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  actualizar(id:number,cliente : Empresa){
-    return this.http.put<Empresa>(`${this.url}/api/empresas/${id}`, cliente,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  borrar(id:number,cliente : Empresa){
-
-    if(cliente.estado == 0){
-      cliente.estado = 1;
-    }else{
-      cliente.estado = 0;
-    }
-
-    return this.http.put<Empresa>(`${this.url}/api/empresas/${id}`, cliente,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<Empresa>(`${this.url}/api/empresas/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
+  eliminar(prod,id){
+      prod.estado = false;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/empresa/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
 }
