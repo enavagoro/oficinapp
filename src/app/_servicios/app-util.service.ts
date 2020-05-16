@@ -45,7 +45,7 @@ export class AppUtilService {
       clientSecret: 'password', // Only necessary for Android
       disableBackup: false, // Only for Android(optional)
       localizedFallbackTitle: 'Use Pin', // Only for iOS
-      localizedReason: 'Please authenticate' // Only for iOS
+      localizedReason: 'Favor autenticate' // Only for iOS
     });
   }
 

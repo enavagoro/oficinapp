@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductoService, Producto } from '../_servicios/producto.service';
 
 export interface Detalle {
   id: number;

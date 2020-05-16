@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-producto.service';
+import { TipoProductoService } from '../../_servicios/tipo-producto.service';
 
 @Component({
   selector: 'app-tipo-producto',
@@ -10,7 +10,7 @@ import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-product
 
 export class TipoProductoPage implements OnInit {
   tipoProductos= [];
-  public tipoProducto : TipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  public tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
@@ -20,10 +20,8 @@ export class TipoProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoProductoService.listar().then(gastos=>{
-      gastos.subscribe(g=>{
+    this.tipoProductoService.listar().subscribe(g=>{
         this.tipoProductos = g;
-      })
     })
   }
   refrescar(event) {
@@ -51,7 +49,7 @@ export class TipoProductoPage implements OnInit {
     })
   }
   public eliminacionLogica(){
-    this.tipoProductoService.borrar(this.tipoProducto.id,this.tipoProducto).subscribe(datos=>{
+    this.tipoProductoService.eliminar(this.tipoProducto,this.tipoProducto.id).subscribe(datos=>{
       //console.log(datos);
       this.ngOnInit();
     })

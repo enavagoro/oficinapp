@@ -36,10 +36,8 @@ export class DetalleCotizacionPage implements OnInit {
   }
 
     traerDatos(){
-      this.productoService.listar().then(ps=>{
-        ps.subscribe(p=>{
-          this.productos = p.filter(this.filtros);;
-        })
+      this.productoService.listar().subscribe(p=>{
+          this.productos = p.filter(this.filtros);
       })
     }
     filtros(gasto){

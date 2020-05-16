@@ -1,83 +1,61 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
-export interface TipoGasto{
-  id:number;
-  titulo:string;
-  codigo:string;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class TipoGastoService {
-
-  private url: string = "http://178.128.71.20:3500";
-
-  idEmpresa = '';
-  idUsuario = '';
-  constructor(private sService:StorageService,private http: HttpClient) {
-
+  private url: string = "http://localhost:8120";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
-
-  async listar() {
-    //console.log("LISTAR");
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    this.idUsuario = (await this.sService.getIdUsuario()).toString();
-    //console.log("con async ",this.idEmpresa)
-    return this.http.get<TipoGasto[]>(`${this.url}/api/tipoGasto/`,{
+  listar() {
+    return this.http.get<any[]>(`${this.url}/tipoGasto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  gettipoGasto(id){
+    return this.http.get<any[]>(`${this.url}/tipoGasto/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/tipoGasto/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/tipoGasto/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  insertar(tipoGasto : TipoGasto){
-
-    return this.http.post<TipoGasto>(`${this.url}/api/tipoGasto/`,tipoGasto, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
+  eliminar(prod,id){
+      prod.estado = !prod.estado;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/tipoGasto/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
+    //var indice  = this.tipoGastos.indexOf(prod);
+    //this.tipoGastos[indice] = prod;
+    //console.log(this.tipoGastos[indice]);
 
-  actualizar(id:number,tipoGasto : TipoGasto){
-    return this.http.put<TipoGasto>(`${this.url}/api/tipoGasto/${id}`, tipoGasto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 
-  borrar(id:number,tipoGasto: TipoGasto){
-
-    if(tipoGasto.estado == 0){
-      tipoGasto.estado = 1;
-    }else{
-    tipoGasto.estado = 0;
-    }
-
-    return this.http.put<TipoGasto>(`${this.url}/api/tipoGasto/${id}`, tipoGasto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<TipoGasto>(`${this.url}/api/tipoGasto/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<TipoGasto>(`${this.url}/api/tipoGasto/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 }

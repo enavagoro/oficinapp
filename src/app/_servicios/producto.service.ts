@@ -1,81 +1,61 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
-export interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductoService {
-
-  private url: string = "http://178.128.71.20:3500";
-
-  idEmpresa = '';
-  idUsuario = '';
-  constructor(private sService:StorageService,private http: HttpClient) {
-
+  private url: string = "http://localhost:8120";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
-
-  async listar() {
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    this.idUsuario = (await this.sService.getIdUsuario()).toString();
-    return this.http.get<Producto[]>(`${this.url}/api/productos/`,{
+  listar() {
+    return this.http.get<any[]>(`${this.url}/producto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  getProducto(id){
+    return this.http.get<any[]>(`${this.url}/producto/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/producto/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/producto/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  insertar(producto : Producto){
-
-    return this.http.post<Producto>(`${this.url}/api/productos/`,producto, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
+  eliminar(prod,id){
+      prod.estado = false;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/producto/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
+    //var indice  = this.productos.indexOf(prod);
+    //this.productos[indice] = prod;
+    //console.log(this.productos[indice]);
 
-  actualizar(id:number,producto : Producto){
-    return this.http.put<Producto>(`${this.url}/api/productos/${id}`, producto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 
-  borrar(id:number,producto: Producto){
-
-    if(producto.estado == 0){
-      producto.estado = 1;
-    }else{
-      producto.estado = 0;
-    }
-
-    return this.http.put<Producto>(`${this.url}/api/productos/${id}`, producto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<Producto>(`${this.url}/api/productos/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<Producto>(`${this.url}/api/productos/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 }

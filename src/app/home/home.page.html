@@ -55,13 +55,21 @@
               </div>
               <div class="centro">
 
-                <ion-card class="ion-card">
-                  <ion-card-header>
-                    <img class="icono-card" src="/assets/icon/ventas.svg">
-                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del mes ($)</ion-card-title>
-                  </ion-card-header>
-                  <h1 style="text-align:center">{{ventasMensuales| number}}</h1>
-                </ion-card>
+                <div class="chartCanvas">
+                  <apx-chart
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [xaxis]="chartOptions.xaxis"
+                    [stroke]="chartOptions.stroke"
+                    [tooltip]="chartOptions.tooltip"
+                    [dataLabels]="chartOptions.dataLabels"
+                    [legend]="chartOptions.legend"
+                    [markers]="chartOptions.markers"
+                    [grid]="chartOptions.grid"
+                    [yaxis]="chartOptions.yaxis"
+                    [title]="chartOptions.title"
+                  ></apx-chart>
+                </div>  
               </div>
               <div class="izquierda">
                 <ion-card class="ion-card">
@@ -135,6 +143,7 @@
         </ion-card-content>
       </ion-card>
     </div>
+
     <div class="contenedor-estadisticas">
       <ion-card>
         <ion-item>

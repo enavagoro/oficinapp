@@ -1,80 +1,61 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
-export interface TipoProducto{
-  id:number;
-  titulo:string;
-  codigo:string;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class TipoProductoService {
-
-  private url: string = "http://178.128.71.20:3500";
-
-  idEmpresa = '';
-  idUsuario = '';
-  constructor(private sService:StorageService,private http: HttpClient) {
-
+  private url: string = "http://localhost:8120";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
-
-  async listar() {
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    this.idUsuario = (await this.sService.getIdUsuario()).toString();
-    return this.http.get<TipoProducto[]>(`${this.url}/api/tipoProducto/`,{
+  listar() {
+    return this.http.get<any[]>(`${this.url}/tipoProducto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  gettipoProducto(id){
+    return this.http.get<any[]>(`${this.url}/tipoProducto/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/tipoProducto/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/tipoProducto/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  insertar(tipoProducto : TipoProducto){
-    tipoProducto.idUsuario = parseInt(this.idUsuario);
-    return this.http.post<TipoProducto>(`${this.url}/api/tipoProducto/`,tipoProducto, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
+  eliminar(prod,id){
+      prod.estado = !prod.estado;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/tipoProducto/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
+    //var indice  = this.tipoProductos.indexOf(prod);
+    //this.tipoProductos[indice] = prod;
+    //console.log(this.tipoProductos[indice]);
 
-  actualizar(id:number,tipoProducto : TipoProducto){
-    return this.http.put<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, tipoProducto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 
-  borrar(id:number,tipoProducto: TipoProducto){
-
-    if(tipoProducto.estado == 0){
-      tipoProducto.estado = 1;
-    }else{
-    tipoProducto.estado = 0;
-    }
-
-    return this.http.put<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, tipoProducto,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<TipoProducto>(`${this.url}/api/tipoProducto/${id}`, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 }

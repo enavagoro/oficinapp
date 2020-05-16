@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from './_servicios/app-util.service';
 import { StorageService } from './_servicios/storage.service';
-
+import { LoginService } from './_servicios/login.service';
 
 @Component({
   selector: 'app-root',
@@ -44,6 +44,7 @@ export class AppComponent {
   ];
 
   constructor(
+    private loginService : LoginService,
     private sService : StorageService,
     private storage : Storage,
     private router : Router,
@@ -75,6 +76,15 @@ export class AppComponent {
         this.router.navigate(['/login'])
       }
       */
+      this.storage.get('usuarios').then((val) => {
+        console.log(val);
+        if(!val){
+          this.router.navigate(['/login'], {replaceUrl: true})
+        }else{
+          this.loginService.setToken(val['token']);
+          this.loginService.setEmpresa(val['empresa']);
+        }
+      });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

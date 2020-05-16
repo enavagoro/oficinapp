@@ -10,7 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
-
+// servicios
+import { AuthService } from './_servicios/auth.service';
+import { LoginService } from './_servicios/login.service';
 import { EmpresaService } from './_servicios/empresa.service';
 import { UsuarioService } from './_servicios/usuario.service';
 import { ClienteService } from './_servicios/cliente.service';
@@ -34,6 +36,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './_servicios/storage.service';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { EmailService } from './_servicios/email.service';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 
 @NgModule({
   declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage],
@@ -42,6 +46,7 @@ import { EmailService } from './_servicios/email.service';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    NgApexchartsModule,
     NgxDocViewerModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
@@ -55,6 +60,8 @@ import { EmailService } from './_servicios/email.service';
     AuthenticationService,
     AppUtilService,
     //NativeStorage,
+    AuthService,
+    LoginService,
     EmpresaService,
     UsuarioService,
     ClienteService,

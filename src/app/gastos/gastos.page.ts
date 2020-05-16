@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { GastoService, Gasto } from '../_servicios/gasto.service';
-import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
+import { GastoService } from '../_servicios/gasto.service';
+import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 import { Storage } from '@ionic/storage';
 const URL = "http://178.128.71.20:3950/";
 
@@ -15,7 +15,7 @@ export class GastosPage implements OnInit {
   file = File = null;
   gastos = [];
 
-  public gasto : Gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+  public gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
 
   tiposGastos = [];
   url : string;
@@ -33,17 +33,11 @@ export class GastosPage implements OnInit {
       private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().then(tipos=>{
-      tipos.subscribe(t=>{
+    this.tipoGastoService.listar().subscribe(t=>{
           this.tiposGastos = t.filter(this.filtros);
-      })
-
     })
-    this.gastoService.listar().then(gastos =>{
-      gastos.subscribe(g=>{
+    this.gastoService.listar().subscribe(g=>{
           this.gastos = g;
-
-      })
     })
   }
   refrescar(event) {
@@ -79,7 +73,7 @@ export class GastosPage implements OnInit {
     })
   }
   public eliminacionLogica(){
-    this.gastoService.borrar(this.gasto.id,this.gasto).subscribe(datos=>{
+    this.gastoService.eliminar(this.gasto,this.gasto.id).subscribe(datos=>{
       //console.log(datos);
 
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
@@ -89,7 +83,7 @@ export class GastosPage implements OnInit {
     })
   }
   public verGasto(){
-    this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
+    this.gastoService.actualizar(this.gasto,this.gasto.id).subscribe(gasto=>{
       //console.log(gasto);
       this.ngOnInit();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
@@ -318,8 +312,8 @@ export class GastosPage implements OnInit {
         //console.log(this.file);
         formData.append('name',name);
         formData.append('file',this.file);
-
-        this.gastoService.guardar(formData);
+//****** PENDIENTEEEEE
+//        this.gastoService.guardar(formData);
 
         if(actualizar){
           this.actualizarGasto(name)

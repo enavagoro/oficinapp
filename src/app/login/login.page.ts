@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../_servicios/usuario.service';
 import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { AuthenticationService } from '../_servicios/authentication.service';
+import { AuthService } from '../_servicios/auth.service';
+import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from '../_servicios/app-util.service';
 import { FingerprintAIO ,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
@@ -18,9 +19,10 @@ export class LoginPage implements OnInit {
   clave = "";
   permitirDedo = false;
   constructor(
+    private loginService : LoginService,
     private fingerAuth: FingerprintAIO,
     private storage : Storage,
-    private authenticationService: AuthenticationService,
+    private auth: AuthService,
     private appUtil: AppUtilService,
     //private nativeStorage:NativeStorage,
     public router: Router,public usuarioService : UsuarioService) { }
@@ -61,27 +63,20 @@ export class LoginPage implements OnInit {
   }
 
   async login(){
-    this.authenticationService.login(this.usuario,this.clave).then(datos=>{
-      //console.log(datos);
-      var i = 0 ;
-      var datas = []
-      for(let obj in datos){
-        i++;
-        datas.push(obj) ;
-      }
-      if(i == 0){
-        alert("mal iniciado");
-      }else{
-        var usuario = datos[datas[0]][0].id;
-        var empresa = datos[datas[1]][0].id;
-        var datosEmpresa = datos[datas[1]][0];
-        this.storage.set('empresa',datosEmpresa);
-        this.storage.set('idUsuario', usuario);
-        this.storage.set('idEmpresa', empresa)
-        //console.log(usuario);
-        //console.log(empresa);
-        this.router.navigate(['/home'], {replaceUrl: true});
-      }
+    var login = {correo : this.usuario , clave : this.clave};
+    this.auth.login(login).subscribe(d=>{
+      console.log(d);
+      this.loginService.setToken(d['accessToken']);
+      this.loginService.getUser(login).subscribe(r=>{
+        console.log(r);
+        for(var usuario of r){
+          usuario.token = d['accessToken'];
+          this.loginService.setUser(usuario);
+          this.loginService.setEmpresa(usuario.empresa);
+          this.router.navigate(['/home']);
+        }
+
+      })
     })
   }
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
-import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
+import { ClienteService } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
-import { VentaService, Venta} from '../_servicios/venta.service';
+import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
+import { StockService } from '../_servicios/stock.service';
 
 @Component({
   selector: 'app-ventas',
@@ -14,10 +15,10 @@ import { DetallePage } from './detalle/detalle.page';
 export class VentasPage implements OnInit {
   nombreCliente = "";
   clientesFiltrado = [];
-  private clientes : Cliente[] = [];
-  cliente : Cliente;
-  ventas : Venta[] = [];
-  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+  private clientes  = [];
+  cliente ;
+  ventas  = [];
+  public venta  = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
   flag = false;
@@ -25,25 +26,21 @@ export class VentasPage implements OnInit {
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
+              private stock : StockService,
               private ventaService:VentaService,
               private detalleService:DetalleService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
-                  clienteService.listar().then(clientes=>{
-                    clientes.subscribe(c=>{
+                  clienteService.listar().subscribe(c=>{
                         this.clientes = c;
-                    })
                   })
               }
 
   ngOnInit() {
-    this.ventaService.listar().then(ventas =>{
-      ventas.subscribe(v=>{
+    this.ventaService.listar().subscribe(v=>{
         this.ventas = v;
       })
-
-    })
   }
   traerCliente(id){
     var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
@@ -54,10 +51,10 @@ export class VentasPage implements OnInit {
     }
 
   }
-  encontrarCliente(id_cliente){
+  encontrarCliente(idCliente){
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
-      if(cli.id == id_cliente){
+      if(cli.id == idCliente){
         return cli.nombre;
       }
     }
@@ -113,39 +110,61 @@ export class VentasPage implements OnInit {
 
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
-        //console.log("detalle conseguido",modal.data);
+        console.log("detalle conseguido",modal.data);
         this.detalle = modal.data;
       }
     });
 
     return await modal.present();
   }
-
+  public ejecutarInsercion(indice,tam){
+    if(indice == tam){
+      this.ventaService.insertar(this.venta).subscribe(data=>{
+        //console.log(data);
+        this.ngOnInit();
+        this.detalle = [];
+        this.cliente = undefined;
+        this.nombreCliente = "";
+        this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+      })
+    }
+  }
   public guardarVenta(){
     //console.log('entra');
     this.venta.id = 0 + (this.ventas.length + 1);
-    this.venta.id_cliente = this.cliente.id;
-    this.venta.detalles = this.detalle;
-    this.ventaService.insertar(this.venta).subscribe(data=>{
-      //console.log(data);
-      this.ngOnInit();
-      this.detalle = [];
-      this.cliente = undefined;
-      this.nombreCliente = "";
-      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
-    })
+    this.venta.idCliente = this.cliente.id;
+    this.venta.detalle = this.detalle;
+
+    var i = 0;
+    var inventariados = this.venta.detalle.filter(prod=>{return prod.tipo == 1})
+    for(var producto of this.venta.detalle){
+      if(producto.tipo == 1){
+        this.stock.descontar(producto.cantidad,producto['id']).subscribe(d=>{
+          console.log(d);
+          if(d['error']){
+            alert(d['error']);
+          }else{
+            i++;
+            this.ejecutarInsercion(i,inventariados.length);
+          }
+
+        })
+      }
+    }
+
+
   }
 
   public actualizarVenta(){
-    this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
+    this.ventaService.actualizar(this.venta,this.venta.id).subscribe(venta=>{
       //console.log(venta);
       this.ngOnInit();
-      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+      this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
       this.limpiar();
     })
   }
   public eliminacionLogica(){
-    this.ventaService.borrar(this.venta.id,this.venta).subscribe(datos=>{
+    this.ventaService.eliminar(this.venta,this.venta.id).subscribe(datos=>{
       //console.log(datos);
       this.ngOnInit();
     })
@@ -164,7 +183,7 @@ export class VentasPage implements OnInit {
     this.detalle = [];
     this.cliente = undefined;
     this.nombreCliente = "";
-    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+    this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   }
 
   async eliminar(opcion) {
@@ -263,13 +282,9 @@ export class VentasPage implements OnInit {
           //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
-          this.traerCliente(venta.id_cliente);
-          this.detalleService.listar(venta.id).subscribe(detalle=>{
-            console.log(detalle);
-
-            venta.detalles = detalle;
-            this.detalle = detalle;
-          })
+          this.traerCliente(venta.idCliente);
+          venta.detalles = venta.detalle;
+          this.detalle = venta.detalle;
         }
       },{
         text: 'Actualizar',
@@ -277,7 +292,7 @@ export class VentasPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.venta = venta;
-          this.traerCliente(venta.id_cliente);
+          this.traerCliente(venta.idCliente);
           this.detalleService.listar(venta.id).subscribe(detalle=>{
             venta.detalles = detalle;
             this.detalle = detalle;

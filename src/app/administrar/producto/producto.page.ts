@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { ProductoService, Producto } from '../../_servicios/producto.service';
-import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-producto.service';
+import { ProductoService } from '../../_servicios/producto.service';
+import { TipoProductoService } from '../../_servicios/tipo-producto.service';
 
 @Component({
   selector: 'app-producto',
@@ -11,7 +11,7 @@ import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-product
 
 export class ProductoPage implements OnInit {
   productos = [];
-  public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  public producto  = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   tiposProductos = [];
   bandera = false;
 
@@ -24,25 +24,15 @@ export class ProductoPage implements OnInit {
 
   ngOnInit() {
     var self = this;
-    this.tipoProductoService.listar().then(productos=>{
-      //console.log(productos);
-      productos.subscribe(results=>{
+    this.tipoProductoService.listar().subscribe(results=>{
           self.tiposProductos = results;
           //console.log(results)
-      })
-
     })
-    this.tipoProductoService.listar().then(tipos=>{
-      tipos.subscribe(t=>{
+    this.tipoProductoService.listar().subscribe(t=>{
         this.tiposProductos = t;
-      })
     })
-    this.productoService.listar().then(productos=>{
-
-      productos.subscribe(p=>{
+    this.productoService.listar().subscribe(p=>{
         this.productos = p;
-
-      })
     })
   }
   refrescar(event) {
@@ -56,20 +46,20 @@ export class ProductoPage implements OnInit {
     this.producto.id = 0 + (this.productos.length + 1);
     this.productoService.insertar(this.producto).subscribe(producto=>{
       //console.log('entra2');
+      this.ngOnInit();
+      this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   }
 
   public actualizarProducto(){
-    this.productoService.actualizar(this.producto.id,this.producto).subscribe(producto=>{
+    this.productoService.actualizar(this.producto,this.producto.id).subscribe(producto=>{
       //console.log(producto);
       this.ngOnInit();
       this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
-    this.productoService.borrar(this.producto.id,this.producto).subscribe(datos=>{
+    this.productoService.eliminar(this.producto,this.producto.id).subscribe(datos=>{
       //console.log(datos);
       this.ngOnInit();
     })

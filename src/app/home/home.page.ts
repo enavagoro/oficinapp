@@ -9,7 +9,33 @@ import { Storage } from '@ionic/storage';
 import * as jsPDF from 'jspdf';
 import { Chart } from "chart.js";
 import { Router } from '@angular/router';
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexStroke,
+  ApexMarkers,
+  ApexYAxis,
+  ApexGrid,
+  ApexTitleSubtitle,
+  ApexLegend
+} from "ng-apexcharts";
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  stroke: ApexStroke;
+  dataLabels: ApexDataLabels;
+  markers: ApexMarkers;
+  tooltip: any; // ApexTooltip;
+  yaxis: ApexYAxis;
+  grid: ApexGrid;
+  legend: ApexLegend;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-home',
@@ -40,60 +66,147 @@ export class HomePage {
   private chart1: Chart;
 
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
-
+  @ViewChild("chartCanvas",{static: false}) chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
 
   constructor(public router:Router,public storage:Storage,public tService :TipoGastoService,public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
-    //console.log("constructor");
-    pService.listar().then(ps =>{
-      ps.subscribe(p=>{
-        this.productos = p.filter(this.filtros);
-      })
-    })
-    tService.listar().then(tipos=>{
-      tipos.subscribe(t=>{
-        this.tiposGastos = t;
-        gService.listar().then(gs=>{
-          gs.subscribe(g=>{
-              this.gastos = g.filter(this.filtros);
-              //console.log(this.gastos);
-              for(let gasto of this.gastos){
-
-                var fechaTemporal = new Date(gasto.fecha);
-                let fecha = new Date();
-                if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-                  this.gastosMensuales += gasto.monto;
-                }
-                this.gastosAnuales += gasto.monto;
-                var lista = this.listaGastos[this.tiposGastos[gasto.tipo].titulo];
-                if(lista){
-                  this.listaGastos[this.tiposGastos[gasto.tipo].titulo] += 1;
-                }else{
-                  this.listaGastos[this.tiposGastos[gasto.tipo].titulo] = 0;
-                  this.listaGastos[this.tiposGastos[gasto.tipo].titulo] += 1;
-                }
+    this.chartOptions = {
+      series: [
+        {
+          name: "Session Duration",
+          data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+        },
+        {
+          name: "Page Views",
+          data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+        },
+        {
+          name: "Total Visits",
+          data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "line"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        width: 5,
+        curve: "straight",
+        dashArray: [0, 8, 5]
+      },
+      title: {
+        text: "Page Statistics",
+        align: "left"
+      },
+      legend: {
+        tooltipHoverFormatter: function(val, opts) {
+          return (
+            val +
+            " - <strong>" +
+            opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
+            "</strong>"
+          );
+        }
+      },
+      markers: {
+        size: 0,
+        hover: {
+          sizeOffset: 6
+        }
+      },
+      xaxis: {
+        labels: {
+          trim: false
+        },
+        categories: [
+          "01 Jan",
+          "02 Jan",
+          "03 Jan",
+          "04 Jan",
+          "05 Jan",
+          "06 Jan",
+          "07 Jan",
+          "08 Jan",
+          "09 Jan",
+          "10 Jan",
+          "11 Jan",
+          "12 Jan"
+        ]
+      },
+      tooltip: {
+        y: [
+          {
+            title: {
+              formatter: function(val) {
+                return val + " (mins)";
               }
-              //console.log(this.listaGastos)
-          })
+            }
+          },
+          {
+            title: {
+              formatter: function(val) {
+                return val + " per session";
+              }
+            }
+          },
+          {
+            title: {
+              formatter: function(val) {
+                return val;
+              }
+            }
+          }
+        ]
+      },
+      grid: {
+        borderColor: "#f1f1f1"
+      }
+    };
 
-        })
-      })
+    //console.log("constructor");
+    pService.listar().subscribe(ps =>{
+      this.productos = ps.filter(this.filtros);
     })
-    cService.listar().then(cs=>{
-      cs.subscribe(c=>{
-          this.clientes = c.filter(this.filtros);
-      })
+    tService.listar().subscribe(g=>{
+      this.gastos = g.filter(this.filtros);
+      //console.log(this.gastos);
+      for(let gasto of this.gastos){
 
+        var fechaTemporal = new Date(gasto.fecha);
+        let fecha = new Date();
+        if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+          this.gastosMensuales += gasto.monto;
+        }
+        this.gastosAnuales += gasto.monto;
+        var lista = this.listaGastos[gasto.titulo];
+        if(lista){
+          this.listaGastos[gasto.titulo] += 1;
+        }else{
+          this.listaGastos[gasto.titulo] = 0;
+          this.listaGastos[gasto.titulo] += 1;
+        }
+      }
+
+    })
+
+
+
+
+    cService.listar().subscribe(c=>{
+        this.clientes = c.filter(this.filtros);
     })
 
     var menu = document.querySelector('ion-menu')
     menu.hidden = false;
     var contador = 0;
-    vService.listar().then(vs=>{
-      vs.subscribe(v=>{
+    vService.listar().subscribe(v=>{
         this.ventas = v.filter(this.filtros);
         for (let i=0; i<this.ventas.length; i++)
         {
-
+/*
           //console.log("entre");
           dService.listar(this.ventas[i].id).subscribe(ds=>{
             //console.log("esto es el ds:",ds);
@@ -122,9 +235,8 @@ export class HomePage {
                 this.dibujarGrafico();
             }
           })
+          */
         }
-      })
-
 
       })
 
@@ -134,6 +246,9 @@ export class HomePage {
       return true;
     }
     return false;
+  }
+  ngafterviewinit(){
+    this.chart.toggleSeries("series-1");
   }
   productoMasVendido(){
 

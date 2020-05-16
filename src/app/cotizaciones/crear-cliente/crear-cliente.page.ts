@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.service';
+import { ClienteService } from '../../_servicios/cliente.service';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -10,8 +10,8 @@ import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.serv
 export class CrearClientePage implements OnInit {
 
   clientes = [];
-  public cliente : Cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
-  public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  public cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
+  public producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
@@ -21,11 +21,8 @@ export class CrearClientePage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.clienteService.listar().then(clientes=>{
-      clientes.subscribe(c=>{
+    this.clienteService.listar().subscribe(c=>{
         this.clientes= c;
-
-      })
     })
   }
 

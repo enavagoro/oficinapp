@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { TipoGastoService, TipoGasto } from '../../_servicios/tipo-gasto.service';
+import { TipoGastoService } from '../../_servicios/tipo-gasto.service';
 
 @Component({
   selector: 'app-tipo-gasto',
@@ -10,7 +10,7 @@ import { TipoGastoService, TipoGasto } from '../../_servicios/tipo-gasto.service
 
 export class TipoGastoPage implements OnInit {
   tipoGastos= [];
-  public tipoGasto : TipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
+  public tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
@@ -21,13 +21,8 @@ export class TipoGastoPage implements OnInit {
 
   ngOnInit() {
     var self = this;
-    this.tipoGastoService.listar().then(gastos=>{
-      //console.log(gastos);
-      gastos.subscribe(results=>{
+    this.tipoGastoService.listar().subscribe(results=>{
           self.tipoGastos = results;
-          //console.log(results)
-      })
-
     })
   }
   refrescar(event) {
@@ -47,15 +42,15 @@ export class TipoGastoPage implements OnInit {
 
   }
   public actualizarTipoGasto(){
-    this.tipoGastoService.actualizar(this.tipoGasto.id,this.tipoGasto).subscribe(tipoGasto=>{
+    this.tipoGastoService.actualizar(this.tipoGasto,this.tipoGasto.id).subscribe(tipoGasto=>{
       //console.log(tipoGasto);
       this.ngOnInit();
       this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
-    this.tipoGastoService.borrar(this.tipoGasto.id,this.tipoGasto).subscribe(datos=>{
-      //console.log(datos);
+    this.tipoGastoService.eliminar(this.tipoGasto,this.tipoGasto.id).subscribe(datos=>{
+      this.tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
       this.ngOnInit();
     })
   }

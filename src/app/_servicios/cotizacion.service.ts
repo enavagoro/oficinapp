@@ -1,163 +1,64 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductoService, Producto } from '../_servicios/producto.service';
-import { StorageService } from './storage.service';
-
-export interface Cotizacion {
-  id: number;
-  idCliente: number;
-  fechaEmision: Date;
-  fechaCaducidad: Date;
-  detalle : Array<Producto>;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-  url : string;
-  nota: string;
-}
-
-export interface DatosPdf{
-  id: number;
-  fechaEmision: Date;
-  fechaCaducidad: Date;
-  detalle : Array<Producto>;
-  estado: number;
-  url : string;
-  idCliente: number;
-  nombreCliente: string;
-  rutCliente: string;
-  giroCliente: string;
-  direccionCliente: string;
-  comunaCliente: string;
-  ciudadCliente: string;
-  contactoCliente: string;
-  nota : string;
-  idUsuario: number;
-  idEmpresa: number;
-  /*
-  nombreEmpresa : string;
-  rutEmpresa : string;
-  giroEmpresa : string;
-  direccionEmpresa : string;
-  comunaEmpresa : string;
-  ciudadEmpresa : string;
-  contactoEmpresa : string;
-  */
-}
+import { LoginService } from './login.service';
 
 @Injectable()
 
 export class CotizacionService {
 
-  private url: string = "http://178.128.71.20:3500";
-  private urlFile : string = "http://178.128.71.20:3950";
-  idUsuario = '';
-  idEmpresa = '';
-/*
-  nombreEmpresa : '';
-  rutEmpresa : '';
-  giroEmpresa : '';
-  direccionEmpresa : '';
-  comunaEmpresa : '';
-  ciudadEmpresa : '';
-  contactoEmpresa : '';
-*/
-  constructor(private sService:StorageService,private http: HttpClient) {
+  private url: string = "http://localhost:8120";
 
-   }
-
-  async listar() {
-    this.idEmpresa = (await this.sService.getIdEmpresa()).toString();
-    this.idUsuario = (await this.sService.getIdUsuario()).toString();
-
-    return this.http.get<Cotizacion[]>(`${this.url}/api/cotizaciones/`,{
+  constructor(private login:LoginService,private http:HttpClient) {
+  }
+  listar() {
+    return this.http.get<any[]>(`${this.url}/cotizacion/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  insertarPdf(datosPdf : DatosPdf){
-      datosPdf.url = this.urlFile +"/"+datosPdf.idEmpresa+"/"+datosPdf.url;
-      return this.http.post<DatosPdf>(`${this.urlFile}/cotizacion/`,datosPdf, {
+  insertarPdf(datosPdf ){
+      datosPdf.url = this.url +"/"+datosPdf.idEmpresa+"/"+datosPdf.url;
+      return this.http.post<any[]>(`${this.url}/cotizacion/`,datosPdf, {
         headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
       });
     }
-
-  insertar(cotizacion : Cotizacion){
-    return this.http.post<Cotizacion>(`${this.url}/api/cotizaciones/`,cotizacion, {
+  getcotizacion(id){
+    return this.http.get<any[]>(`${this.url}/cotizacion/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/cotizacion/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/cotizacion/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  actualizar(id:number,cotizacion : Cotizacion){
-    return this.http.put<Cotizacion>(`${this.url}/api/cotizaciones/${id}`, cotizacion,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  borrar(id:number,cotizacion: Cotizacion){
-
-    if(cotizacion.estado == 0){
-      cotizacion.estado = 1;
-    }else{
-    cotizacion.estado = 0;
-    }
-
-    return this.http.put<Cotizacion>(`${this.url}/api/cotizaciones/${id}`, cotizacion,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<Cotizacion>(`${this.url}/api/cotizaciones/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<Cotizacion>(`${this.url}/api/cotizaciones/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
+  eliminar(prod,id){
+      prod.estado = !prod.estado;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/cotizacion/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
 }
-
-
-/*
-let data = {id_cliente: req.body.id_cliente, fecha: req.body.fecha,estado:1,idEmpresa : req.headers.idempresa,usuario:req.body.idUsuario};
-    let sql = "INSERT INTO ventas SET ?";
-    let detalles = req.body.detalle;
-    console.log(detalles)
-    let query = conn.query(sql, data,(err, results) => {
-      if(err) throw err;
-      if(results.insertId>0 && detalles){
-        for(let i = 0 ; i < req.body.detaller.length;i++){
-          var detalle = detalles[i];
-          sql = "insert into detalle_cotizacion set ?";
-          data = {id_cotizacion:results.insertId,id_producto:detalle.id_producto,titulo:detalle.titulo,precio:detalle.precio,cantidad:detalle.cantidad};
-          conn.query(sql, data,(err, results) => {
-            if(err) throw err;
-          })
-        }
-      }
-      res.send(JSON.stringify(results));
-    });
-  });
-  id_cotizacion:results.insertId,id_producto:detalle.id_producto,titulo:detalle.titulo,precio:detalle.precio,cantidad:detalle.cantidad
-  create table detalle_cotizacion ( id int primary key auto_increment , id_cotizacion int, id_producto int , titulo varchar(255), precio int , cantidad int)
-for(var producto of req.body.detalle){
-      //insert productos of detalle
-        let insert  = 'insert into cotizaciones_detalle set ?';
-        let prod = conn.query(insert, producto,(err, results) => {
-                if(err) throw err;
-        });
-    }
-
-*/

@@ -72,8 +72,8 @@
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
       </ion-avatar>
-      <ion-label position="stacked">Contacto<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.contacto" name="contacto" required></ion-input>
+      <ion-label position="stacked">Correo de contacto<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="cliente.contacto" type="email" name="contacto" required></ion-input>
     </ion-item>
 
     <ion-button class="ion-button" *ngIf="cliente.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
