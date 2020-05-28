@@ -12,7 +12,7 @@ export class UsuarioPage implements OnInit {
   public usuario : Usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
   bandera = false;
   flag = false;
-  
+
   constructor(private usuarioService : UsuarioService,
               public actionSheetController: ActionSheetController,
               private toastController : ToastController,
@@ -21,10 +21,8 @@ export class UsuarioPage implements OnInit {
 
   ngOnInit() {
 
-    this.usuarioService.listar().then(usuarios=>{
-      usuarios.subscribe(u=>{
+    this.usuarioService.listar().subscribe(u=>{
       this.usuarios= u;
-      })
     })
   }
    public guardarUsuario(){
@@ -39,14 +37,14 @@ export class UsuarioPage implements OnInit {
   }
 
   public actualizarUsuario(){
-    this.usuarioService.actualizar(this.usuario.id,this.usuario).subscribe(usuario=>{
+    this.usuarioService.actualizar(this.usuario,this.usuario.id).subscribe(usuario=>{
       //console.log(usuario);
       this.ngOnInit();
       this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
     })
   }
   public eliminacionLogica(){
-    this.usuarioService.borrar(this.usuario.id,this.usuario).subscribe(datos=>{
+    this.usuarioService.eliminar(this.usuario,this.usuario.id).subscribe(datos=>{
       //console.log(datos);
       this.ngOnInit();
     })

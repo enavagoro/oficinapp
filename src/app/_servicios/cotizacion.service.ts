@@ -7,7 +7,7 @@ import { LoginService } from './login.service';
 
 export class CotizacionService {
 
-  private url: string = "http://localhost:8120";
+  private url: string = "http://201.239.13.125";
 
   constructor(private login:LoginService,private http:HttpClient) {
   }

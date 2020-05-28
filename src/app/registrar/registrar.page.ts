@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { UsuarioService, Usuario } from '../_servicios/usuario.service';
 import { EmpresaService, Empresa } from '../_servicios/empresa.service';
+import { LoginService } from '../_servicios/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,6 +21,7 @@ export class RegistrarPage implements OnInit {
   public empresa : Empresa = {id:0,nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',estado:0,url:''};
 
   constructor(private usuarioService : UsuarioService,
+              private login : LoginService,
               private empresaService : EmpresaService,
               public actionSheetController: ActionSheetController,
               private toastController : ToastController,
@@ -31,10 +33,8 @@ export class RegistrarPage implements OnInit {
     menu.hidden = true;
     console.log(this.empresas);
 
-    this.empresaService.listar().then(empresas=>{
-      empresas.subscribe(e=>{
+    this.empresaService.listar().subscribe(e=>{
         this.empresas= e;
-      })
     })
   }
 
@@ -76,7 +76,9 @@ export class RegistrarPage implements OnInit {
   public guardarEmpresa(){
     this.empresa = this.empresaTemporal;
     this.empresaService.insertar(this.empresa).subscribe(empresa=>{
-      this.guardarUsuario(empresa['insertId']);
+      this.login.setEmpresa(empresa['id']);
+      console.log(empresa);
+      this.guardarUsuario(empresa['id']);
       this.empresa = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:''};
     })
 
@@ -90,7 +92,8 @@ export class RegistrarPage implements OnInit {
    }
 
   public guardarUsuario(id){
-    this.usuarioService.insertarDesdeRegistrar(this.usuario,id).subscribe(usuario=>{
+
+    this.usuarioService.insertar(this.usuario).subscribe(usuario=>{
       this.mostrarToast();
       this.router.navigate(['/login'], {replaceUrl: true});
       this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};

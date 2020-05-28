@@ -14,7 +14,7 @@ export class AuthenticationService {
   public currentUser: Observable<Usuario>;
 
 
-  constructor(public injector : Injector,public router: Router, private storage: Storage) {
+  constructor(private user : UsuarioService,public injector : Injector,public router: Router, private storage: Storage) {
                 this.storage.get('usuario').then((value) => {
                   this.currentUserSubject = new BehaviorSubject<Usuario>(value);
                   this.currentUser = this.currentUserSubject.asObservable();
@@ -36,7 +36,7 @@ export class AuthenticationService {
             resolve(datos)
           })
     });
-    return promise;    
+    return promise;
     /*
     const promise = new Promise((resolve, reject ) => {
       if (this.userList[userId] !== undefined) {

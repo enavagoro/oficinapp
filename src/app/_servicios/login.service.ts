@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 export class LoginService {
 
   private token : string = "";
-  private url: string = "http://localhost:8120";
+  private url: string = "http://201.239.13.125";
   private empresa : string = "";
   constructor(private storage : Storage,private http:HttpClient) { }
   public getEmpresa(){
