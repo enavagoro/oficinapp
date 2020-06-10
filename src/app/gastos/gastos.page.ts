@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { GastoService } from '../_servicios/gasto.service';
 import { TipoGastoService } from '../_servicios/tipo-gasto.service';
+import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 const URL = "http://178.128.71.20:3950/";
 
@@ -24,6 +25,7 @@ export class GastosPage implements OnInit {
   arregloInputs=[];
 
   constructor(
+    private login : LoginService,
       public storage : Storage,
       public actionSheetController: ActionSheetController,
       private tipoGastoService : TipoGastoService,
@@ -207,9 +209,9 @@ export class GastosPage implements OnInit {
           //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
-          this.storage.get('idEmpresa').then((value) => {
-            this.url = URL+"/"+value+"/"+gasto.img;
-          });
+          var value = this.login.getEmpresa();
+          this.url = URL+"/"+value+"/"+gasto.img;
+
         }
       },{
         text: 'Actualizar',
@@ -217,9 +219,9 @@ export class GastosPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.gasto = gasto;
-          this.storage.get('idEmpresa').then((value) => {
-            this.url = URL+"/"+value+"/"+gasto.img;
-          });
+          var value = this.login.getEmpresa();
+          this.url = URL+"/"+value+"/"+gasto.img;
+          this.url = URL+"/"+value+"/"+gasto.img;
 
           //console.log(gasto);
         }

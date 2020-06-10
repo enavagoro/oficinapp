@@ -4,7 +4,7 @@ import { LoginService } from '../../_servicios/login.service';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-const URL = "http://178.128.71.20:3950/";
+const URL = "http://201.239.13.125/";
 
 @Component({
   selector: 'app-empresa',
@@ -35,8 +35,8 @@ export class EmpresaPage implements OnInit {
     this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
         this.empresa= e;
         console.log(this.empresa);
-        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa.url;
-        console.log(this.empresa.url);
+        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
+        console.log(this.empresa['url']);
         console.log(this.img);
     })
   }

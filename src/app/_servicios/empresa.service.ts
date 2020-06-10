@@ -28,7 +28,7 @@ export class EmpresaService {
   guardar(form){
     //console.log(form);
     this.http.post(`${this.url}/empresa/archivo`, form, {
-      headers: new HttpHeaders()      
+      headers: new HttpHeaders()
       .set('Authorization' , this.login.getToken())
       .set('empresaId' , this.login.getEmpresa()),
       reportProgress: true,
@@ -47,7 +47,7 @@ export class EmpresaService {
     });
   }
   getempresa(id){
-    return this.http.get<any[]>(`${this.url}/empresa/${id}` , {
+    return this.http.get<any>(`${this.url}/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization' , this.login.getToken())

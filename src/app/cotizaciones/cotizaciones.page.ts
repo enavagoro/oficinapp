@@ -10,6 +10,7 @@ import { EmpresaService } from '../_servicios/empresa.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 //import { ModalPage } from '../modal/modal.page';
+const URL = "http://201.239.13.125/";
 
 @Component({
   selector: 'app-cotizaciones',
@@ -19,6 +20,7 @@ import { Storage } from '@ionic/storage';
 
 export class CotizacionesPage implements OnInit {
   flag = false;
+  img: string;
   bandera = false;
   detalle = [];
   empresa ;
@@ -35,6 +37,7 @@ export class CotizacionesPage implements OnInit {
   constructor(public actionSheetController: ActionSheetController,
               private login : LoginService,
               private clienteService: ClienteService,
+              private empresaService : EmpresaService,
               private storage : Storage,
               private cotizacionService: CotizacionService,
               private detalleService:DetalleService,
@@ -45,11 +48,18 @@ export class CotizacionesPage implements OnInit {
 
   ngOnInit() {
     console.log("entre");
-    this.empresa = this.login.getEmpresa();
+    this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
+        this.empresa= e;
+        console.log(this.empresa);
+        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
+        console.log(this.empresa['url']);
+        console.log(this.img);
+    })
     this.cotizacionService.listar().subscribe(cotizaciones=>{
         this.cotizaciones = cotizaciones;
         console.log(cotizaciones);
     })
+
     this.clienteService.listar().subscribe(c=>{
           this.clientes = c;
     })
@@ -185,15 +195,15 @@ export class CotizacionesPage implements OnInit {
     this.datosPdf.contactoCliente = this.cliente.contacto;
     this.datosPdf.nota = this.cotizacion.nota;
 
-    this.datosPdf['idEmpresa'] = this.empresa;
-    this.datosPdf['url'] = 'http://vase.cl/majus/img/imagen-pame.svg';
-    this.datosPdf['nombreEmpresa'] = 'Vase';
-    this.datosPdf['rutEmpresa'] = 'rutvase';
-    this.datosPdf['giroEmpresa'] = 'girovase';
-    this.datosPdf['direccionEmpresa'] = 'everywhere';
-    this.datosPdf['comunaEmpresa'] = 'Talca';
-    this.datosPdf['ciudadEmpresa'] = 'Talca';
-    this.datosPdf['contactoEmpresa'] = 'cristopherorellana@vase.cl';
+    this.datosPdf['idEmpresa'] = this.empresa['id'];
+    this.datosPdf['url'] = this.empresa['url'];
+    this.datosPdf['nombreEmpresa'] = this.empresa['nombre'];
+    this.datosPdf['rutEmpresa'] = this.empresa['rut'];
+    this.datosPdf['giroEmpresa'] = this.empresa['giro'];
+    this.datosPdf['direccionEmpresa'] = this.empresa['direccion'];
+    this.datosPdf['comunaEmpresa'] = this.empresa['comuna'];
+    this.datosPdf['ciudadEmpresa'] = this.empresa['ciudad'];
+    this.datosPdf['contactoEmpresa'] = this.empresa['contacto'];
 
     this.cotizacionService.insertarPdf(this.datosPdf).subscribe(data=>{
       //console.log(data);

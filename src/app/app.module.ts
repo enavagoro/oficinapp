@@ -31,7 +31,6 @@ import { DocumentoPage } from './cotizaciones/documento/documento.page';
 import { AppUtilService } from './_servicios/app-util.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { AuthGaurdService } from './_servicios/auth-gaurd.service';
-import { AuthenticationService } from './_servicios/authentication.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './_servicios/storage.service';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
@@ -57,7 +56,6 @@ import { NgApexchartsModule } from "ng-apexcharts";
     SplashScreen,
     FingerprintAIO,
     AuthGaurdService,
-    AuthenticationService,
     AppUtilService,
     //NativeStorage,
     AuthService,

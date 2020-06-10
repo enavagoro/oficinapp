@@ -12,7 +12,7 @@ interface auth {
 
 export class AuthService {
 
-  private url: string = "http://localhost:8120";
+  private url: string = "http://201.239.13.125";
 
   constructor(private http: HttpClient) { }
 
