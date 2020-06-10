@@ -89,6 +89,8 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los clientes</ion-label>
     <ion-label *ngIf="!verTodos">Clientes Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{clientes.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarClientes().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 

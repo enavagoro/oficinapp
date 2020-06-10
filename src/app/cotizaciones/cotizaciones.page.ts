@@ -48,20 +48,26 @@ export class CotizacionesPage implements OnInit {
 
   ngOnInit() {
     console.log("entre");
-    this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
-        this.empresa= e;
-        console.log(this.empresa);
-        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
-        console.log(this.empresa['url']);
-        console.log(this.img);
+    this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
+      servicio.subscribe(e=>{
+          this.empresa= e;
+          console.log(this.empresa);
+          this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
+          console.log(this.empresa['url']);
+          console.log(this.img);
+      })
     })
-    this.cotizacionService.listar().subscribe(cotizaciones=>{
-        this.cotizaciones = cotizaciones;
-        console.log(cotizaciones);
+    this.cotizacionService.listar().then(servicio=>{
+      servicio.subscribe(cotizaciones=>{
+          this.cotizaciones = cotizaciones;
+          console.log(cotizaciones);
+      })
     })
 
-    this.clienteService.listar().subscribe(c=>{
-          this.clientes = c;
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+            this.clientes = c;
+      })
     })
   }
 
@@ -127,9 +133,11 @@ export class CotizacionesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: CrearClientePage,
       cssClass: 'modals',
+      /*
       componentProps:{
         'detalle' : this.detalle
       }
+      */
     });
 
     modal.onDidDismiss().then(modal=>{

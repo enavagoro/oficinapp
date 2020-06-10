@@ -20,8 +20,10 @@ export class TipoProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoProductoService.listar().subscribe(g=>{
-        this.tipoProductos = g;
+    this.tipoProductoService.listar().then(servicio=>{
+      servicio.subscribe(g=>{
+          this.tipoProductos = g;
+      })
     })
   }
   refrescar(event) {

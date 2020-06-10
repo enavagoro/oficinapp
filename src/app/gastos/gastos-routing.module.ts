@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: GastosPage
+  },  {
+    path: 'crear-tipogasto',
+    loadChildren: () => import('./crear-tipogasto/crear-tipogasto.module').then( m => m.CrearTipogastoPageModule)
   }
+
 ];
 
 @NgModule({

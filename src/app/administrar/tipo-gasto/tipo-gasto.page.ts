@@ -21,8 +21,10 @@ export class TipoGastoPage implements OnInit {
 
   ngOnInit() {
     var self = this;
-    this.tipoGastoService.listar().subscribe(results=>{
-          self.tipoGastos = results;
+    this.tipoGastoService.listar().then(servicio=>{
+      servicio.subscribe(results=>{
+            self.tipoGastos = results;
+      })
     })
   }
   refrescar(event) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService } from '../../_servicios/cliente.service';
+import { LoginService } from '../../_servicios/login.service';
 
 @Component({
   selector: 'app-cliente',
@@ -19,12 +20,15 @@ export class ClientePage implements OnInit {
               private clienteService : ClienteService,
               private toastController : ToastController,
               private alertController :AlertController,
-              private modalCtrl : ModalController) {}
+              private modalCtrl : ModalController,
+              private loginService : LoginService) {}
 
   ngOnInit() {
-    this.clienteService.listar().subscribe(c=>{
-        this.clientes= c;
-      })
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes= c;
+        })
+    })
 
   }
   refrescar(event) {

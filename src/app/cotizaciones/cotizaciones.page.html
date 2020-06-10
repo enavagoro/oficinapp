@@ -44,12 +44,12 @@
   </form>
 
     <ion-item>
-      <ion-label>Usuario Existente</ion-label>
+      <ion-label>Cliente Existente</ion-label>
       <ion-toggle [(ngModel)]="pepperoni" (click)="limpiar();"></ion-toggle>
     </ion-item>
 
     <ion-item *ngIf="!pepperoni">
-      <ion-button size="medium" class="ion-button-cliente" (click)="abrirCliente();">Crear Nuevo Cliente</ion-button>
+      <ion-button size="medium" class="ion-button-cliente" (click)="abrirCliente();">Nuevo Cliente</ion-button>
     </ion-item>
 
     <ion-item *ngIf="pepperoni">
@@ -158,6 +158,8 @@
     <ion-item>
       <ion-label *ngIf="verTodos">Todos las Cotizaciones</ion-label>
       <ion-label *ngIf="!verTodos">Cotizaciones Activas</ion-label>
+      <label *ngIf="verTodos" slot="end"><ion-badge>{{cotizaciones.length}}</ion-badge></label>
+      <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarCotizaciones().length}}</ion-badge></label>
       <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
     </ion-item>
 

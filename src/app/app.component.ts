@@ -17,7 +17,7 @@ import { LoginService } from './_servicios/login.service';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
+      title: 'Inicio',
       url: '/home',
       icon: 'home'
     },
@@ -36,6 +36,18 @@ export class AppComponent {
       url: '/cotizaciones',
       icon: 'paper'
     },
+    {
+      title: 'Reportes',
+      url: '/reportes',
+      icon: 'stats'
+    },
+    /*
+    {
+      title: 'Tienda',
+      url: '/tienda',
+      icon: 'cart'
+    },
+  */
     {
       title: 'Administrar',
       url: '/administrar',

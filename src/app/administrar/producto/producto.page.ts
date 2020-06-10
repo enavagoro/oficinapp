@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { ProductoService } from '../../_servicios/producto.service';
 import { TipoProductoService } from '../../_servicios/tipo-producto.service';
+import { CrearTipoproductoPage } from './crear-tipoproducto/crear-tipoproducto.page';
 
 @Component({
   selector: 'app-producto',
@@ -14,6 +15,7 @@ export class ProductoPage implements OnInit {
   public producto  = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   tiposProductos = [];
   bandera = false;
+  banderaMantenedor = true;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -23,16 +25,24 @@ export class ProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    console.log(this.banderaMantenedor);
+
     var self = this;
-    this.tipoProductoService.listar().subscribe(results=>{
-          self.tiposProductos = results;
-          //console.log(results)
+    this.tipoProductoService.listar().then(servicio=>{
+      servicio.subscribe(results=>{
+            self.tiposProductos = results;
+            //console.log(results)
+      })
     })
-    this.tipoProductoService.listar().subscribe(t=>{
-        this.tiposProductos = t;
+    this.tipoProductoService.listar().then(servicio=>{
+      servicio.subscribe(t=>{
+          this.tiposProductos = t;
+      })
     })
-    this.productoService.listar().subscribe(p=>{
-        this.productos = p;
+    this.productoService.listar().then(servicio=>{
+      servicio.subscribe(p=>{
+          this.productos = p;
+      })
     })
   }
   refrescar(event) {
@@ -223,5 +233,25 @@ export class ProductoPage implements OnInit {
       }
     }
     return productos;
+  }
+
+  async abrirTipoProducto() {
+
+    const modal = await this.modalCtrl.create({
+      component: CrearTipoproductoPage,
+      cssClass: 'modals',
+      /*
+      componentProps:{
+        'detalle' : this.detalle
+      }*/
+    });
+
+      modal.onDidDismiss().then(modal=>{
+        console.log("haciendo pruebas");
+        this.ngOnInit();
+      });
+
+      return await modal.present();
+
   }
 }

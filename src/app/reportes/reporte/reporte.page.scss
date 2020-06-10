@@ -1,0 +1,81 @@
+.toolbar{
+  --background: #82afec;
+}
+
+ion-title{
+  --color: white;
+}
+
+.barra-superior{
+  background: #82afec;
+}
+
+.titulo{
+  margin-left: 5%;
+  font-size: 20px;
+  color: white !important;
+  text-align: center;
+}
+
+.contenedor-resumenes{
+  display: flex;
+}
+
+.contenedor-numero{
+  width: 100%;
+  margin-left: 5%;
+}
+
+.contenedor-principal{
+  width: 100%;
+  margin-top: 5%;
+}
+
+.contenedor-circular-principal{
+  width: 100%;
+  margin-left: 0%;
+}
+
+.card-informacion-principal{
+  width: 100%;
+  background: white;
+}
+
+.card-informacion-circular{
+  width: 60%;
+  margin-left: 20%;
+}
+.titulo-grafico{
+  font-size: 18px;
+  padding-top: 5%;
+  margin-left: 5%;
+}
+
+.iconos{
+  margin-top: 2%;
+  display: flex;
+}
+
+.boleta{
+  width: 100%;
+  margin-left: 0%;
+}
+
+.imagen-boleta{
+  width: 25%;
+  margin-left: 37.5%;
+}
+
+.factura{
+  width: 100%;
+  margin-left: 0%;
+}
+
+.imagen-factura{
+  width: 20%;
+  margin-left: 40%;
+}
+
+.porcentaje{
+  text-align: center;
+}

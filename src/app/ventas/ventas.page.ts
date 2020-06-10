@@ -5,6 +5,7 @@ import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
+import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
 
 @Component({
   selector: 'app-ventas',
@@ -18,6 +19,7 @@ export class VentasPage implements OnInit {
   private clientes  = [];
   cliente ;
   ventas  = [];
+  ventasFiltradas = [];
   public venta  = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
@@ -32,15 +34,20 @@ export class VentasPage implements OnInit {
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
-                  clienteService.listar().subscribe(c=>{
-                        this.clientes = c;
+
+                clienteService.listar().then(servicio=>{
+                    servicio.subscribe(c=>{
+                          this.clientes = c;
+                    })
                   })
               }
 
   ngOnInit() {
-    this.ventaService.listar().subscribe(v=>{
-        this.ventas = v;
+    this.ventaService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.ventas = v;
       })
+    })
   }
   traerCliente(id){
     var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
@@ -294,8 +301,9 @@ export class VentasPage implements OnInit {
           this.venta = venta;
           this.traerCliente(venta.idCliente);
           this.detalleService.listar(venta.id).subscribe(detalle=>{
-            venta.detalles = detalle;
-            this.detalle = detalle;
+              venta.detalles = detalle;
+              this.detalle = detalle;
+
           })
         }
       },{
@@ -355,4 +363,26 @@ export class VentasPage implements OnInit {
     this.cliente = undefined;
     this.nombreCliente = "";
   }
+
+  async abrirCliente() {
+
+    const modal = await this.modalCtrl.create({
+      component: CrearClienteVentaPage,
+      cssClass: 'modals',
+/*
+      componentProps:{
+        'detalle' : this.detalle
+      }
+      */
+    });
+
+    modal.onDidDismiss().then(modal=>{
+      console.log("haciendo pruebas");
+      this.ngOnInit();
+    });
+
+    return await modal.present();
+
+}
+
 }

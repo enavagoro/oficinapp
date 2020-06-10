@@ -1,0 +1,100 @@
+<ion-content>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrarModal()" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Reporte de {{arregloTipos[tipoEntrante-1].nombreReporte}}</ion-title>
+  </ion-toolbar>
+
+<div class="contenedor-resumenes">
+
+  <div class="contenedor-numero">
+    <p>{{arregloTipos[tipoEntrante-1].arriba[0].tituloArriba1}}</p>
+    <h1>55</h1>
+    <p style="color:#ef5350">+18%</p>
+  </div>
+  <div class="contenedor-numero">
+    <p>{{arregloTipos[tipoEntrante-1].arriba[0].tituloArriba2}}</p>
+    <h1>1000000</h1>
+    <p style="color:#ef5350">+20%</p>
+  </div>
+</div>
+
+<div class="contenedor-resumenes">
+  <div class="contenedor-numero">
+    <p>{{arregloTipos[tipoEntrante-1].arriba[0].tituloArriba3}}</p>
+    <h1>55000</h1>
+    <p style="color:#ef5350">+6%</p>
+  </div>
+  <div class="contenedor-numero">
+    <p>{{arregloTipos[tipoEntrante-1].arriba[0].tituloArriba4}}</p>
+    <h1>5000</h1>
+    <p style="color:#8bc34a">-20%</p>
+  </div>
+</div>
+
+<div class="contenedor-principal">
+  <div class="card-informacion-principal">
+    <h1 class="titulo-grafico">{{arregloTipos[tipoEntrante-1].tituloGrafico1}}</h1>
+    <apx-chart [series]="chartGrafico1.series" [chart]="chartGrafico1.chart" [title]="title"></apx-chart>
+  </div>
+</div>
+
+  <div class="contenedor-principal">
+    <div class="card-informacion-principal">
+      <h1 class="titulo-grafico">{{arregloTipos[tipoEntrante-1].tituloGrafico2}}</h1>
+      <apx-chart [series]="chartGrafico2.series" [chart]="chartGrafico2.chart" [title]="title"></apx-chart>
+    </div>
+  </div>
+
+  <div class="contenedor-principal">
+    <div class="card-informacion-principal">
+      <h1 class="titulo-grafico">{{arregloTipos[tipoEntrante-1].tituloGrafico3}}</h1>
+      <apx-chart [series]="chartHeat1.series" [chart]="chartHeat1.chart" [title]="title"></apx-chart>
+    </div>
+  </div>
+
+
+  <div class="contenedor-principal">
+    <div class="card-informacion-principal">
+      <h1 class="titulo-grafico">{{arregloTipos[tipoEntrante-1].tituloGrafico4}}</h1>
+      <apx-chart [series]="chartHeatCantidad.series" [chart]="chartHeatCantidad.chart" [title]="title"></apx-chart>
+    </div>
+  </div>
+
+  <div class="contenedor-principal-circular">
+    <div class="card-informacion-circular">
+      <h1 class="titulo-grafico">{{arregloTipos[tipoEntrante-1].tituloGrafico5}}</h1>
+      <apx-chart [series]="pieChart.series" [chart]="pieChart.chart" [title]="title"></apx-chart>
+    </div>
+    <div class="iconos">
+      <div class="Factura">
+          <p class="porcentaje">Factura</p>
+          <img class="imagen-factura" src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+          <p class="porcentaje">55.6%</p>
+      </div>
+      <div class="Boleta">
+          <p class="porcentaje">Boleta</p>
+          <img class="imagen-boleta" src="https://image.flaticon.com/icons/svg/2282/2282149.svg">
+          <p class="porcentaje">44.4%</p>
+      </div>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="eye"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+<!--
+  <div class="contenedor-principal">
+    <div class="card-informacion-principal">
+      <h1 class="titulo-grafico">Comparación de uso boletas y facturas</h1>
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="title"></apx-chart>
+    </div>
+  </div>
+-->
+</ion-content>

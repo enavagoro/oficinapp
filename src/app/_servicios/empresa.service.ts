@@ -38,7 +38,9 @@ export class EmpresaService {
         });
   }
 
-  listar() {
+  async listar() {
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/empresa/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -46,7 +48,9 @@ export class EmpresaService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  getempresa(id){
+  async getempresa(id){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any>(`${this.url}/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

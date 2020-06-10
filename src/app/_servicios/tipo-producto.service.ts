@@ -10,7 +10,9 @@ export class TipoProductoService {
   private url: string = "http://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
   }
-  listar() {
+  async listar() {
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/tipoProducto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -18,7 +20,9 @@ export class TipoProductoService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  gettipoProducto(id){
+  async gettipoProducto(id){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/tipoProducto/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

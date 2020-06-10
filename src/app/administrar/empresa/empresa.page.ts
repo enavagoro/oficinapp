@@ -32,12 +32,14 @@ export class EmpresaPage implements OnInit {
               private alertController :AlertController,) { }
 
   ngOnInit() {
-    this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
-        this.empresa= e;
-        console.log(this.empresa);
-        this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
-        console.log(this.empresa['url']);
-        console.log(this.img);
+    this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
+      servicio.subscribe(e=>{
+          this.empresa = e;
+          console.log(this.empresa);
+          this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
+          console.log(this.empresa['url']);
+          console.log(this.img);
+      })
     })
   }
 

@@ -4,6 +4,7 @@ import { GastoService } from '../_servicios/gasto.service';
 import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
+import { CrearTipogastoPage } from './crear-tipogasto/crear-tipogasto.page';
 const URL = "http://178.128.71.20:3950/";
 
 @Component({
@@ -35,11 +36,15 @@ export class GastosPage implements OnInit {
       private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().subscribe(t=>{
-          this.tiposGastos = t.filter(this.filtros);
+    this.tipoGastoService.listar().then(servicio=>{
+      servicio.subscribe(t=>{
+            this.tiposGastos = t.filter(this.filtros);
+      })
     })
-    this.gastoService.listar().subscribe(g=>{
-          this.gastos = g;
+    this.gastoService.listar().then(servicio=>{
+      servicio.subscribe(g=>{
+            this.gastos = g;
+      })
     })
   }
   refrescar(event) {
@@ -331,5 +336,25 @@ export class GastosPage implements OnInit {
 
       }
     }
+
+    async abrirTipoGasto() {
+
+      const modal = await this.modalCtrl.create({
+        component: CrearTipogastoPage,
+        cssClass: 'modals',
+        /*
+        componentProps:{
+          'detalle' : this.detalle
+        }*/
+      });
+
+      modal.onDidDismiss().then(modal=>{
+        console.log("haciendo pruebas");
+        this.ngOnInit();
+      });
+
+      return await modal.present();
+
+  }
 
 }

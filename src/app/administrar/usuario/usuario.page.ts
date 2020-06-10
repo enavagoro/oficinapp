@@ -21,8 +21,10 @@ export class UsuarioPage implements OnInit {
 
   ngOnInit() {
 
-    this.usuarioService.listar().subscribe(u=>{
-      this.usuarios= u;
+    this.usuarioService.listar().then(servicio=>{
+      servicio.subscribe(u=>{
+        this.usuarios= u;
+      })
     })
   }
    public guardarUsuario(){

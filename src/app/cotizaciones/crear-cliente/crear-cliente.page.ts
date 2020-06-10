@@ -21,8 +21,10 @@ export class CrearClientePage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.clienteService.listar().subscribe(c=>{
-        this.clientes= c;
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes= c;
+      })
     })
   }
 

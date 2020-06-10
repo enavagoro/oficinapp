@@ -10,7 +10,9 @@ export class VentaService {
   private url: string = "http://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
   }
-  listar() {
+  async listar() {
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/venta/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -18,7 +20,9 @@ export class VentaService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  getventa(id){
+  async getventa(id){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/venta/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

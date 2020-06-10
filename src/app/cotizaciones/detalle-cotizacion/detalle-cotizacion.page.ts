@@ -38,17 +38,21 @@ export class DetalleCotizacionPage implements OnInit {
     }
 
     traerDatos(){
-      this.productoService.listar().subscribe(p=>{
+      this.productoService.listar().then(servicio=>{
+        servicio.subscribe(p=>{
+            var ps = p.filter(this.filtros);;
+            for(var producto of ps){
+              this.productos.push(producto);
+            }
+        })
+      })
+      this.stockService.listar().then(servicio=>{
+        servicio.subscribe(p=>{
           var ps = p.filter(this.filtros);;
           for(var producto of ps){
             this.productos.push(producto);
           }
-      })
-      this.stockService.listar().subscribe(p=>{
-        var ps = p.filter(this.filtros);;
-        for(var producto of ps){
-          this.productos.push(producto);
-        }
+        })
       })
     }
     filtros(gasto){

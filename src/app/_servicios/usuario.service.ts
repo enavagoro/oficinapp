@@ -23,7 +23,9 @@ export class UsuarioService {
 
   }
 
-  listar() {
+  async listar() {
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<Usuario[]>(`${this.url}/users/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

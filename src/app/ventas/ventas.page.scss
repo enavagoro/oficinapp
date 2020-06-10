@@ -143,3 +143,19 @@ ion-avatar{
 }
 
 .grayscale { filter: grayscale(80%) !important; }
+
+ion-badge{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ion-button-cliente{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+} 

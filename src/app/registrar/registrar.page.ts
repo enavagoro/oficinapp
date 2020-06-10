@@ -31,11 +31,8 @@ export class RegistrarPage implements OnInit {
   ngOnInit() {
     var menu = document.querySelector('ion-menu');
     menu.hidden = true;
-    console.log(this.empresas);
 
-    this.empresaService.listar().subscribe(e=>{
-        this.empresas= e;
-    })
+
   }
 
   cambiarPagina(){

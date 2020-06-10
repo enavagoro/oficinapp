@@ -10,7 +10,9 @@ export class ProductoService {
   private url: string = "http://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
   }
-  listar() {
+  async listar() {
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/producto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

@@ -64,6 +64,8 @@ export class HomePage {
   tiposGastos = [];
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"];
   private chart1: Chart;
+  arreglo1 = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10];
+  arreglo2 = [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35];
 
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
   @ViewChild("chartCanvas",{static: false}) chart: ChartComponent;
@@ -73,21 +75,17 @@ export class HomePage {
     this.chartOptions = {
       series: [
         {
-          name: "Session Duration",
-          data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+          name: "Ventas",
+          data: this.arreglo1
         },
         {
-          name: "Page Views",
-          data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+          name: "Gastos",
+          data: this.arreglo2
         },
-        {
-          name: "Total Visits",
-          data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
-        }
       ],
       chart: {
         height: 350,
-        type: "line"
+        type: "area"
       },
       dataLabels: {
         enabled: false
@@ -96,10 +94,6 @@ export class HomePage {
         width: 5,
         curve: "straight",
         dashArray: [0, 8, 5]
-      },
-      title: {
-        text: "Page Statistics",
-        align: "left"
       },
       legend: {
         tooltipHoverFormatter: function(val, opts) {
@@ -122,18 +116,18 @@ export class HomePage {
           trim: false
         },
         categories: [
-          "01 Jan",
-          "02 Jan",
-          "03 Jan",
-          "04 Jan",
-          "05 Jan",
-          "06 Jan",
-          "07 Jan",
-          "08 Jan",
-          "09 Jan",
-          "10 Jan",
-          "11 Jan",
-          "12 Jan"
+          "enero",
+          "febrero",
+          "marzo",
+          "abril",
+          "mayo",
+          "junio",
+          "julio",
+          "agosto",
+          "septiembre",
+          "octubre",
+          "noviembre",
+          "diciembre"
         ]
       },
       tooltip: {
@@ -167,78 +161,80 @@ export class HomePage {
     };
 
     //console.log("constructor");
-    pService.listar().subscribe(ps =>{
-      this.productos = ps.filter(this.filtros);
+    pService.listar().then(servicio=>{
+      servicio.subscribe(ps =>{
+        this.productos = ps.filter(this.filtros);
+      })
     })
-    tService.listar().subscribe(g=>{
-      this.gastos = g.filter(this.filtros);
-      //console.log(this.gastos);
-      for(let gasto of this.gastos){
-
-        var fechaTemporal = new Date(gasto.fecha);
-        let fecha = new Date();
-        if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-          this.gastosMensuales += gasto.monto;
+    tService.listar().then(servicio=>{
+      servicio.subscribe(g=>{
+        this.gastos = g.filter(this.filtros);
+        for(let gasto of this.gastos){
+          var fechaTemporal = new Date(gasto.fecha);
+          let fecha = new Date();
+          if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+            this.gastosMensuales += gasto.monto;
+          }
+          this.gastosAnuales += gasto.monto;
+          var lista = this.listaGastos[gasto.titulo];
+          if(lista){
+            this.listaGastos[gasto.titulo] += 1;
+          }else{
+            this.listaGastos[gasto.titulo] = 0;
+            this.listaGastos[gasto.titulo] += 1;
+          }
         }
-        this.gastosAnuales += gasto.monto;
-        var lista = this.listaGastos[gasto.titulo];
-        if(lista){
-          this.listaGastos[gasto.titulo] += 1;
-        }else{
-          this.listaGastos[gasto.titulo] = 0;
-          this.listaGastos[gasto.titulo] += 1;
-        }
-      }
-
+      })
     })
 
-
-
-
-    cService.listar().subscribe(c=>{
-        this.clientes = c.filter(this.filtros);
+    cService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes = c.filter(this.filtros);
+      })
     })
 
     var menu = document.querySelector('ion-menu')
     menu.hidden = false;
     var contador = 0;
-    vService.listar().subscribe(v=>{
-        this.ventas = v.filter(this.filtros);
-        for (let i=0; i<this.ventas.length; i++)
-        {
-/*
-          //console.log("entre");
-          dService.listar(this.ventas[i].id).subscribe(ds=>{
-            //console.log("esto es el ds:",ds);
-            var fechaTemporal = new Date(this.ventas[contador].fecha);
-            let fecha= new Date();
-            contador ++;
-            for(let j =0; j < ds.length; j++)
-            {
-              var producto = this.listaProductos[ds[j].titulo];
-              if(producto){
-                this.listaProductos[ds[j].titulo] += ds[j].cantidad;
-              }else{
-                this.listaProductos[ds[j].titulo] = 0;
-                this.listaProductos[ds[j].titulo] += ds[j].cantidad;
-              }
-              if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-                this.ventasMensuales += ds[j].cantidad * ds[j].precio;
-              }
-              if(fechaTemporal.getFullYear()==fecha.getFullYear()){
-                this.ventasTotales += ds[j].cantidad * ds[j].precio;
-              }
+    vService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.ventas = v.filter(this.filtros);
+          for (let i=0; i<this.ventas.length; i++)
+          {
+  /*
+            //console.log("entre");
+            dService.listar(this.ventas[i].id).subscribe(ds=>{
+              //console.log("esto es el ds:",ds);
+              var fechaTemporal = new Date(this.ventas[contador].fecha);
+              let fecha= new Date();
+              contador ++;
+              for(let j =0; j < ds.length; j++)
+              {
+                var producto = this.listaProductos[ds[j].titulo];
+                if(producto){
+                  this.listaProductos[ds[j].titulo] += ds[j].cantidad;
+                }else{
+                  this.listaProductos[ds[j].titulo] = 0;
+                  this.listaProductos[ds[j].titulo] += ds[j].cantidad;
+                }
+                if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+                  this.ventasMensuales += ds[j].cantidad * ds[j].precio;
+                }
+                if(fechaTemporal.getFullYear()==fecha.getFullYear()){
+                  this.ventasTotales += ds[j].cantidad * ds[j].precio;
+                }
 
-            }
-            //console.log('lista producto:',this.listaProductos);
-            if(contador == this.ventas.length){
-                this.dibujarGrafico();
-            }
-          })
-          */
-        }
+              }
+              //console.log('lista producto:',this.listaProductos);
+              if(contador == this.ventas.length){
+                  this.dibujarGrafico();
+              }
+            })
+            */
+          }
 
-      })
+        })
+    })
 
   }
   filtros(gasto){
