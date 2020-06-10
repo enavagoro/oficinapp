@@ -5,6 +5,7 @@ import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
+import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
 
 @Component({
   selector: 'app-ventas',
@@ -18,6 +19,7 @@ export class VentasPage implements OnInit {
   private clientes  = [];
   cliente ;
   ventas  = [];
+  ventasFiltradas = [];
   public venta  = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
@@ -355,4 +357,26 @@ export class VentasPage implements OnInit {
     this.cliente = undefined;
     this.nombreCliente = "";
   }
+
+  async abrirCliente() {
+
+    const modal = await this.modalCtrl.create({
+      component: CrearClienteVentaPage,
+      cssClass: 'modals',
+/*
+      componentProps:{
+        'detalle' : this.detalle
+      }
+      */
+    });
+
+    modal.onDidDismiss().then(modal=>{
+      console.log("haciendo pruebas");
+      this.ngOnInit();
+    });
+
+    return await modal.present();
+
+}
+
 }

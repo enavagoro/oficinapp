@@ -33,7 +33,7 @@ export class EmpresaPage implements OnInit {
 
   ngOnInit() {
     this.empresaService.getempresa(this.login.getEmpresa()).subscribe(e=>{
-        this.empresa= e;
+        this.empresa = e;
         console.log(this.empresa);
         this.img = URL+"/"+this.empresa['id']+"/"+this.empresa.url;
         console.log(this.empresa.url);

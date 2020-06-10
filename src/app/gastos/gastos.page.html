@@ -28,6 +28,15 @@
     </ion-item>
 
     <ion-item>
+      <ion-label>Tipo Gasto Existente</ion-label>
+      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="!banderaExistente">
+      <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();">Nuevo Tipo Gasto</ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="banderaExistente">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
       </ion-avatar>
@@ -125,6 +134,8 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los gastos</ion-label>
     <ion-label *ngIf="!verTodos">Gastos Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{gastos.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarGastos().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 

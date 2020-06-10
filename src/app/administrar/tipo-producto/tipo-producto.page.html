@@ -45,6 +45,8 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los Tipos de Productos</ion-label>
     <ion-label *ngIf="!verTodos">Tipos de Productos Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{tipoProductos.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarTipoProductos().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 

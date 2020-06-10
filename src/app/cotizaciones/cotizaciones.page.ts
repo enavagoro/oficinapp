@@ -117,9 +117,11 @@ export class CotizacionesPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: CrearClientePage,
       cssClass: 'modals',
+      /*
       componentProps:{
         'detalle' : this.detalle
       }
+      */
     });
 
     modal.onDidDismiss().then(modal=>{

@@ -15,7 +15,7 @@
                 <ion-card class="ion-card">
                   <ion-card-header>
                     <img class="icono-card" src="/assets/icon/ventas.svg">
-                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del més</ion-card-title>
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del mes</ion-card-title>
                   </ion-card-header>
                   <h1 style="text-align:center">{{filtrarVentaMes(false)}}</h1>
                 </ion-card>
@@ -54,7 +54,13 @@
                 </ion-card>
               </div>
               <div class="centro">
-                  <h2>Hola mundo</h2>
+                <ion-card class="ion-card">
+                  <ion-card-header>
+                    <img class="icono-card" src="/assets/icon/ventas.svg">
+                    <ion-card-title style="text-align:center; margin-top:5%;">Ventas del mes ($)</ion-card-title>
+                  </ion-card-header>
+                  <h1 style="text-align:center">{{ventasMensuales| number}}</h1>
+                </ion-card>
               </div>
               <div class="izquierda">
                 <ion-card class="ion-card">
@@ -84,7 +90,7 @@
                 <ion-card class="ion-card">
                   <ion-card-header>
                     <img class="icono-card" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-                    <ion-card-title style="text-align:center; margin-top:5%;">Gastos del més</ion-card-title>
+                    <ion-card-title style="text-align:center; margin-top:5%;">Gastos del mes</ion-card-title>
                   </ion-card-header>
                   <h1 style="text-align:center;color:#f44336">{{gastosMensuales| number}}</h1>
                 </ion-card>
@@ -107,26 +113,11 @@
   <div class="contenedor-cards">
     <div class="contenedor-grafico">
       <ion-card>
-          <ion-card-header class="header-card">
-            <ion-item>
-             <ion-buttons>
-               <ion-label>Tipo grafico</ion-label>
-               <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
-                 <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
-               </ion-select>
-              </ion-buttons>
-              <ion-buttons>
-                <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
-                  <ion-icon name="cloud-download"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-item>
+        <ion-card-header>
+          <ion-label>Ventas y Gastos por año</ion-label>
         </ion-card-header>
-
-        <ion-card-content>
-          <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
-        </ion-card-content>
-      </ion-card>
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="title"></apx-chart>
+       </ion-card>
     </div>
 
     <div class="contenedor-estadisticas">

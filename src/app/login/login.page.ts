@@ -7,6 +7,8 @@ import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from '../_servicios/app-util.service';
 import { FingerprintAIO ,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ValidationService } from '../_servicios/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,8 @@ export class LoginPage implements OnInit {
   fingerprintOptions : FingerprintOptions;
   clave = "";
   permitirDedo = false;
+  loginForm;
+
   constructor(
     private loginService : LoginService,
     private fingerAuth: FingerprintAIO,
@@ -25,7 +29,12 @@ export class LoginPage implements OnInit {
     private auth: AuthService,
     private appUtil: AppUtilService,
     //private nativeStorage:NativeStorage,
-    public router: Router,public usuarioService : UsuarioService) { }
+    public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
+      this.loginForm = this.formBuilder.group({
+        correo : ['',[Validators.required,ValidationService.emailValidator]],
+        clave : ['',Validators.required]
+      })
+    }
 
   ngOnInit() {
     this.storage.get('idUsuario')
@@ -63,11 +72,10 @@ export class LoginPage implements OnInit {
   }
 
   async login(){
-    var login = {correo : this.usuario , clave : this.clave};
-    this.auth.login(login).subscribe(d=>{
+    this.auth.login(this.loginForm.value).subscribe(d=>{
       console.log(d);
       this.loginService.setToken(d['accessToken']);
-      this.loginService.getUser(login).subscribe(r=>{
+      this.loginService.getUser(this.loginForm.value).subscribe(r=>{
         console.log(r);
         for(var usuario of r){
           usuario.token = d['accessToken'];

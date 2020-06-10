@@ -3,6 +3,7 @@ import { ModalController ,ToastController,AlertController,ActionSheetController}
 import { GastoService } from '../_servicios/gasto.service';
 import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 import { Storage } from '@ionic/storage';
+import { CrearTipogastoPage } from './crear-tipogasto/crear-tipogasto.page';
 const URL = "http://178.128.71.20:3950/";
 
 @Component({
@@ -329,5 +330,25 @@ export class GastosPage implements OnInit {
 
       }
     }
+
+    async abrirTipoGasto() {
+
+      const modal = await this.modalCtrl.create({
+        component: CrearTipogastoPage,
+        cssClass: 'modals',
+        /*
+        componentProps:{
+          'detalle' : this.detalle
+        }*/
+      });
+
+      modal.onDidDismiss().then(modal=>{
+        console.log("haciendo pruebas");
+        this.ngOnInit();
+      });
+
+      return await modal.present();
+
+  }
 
 }

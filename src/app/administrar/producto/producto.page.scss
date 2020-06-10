@@ -1,7 +1,7 @@
 ion-toolbar{
   --background: url("/assets/icon/morado.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 25%;
+  padding-bottom: 15%;
 }
 
 .header-md::after{
@@ -46,3 +46,30 @@ ion-avatar{
 }
 
 .grayscale { filter: grayscale(80%) !important; }
+
+.imagen-segmento{
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card-mensaje{
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 0%;
+  background: #6864b9;
+  border-radius: 10px;
+}
+
+.ion-button-tipoGasto{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

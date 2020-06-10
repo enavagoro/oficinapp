@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ProductoPage
+  },  {
+    path: 'crear-tipoproducto',
+    loadChildren: () => import('./crear-tipoproducto/crear-tipoproducto.module').then( m => m.CrearTipoproductoPageModule)
   }
+
 ];
 
 @NgModule({

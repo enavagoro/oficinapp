@@ -1,0 +1,16 @@
+ion-toolbar{
+  --background: url("/assets/icon/tienda.svg")  repeat 30%;
+  --opacity: 0.9;
+  padding-bottom: 5%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
