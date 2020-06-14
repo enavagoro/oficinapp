@@ -72,11 +72,13 @@ export class RegistrarPage implements OnInit {
 
   public guardarEmpresa(){
     this.empresa = this.empresaTemporal;
-    this.empresaService.insertar(this.empresa).subscribe(empresa=>{
-      this.login.setEmpresa(empresa['id']);
-      console.log(empresa);
-      this.guardarUsuario(empresa['id']);
-      this.empresa = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:''};
+    this.empresaService.insertar(this.empresa).then(servicio=>{
+      servicio.subscribe(empresa=>{
+        this.login.setEmpresa(empresa['id']);
+        console.log(empresa);
+        this.guardarUsuario(empresa['id']);
+        this.empresa = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:''};
+      })
     })
 
   }
@@ -90,10 +92,12 @@ export class RegistrarPage implements OnInit {
 
   public guardarUsuario(id){
 
-    this.usuarioService.insertar(this.usuario).subscribe(usuario=>{
-      this.mostrarToast();
-      this.router.navigate(['/login'], {replaceUrl: true});
-      this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+    this.usuarioService.insertar(this.usuario).then(servicio=>{
+      servicio.subscribe(usuario=>{
+        this.mostrarToast();
+        this.router.navigate(['/login'], {replaceUrl: true});
+        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+      })
     })
   }
 

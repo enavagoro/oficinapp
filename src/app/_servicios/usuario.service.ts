@@ -34,7 +34,9 @@ export class UsuarioService {
     });
   }
 
-  insertar(cliente : Usuario){
+  async insertar(cliente : Usuario){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.post<Usuario>(`${this.url}/users/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

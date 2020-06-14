@@ -30,10 +30,12 @@ export class UsuarioPage implements OnInit {
    public guardarUsuario(){
     //console.log('entra');
     this.usuario.id = 0 + (this.usuarios.length + 1);
-    this.usuarioService.insertar(this.usuario).subscribe(usuario=>{
-      //console.log('entra2');
-      this.ngOnInit();
-      this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+    this.usuarioService.insertar(this.usuario).then(servicio=>{
+      servicio.subscribe(usuario=>{
+        //console.log('entra2');
+        this.ngOnInit();
+        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+      })
     })
 
   }

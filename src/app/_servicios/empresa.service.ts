@@ -20,7 +20,7 @@ export interface Empresa{
 
 export class EmpresaService {
 
-  private url: string = "http://201.239.13.125";
+  public url: string = "http://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
 
   }
@@ -58,7 +58,9 @@ export class EmpresaService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  insertar(prod){
+  async insertar(prod){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
     return this.http.post<any[]>(`${this.url}/empresa/`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
