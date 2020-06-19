@@ -35,7 +35,7 @@ export class AppComponent {
       title: 'Cotizaciones',
       url: '/cotizaciones',
       icon: 'paper'
-    },
+    },/*
     {
       title: 'Reportes',
       url: '/reportes',
@@ -45,7 +45,7 @@ export class AppComponent {
       title: 'Tienda',
       url: '/tienda',
       icon: 'cart'
-    },
+    },*/
     {
       title: 'Administrar',
       url: '/administrar',
