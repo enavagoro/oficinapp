@@ -33,6 +33,7 @@ import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.pag
 import { ReportePage } from './reportes/reporte/reporte.page';
 import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
 import { DocumentoPage } from './cotizaciones/documento/documento.page';
+import { PlanesPage } from './tienda/planes/planes.page';
 
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppUtilService } from './_servicios/app-util.service';
@@ -50,8 +51,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage],
-  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

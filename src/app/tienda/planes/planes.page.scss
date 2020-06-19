@@ -1,0 +1,121 @@
+ion-toolbar{
+  --background: #82afec;
+}
+
+.imagen-jazmin{
+  width: 15%;
+  margin-left: 32.5%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}
+
+.boton{
+  width: 10%;
+}
+.contenedor-texto{
+  width: 100%;
+  margin-left: 0%;
+  display: flex;
+}
+
+.texto-pago{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 17px;
+  color: #546e7a;
+}
+
+.texto-pago-seleccionado{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 17px;
+  color: #82afec;
+}
+
+.contenedor-pago{
+  width: 100%;
+  margin-left: 0%;
+}
+
+ion-item-divider{
+  width: 70%;
+  margin-left: 15%;
+}
+
+.contenedor-boton{
+  width: 100%;
+}
+
+.ion-item-total{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.numero{
+  font-size: 18px;
+}
+
+.ion-button{
+  --background: #6262ca;
+  --background-activated:#6262ca;
+  --background-focused:#6262ca;
+  --background-hover:#6262ca;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+  .ion-button-volver{
+    --background: #fb745b;
+    --background-activated: #fb745b;
+    --background-focused: #fb745b;
+    --background-hover: #fb745b;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+
+.contenedor-imagen-navegador{
+  width: 25%;
+  margin-top: 5%;
+  margin-left: 37.5%;
+  margin-bottom: 2.5%;
+}
+
+.compra{
+  animation: aparecer .5s linear;
+}
+
+.pago{
+  animation: aparecer .5s linear;
+}
+
+.confirmacion{
+  animation: aparecer .5s linear;
+}
+
+@keyframes aparecer {
+  from{
+    transform: translateX(120%);
+  }
+  to{
+    transform: translateX(0);
+  }
+}
+
+@media (max-width:900px) {
+  .imagen-jazmin{
+    width: 30%;
+    margin-left: 25%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+  }
+
+  ion-icon{
+    width: 30px;
+  }
+}

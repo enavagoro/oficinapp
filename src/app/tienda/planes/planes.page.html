@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="contenedor-imagen">
+      <img class="imagen-jazmin" src="./assets/icon/logo-jazmin.svg">
+    </div>
+    <ion-buttons slot="start" class="boton">
+      <ion-button (click)="cerrarModal()" color="light">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="contenedor-texto">
+    <h1 class="texto-pago-seleccionado" *ngIf="banderaSeccion==1">Selección de Compra</h1>
+    <h1 class="texto-pago" *ngIf="banderaSeccion==2 || banderaSeccion==3">Selección de Compra</h1>
+    <h1 class="texto-pago-seleccionado" *ngIf="banderaSeccion==2">Metodo de Pago</h1>
+    <h1 class="texto-pago" *ngIf="banderaSeccion==1 || banderaSeccion==3">Metodo de Pago</h1>
+    <h1 class="texto-pago-seleccionado" *ngIf="banderaSeccion==3">Proceso de Confirmación</h1>
+    <h1 class="texto-pago" *ngIf="banderaSeccion==1 || banderaSeccion==2">Proceso de Confirmación</h1>
+  </div>
+
+  <ion-item-divider>
+  </ion-item-divider>
+
+  <div class="compra" *ngIf="banderaSeccion==1">
+    <div class="contenedor-pago">
+      <h1 class="texto-pago">Elige una Subscripción</h1>
+      <ion-radio-group value="año">
+        <ion-item>
+          <ion-label>Anual</ion-label>
+          <ion-radio slot="start" value="año" (click)="valorPeriodo=1" selected></ion-radio>
+          <ion-label slot="end">108 $</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Mensual</ion-label>
+          <ion-radio slot="start" value="mes" (click)="valorPeriodo=2"></ion-radio>
+          <ion-label slot="end">9 $</ion-label>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+
+    <ion-item class="ion-item-total" lines="none">
+      <ion-label>Total: </ion-label>
+        <ion-label class="numero" *ngIf="valorPeriodo==1">108 $ al Año</ion-label>
+        <ion-label class="numero" *ngIf="valorPeriodo==2">9 $ por Mes</ion-label>
+    </ion-item>
+
+    <ion-item-divider>
+    </ion-item-divider>
+
+    <div class="contenedor-boton">
+      <ion-button class="ion-button" (click)="AvanzarSeccion()">Seleccionar Subscripción</ion-button>
+    </div>
+  </div>
+
+  <div class="pago" *ngIf="banderaSeccion==2">
+    <h1 class="texto-pago">Elige un método de pago</h1>
+
+    <div class="contenedor-boton">
+      <ion-button class="ion-button" (click)="AvanzarSeccion()">PayPal</ion-button>
+      <ion-button class="ion-button" (click)="AvanzarSeccion()">Tarjeta de Crédito</ion-button>
+
+      <ion-item-divider>
+      </ion-item-divider>
+
+      <ion-button class="ion-button-volver" (click)="RetrocederSeccion()">Volver atrás</ion-button>
+    </div>
+  </div>
+
+  <div class="confirmacion"*ngIf="banderaSeccion==3">
+    <h1 class="texto-pago">Confirma el detalle de tu Subscripción en tu navegador</h1>
+    <div class="contenedor-imagen-navegador">
+      <img class="" src="./assets/icon/navegador.svg">
+    </div>
+    <ion-button class="ion-button">Volver a abrir ventana</ion-button>
+
+    <ion-item-divider>
+    </ion-item-divider>
+
+    <ion-button class="ion-button-volver" (click)="RetrocederSeccion()">volver atrás</ion-button>
+  </div>
+</ion-content>

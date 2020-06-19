@@ -161,3 +161,25 @@ ion-avatar{
   text-align: center;
   font-size: 32px;
 }
+
+.celular{
+  display: none;
+}
+
+@media (max-width:900px){
+  .celular{
+    display: block;
+  }
+
+  .escritorio{
+    display: none;
+  }
+
+  .parte-medio{
+    display: block;
+  }
+
+  .card{
+    margin-bottom: 10%;
+  }
+}

@@ -41,13 +41,11 @@ export class AppComponent {
       url: '/reportes',
       icon: 'stats'
     },
-    /*
     {
       title: 'Tienda',
       url: '/tienda',
       icon: 'cart'
     },
-  */
     {
       title: 'Administrar',
       url: '/administrar',
