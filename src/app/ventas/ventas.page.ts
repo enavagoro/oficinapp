@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { ClienteService, Cliente, Producto } from '../_servicios/cliente.service';
-import { VentaService, Venta} from '../_servicios/venta.service';
+import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
+import { ClienteService } from '../_servicios/cliente.service';
+import { DetalleService } from '../_servicios/detalle.service';
+import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
+import { StockService } from '../_servicios/stock.service';
+import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
 
 @Component({
   selector: 'app-ventas',
@@ -13,38 +16,52 @@ import { DetallePage } from './detalle/detalle.page';
 export class VentasPage implements OnInit {
   nombreCliente = "";
   clientesFiltrado = [];
-  private clientes : Cliente[] = [];
-  cliente : Cliente;
-  ventas : Venta[] = [];
-  public venta : Venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[], TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+  private clientes  = [];
+  cliente ;
+  ventas  = [];
+  ventasFiltradas = [];
+  public venta  = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   detalle = [];
   bandera = false;
+  flag = false;
+  banderaOpciones = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
+              private stock : StockService,
               private ventaService:VentaService,
+              private detalleService:DetalleService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
-      clienteService.listar().then(clientes=>{
-        clientes.subscribe(c=>{
-            this.clientes = c;
-        })
-      })
-  }
+
+                clienteService.listar().then(servicio=>{
+                    servicio.subscribe(c=>{
+                          this.clientes = c;
+                    })
+                  })
+              }
 
   ngOnInit() {
-    this.ventaService.listar().then(ventas =>{
-      ventas.subscribe(v=>{
-        this.ventas = v;
+    this.ventaService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.ventas = v;
       })
-
     })
   }
-  encontrarCliente(id_cliente){
+  traerCliente(id){
+    var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
+    console.log(clientes);
+    if(clientes.length > 0 ){
+      this.clientesFiltrado.push(clientes[0])
+      this.cliente = clientes[0];
+    }
+
+  }
+  encontrarCliente(idCliente){
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
-      if(cli.id == id_cliente){
+      if(cli.id == idCliente){
         return cli.nombre;
       }
     }
@@ -54,7 +71,12 @@ export class VentasPage implements OnInit {
   public traerclientes(){
     this.ngOnInit();
   }
+  refrescar(event) {
+    setTimeout(() => {
 
+      event.target.complete();
+    }, 2000);
+  }
   filtrarCliente(){
     this.clientesFiltrado = [];
 
@@ -69,13 +91,18 @@ export class VentasPage implements OnInit {
     if(this.clientesFiltrado.length == 0 ){
       this.cliente = undefined;
     }
+
+    if(this.nombreCliente==""){
+      this.filtrarCliente();
+    }
   }
+
 
   verCliente(cliente){
     this.nombreCliente = cliente.nombre;
     this.cliente = cliente;
     this.filtrarCliente();
-    console.log(cliente);
+    //console.log(cliente);
   }
 
   async abrirDetalle() {
@@ -97,29 +124,55 @@ export class VentasPage implements OnInit {
 
     return await modal.present();
   }
-
+  public ejecutarInsercion(indice,tam){
+    if(indice == tam){
+      this.ventaService.insertar(this.venta).subscribe(data=>{
+        //console.log(data);
+        this.ngOnInit();
+        this.detalle = [];
+        this.cliente = undefined;
+        this.nombreCliente = "";
+        this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+      })
+    }
+  }
   public guardarVenta(){
-    console.log('entra');
+    //console.log('entra');
     this.venta.id = 0 + (this.ventas.length + 1);
-    this.venta.id_cliente = this.cliente.id;
-    this.venta.detalles = this.detalle;
-    this.ventaService.insertar(this.venta).subscribe(data=>{
-      console.log(data);
-      this.ngOnInit();
-      this.venta = {detalle:[],estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],documento: 0,idEmpresa:0,idUsuario:0};
-    })
+    this.venta.idCliente = this.cliente.id;
+    this.venta.detalle = this.detalle;
+
+    var i = 0;
+    var inventariados = this.venta.detalle.filter(prod=>{return prod.tipo == 1})
+    for(var producto of this.venta.detalle){
+      if(producto.tipo == 1){
+        this.stock.descontar(producto.cantidad,producto['id']).subscribe(d=>{
+          console.log(d);
+          if(d['error']){
+            alert(d['error']);
+          }else{
+            i++;
+            this.ejecutarInsercion(i,inventariados.length);
+          }
+
+        })
+      }
+    }
+
+
   }
 
   public actualizarVenta(){
-    this.ventaService.actualizar(this.venta.id,this.venta).subscribe(venta=>{
-      console.log(venta);
+    this.ventaService.actualizar(this.venta,this.venta.id).subscribe(venta=>{
+      //console.log(venta);
       this.ngOnInit();
-      this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+      this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
+      this.limpiar();
     })
   }
   public eliminacionLogica(){
-    this.ventaService.borrar(this.venta.id,this.venta).subscribe(datos=>{
-      console.log(datos);
+    this.ventaService.eliminar(this.venta,this.venta.id).subscribe(datos=>{
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -134,11 +187,14 @@ export class VentasPage implements OnInit {
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
-    this.venta = {estado:0,id:0,id_cliente:0,fecha:new Date(),detalles:[],TipoDocumento: 0,idEmpresa:0,idUsuario:0};
+    this.detalle = [];
+    this.cliente = undefined;
+    this.nombreCliente = "";
+    this.venta = {estado:0,id:0,idCliente:0,fecha:new Date(),detalle:[],tipoDocumento:0,idEmpresa:0,idUsuario:0};
   }
 
   async eliminar(opcion) {
-    console.log(this.venta);
+    //console.log(this.venta);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>'+opcion+' UNA VENTA</strong>!!!',
@@ -148,7 +204,7 @@ export class VentasPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -162,7 +218,7 @@ export class VentasPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.venta);
+    //console.log(this.venta);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -173,7 +229,7 @@ export class VentasPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -188,18 +244,18 @@ export class VentasPage implements OnInit {
   }
 
   async confirmar() {
-    console.log(this.venta);
+    //console.log(this.venta);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UNA VENTA</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -213,7 +269,7 @@ export class VentasPage implements OnInit {
     await alert.present();
   }
   async opciones(venta) {
-    console.log(venta)
+    //console.log(venta)
     var opcion = "Borrar";
     if(venta.estado == 0){
       opcion = "Recuperar"
@@ -229,9 +285,13 @@ export class VentasPage implements OnInit {
           venta.tipo=''+venta.tipo;
           this.venta = venta;
           console.log(venta);
-          console.log('bandera',this.bandera);
+          this.banderaOpciones=true;
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
+          this.traerCliente(venta.idCliente);
+          venta.detalles = venta.detalle;
+          this.detalle = venta.detalle;
         }
       },{
         text: 'Actualizar',
@@ -239,7 +299,12 @@ export class VentasPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.venta = venta;
-          console.log(venta);
+          this.traerCliente(venta.idCliente);
+          this.detalleService.listar(venta.id).subscribe(detalle=>{
+              venta.detalles = detalle;
+              this.detalle = detalle;
+
+          })
         }
       },{
         text: 'Duplicar',
@@ -249,7 +314,7 @@ export class VentasPage implements OnInit {
           venta.id == 0;
           this.venta = venta;
           this.venta.id = 0;
-          console.log(this.venta);
+          //console.log(this.venta);
         }
       },{
         text: opcion,
@@ -265,7 +330,7 @@ export class VentasPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });
@@ -273,14 +338,14 @@ export class VentasPage implements OnInit {
   }
 
   borrar(index){
-    console.log(index);
+    //console.log(index);
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
         nuevo.push(this.detalle[i]);
       }
     }
-    console.log(nuevo);
+    //console.log(nuevo);
     this.detalle = nuevo;
   }
 
@@ -293,4 +358,31 @@ export class VentasPage implements OnInit {
     }
     return ventas;
   }
+
+  limpiar(){
+    this.cliente = undefined;
+    this.nombreCliente = "";
+  }
+
+  async abrirCliente() {
+
+    const modal = await this.modalCtrl.create({
+      component: CrearClienteVentaPage,
+      cssClass: 'modals',
+/*
+      componentProps:{
+        'detalle' : this.detalle
+      }
+      */
+    });
+
+    modal.onDidDismiss().then(modal=>{
+      console.log("haciendo pruebas");
+      this.ngOnInit();
+    });
+
+    return await modal.present();
+
+}
+
 }

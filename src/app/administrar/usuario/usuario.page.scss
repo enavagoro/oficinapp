@@ -1,7 +1,7 @@
 ion-toolbar{
-  --background: url("https://cdn.dribbble.com/users/1846841/screenshots/5200239/yosemite1.jpg")  no-repeat center / 100%;
+  --background: url("/assets/icon/palmeras.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 15%;
+  padding-bottom: 25%;
 }
 
 .header-md::after{
@@ -23,9 +23,48 @@ ion-title{
   width: 70% !important;
   margin-left: 15% !important;
   margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button-cancelar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
   margin-bottom: 5%;
+}
+
+.boton-agregar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.boton-cerrar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+}
+
+.input-boton{
+  width: 80%;
 }
 
 ion-avatar{
   --border-radius: 0%;
 }
+
+.item-lista{
+  cursor: pointer;
+}
+
+.grayscale { filter: grayscale(80%) !important; }

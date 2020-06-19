@@ -11,6 +11,19 @@
 
   <ion-list class="ion-list" lines="none">
     <ion-list-header>
+      <ion-label>Perfil</ion-label>
+    </ion-list-header>
+
+    <ion-item routerLink="/administrar/empresa" routerDirection="root">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+      </ion-avatar>
+      <ion-label class="ion-label">Mi Empresa</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list class="ion-list" lines="none">
+    <ion-list-header>
       <ion-label>Crear</ion-label>
     </ion-list-header>
     <ion-item routerLink="/administrar/cliente" routerDirection="root" >
@@ -23,7 +36,7 @@
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
-      <ion-label class="ion-label">Crear Producto</ion-label>
+      <ion-label class="ion-label">Crear Producto/Servicio</ion-label>
     </ion-item>
     <ion-item routerLink="/administrar/tipo-gasto" routerDirection="root">
       <ion-avatar slot="start">
@@ -37,14 +50,12 @@
       </ion-avatar>
       <ion-label class="ion-label">Crear Tipo de Producto</ion-label>
     </ion-item>
-    <!--
+
     <ion-item routerLink="/administrar/usuario" routerDirection="root">
       <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+        <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
       </ion-avatar>
       <ion-label class="ion-label">Crear Usuario</ion-label>
     </ion-item>
-    -->
   </ion-list>
-
 </ion-content>

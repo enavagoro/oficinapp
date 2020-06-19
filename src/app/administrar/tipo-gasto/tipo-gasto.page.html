@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">
@@ -41,11 +44,13 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los Tipos de Gastos</ion-label>
     <ion-label *ngIf="!verTodos">Tipos de Gastos Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{tipoGastos.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarTipoGastos().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let g of filtrarTipoGastos()" (click)="opciones(g)">
+      <ion-item class="item-lista" *ngFor="let g of filtrarTipoGastos()" (click)="opciones(g)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>
@@ -56,7 +61,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let g of tipoGastos" (click)="opciones(g)">
+      <ion-item class="item-lista" *ngFor="let g of tipoGastos" (click)="opciones(g)">
         <ion-avatar slot="start" *ngIf="g.estado">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>

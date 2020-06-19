@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { ProductoService, Producto } from '../../_servicios/producto.service';
-import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-producto.service';
+import { ProductoService } from '../../_servicios/producto.service';
+import { TipoProductoService } from '../../_servicios/tipo-producto.service';
+import { CrearTipoproductoPage } from './crear-tipoproducto/crear-tipoproducto.page';
 
 @Component({
   selector: 'app-producto',
@@ -11,9 +12,10 @@ import { TipoProductoService, TipoProducto } from '../../_servicios/tipo-product
 
 export class ProductoPage implements OnInit {
   productos = [];
-  public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  public producto  = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   tiposProductos = [];
   bandera = false;
+  banderaMantenedor = true;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -23,54 +25,52 @@ export class ProductoPage implements OnInit {
               private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().then(gastos=>{
-      console.log(gastos);
-      gastos.subscribe(results=>{
-          self.tipoGastos = results;
-          console.log(results)
-      })
+    console.log(this.banderaMantenedor);
 
-    })
-    this.tipoProductoService.listar().then(tipos=>{
-      tipos.subscribe(t=>{
-        this.tiposProductos = t;
+    var self = this;
+    this.tipoProductoService.listar().then(servicio=>{
+      servicio.subscribe(results=>{
+            self.tiposProductos = results;
+            //console.log(results)
       })
     })
-    this.productoService.listar().then(productos=>{
-
-      productos.subscribe(p=>{
-        this.productos = p;
+    this.tipoProductoService.listar().then(servicio=>{
+      servicio.subscribe(t=>{
+          this.tiposProductos = t;
+      })
+    })
+    this.productoService.listar().then(servicio=>{
+      servicio.subscribe(p=>{
+          this.productos = p;
       })
     })
   }
-  doRefresh(event) {
-    console.log('Begin async operation');
-
+  refrescar(event) {
     setTimeout(() => {
-      console.log('Async operation has ended');
+
       event.target.complete();
     }, 2000);
   }
   public guardarProducto(){
-    console.log('entra');
+    //console.log('entra');
     this.producto.id = 0 + (this.productos.length + 1);
     this.productoService.insertar(this.producto).subscribe(producto=>{
-      console.log('entra2');
+      //console.log('entra2');
+      this.ngOnInit();
+      this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
     })
-    this.ngOnInit();
-    this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   }
 
   public actualizarProducto(){
-    this.productoService.actualizar(this.producto.id,this.producto).subscribe(producto=>{
-      console.log(producto);
+    this.productoService.actualizar(this.producto,this.producto.id).subscribe(producto=>{
+      //console.log(producto);
       this.ngOnInit();
       this.producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
     })
   }
   public eliminacionLogica(){
-    this.productoService.borrar(this.producto.id,this.producto).subscribe(datos=>{
-      console.log(datos);
+    this.productoService.eliminar(this.producto,this.producto.id).subscribe(datos=>{
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -90,7 +90,7 @@ export class ProductoPage implements OnInit {
   }
 
   async eliminar(opcion) {
-    console.log(this.producto);
+    //console.log(this.producto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -101,7 +101,7 @@ export class ProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -115,7 +115,7 @@ export class ProductoPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.producto);
+    //console.log(this.producto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -126,7 +126,7 @@ export class ProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -140,7 +140,7 @@ export class ProductoPage implements OnInit {
     await alert.present();
   }
   async confirmar() {
-    console.log(this.producto);
+    //console.log(this.producto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -151,7 +151,7 @@ export class ProductoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -165,8 +165,8 @@ export class ProductoPage implements OnInit {
     await alert.present();
   }
   async opciones(producto) {
-    console.log('entró');
-    console.log(producto);
+    //console.log('entró');
+    //console.log(producto);
     var opcion = "Borrar";
     if(producto.estado == 0){
       opcion = "Recuperar"
@@ -181,8 +181,8 @@ export class ProductoPage implements OnInit {
         handler: () => {
           producto.tipo=''+producto.tipo;
           this.producto = producto;
-          console.log(producto);
-          console.log('bandera',this.bandera);
+          //console.log(producto);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -192,7 +192,7 @@ export class ProductoPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.producto = producto;
-          console.log(producto);
+          //console.log(producto);
         }
       },{
         text: 'Duplicar',
@@ -202,7 +202,7 @@ export class ProductoPage implements OnInit {
           producto.id == 0;
           this.producto = producto;
           this.producto.id = 0;
-          console.log(this.producto);
+          //console.log(this.producto);
         }
       }, {
         text: opcion,
@@ -218,7 +218,7 @@ export class ProductoPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });
@@ -233,5 +233,25 @@ export class ProductoPage implements OnInit {
       }
     }
     return productos;
+  }
+
+  async abrirTipoProducto() {
+
+    const modal = await this.modalCtrl.create({
+      component: CrearTipoproductoPage,
+      cssClass: 'modals',
+      /*
+      componentProps:{
+        'detalle' : this.detalle
+      }*/
+    });
+
+      modal.onDidDismiss().then(modal=>{
+        console.log("haciendo pruebas");
+        this.ngOnInit();
+      });
+
+      return await modal.present();
+
   }
 }

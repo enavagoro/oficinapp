@@ -19,7 +19,7 @@
 .imagen-logo{
   margin-left: calc((100% - 120px)/2);
   width: 120px;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .header-md::after{
@@ -144,5 +144,9 @@ ion-content{
 }
 
 .lista{
-  margin-top: 40% !important;
+  margin-top: 5% !important;
+}
+
+.cerrar-sesion{
+  cursor: pointer !important;
 }

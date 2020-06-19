@@ -1,24 +1,71 @@
 <ion-content>
-
-
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Crear Producto</ion-title>
+    <ion-title>Crear Producto/Servicio</ion-title>
   </ion-toolbar>
+<!--
+  <ion-segment value="inventariable">
+    <ion-segment-button value="inventariable" (click)="banderaMantenedor=true;">
+      <ion-label>No Inventariable</ion-label>
+      <img class="imagen-segmento" src="https://image.flaticon.com/icons/svg/359/359399.svg">
+    </ion-segment-button>
+    <ion-segment-button value="no-inventariable" (click)="banderaMantenedor=false;">
+      <ion-label>Inventariable</ion-label>
+      <img class="imagen-segmento" src="https://image.flaticon.com/icons/svg/359/359399.svg">
+    </ion-segment-button>
+  </ion-segment>
+-->
+<div class="contenedor-mantenedor-producto" *ngIf="banderaMantenedor">
+<!--
+  <ion-item>
+
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+    <div class="card-mensaje">
+      <h1 style="text-aling:center">Para llevar el correcto control de tu inventario</h1>
+    </div>
+
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-item>
+    -->
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-list-header>
-    Datos del Producto
+    Datos del Producto/Servicio
   </ion-list-header>
   <form>
+
   <ion-item>
+    <ion-label>Tipo Producto Existente</ion-label>
+    <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
+  </ion-item>
+
+  <ion-item *ngIf="!banderaExistente">
+    <ion-button size="medium" class="ion-button-tipoGasto" (click)="abrirTipoProducto();">Nuevo Tipo Producto</ion-button>
+  </ion-item>
+
+  <ion-item *ngIf="banderaExistente">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1311/1311359.svg">
     </ion-avatar>
@@ -29,11 +76,11 @@
   </ion-item>
 
   <ion-item>
+    <ion-label position="stacked">Producto/Servicio<ion-text color="danger">*</ion-text></ion-label>
+    <ion-input [(ngModel)]="producto.titulo" name="titulo" required></ion-input>
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
     </ion-avatar>
-    <ion-label position="stacked">Producto<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input [(ngModel)]="producto.titulo" name="titulo" required></ion-input>
   </ion-item>
 
   <ion-item>
@@ -59,11 +106,13 @@
     <ion-item>
       <ion-label *ngIf="verTodos">Todos los productos</ion-label>
       <ion-label *ngIf="!verTodos">Productos Activos</ion-label>
+      <label *ngIf="verTodos" slot="end"><ion-badge>{{productos.length}}</ion-badge></label>
+      <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarProductos().length}}</ion-badge></label>
       <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
     </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let p of filtrarProductos()" (click)="opciones(p)">
+      <ion-item class="item-lista" *ngFor="let p of filtrarProductos()" (click)="opciones(p)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
         </ion-avatar>
@@ -73,7 +122,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let p of productos" (click)="opciones(p)">
+      <ion-item class="item-lista" *ngFor="let p of productos" (click)="opciones(p)">
         <ion-avatar slot="start" *ngIf="p.estado">
           <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
         </ion-avatar>
@@ -84,4 +133,10 @@
       </ion-item>
       <h2 *ngIf="productos.length == 0">No hay productos aun...</h2>
     </ion-list>
+    </div>
+
+    <div class="no-inventariable" *ngIf="!banderaMantenedor">
+      <h1>Hola aquí va a ir un mensaje diciendo que para manejar tu bodega puedes usar bodegapp</h1>
+      <h1 style="margin-top:30%;">Aquí va a ir el mantenedor de no inventariable (faltaría agregar más filtro en detalle)</h1>
+    </div>
 </ion-content>

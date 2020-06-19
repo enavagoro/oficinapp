@@ -1,98 +1,64 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductoService, Producto } from '../_servicios/producto.service';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
-export interface Cliente {
-  id: number;
-  nombre: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  comuna: string;
-  ciudad: string;
-  contacto: string;
-  tipoCompra: number;
-  detalle : Array<Producto>;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-export interface Producto{
-  id:number;
-  titulo:string;
-  precio:number;
-  codigo:string;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class ClienteService {
-
-  private url: string = "http://178.128.71.20:3500";
-
-  idEmpresa = 0;
-  idUsuario = 0;
-  constructor(private sService:StorageService,private http: HttpClient) {
-
+  private url: string = "http://201.239.13.125";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
-
   async listar() {
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
-    return this.http.get<Cliente[]>(`${this.url}/api/clientes/`,{
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.get<any[]>(`${this.url}/cliente/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  getcliente(id){
+    return this.http.get<any[]>(`${this.url}/cliente/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/cliente/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(id,prod){
+    delete prod.__v;
+    return this.http.patch<any[]>(`${this.url}/cliente/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  insertar(cliente : Cliente){
-    return this.http.post<Cliente>(`${this.url}/api/clientes/`,cliente, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
-
+  eliminar(prod,id){
+      prod.estado = false;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/cliente/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
+    //var indice  = this.clientes.indexOf(prod);
+    //this.clientes[indice] = prod;
+    //console.log(this.clientes[indice]);
 
-  actualizar(id:number,cliente : Cliente){
-    return this.http.put<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 
-  borrar(id:number,cliente : Cliente){
-
-    if(cliente.estado == 0){
-      cliente.estado = 1;
-    }else{
-      cliente.estado = 0;
-    }
-
-    return this.http.put<Cliente>(`${this.url}/api/clientes/${id}`, cliente,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<Cliente>(`${this.url}/api/clientes/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<Cliente>(`${this.url}/api/clientes/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 }

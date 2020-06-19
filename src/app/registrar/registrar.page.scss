@@ -1,0 +1,328 @@
+ion-content{
+  --background: #82afec;
+}
+
+.contenedor{
+  display: flex;
+  width: 60%;
+  margin-left: 20%;
+  height: 90vh;
+  background: white;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.parte-izquierda{
+  width: 50%;
+  background: url("/assets/icon/landscape.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.contenedor-imagen{
+  width: 45%;
+  margin-left: 27.5%;
+  margin-top: 5%;
+  transform-box:fill-box !important;
+}
+
+.parte-derecha{
+  width: 50%;
+  animation: slide-left .5s;
+}
+
+@keyframes slide-left {
+      0% { opacity: 0; }
+      50% { opacity: 0; }
+      97% { opacity: 0.7; }
+    100% { opacity: 1; }
+/* animacion de entrada*/
+}
+
+.contenedor-inicio{
+  margin-top: 0%;
+  padding: 5%;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.contenedor-imagen-formulario{
+  width: 25%;
+  margin-left: 37.5%;
+  margin-top: 5%;
+  display: none;
+}
+
+ion-list-header{
+  color: white;
+  display: none;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}
+
+.titulo{
+  width: 100%;
+  text-align: right;
+  font-size: 20px;
+}
+
+.subtitulo{
+  width: 100%;
+  font-size: 15px;
+  text-align: center;
+}
+
+.boton-cerrar{
+  --background: #82afec;
+  --background-activated: #82afec;
+  --background-focused: #82afec;
+  --background-hover: #82afec;
+}
+
+.ion-button{
+  --background: #82afec;
+  --background-activated:#82afec;
+  --background-focused:#82afec;
+  --background-hover:#82afec;
+  width: 80% !important;
+  margin-left: 10% !important;
+  margin-top: 3%;
+}
+
+ion-item{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 4%;
+  --background: white;
+  padding: none;
+}
+
+.ion-item{
+  margin-top: 4%;
+  --background: white;
+  padding: none;
+  --border-color: transparent;
+}
+
+.contenedor-texto{
+  margin-top: 4%;
+}
+
+.texto-registro{
+  width: 80%;
+  margin-left: 5%;
+}
+
+/* Animacion Grafico */
+#poligono{
+  animation: aparecer 4.5s linear;
+  transform-origin: center center;
+  transform-box: fill-box;
+}
+
+/* flores */
+
+#flor_1{
+  animation: aparecer 3s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_2{
+  animation: aparecer 3.5s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_3{
+  animation: aparecer 4s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_4{
+  animation: aparecer 4.5s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_5{
+  animation: aparecer 5s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_6{
+  animation: aparecer 5.5s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_7{
+  animation: aparecer 6s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#flor_8{
+  animation: aparecer 6.5s linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+
+/* Rayas */
+#raya_1{
+  animation: subir 1s !important;
+  transform-origin: bottom;
+}
+#raya_2{
+  animation: subir 1.5s !important;
+  transform-origin: bottom;
+}
+#raya_3{
+  animation: subir 2s !important;
+  transform-origin: bottom;
+}
+
+#raya_4{
+  animation: subir 2.5s !important;
+  transform-origin: bottom;
+}
+
+#raya_5{
+  animation: subir 3s ease !important;
+  transform-origin: bottom;
+}
+
+#raya_6{
+  animation: subir 3.5s ease !important;
+  transform-origin: bottom;
+}
+
+#raya_7{
+  animation: subir 4s ease !important;
+  transform-origin: bottom;
+}
+
+#raya_8{
+  animation: subir 4.5s ease !important;
+  transform-origin: bottom;
+}
+
+@keyframes subir{
+  from{
+    transform: scaleY(0);
+  }
+  to{
+    transform: scaleY(1);
+  }
+}
+
+@keyframes aparecer{
+
+  from{
+    transform: scale(0);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+
+@keyframes girar{
+  from{
+    transform: rotateZ(0deg);
+  }
+  to{
+    transform: rotateZ(360deg);
+  }
+}
+
+@media (max-width:1000px) {
+  ion-content{
+    --background: #82afec;
+  }
+
+  .contenedor{
+    display: flex;
+    width: 100% !important;
+    margin-left: 0% !important;
+    height: 100vh !important;
+    background: #82afec;
+    margin-top: 0vh !important;
+    margin-bottom: 0vh !important;
+  }
+
+  .parte-izquierda{
+    width: 0% !important;
+    background: url("/assets/icon/landscape.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+
+  .parte-derecha{
+    width: 100% !important;
+    animation: slide-left .5s;
+  }
+
+  ion-item{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 4%;
+    --background: #82afec;
+    padding: none;
+    --color: white;
+    --border-color: white;
+  }
+
+  .ion-item{
+    display: none;
+    margin-top: 4%;
+    --background: #82afec;
+    --color: white;
+    padding: none;
+    --border-color: transparent;
+  }
+
+  .ion-button{
+    --background: white;
+    --background-activated: white;
+    --background-focused: white;
+    --background-hover: white;
+    width: 80% !important;
+    margin-left: 10% !important;
+    margin-top: 5%;
+    --color: #82afec;
+
+  }
+
+  .titulo{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .subtitulo{
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .cls-9{fill:white;}
+
+  .contenedor-imagen-formulario{
+    display: block;
+  }
+
+  ion-list-header{
+    color: white;
+    display: block;
+  }
+
+  .texto-registro{
+    color: white;
+  }
+}

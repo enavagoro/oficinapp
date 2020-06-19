@@ -1,0 +1,30 @@
+<ion-content>
+  <ion-toolbar class="toolbar">
+
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="volver()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Previsualización</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="descargar()" color="light">
+        <ion-icon style="color:white" slot="icon-only" name="download"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+  <ion-fab *ngIf="!creado" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="alertPrompt()">
+      <ion-icon name="mail" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ngx-doc-viewer [url]="doc" viewer="google" style="width:100%;height:100%;">
+
+  </ngx-doc-viewer>
+
+</ion-content>

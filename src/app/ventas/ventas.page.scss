@@ -1,8 +1,9 @@
 ion-toolbar{
-  --background: url("https://cdn.dribbble.com/users/1803663/screenshots/5478211/landscapes.png")  no-repeat center / 100%;
+  --background: url("/assets/icon/cerro.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 15%;
+  padding-bottom: 25%;
 }
+
 
 .header-md::after{
   width: 0% !important;
@@ -26,18 +27,63 @@ ion-title{
   margin-bottom: 2%;
 }
 
-.ion-button-cancelar{
-  --background: #1250ad;
-  --background-activated: #1250ad;
-  --background-focused: #1250ad;
-  --background-hover: #1250ad;
+.ion-button-agregar{
+  --background: #4748be;
+  --background-activated: #4748be;
+  --background-focused: #4748be;
+  --background-hover: #4748be;
   width: 70% !important;
   margin-left: 15% !important;
-  margin-top: 0%;
+  margin-top: 5%;
   margin-bottom: 5%;
 }
 
-.ion-button2{
+.ion-button-cerrar{
+  --background: #fb745b;
+  --background-activated: #fb745b;
+  --background-focused: #fb745b;
+  --background-hover: #fb745b;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.boton-agregar{
+  --background: #554fc7;
+  --background-activated: #554fc7;
+  --background-focused: #554fc7;
+  --background-hover: #554fc7;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.boton-ok{
+  --background: #554fc7;
+  --background-activated: #554fc7;
+  --background-focused: #554fc7;
+  --background-hover: #554fc7;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}
+
+.boton-borrar{
+  --background: #fb745b;
+  --background-activated: #fb745b;
+  --background-focused: #fb745b;
+  --background-hover: #fb745b;
+  margin-left: 7%;
+}
+
+.ion-button-confirmar{
   --background: #2bf8ce;
   --background-activated:#2bf8ce;
   --background-focused:#2bf8ce;
@@ -48,36 +94,68 @@ ion-title{
   margin-bottom: 2%;
 }
 
-.ion-button3{
+.ion-button-cancelar{
+  --background: #fb745b;
+  --background-activated: #fb745b;
+  --background-focused: #fb745b;
+  --background-hover: #fb745b;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
+  margin-bottom: 2%;
+}
+
+.ion-button-menos{
   --background: #1250ad;
   --background-activated:#1250ad;
   --background-focused:#1250ad;
   --background-hover:#1250ad;
   width: 50% !important;
   margin-left: 25% !important;
-  margin-top: 5%;
-  margin-bottom: 2%;
+  margin-top: 3%;
+  margin-bottom: 0%;
 }
 
-.ion-button4{
+.ion-button-mas{
   --background: #2bf8ce;
   --background-activated:#2bf8ce;
   --background-focused:#2bf8ce;
   --background-hover:#2bf8ce;
   width: 50% !important;
   margin-left: 25% !important;
-  margin-top: 5%;
-  margin-bottom: 2%;
+  margin-top: 3%;
+  margin-bottom: 0%;
 }
 
-ion-avatar{
-  --border-radius: 0%;
-}
-.boton-borrar{
+.ion-button-cancelar-ver{
   --background: #fb745b;
   --background-activated: #fb745b;
   --background-focused: #fb745b;
   --background-hover: #fb745b;
+  width: 50% !important;
+  margin-left: 25% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.item-lista{
+  cursor: pointer;
 }
 
 .grayscale { filter: grayscale(80%) !important; }
+
+ion-badge{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ion-button-cliente{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+} 

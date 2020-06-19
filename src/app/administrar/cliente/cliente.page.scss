@@ -1,7 +1,7 @@
 ion-toolbar{
-  --background: url("https://cdn.dribbble.com/users/1846841/screenshots/5200239/yosemite1.jpg")  no-repeat center / 100%;
+  --background: url("/assets/icon/palmeras.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 15%;
+  padding-bottom: 25%;
 }
 
 .header-md::after{
@@ -39,6 +39,10 @@ ion-title{
 
 ion-avatar{
   --border-radius: 0%;
+}
+
+.item-lista{
+  cursor: pointer;
 }
 
 .grayscale { filter: grayscale(80%) !important; }

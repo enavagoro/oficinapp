@@ -1,94 +1,81 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
+import { LoginService } from './login.service';
 
-import { StorageService } from './storage.service';
-
-export interface Gasto {
-  id: number;
-  titulo: string;
-  tipo: number;
-  descripcion: string;
-  monto: number;
-  fecha: Date;
-  documento: number;
-  estado: number;
-  img : string;
-  idEmpresa: number;
-  idUsuario: number;
-  tipoDocumento: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class GastoService {
-
-  private url: string = "http://178.128.71.20:3500";
-
-  idEmpresa = 0;
-  idUsuario = 0;
-  constructor(private sService:StorageService,private http: HttpClient) {
-
-  }
-  guardar(form){
-    console.log(form);
-    form.append('idEmpresa',this.idEmpresa);
-    this.http.post("http://178.128.71.20:3500/api/archivos", form, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
-            console.log(event);
-        });
+  private url: string = "http://201.239.13.125";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
-    return this.http.get<Gasto[]>(`${this.url}/api/gastos/`,{
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.get<any[]>(`${this.url}/gasto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  insertar(gasto : Gasto){
-    return this.http.post<Gasto>(`${this.url}/api/gastos/`,gasto, {
+  async listarPorSucursal(id){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.get<any[]>(`${this.url}/gasto/sucursal/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  actualizar(id:number,gasto : Gasto){
-    return this.http.put<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
+  getProducto(id){
+    return this.http.get<any[]>(`${this.url}/gasto/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  borrar(id:number,gasto: Gasto){
-
-    if(gasto.estado == 0){
-      gasto.estado = 1;
-    }else{
-    gasto.estado = 0;
-    }
-
-    return this.http.put<Gasto>(`${this.url}/api/gastos/${id}`, gasto,{
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/gasto/`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  gathering(id:string){
-    return this.http.get<Gasto>(`${this.url}/api/gastos/${id}` , {
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/gasto/${id}`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
-
-  listarById(id:string){
-    return this.http.get<Gasto>(`${this.url}/api/gastos/${id}` , {
+  descontar(cantidad,id){
+    let peticion = {cantidad :cantidad};
+    return this.http.patch<any[]>(`${this.url}/gasto/restar/${id}`,peticion , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
+  eliminar(prod,id){
+      prod.estado = !prod.estado;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/gasto/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
+  }
+    //var indice  = this.productos.indexOf(prod);
+    //this.productos[indice] = prod;
+    //console.log(this.productos[indice]);
+
+
 }

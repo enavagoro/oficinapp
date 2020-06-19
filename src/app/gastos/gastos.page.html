@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-buttons slot="start">
@@ -19,12 +22,21 @@
 
       <ion-label>Tipo de Documento</ion-label>
       <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
-        <ion-select-option>Boleta</ion-select-option>
-        <ion-select-option>Factura</ion-select-option>
+        <ion-select-option value="1">Boleta</ion-select-option>
+        <ion-select-option value="2">Factura</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
+      <ion-label>Tipo Gasto Existente</ion-label>
+      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="!banderaExistente">
+      <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();">Nuevo Tipo Gasto</ion-button>
+    </ion-item>
+
+    <ion-item *ngIf="banderaExistente">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
       </ion-avatar>
@@ -85,7 +97,7 @@
         <img class="imagen" [src]="url">
         <ion-card-header>
           <ion-card-subtitle>Comprobante</ion-card-subtitle>
-          <ion-card-title>{{(file.name||url)}}</ion-card-title>
+          <!--<ion-card-title>{{(file.name||url)}}</ion-card-title>-->
         </ion-card-header>
       </ion-card>
     </ion-item>
@@ -122,11 +134,13 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los gastos</ion-label>
     <ion-label *ngIf="!verTodos">Gastos Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{gastos.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarGastos().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
+      <ion-item class="item-lista" *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
@@ -137,7 +151,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let g of gastos" (click)="opciones(g)">
+      <ion-item class="item-lista" *ngFor="let g of gastos" (click)="opciones(g)">
         <ion-avatar slot="start" *ngIf="g.estado">
           <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>

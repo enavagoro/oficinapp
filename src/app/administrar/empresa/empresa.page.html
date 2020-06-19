@@ -1,0 +1,183 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/administrar" routerDirection="root" color="light">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mi Empresa</ion-title>
+  </ion-toolbar>
+
+  <ion-item lines="none" *ngIf="!img">
+    <div class="contenedor-imagen">
+      <ion-avatar class="ion-avatar">
+        <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+      </ion-avatar>
+    </div>
+  </ion-item>
+
+    <ion-item lines="none" *ngIf="img">
+      <div class="contenedor-imagen">
+        <ion-avatar class="ion-avatar">
+          <img [src]="img">
+        </ion-avatar>
+      </div>
+    </ion-item>
+
+  <div *ngIf="bandera==true">
+    <div class="contenedor-boton">
+      <div class="contenedor-texto">
+        <ion-label>Recuerda: La foto que utilicés aparecerá en tus cotizaciones</ion-label>
+      </div>
+      <div class="upload-btn-wrapper">
+        <button class="btn">Subir un archivo</button>
+        <input type="file" name="myfile" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)"/>
+      </div>
+    </div>
+  </div>
+
+
+  <!--
+  <ion-item *ngIf="bandera==false" >
+    <ion-button slot="end" class="boton-cerrar" (click)="bandera=true;">Editar</ion-button>
+  </ion-item>
+  -->
+
+  <ion-list-header>
+    Datos de Identificación
+  </ion-list-header>
+
+ <div *ngIf="bandera==false">
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+    </ion-avatar>
+
+    <!-- {{empresa.nombre}} -->
+    <ion-label position="stacked" class="texto-lista">Nombre: {{empresa.nombre}}</ion-label>
+  </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+      </ion-avatar>
+      <!-- {{empresa.rut}} -->
+      <ion-label position="stacked" class="texto-lista">Rut: {{empresa.rut}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
+      </ion-avatar>
+      <!-- {{empresa.giro}} -->
+      <ion-label position="stacked" class="texto-lista">Giro: {{empresa.giro}}</ion-label>
+    </ion-item>
+
+    <ion-list-header>
+      Datos de Contacto
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
+      </ion-avatar>
+      <ion-label position="stacked" class="texto-lista">Direccion: {{empresa.direccion}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+      </ion-avatar>
+      <ion-label position="stacked" class="texto-lista">Comuna: {{empresa.comuna}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
+      </ion-avatar>
+      <ion-label position="stacked" class="texto-lista">Ciudad: {{empresa.ciudad}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
+      </ion-avatar>
+      <ion-label position="stacked" class="texto-lista">Contacto {{empresa.contacto}}</ion-label>
+    </ion-item>
+
+    <ion-button class="ion-button" size="medium" (click)="bandera=true;">Editar Empresa</ion-button>
+
+  </div>
+
+  <form *ngIf="bandera==true">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Nombre Empresa</ion-label>
+      <ion-input  [(ngModel)]="empresa.nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Rut</ion-label>
+      <ion-input  [(ngModel)]="empresa.rut" name="rut" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Giro</ion-label>
+      <ion-input  [(ngModel)]="empresa.giro" name="giro" required></ion-input>
+    </ion-item>
+
+    <ion-list-header>
+      Datos de Contacto
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Direccion<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="empresa.direccion" name="direccion" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Comuna<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="empresa.comuna" name="comuna" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Ciudad<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="empresa.ciudad" name="ciudad" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Contacto<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="empresa.contacto" name="contacto" required></ion-input>
+    </ion-item>
+
+
+    <!--*ngIf="empresa.id != 0 && bandera==true"-->
+    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="confirmarActualizar()" [disabled]="empresa.nombre == '' || empresa.rut=='' || empresa.giro == '' || empresa.direccion == '' || empresa.comuna == '' || empresa.ciudad == '' || empresa.contacto == '' ">Actualizar</ion-button>
+    <!--*ngIf="empresa.id != 0 && bandera==true"-->
+    <ion-button class="ion-button-cancelar" *ngIf="bandera==true" size="medium" (click)="cancelar();">Cancelar</ion-button>
+  </form>
+
+</ion-content>

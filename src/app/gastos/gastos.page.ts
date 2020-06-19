@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { GastoService, Gasto } from '../_servicios/gasto.service';
-import { TipoGastoService, TipoGasto } from '../_servicios/tipo-gasto.service';
+import { GastoService } from '../_servicios/gasto.service';
+import { TipoGastoService } from '../_servicios/tipo-gasto.service';
+import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
+import { CrearTipogastoPage } from './crear-tipogasto/crear-tipogasto.page';
 const URL = "http://178.128.71.20:3950/";
 
 @Component({
@@ -15,7 +17,7 @@ export class GastosPage implements OnInit {
   file = File = null;
   gastos = [];
 
-  public gasto : Gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+  public gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
 
   tiposGastos = [];
   url : string;
@@ -23,8 +25,8 @@ export class GastosPage implements OnInit {
   bandera = false;
   arregloInputs=[];
 
-
   constructor(
+    private login : LoginService,
       public storage : Storage,
       public actionSheetController: ActionSheetController,
       private tipoGastoService : TipoGastoService,
@@ -34,17 +36,22 @@ export class GastosPage implements OnInit {
       private modalCtrl : ModalController) { }
 
   ngOnInit() {
-    this.tipoGastoService.listar().then(tipos=>{
-      tipos.subscribe(t=>{
-          this.tiposGastos = t.filter(this.filtros);
+    this.tipoGastoService.listar().then(servicio=>{
+      servicio.subscribe(t=>{
+            this.tiposGastos = t.filter(this.filtros);
       })
+    })
+    this.gastoService.listar().then(servicio=>{
+      servicio.subscribe(g=>{
+            this.gastos = g;
+      })
+    })
+  }
+  refrescar(event) {
+    setTimeout(() => {
 
-    })
-    this.gastoService.listar().then(gastos =>{
-      gastos.subscribe(g=>{
-          this.gastos = g;
-      })
-    })
+      event.target.complete();
+    }, 2000);
   }
   filtros(gasto){
     if(gasto.estado){
@@ -53,25 +60,28 @@ export class GastosPage implements OnInit {
     return false;
   }
   public guardarGasto(img){
-    console.log('entra');
+    //console.log('entra');
     this.gasto.id = 0 + (this.gastos.length + 1);
     this.gasto.img = img;
     this.gastoService.insertar(this.gasto).subscribe(gasto=>{
-      console.log('entra2');
+      //console.log('entra2');
+      this.ngOnInit();
+      this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+      this.url = "";
     })
-    this.ngOnInit();
-    this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+
   }
-  public actualizarGasto(){
+  public actualizarGasto(img){
+    this.gasto.img = img;
     this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
-      console.log(gasto);
+      //console.log(gasto);
       this.ngOnInit();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
   public eliminacionLogica(){
-    this.gastoService.borrar(this.gasto.id,this.gasto).subscribe(datos=>{
-      console.log(datos);
+    this.gastoService.eliminar(this.gasto,this.gasto.id).subscribe(datos=>{
+      //console.log(datos);
 
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
 
@@ -80,10 +90,10 @@ export class GastosPage implements OnInit {
     })
   }
   public verGasto(){
-    this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
-      console.log(gasto);
+    this.gastoService.actualizar(this.gasto,this.gasto.id).subscribe(gasto=>{
+      //console.log(gasto);
       this.ngOnInit();
-      this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+      this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
   public deshabilitarInputs(estado){
@@ -104,12 +114,13 @@ export class GastosPage implements OnInit {
 
   public cancelar(){
     this.bandera=false;
+    this.url = "";
     this.deshabilitarInputs(false);
-    this.gasto = {estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
+    this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
 
   async eliminar(opcion) {
-    console.log(this.gasto);
+    //console.log(this.gasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -120,7 +131,7 @@ export class GastosPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -134,7 +145,7 @@ export class GastosPage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.gasto);
+    //console.log(this.gasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -145,12 +156,12 @@ export class GastosPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
           handler: () => {
-            this.actualizarGasto();
+            this.uploadFile(true);
           }
         }
       ]
@@ -159,7 +170,7 @@ export class GastosPage implements OnInit {
     await alert.present();
   }
   async confirmar() {
-    console.log(this.gasto);
+    //console.log(this.gasto);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -170,12 +181,12 @@ export class GastosPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
           handler: () => {
-            this.uploadFile();
+            this.uploadFile(false);
           }
         }
       ]
@@ -184,7 +195,7 @@ export class GastosPage implements OnInit {
     await alert.present();
   }
   async opciones(gasto) {
-    console.log(gasto)
+    //console.log(gasto)
     var opcion = "Borrar";
     if(gasto.estado == 0){
       opcion = "Recuperar"
@@ -199,10 +210,13 @@ export class GastosPage implements OnInit {
         handler: () => {
           gasto.tipo=''+gasto.tipo;
           this.gasto = gasto;
-          console.log(gasto);
-          console.log('bandera',this.bandera);
+          //console.log(gasto);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
+          var value = this.login.getEmpresa();
+          this.url = URL+"/"+value+"/"+gasto.img;
+
         }
       },{
         text: 'Actualizar',
@@ -210,11 +224,11 @@ export class GastosPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.gasto = gasto;
-          this.storage.get('idEmpresa').then((value) => {
-            this.url = URL+"/"+value+"/"+gasto.img;
-          });
+          var value = this.login.getEmpresa();
+          this.url = URL+"/"+value+"/"+gasto.img;
+          this.url = URL+"/"+value+"/"+gasto.img;
 
-          console.log(gasto);
+          //console.log(gasto);
         }
       },{
         text: 'Duplicar',
@@ -224,7 +238,7 @@ export class GastosPage implements OnInit {
           gasto.id == 0;
           this.gasto = gasto;
           this.gasto.id = 0;
-          console.log(this.gasto);
+          //console.log(this.gasto);
         }
       }, {
         text: opcion,
@@ -240,7 +254,7 @@ export class GastosPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });
@@ -257,7 +271,7 @@ export class GastosPage implements OnInit {
   }
 
   public subirArchivo(evento) {
-    console.log('entrando');
+    //console.log('entrando');
     this.file= evento.target.files[0];
   }
 
@@ -268,13 +282,13 @@ export class GastosPage implements OnInit {
       lector.readAsDataURL(evento.target.files[0]);
 
       lector.onload = (evento) => { // called once readAsDataURL is completed
-        console.log(evento)
+        //console.log(evento)
         try {
           var pre = evento.target["result"];
             this.url = pre;
 
         } catch (error) {
-            console.log(error);
+            //console.log(error);
 
         }}
     }
@@ -283,7 +297,8 @@ export class GastosPage implements OnInit {
   public vaciarArchivo(){
     this.file = 0;
   }
-  uploadFile(){
+
+  uploadFile(actualizar){
 
       this.cargando = true;
       var BaseClass = function (data) {
@@ -291,7 +306,7 @@ export class GastosPage implements OnInit {
       };
       var info = {};
       var currentTime = new Date().getTime();
-      console.log(this.file);
+      //console.log(this.file);
       if(this.file){
         var formData = new FormData();
         var timestamp = new Date();
@@ -301,15 +316,45 @@ export class GastosPage implements OnInit {
           writable: true,
           value: name
         });
-        console.log(this.file);
+        //console.log(this.file);
         formData.append('name',name);
         formData.append('file',this.file);
+//****** PENDIENTEEEEE
+//        this.gastoService.guardar(formData);
 
-        this.gastoService.guardar(formData);
-        this.guardarGasto(name);
+        if(actualizar){
+          this.actualizarGasto(name)
+        }else{
+          this.guardarGasto(name);
+        }
       }else{
-        this.guardarGasto("Sin imagen");
+        if(actualizar){
+            this.actualizarGasto("Sin imagen");
+        }else{
+            this.guardarGasto("Sin imagen");
+        }
+
       }
     }
+
+    async abrirTipoGasto() {
+
+      const modal = await this.modalCtrl.create({
+        component: CrearTipogastoPage,
+        cssClass: 'modals',
+        /*
+        componentProps:{
+          'detalle' : this.detalle
+        }*/
+      });
+
+      modal.onDidDismiss().then(modal=>{
+        console.log("haciendo pruebas");
+        this.ngOnInit();
+      });
+
+      return await modal.present();
+
+  }
 
 }

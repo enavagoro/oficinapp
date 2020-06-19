@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
-import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.service';
+import { ClienteService } from '../../_servicios/cliente.service';
+import { LoginService } from '../../_servicios/login.service';
 
 @Component({
   selector: 'app-cliente',
@@ -11,45 +12,54 @@ import { ClienteService, Cliente, Producto } from '../../_servicios/cliente.serv
 export class ClientePage implements OnInit {
 
   clientes = [];
-  public cliente : Cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
-  public producto : Producto = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
+  public cliente  = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
+  public producto  = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService : ClienteService,
               private toastController : ToastController,
               private alertController :AlertController,
-              private modalCtrl : ModalController) {}
+              private modalCtrl : ModalController,
+              private loginService : LoginService) {}
 
   ngOnInit() {
-    this.clienteService.listar().then(clientes=>{
-      clientes.subscribe(c=>{
-        this.clientes= c;
-      })      
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes= c;
+        })
     })
-  }
 
+  }
+  refrescar(event) {
+    setTimeout(() => {
+
+      event.target.complete();
+    }, 2000);
+  }
   public guardarCliente(){
-    console.log('entra');
+    //console.log('entra');
     this.cliente.id = 0 + (this.clientes.length + 1);
     this.clienteService.insertar(this.cliente).subscribe(cliente=>{
-      console.log('entra2');
+      //console.log('entra2');
       this.ngOnInit();
       this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
-
   }
 
   public actualizarCliente(){
+    console.log(this.cliente);
+
     this.clienteService.actualizar(this.cliente.id,this.cliente).subscribe(cliente=>{
-      console.log(cliente);
+      //console.log(cliente);
       this.ngOnInit();
       this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
     })
   }
+
   public eliminacionLogica(){
-    this.clienteService.borrar(this.cliente.id,this.cliente).subscribe(datos=>{
-      console.log(datos);
+    this.clienteService.eliminar(this.cliente,this.cliente.id).subscribe(datos=>{
+      //console.log(datos);
       this.ngOnInit();
     })
   }
@@ -66,7 +76,7 @@ export class ClientePage implements OnInit {
     this.cliente = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
   }
   async eliminar(opcion) {
-    console.log(this.cliente);
+    //console.log(this.cliente);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -77,7 +87,7 @@ export class ClientePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -91,7 +101,7 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
   async confirmarActualizar() {
-    console.log(this.cliente);
+    //console.log(this.cliente);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -102,7 +112,7 @@ export class ClientePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -116,7 +126,7 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
   async confirmar() {
-    console.log(this.cliente);
+    //console.log(this.cliente);
 
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
@@ -127,7 +137,7 @@ export class ClientePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Cancelado');
+            //console.log('Cancelado');
           }
         }, {
           text: 'Okay',
@@ -141,7 +151,7 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
   async opciones(cliente) {
-    console.log(cliente)
+    //console.log(cliente)
     var opcion = "Borrar";
     if(cliente.estado == 0){
       opcion = "Recuperar"
@@ -156,8 +166,8 @@ export class ClientePage implements OnInit {
         handler: () => {
           cliente.tipo=''+cliente.tipo;
           this.cliente = cliente;
-          console.log(cliente);
-          console.log('bandera',this.bandera);
+          //console.log(cliente);
+          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -167,7 +177,7 @@ export class ClientePage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.cliente = cliente;
-          console.log(cliente);
+          //console.log(cliente);
         }
       },{
         text: 'Duplicar',
@@ -177,7 +187,7 @@ export class ClientePage implements OnInit {
           cliente.id == 0;
           this.cliente = cliente;
           this.cliente.id = 0;
-          console.log(this.cliente);
+          //console.log(this.cliente);
         }
       }, {
         text: opcion,
@@ -193,7 +203,7 @@ export class ClientePage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
+          //console.log('Cancel clicked');
         }
       }]
     });

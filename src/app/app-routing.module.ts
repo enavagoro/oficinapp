@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGaurdService } from './_servicios/auth-gaurd.service';
 
 const routes: Routes = [
   {
@@ -39,7 +38,19 @@ const routes: Routes = [
   {
       path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'registrar',
+    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
+  },
+  {
+    path: 'reportes',
+    loadChildren: () => import('./reportes/reportes.module').then( m => m.ReportesPageModule)
+  },
+  {
+    path: 'tienda',
+    loadChildren: () => import('./tienda/tienda.module').then( m => m.TiendaPageModule)
   }
+
 
 ];
 

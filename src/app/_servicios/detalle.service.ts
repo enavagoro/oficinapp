@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductoService, Producto } from '../_servicios/producto.service';
 
 export interface Detalle {
   id: number;
@@ -16,7 +15,7 @@ export interface Detalle {
 
 export class DetalleService {
 
-  private url: string = "http://178.128.71.20:3500";
+  private url: string = "http://201.239.13.125";
 
   constructor(private http: HttpClient) { }
 

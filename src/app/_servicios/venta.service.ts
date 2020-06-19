@@ -1,83 +1,65 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ProductoService, Producto } from '../_servicios/producto.service';
-import { StorageService } from './storage.service';
+import { LoginService } from './login.service';
 
-export interface Venta {
-  id: number;
-  id_cliente: number;
-  fecha: Date;
-  detalles : Array<Producto>;
-  TipoDocumento: number;
-  estado: number;
-  idEmpresa: number;
-  idUsuario: number;
-}
-
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class VentaService {
-
-  private url: string = "http://178.128.71.20:3500";
-  idEmpresa = 0;
-
-  idUsuario = 0;
-  constructor(private sService:StorageService,private http: HttpClient) {
-
+  private url: string = "http://201.239.13.125";
+  constructor(private login:LoginService,private http:HttpClient) {
   }
-
   async listar() {
-    this.idEmpresa = await this.sService.getIdEmpresa();
-    this.idUsuario = await this.sService.getIdUsuario();
-    return this.http.get<Venta[]>(`${this.url}/api/ventas/`,{
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.get<any[]>(`${this.url}/venta/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  async getventa(id){
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.get<any[]>(`${this.url}/venta/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  insertar(prod){
+    return this.http.post<any[]>(`${this.url}/venta/`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
+  actualizar(prod,id){
+    return this.http.patch<any[]>(`${this.url}/venta/${id}`,prod , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
     });
   }
 
-  insertar(venta : Venta){
-    console.log(this.idEmpresa);
-    return this.http.post<Venta>(`${this.url}/api/ventas/`,venta, {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('idEmpresa',""+this.idEmpresa)
-    });
+  eliminar(prod,id){
+      prod.estado = false;
+      delete prod.__v;
+      return this.http.patch<any[]>(`${this.url}/venta/${id}`,prod , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization' , this.login.getToken())
+        .set('empresaId' , this.login.getEmpresa())
+      });
   }
+    //var indice  = this.ventas.indexOf(prod);
+    //this.ventas[indice] = prod;
+    //console.log(this.ventas[indice]);
 
-  actualizar(id:number,venta : Venta){
-    return this.http.put<Venta>(`${this.url}/api/ventas/${id}`, venta,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 
-  borrar(id:number,venta: Venta){
-
-    if(venta.estado == 0){
-      venta.estado = 1;
-    }else{
-    venta.estado = 0;
-    }
-
-    return this.http.put<Venta>(`${this.url}/api/ventas/${id}`, venta,{
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  gathering(id:string){
-    return this.http.get<Venta>(`${this.url}/api/ventas/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
-
-  listarById(id:string){
-    return this.http.get<Venta>(`${this.url}/api/ventas/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-    });
-  }
 }

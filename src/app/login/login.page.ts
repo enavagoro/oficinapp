@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../_servicios/usuario.service';
 import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import { AuthenticationService } from '../_servicios/authentication.service';
+import { AuthService } from '../_servicios/auth.service';
+import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from '../_servicios/app-util.service';
 import { FingerprintAIO ,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ValidationService } from '../_servicios/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +20,21 @@ export class LoginPage implements OnInit {
   fingerprintOptions : FingerprintOptions;
   clave = "";
   permitirDedo = false;
+  loginForm;
+
   constructor(
+    private loginService : LoginService,
     private fingerAuth: FingerprintAIO,
     private storage : Storage,
-    private authenticationService: AuthenticationService,
+    private auth: AuthService,
     private appUtil: AppUtilService,
     //private nativeStorage:NativeStorage,
-    public router: Router,public usuarioService : UsuarioService) { }
+    public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
+      this.loginForm = this.formBuilder.group({
+        correo : ['',[Validators.required,ValidationService.emailValidator]],
+        clave : ['',Validators.required]
+      })
+    }
 
   ngOnInit() {
     this.storage.get('idUsuario')
@@ -44,7 +55,6 @@ export class LoginPage implements OnInit {
     if (this.appUtil.isFingerprintAvailable) {
       this.appUtil.presentFingerPrint()
       .then((result: any) => {
-        alert(result);
         //window.location.href = "/gastos";
         this.router.navigate(['/home'], {replaceUrl: true});
       })
@@ -55,38 +65,30 @@ export class LoginPage implements OnInit {
     }
 
   }
-  async alert(){
-    this.storage.get('usuario').then((value) => {
-      alert(value.nombre);
-    });
-    this.storage.get('idUsuario').then((value) => {
-      alert("idusuario : "+value);
-    });
-    this.storage.get('idEmpresa').then((value)=>{
-      alert("idEmpresa : "+value);
-    });
-
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.login();
+    }
   }
+
   async login(){
-    this.authenticationService.login(this.usuario,this.clave).then(datos=>{
-      console.log(datos);
-      var i = 0 ;
-      var datas = []
-      for(let obj in datos){
-        i++;
-        datas.push(obj) ;
-      }
-      if(i == 0){
-        alert("mal iniciado");
-      }else{
-        var usuario = datos[datas[0]][0].id;
-        var empresa = datos[datas[1]][0].id;
-        this.storage.set('idUsuario', usuario);
-        this.storage.set('idEmpresa', empresa)
-        console.log(usuario);
-        console.log(empresa);
-        this.router.navigate(['/home'], {replaceUrl: true});
-      }
+    this.auth.logUser(this.loginForm.value).then(servicio=>{
+      servicio.subscribe(d=>{
+        console.log(d);
+        this.loginService.setToken(d['accessToken']);
+        this.loginService.getUser(this.loginForm.value).then(lservice=>{
+          lservice.subscribe(r=>{
+            console.log(r);
+            for(var usuario of r){
+              usuario.token = d['accessToken'];
+              this.loginService.setUser(usuario);
+              this.loginService.setEmpresa(usuario.empresa);
+              this.router.navigate(['/home']);
+            }
+
+          })
+        })
+      })
     })
   }
 }

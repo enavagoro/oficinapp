@@ -1,0 +1,132 @@
+ion-toolbar{
+  --background: url("/assets/icon/palmeras.png")  no-repeat center / 100%;
+  --opacity: 0.9;
+  padding-bottom: 25%;
+}
+
+.header-md::after{
+  width: 0% !important;
+}
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.ion-button-subir{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 20% !important;
+  margin-left: 40% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.ion-button-cancelar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 0%;
+  margin-bottom: 5%;
+}
+
+ion-avatar{
+  --border-radius: 0%;
+}
+
+.contenedor-imagen{
+  width: 50%;
+  margin-top: 2%;
+  margin-left: 25%;
+  padding-bottom: 1%;
+
+  .ion-avatar{
+    width: 250px;
+    height: 150px;
+    margin-left: calc((100% - 250px)/2);
+  }
+}
+
+.item-lista{
+  cursor: pointer;
+}
+
+.texto-lista{
+  font-size: 20px;
+}
+
+.grayscale { filter: grayscale(80%) !important; }
+
+.boton-cerrar{
+  --background: #7e7cc1;
+  --background-activated: #7e7cc1;
+  --background-focused: #7e7cc1;
+  --background-hover: #7e7cc1;
+}
+
+.contenedor-boton{
+  margin-top: 2%;
+  width: 100%;
+}
+
+.contenedor-texto{
+  width: 50%;
+  margin-left: 25%;
+  text-align: center;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 58%;
+  margin-top: 2.5%;
+  margin-left: 42%;
+}
+
+.btn {
+  border: 0px solid gray;
+  color: white;
+  background-color: #7e7cc1;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+@media (max-width:900px)
+{
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 70%;
+    margin-left: 30%;
+  }
+}

@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-button routerLink="/administrar" routerDirection="root" color="light">
@@ -69,8 +72,8 @@
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
       </ion-avatar>
-      <ion-label position="stacked">Contacto<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.contacto" name="contacto" required></ion-input>
+      <ion-label position="stacked">Correo de contacto<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="cliente.contacto" type="email" name="contacto" required></ion-input>
     </ion-item>
 
     <ion-button class="ion-button" *ngIf="cliente.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
@@ -86,11 +89,13 @@
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los clientes</ion-label>
     <ion-label *ngIf="!verTodos">Clientes Activos</ion-label>
+    <label *ngIf="verTodos" slot="end"><ion-badge>{{clientes.length}}</ion-badge></label>
+    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarClientes().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
 
     <ion-list *ngIf="!verTodos">
-      <ion-item *ngFor="let c of filtrarClientes()" (click)="opciones(c)">
+      <ion-item class="item-lista" *ngFor="let c of filtrarClientes()" (click)="opciones(c)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
@@ -101,7 +106,7 @@
     </ion-list>
 
     <ion-list *ngIf="verTodos">
-      <ion-item *ngFor="let c of clientes" (click)="opciones(c)">
+      <ion-item class="item-lista" *ngFor="let c of clientes" (click)="opciones(c)">
         <ion-avatar slot="start" *ngIf="c.estado">
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>

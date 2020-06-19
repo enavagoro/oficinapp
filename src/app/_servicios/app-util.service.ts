@@ -21,7 +21,7 @@ export class AppUtilService {
     return await this.loadingElement.present();
   }
   async dismissLoading() {
-    console.log('loading dismissed');
+    //console.log('loading dismissed');
     return await this.loadingElement.dismiss();
   }
 
@@ -45,7 +45,7 @@ export class AppUtilService {
       clientSecret: 'password', // Only necessary for Android
       disableBackup: false, // Only for Android(optional)
       localizedFallbackTitle: 'Use Pin', // Only for iOS
-      localizedReason: 'Please authenticate' // Only for iOS
+      localizedReason: 'Favor autenticate' // Only for iOS
     });
   }
 
@@ -54,11 +54,11 @@ export class AppUtilService {
     const promise = await this.fingerPrintAIO.isAvailable();
     promise.then((response) => {
         result = true;
-        console.log('fingerprint available : ', response);
+        //console.log('fingerprint available : ', response);
        });
     promise.catch((error) => {
          result  = false;
-         console.log('fingerprint error : ', error);
+         //console.log('fingerprint error : ', error);
        });
     return result;
   }

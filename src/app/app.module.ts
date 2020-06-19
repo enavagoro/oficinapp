@@ -5,12 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { HttpClientModule } from '@angular/common/http';
-
+// servicios
+import { AuthService } from './_servicios/auth.service';
+import { LoginService } from './_servicios/login.service';
+import { EmpresaService } from './_servicios/empresa.service';
 import { UsuarioService } from './_servicios/usuario.service';
 import { ClienteService } from './_servicios/cliente.service';
 import { ProductoService } from './_servicios/producto.service';
@@ -20,23 +21,44 @@ import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
 import { DetalleService } from './_servicios/detalle.service';
+
+//pages modales
 import { DetallePage } from './ventas/detalle/detalle.page';
+import { CrearClienteVentaPage } from './ventas/crear-cliente-venta/crear-cliente-venta.page'
+import { CrearTipogastoPage } from './gastos/crear-tipogasto/crear-tipogasto.page'
+import { CrearTipoproductoPage } from './administrar/producto/crear-tipoproducto/crear-tipoproducto.page'
+import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
+
+//pages
+import { ReportePage } from './reportes/reporte/reporte.page';
+import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
+import { DocumentoPage } from './cotizaciones/documento/documento.page';
+import { PlanesPage } from './tienda/planes/planes.page';
+
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppUtilService } from './_servicios/app-util.service';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { AuthGaurdService } from './_servicios/auth-gaurd.service';
-import { AuthenticationService } from './_servicios/authentication.service';
+//componentes
+import { ControlMessageComponent } from './control-message/control-message.component';
+
+// servicios
+import { ValidationService } from './_servicios/validation.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './_servicios/storage.service';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { EmailService } from './_servicios/email.service';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage],
-  entryComponents: [DetallePage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    NgApexchartsModule,
+    NgxDocViewerModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     FormsModule,
@@ -45,21 +67,25 @@ import { StorageService } from './_servicios/storage.service';
     StatusBar,
     SplashScreen,
     FingerprintAIO,
-    AuthGaurdService,
-    AuthenticationService,
     AppUtilService,
     //NativeStorage,
+    AuthService,
+    LoginService,
+    EmpresaService,
     UsuarioService,
     ClienteService,
     ProductoService,
     TipoGastoService,
     TipoProductoService,
     GastoService,
+    EmailService,
     StorageService,
     //Storage,
     VentaService,
     CotizacionService,
     DetalleService,
+    //servicios
+    ValidationService,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

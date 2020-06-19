@@ -1,7 +1,7 @@
 ion-toolbar{
-  --background: url("https://cdn.dribbble.com/users/159888/screenshots/4125708/treesandstuff.png")  no-repeat center / 100%;
+  --background: url("/assets/icon/lago.png")  no-repeat center / 100%;
   --opacity: 0.9;
-  padding-bottom: 15%;
+  padding-bottom: 25%;
 }
 
 .header-md::after{
@@ -122,7 +122,22 @@ ion-avatar{
   text-align: center;
 }
 
+.item-lista{
+  cursor: pointer;
+}
+
 .grayscale { filter: grayscale(80%) !important; }
+
+.ion-button-gastos{
+  --background: #2bf8ce;
+  --background-activated:#2bf8ce;
+  --background-focused:#2bf8ce;
+  --background-hover:#2bf8ce;
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
 
 @media (max-width: 900px) {
   .card{

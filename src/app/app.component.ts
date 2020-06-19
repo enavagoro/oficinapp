@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from './_servicios/app-util.service';
 import { StorageService } from './_servicios/storage.service';
-
+import { LoginService } from './_servicios/login.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ import { StorageService } from './_servicios/storage.service';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
+      title: 'Inicio',
       url: '/home',
       icon: 'home'
     },
@@ -30,14 +30,23 @@ export class AppComponent {
       title: 'Gastos',
       url: '/gastos',
       icon: 'bicycle'
-    },/*
+    },
     {
       title: 'Cotizaciones',
       url: '/cotizaciones',
-      icon: 'list'
+      icon: 'paper'
+    },/*
+    {
+      title: 'Reportes',
+      url: '/reportes',
+      icon: 'stats'
+    },
+    {
+      title: 'Tienda',
+      url: '/tienda',
+      icon: 'cart'
     },*/
     {
-
       title: 'Administrar',
       url: '/administrar',
       icon: 'cog'
@@ -45,6 +54,7 @@ export class AppComponent {
   ];
 
   constructor(
+    private loginService : LoginService,
     private sService : StorageService,
     private storage : Storage,
     private router : Router,
@@ -55,7 +65,11 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-  
+  cerrarSesion(){
+    console.log("cerrar sesion");
+    this.storage.clear();
+    this.router.navigate(['/login'], {replaceUrl: true});
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       //this.checkFingerPrint();
@@ -72,6 +86,15 @@ export class AppComponent {
         this.router.navigate(['/login'])
       }
       */
+      this.storage.get('usuarios').then((val) => {
+        console.log(val);
+        if(!val){
+          this.router.navigate(['/login'], {replaceUrl: true})
+        }else{
+          this.loginService.setToken(val['token']);
+          this.loginService.setEmpresa(val['empresa']);
+        }
+      });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

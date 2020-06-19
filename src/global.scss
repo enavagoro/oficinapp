@@ -26,3 +26,29 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+
+@media only screen and (min-width: 600px) {
+  .largeModal .modal-wrapper {
+     --width: 80%!important;
+     --height: 80%!important;
+  }
+}
+.largeRedAlert{
+  display: flex!important;
+  width: 30%!important;
+  color: red!important;
+}
+.largeAlert {
+  display: flex!important;
+  width: 30%!important;
+}
+.largeAlert .alert-button-group.sc-ion-alert-md{
+  display: -webkit-box!important;
+}
+.largeAlert .alert-wrapper {
+  --max-width : 500px;
+  width : 40%!important;
+}
+.redText{
+  color : red!important;
+}
