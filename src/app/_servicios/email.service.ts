@@ -13,7 +13,7 @@ import { Injectable } from '@angular/core';
 
 export class EmailService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://201.239.13.125";
 
   constructor(private http: HttpClient) { }
 

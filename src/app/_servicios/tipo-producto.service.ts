@@ -7,12 +7,12 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class TipoProductoService {
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
     this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://"+this.url;
     return this.http.get<any[]>(`${this.url}/tipoProducto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -22,7 +22,7 @@ export class TipoProductoService {
   }
   async gettipoProducto(id){
     this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://"+this.url;
     return this.http.get<any[]>(`${this.url}/tipoProducto/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

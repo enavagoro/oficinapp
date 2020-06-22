@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from './_servicios/app-util.service';
 import { StorageService } from './_servicios/storage.service';
+import { NotificationService } from './_servicios/notification.service';
 import { LoginService } from './_servicios/login.service';
 
 @Component({
@@ -54,6 +55,7 @@ export class AppComponent {
   ];
 
   constructor(
+    private notificacion : NotificationService,
     private loginService : LoginService,
     private sService : StorageService,
     private storage : Storage,
@@ -64,6 +66,16 @@ export class AppComponent {
     private statusBar: StatusBar
   ) {
     this.initializeApp();
+    var self = this;
+    notificacion.setSocket().then(servicio=>{
+      console.log(servicio);
+      self.notificacion
+        .getNotif()
+        .subscribe((res: string) => {
+          console.log("voy a mandar una notificacion");
+        });          
+    })
+
   }
   cerrarSesion(){
     console.log("cerrar sesion");

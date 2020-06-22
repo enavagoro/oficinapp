@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   private token : string = "";
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://201.239.13.125";
   private empresa : string = "";
   constructor(private router:Router,private storage : Storage,private http:HttpClient) {
     this.storage.get('usuarios').then((val) => {
@@ -24,7 +24,7 @@ export class LoginService {
   }
   public getUrl(){
     return new Promise(resolve => {
-      this.http.get<any>("http://www.vase.cl/tools/disponibles.php").subscribe(data => {
+      this.http.get<any>("https://www.vase.cl/tools/disponibles.php").subscribe(data => {
         console.log(data);
         if(data && data[0]){
           resolve(data[0]);
@@ -58,7 +58,7 @@ export class LoginService {
   }
   async getUser(form){
     this.url = <string>await this.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://"+this.url;
     return this.http.post<any[]>(`${this.url}/users/login/`,form , {
       headers: new HttpHeaders()
       .set('Authorization','Bearer '+this.token)

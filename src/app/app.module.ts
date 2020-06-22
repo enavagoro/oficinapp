@@ -21,7 +21,7 @@ import { GastoService } from './_servicios/gasto.service';
 import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
 import { DetalleService } from './_servicios/detalle.service';
-
+import { NotificationService } from './_servicios/notification.service';
 //pages modales
 import { DetallePage } from './ventas/detalle/detalle.page';
 import { CrearClienteVentaPage } from './ventas/crear-cliente-venta/crear-cliente-venta.page'
@@ -77,6 +77,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     ProductoService,
     TipoGastoService,
     TipoProductoService,
+    NotificationService,
     GastoService,
     EmailService,
     StorageService,

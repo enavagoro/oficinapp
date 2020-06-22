@@ -7,13 +7,13 @@ import { LoginService } from './login.service';
 
 export class CotizacionService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://201.239.13.125";
 
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
     this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://"+this.url;
     return this.http.get<any[]>(`${this.url}/cotizacion/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

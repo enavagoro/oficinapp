@@ -116,7 +116,10 @@
         <ion-card-header>
           <ion-label>Ventas y Gastos por año</ion-label>
         </ion-card-header>
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="title"></apx-chart>
+        <div id="apexchart">
+          <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [title]="title"></apx-chart>
+        </div>
+
        </ion-card>
     </div>
 
@@ -152,7 +155,7 @@
       </ion-card>
     </div>
    </div>
-
+   
 <!--
     <ion-card>
       <ion-label>Productos</ion-label>

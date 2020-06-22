@@ -7,12 +7,12 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class ClienteService {
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://201.239.13.125";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
     this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://"+this.url;
     return this.http.get<any[]>(`${this.url}/cliente/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
