@@ -35,8 +35,13 @@ export class LoginPage implements OnInit {
         clave : ['',Validators.required]
       })
     }
-
+    ngAfterViewInit(){
+      console.log("visible?");
+      var menu = document.querySelector('ion-menu');
+      menu.hidden = true;
+    }
   ngOnInit() {
+
     this.storage.get('idUsuario')
       .then(
         data => {
@@ -46,8 +51,7 @@ export class LoginPage implements OnInit {
           }
         }
       );
-    var menu = document.querySelector('ion-menu');
-    menu.hidden = true;
+
   }
 
   loginWithFingerprint() {

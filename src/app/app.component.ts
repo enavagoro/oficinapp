@@ -81,6 +81,8 @@ export class AppComponent {
   }
   cerrarSesion(){
     console.log("cerrar sesion");
+    var menu = document.querySelector('ion-menu');
+    menu.hidden = true;
     this.storage.clear();
     this.router.navigate(['/login'], {replaceUrl: true});
   }
