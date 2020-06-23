@@ -16,7 +16,7 @@ export class NotificationService {
   }
   async setSocket(){
     var url = <string>await this.login.getUrl();
-    url = "https://"+url;
+    url = "http://"+url;
     console.log(url);
 
     if(this.socket){
