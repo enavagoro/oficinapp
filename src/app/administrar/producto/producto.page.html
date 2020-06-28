@@ -4,11 +4,16 @@
   </ion-refresher>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-button routerLink="/administrar" routerDirection="root" color="light">
+      <ion-button routerLink="/administrar" routerDirection="root" color="dark">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Crear Producto/Servicio</ion-title>
+    <ion-buttons slot="end" *ngIf="banderaMensaje==false">
+      <ion-button (click)="banderaMensaje=true">
+        <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 <!--
   <ion-segment value="inventariable">
@@ -23,29 +28,30 @@
   </ion-segment>
 -->
 <div class="contenedor-mantenedor-producto" *ngIf="banderaMantenedor">
-<!--
-  <ion-item>
+
+  <ion-item *ngIf="banderaMensaje==true">
 
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="banderaMensaje=false">
         <ion-icon slot="icon-only" name="help-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
 
 
     <div class="card-mensaje">
-      <h1 style="text-aling:center">Para llevar el correcto control de tu inventario</h1>
+      <img class="imagen-mensaje" src="./assets/icon/lista.svg">
+      <h1 class="texto-mensaje">Utiliza nuestra App Fisalis para llevar el control de tus productos inventariables <br><br><a href="http://vase.cl/fisalis/" target="_blank">vase.cl/fisalis</a></h1>
     </div>
 
-
+    <!--
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon slot="icon-only" name="help-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
+    -->
 
   </ion-item>
-    -->
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>

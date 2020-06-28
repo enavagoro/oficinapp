@@ -1,7 +1,9 @@
 ion-toolbar{
+/*
   --background: url("/assets/icon/morado.png")  no-repeat center / 100%;
   --opacity: 0.9;
   padding-bottom: 15%;
+  */
 }
 
 .header-md::after{
@@ -9,7 +11,7 @@ ion-toolbar{
 }
 
 ion-title{
-  --color: white;
+  --color: black;
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size: 24px;
@@ -61,6 +63,27 @@ ion-avatar{
   margin-left: 0%;
   background: #6864b9;
   border-radius: 10px;
+  display: flex;
+}
+
+.texto-mensaje{
+  width: 80%;
+  margin-left: 10%;
+  color: white;
+  font-size: 22px;
+  text-align: center;
+
+  a{
+    color: white;
+  }
+}
+
+.imagen-mensaje{
+  width: 10%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .ion-button-tipoGasto{
@@ -72,4 +95,36 @@ ion-avatar{
   margin-left: 20% !important;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+
+@media (max-width:900px){
+  .imagen-mensaje{
+    width: 30%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    margin-right: 0%;
+    margin-left: 35%;
+  }
+
+  .card-mensaje{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 0%;
+    background: #6864b9;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .texto-mensaje{
+    width: 80%;
+    margin-left: 10%;
+    color: white;
+    font-size: 22px;
+    text-align: center;
+
+    a{
+      color: white;
+    }
+  }
 }

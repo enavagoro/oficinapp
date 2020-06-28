@@ -1,14 +1,16 @@
 ion-toolbar{
+  /*
   --background: url("/assets/icon/cerro.png")  no-repeat center / 100%;
   --opacity: 0.9;
   padding-bottom: 25%;
+  */
 }
 .header-md::after{
   width: 0% !important;
 }
 
 ion-title{
-  --color: white;
+  --color: black;
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size: 24px;

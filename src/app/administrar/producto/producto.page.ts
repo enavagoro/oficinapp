@@ -16,6 +16,7 @@ export class ProductoPage implements OnInit {
   tiposProductos = [];
   bandera = false;
   banderaMantenedor = true;
+  banderaMensaje = true;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -42,6 +43,7 @@ export class ProductoPage implements OnInit {
     this.productoService.listar().then(servicio=>{
       servicio.subscribe(p=>{
           this.productos = p;
+          console.log(this.productos);
       })
     })
   }
