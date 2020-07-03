@@ -119,35 +119,24 @@ export class HomePage {
       xaxis: {
         labels: {
           trim: false
+
         },
-        categories: [
-          "enero",
-          "febrero",
-          "marzo",
-          "abril",
-          "mayo",
-          "junio",
-          "julio",
-          "agosto",
-          "septiembre",
-          "octubre",
-          "noviembre",
-          "diciembre"
-        ]
+        convertedCatToNumeric: false,
+        categories: []
       },
       tooltip: {
         y: [
           {
             title: {
               formatter: function(val) {
-                return val + " (mins)";
+                return val + " del dia ";
               }
             }
           },
           {
             title: {
               formatter: function(val) {
-                return val + " per session";
+                return val + " del dia";
               }
             }
           },
@@ -164,7 +153,48 @@ export class HomePage {
         borderColor: "#f1f1f1"
       }
     };
+    let fechai = "2020-06-01";
+    let fechaf = "2020-06-27";
+    console.log(fechai)
+    var fechasChart = [];
+    var gastosChart = [];
+    var ventasChart = [];
+    var flag = 0;
+    gService.reporte(fechai,fechaf).then(servicio=>{
+      servicio.subscribe(ps=>{
+        var datos = ps['result'];
+        if(datos){
+          var indice = 1;
+          datos.map(data => {
+            indice += 3;
+            var fecha = new Date(data.createdAt).toISOString().split("T")[0];
+            var index  = fechasChart.indexOf(fecha) ;
+            if(index != -1){
+              gastosChart[index] += parseInt(data.monto);
+            }else{
+              gastosChart.push(parseInt(data.monto));
+              ventasChart.push(12500 * indice)
+              fechasChart.push(fecha)
+            }
+          })
+          this.chartOptions.series[0].data = ventasChart;
+          this.chartOptions.series[1].data = gastosChart;
+          this.chartOptions.xaxis.categories = fechasChart;
+          var htmlChart = document.querySelector('#apexchart');
+          if(htmlChart){
+            var chart = new ApexCharts(htmlChart, this.chartOptions);
+            chart.render();
+          }
+          flag++;
+          if(flag == 2){
+            alert("ahora tengo los datos");
+          }
+        }else{
+          flag++;
+        }
 
+      })
+    })
     //console.log("constructor");
     pService.listar().then(servicio=>{
       servicio.subscribe(ps =>{

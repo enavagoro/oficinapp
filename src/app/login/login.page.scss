@@ -1,5 +1,14 @@
-ion-content{
+#divFondoLogin{
+  --background: url("/assets/icon/relaxing.svg")  no-repeat center / 100%;
+  background-color: #82afec;
+}
+.img2{
   --background: url("/assets/icon/landscape.png")  no-repeat center / 100%;
+  background-color: aquamarine;
+}
+.img3{
+  --background: url("/assets/icon/dmx.svg")  no-repeat center / 100%;
+  background-color: aquamarine;
 }
 
 ion-item{
