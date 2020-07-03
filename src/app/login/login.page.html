@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content id="divFondoLogin">
   <div class="contenedor">
 
     <div class="contenedor-image">
@@ -50,12 +50,12 @@
     <form [formGroup]="loginForm">
       <ion-item class="item-login">
         <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('correo')"></control-messages></ion-label>
-         <ion-input type="email" formControlName="correo" placeholder="Correo"></ion-input>
+         <ion-input type="email" autocomplete="off" formControlName="correo" placeholder="Correo"></ion-input>
        </ion-item>
 
        <ion-item class="item-login">
          <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
-          <ion-input type="password" formControlName="clave" placeholder="Contraseña"></ion-input>
+          <ion-input type="password" autocomplete="off" formControlName="clave" placeholder="Contraseña"></ion-input>
         </ion-item>
     </form>
     <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>

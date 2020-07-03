@@ -20,6 +20,17 @@ export class GastoService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
+  async reporte(fi,ff){
+    var fechas = {fechaInicio:fi,fechaFin:ff};
+    this.url = <string>await this.login.getUrl();
+    this.url = "http://"+this.url;
+    return this.http.post<any[]>(`${this.url}/gasto/reporte/fecha/` , fechas ,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())
+    });
+  }
   async listarPorSucursal(id){
     this.url = <string>await this.login.getUrl();
     this.url = "http://"+this.url;

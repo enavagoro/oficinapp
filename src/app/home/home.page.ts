@@ -5,10 +5,12 @@ import { VentaService } from '../_servicios/venta.service';
 import { ClienteService } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
 import { TipoGastoService } from '../_servicios/tipo-gasto.service';
+import { NotificationService } from '../_servicios/notification.service';
 import { Storage } from '@ionic/storage';
 import * as jsPDF from 'jspdf';
 import { Chart } from "chart.js";
 import { Router } from '@angular/router';
+
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -22,6 +24,8 @@ import {
   ApexTitleSubtitle,
   ApexLegend
 } from "ng-apexcharts";
+// @ts-ignore
+import ApexCharts from 'apexcharts';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -64,14 +68,15 @@ export class HomePage {
   tiposGastos = [];
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"];
   private chart1: Chart;
+
   arreglo1 = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10];
   arreglo2 = [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35];
-
+  @ViewChild("apexchart",{static: false}) chartApex: ChartComponent;
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
   @ViewChild("chartCanvas",{static: false}) chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
-  constructor(public router:Router,public storage:Storage,public tService :TipoGastoService,public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
+  constructor(public notif : NotificationService,public router:Router,public storage:Storage,public tService :TipoGastoService,public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
     this.chartOptions = {
       series: [
         {
@@ -114,35 +119,24 @@ export class HomePage {
       xaxis: {
         labels: {
           trim: false
+
         },
-        categories: [
-          "enero",
-          "febrero",
-          "marzo",
-          "abril",
-          "mayo",
-          "junio",
-          "julio",
-          "agosto",
-          "septiembre",
-          "octubre",
-          "noviembre",
-          "diciembre"
-        ]
+        convertedCatToNumeric: false,
+        categories: []
       },
       tooltip: {
         y: [
           {
             title: {
               formatter: function(val) {
-                return val + " (mins)";
+                return val + " del dia ";
               }
             }
           },
           {
             title: {
               formatter: function(val) {
-                return val + " per session";
+                return val + " del dia";
               }
             }
           },
@@ -159,7 +153,48 @@ export class HomePage {
         borderColor: "#f1f1f1"
       }
     };
+    let fechai = "2020-06-01";
+    let fechaf = "2020-06-27";
+    console.log(fechai)
+    var fechasChart = [];
+    var gastosChart = [];
+    var ventasChart = [];
+    var flag = 0;
+    gService.reporte(fechai,fechaf).then(servicio=>{
+      servicio.subscribe(ps=>{
+        var datos = ps['result'];
+        if(datos){
+          var indice = 1;
+          datos.map(data => {
+            indice += 3;
+            var fecha = new Date(data.createdAt).toISOString().split("T")[0];
+            var index  = fechasChart.indexOf(fecha) ;
+            if(index != -1){
+              gastosChart[index] += parseInt(data.monto);
+            }else{
+              gastosChart.push(parseInt(data.monto));
+              ventasChart.push(12500 * indice)
+              fechasChart.push(fecha)
+            }
+          })
+          this.chartOptions.series[0].data = ventasChart;
+          this.chartOptions.series[1].data = gastosChart;
+          this.chartOptions.xaxis.categories = fechasChart;
+          var htmlChart = document.querySelector('#apexchart');
+          if(htmlChart){
+            var chart = new ApexCharts(htmlChart, this.chartOptions);
+            chart.render();
+          }
+          flag++;
+          if(flag == 2){
+            alert("ahora tengo los datos");
+          }
+        }else{
+          flag++;
+        }
 
+      })
+    })
     //console.log("constructor");
     pService.listar().then(servicio=>{
       servicio.subscribe(ps =>{
@@ -237,14 +272,28 @@ export class HomePage {
     })
 
   }
+  mostrarNot(){
+    this.notif.mostrarNotificacion("Gracias por permitir notificaciones!");
+  }
   filtros(gasto){
     if(gasto.estado == 1){
       return true;
     }
     return false;
   }
-  ngafterviewinit(){
-    this.chart.toggleSeries("series-1");
+  ngAfterViewInit(){
+    try {
+      var htmlChart = document.querySelector('#apexchart');
+      if(htmlChart){
+        var chart = new ApexCharts(htmlChart, this.chartOptions);
+        chart.render();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    //this.chartOptions.chart.render();
+  //  this.chartOptions.chart.toggleSeries("series-1");
   }
   productoMasVendido(){
 

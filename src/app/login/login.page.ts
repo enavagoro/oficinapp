@@ -9,6 +9,7 @@ import { AppUtilService } from '../_servicios/app-util.service';
 import { FingerprintAIO ,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ValidationService } from '../_servicios/validation.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
     private storage : Storage,
     private auth: AuthService,
     private appUtil: AppUtilService,
+    public alertController: AlertController,
     //private nativeStorage:NativeStorage,
     public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
       this.loginForm = this.formBuilder.group({
@@ -35,8 +37,13 @@ export class LoginPage implements OnInit {
         clave : ['',Validators.required]
       })
     }
-
+    ngAfterViewInit(){
+      console.log("visible?");
+      var menu = document.querySelector('ion-menu');
+      menu.hidden = true;
+    }
   ngOnInit() {
+
     this.storage.get('idUsuario')
       .then(
         data => {
@@ -46,8 +53,7 @@ export class LoginPage implements OnInit {
           }
         }
       );
-    var menu = document.querySelector('ion-menu');
-    menu.hidden = true;
+
   }
 
   loginWithFingerprint() {
@@ -65,12 +71,48 @@ export class LoginPage implements OnInit {
     }
 
   }
+
   keyDownFunction(event) {
     if(event.keyCode == 13) {
       this.login();
     }
   }
 
+  async login(){
+      this.auth.logUser(this.loginForm.value).then(servicio=>{
+        servicio.subscribe(d=>{
+          console.log(d);
+          this.loginService.setToken(d['accessToken']);
+          this.loginService.getUser(this.loginForm.value).then(lservice=>{
+            lservice.subscribe(r=>{
+              console.log(r);
+              for(var usuario of r){
+                usuario.token = d['accessToken'];
+                this.loginService.setUser(usuario);
+                this.loginService.setEmpresa(usuario.empresa);
+                this.router.navigate(['/home']);
+              }
+
+            })
+          })
+        },err=>{
+          this.presentAlert();
+        })
+      })
+    }
+
+    async presentAlert() {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        subHeader: 'Error al iniciar',
+        message: 'Tu dirección de correo electrónico o tu contraseña no son correctos',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    }
+
+  /*
   async login(){
     this.auth.logUser(this.loginForm.value).then(servicio=>{
       servicio.subscribe(d=>{
@@ -88,7 +130,13 @@ export class LoginPage implements OnInit {
 
           })
         })
+      },err=>{
+        console.log("capture el error : ",err);        
       })
-    })
+    }).catch((err) => {
+        // simple logging, but you can do a lot more, see below
+        console.error('An error occurred:', err);
+      });
   }
+  */
 }

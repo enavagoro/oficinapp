@@ -24,6 +24,9 @@ export class DetallePage implements OnInit {
   cantidad : Number = undefined;
   flag = false;
   productos : Producto[] = [];
+  productosIventariables = [];
+  productosNoIventariables = [];
+  banderaProductos = true;
 
   constructor(private navParams : NavParams, private stockService : StockService ,private productoService: ProductoService,private modalCtrl : ModalController) {
       var ps = navParams.get("detalle");
@@ -41,17 +44,22 @@ export class DetallePage implements OnInit {
   traerDatos(){
     this.productoService.listar().then(servicio=>{
       servicio.subscribe(p=>{
-          var ps = p.filter(this.filtros);;
+          var ps = p.filter(this.filtros);
+
           for(var producto of ps){
+            console.log(producto);
             this.productos.push(producto);
+            this.productosNoIventariables.push(producto);
           }
       })
     })
+
     this.stockService.listar().then(servicio=>{
       servicio.subscribe(p=>{
         var ps = p.filter(this.filtros);;
         for(var producto of ps){
           this.productos.push(producto);
+          this.productosIventariables.push(producto);
         }
       })
     })
@@ -64,6 +72,9 @@ export class DetallePage implements OnInit {
   }
   insertar(){
   this.flag = true;
+  }
+  limpiar(){
+    this.producto = undefined;
   }
   seleccionaProducto(){
       var prod = this.productos[this.producto];
@@ -79,7 +90,6 @@ export class DetallePage implements OnInit {
           this.textoSugerido = "No inventariado";
           this.max = 999999999;
         }
-
       }
   }
   add(){
