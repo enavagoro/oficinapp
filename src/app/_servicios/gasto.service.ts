@@ -7,12 +7,10 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class GastoService {
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://api.vase.cl";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/gasto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -20,10 +18,11 @@ export class GastoService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
+  traerIp(){
+    return this.url;
+  }
   async reporte(fi,ff){
     var fechas = {fechaInicio:fi,fechaFin:ff};
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
     return this.http.post<any[]>(`${this.url}/gasto/reporte/fecha/` , fechas ,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -32,14 +31,20 @@ export class GastoService {
     });
   }
   async listarPorSucursal(id){
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
     return this.http.get<any[]>(`${this.url}/gasto/sucursal/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization' , this.login.getToken())
       .set('empresaId' , this.login.getEmpresa())
     });
+  }
+  guardar(form){
+    //console.log(form);
+    form.append('idEmpresa',this.login.getEmpresa());
+    this.http.post(this.url+":8050/subidas", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            //console.log(event);
+        });
   }
   getProducto(id){
     return this.http.get<any[]>(`${this.url}/gasto/${id}` , {
@@ -57,7 +62,7 @@ export class GastoService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  actualizar(prod,id){
+  actualizar(id,prod){
     return this.http.patch<any[]>(`${this.url}/gasto/${id}`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

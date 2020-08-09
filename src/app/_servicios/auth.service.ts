@@ -18,8 +18,8 @@ export class AuthService {
   constructor(private http: HttpClient, private login : LoginService) { }
 
   async logUser(usuario){
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    
+    this.url = "https://api.vase.cl";
     return this.http.post<auth>(`${this.url}/auth/` , usuario , {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });

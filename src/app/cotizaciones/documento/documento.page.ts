@@ -9,7 +9,7 @@ import { CotizacionService } from '../../_servicios/cotizacion.service';
   styleUrls: ['./documento.page.scss'],
 })
 export class DocumentoPage implements OnInit {
-  doc = "http://201.239.13.125/";
+  doc = "https://api.vase.cl/";
   email = "";
   creado = false;
   data = [];

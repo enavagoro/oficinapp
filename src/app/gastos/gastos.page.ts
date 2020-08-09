@@ -5,7 +5,7 @@ import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { CrearTipogastoPage } from './crear-tipogasto/crear-tipogasto.page';
-const URL = "http://178.128.71.20:3950/";
+
 
 @Component({
   selector: 'app-gastos',
@@ -18,7 +18,7 @@ export class GastosPage implements OnInit {
   gastos = [];
 
   public gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
-
+  URL = "http://161.35.98.48";
   tiposGastos = [];
   url : string;
   cargando : boolean = false;
@@ -42,6 +42,8 @@ export class GastosPage implements OnInit {
       })
     })
     this.gastoService.listar().then(servicio=>{
+      this.URL = this.gastoService.traerIp();
+      console.log(this.url);
       servicio.subscribe(g=>{
             this.gastos = g;
       })
@@ -215,7 +217,7 @@ export class GastosPage implements OnInit {
           this.deshabilitarInputs(true);
           this.bandera=true;
           var value = this.login.getEmpresa();
-          this.url = URL+"/"+value+"/"+gasto.img;
+          this.url = this.URL+"/"+value+"/"+gasto.img;
 
         }
       },{
@@ -225,8 +227,8 @@ export class GastosPage implements OnInit {
           this.bandera=false;
           this.gasto = gasto;
           var value = this.login.getEmpresa();
-          this.url = URL+"/"+value+"/"+gasto.img;
-          this.url = URL+"/"+value+"/"+gasto.img;
+          this.url = this.URL+"/"+value+"/"+gasto.img;
+          this.url = this.URL+"/"+value+"/"+gasto.img;
 
           //console.log(gasto);
         }
@@ -319,8 +321,8 @@ export class GastosPage implements OnInit {
         //console.log(this.file);
         formData.append('name',name);
         formData.append('file',this.file);
-//****** PENDIENTEEEEE
-//        this.gastoService.guardar(formData);
+
+        this.gastoService.guardar(formData);
 
         if(actualizar){
           this.actualizarGasto(name)

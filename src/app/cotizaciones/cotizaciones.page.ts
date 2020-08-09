@@ -10,7 +10,7 @@ import { EmpresaService } from '../_servicios/empresa.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 //import { ModalPage } from '../modal/modal.page';
-const URL = "http://201.239.13.125/";
+const URL = "https://api.vase.cl";
 
 @Component({
   selector: 'app-cotizaciones',

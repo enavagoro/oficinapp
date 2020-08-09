@@ -24,8 +24,8 @@ export class UsuarioService {
   }
 
   async listar() {
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    
+    this.url = "https://api.vase.cl";
     return this.http.get<Usuario[]>(`${this.url}/users/`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -35,8 +35,8 @@ export class UsuarioService {
   }
 
   async insertar(cliente : Usuario){
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+    
+    this.url = "https://api.vase.cl";
     return this.http.post<Usuario>(`${this.url}/users/`,cliente, {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

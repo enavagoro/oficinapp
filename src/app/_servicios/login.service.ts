@@ -24,14 +24,7 @@ export class LoginService {
   }
   public getUrl(){
     return new Promise(resolve => {
-      this.http.get<any>("http://www.vase.cl/tools/disponibles.php").subscribe(data => {
-        console.log(data);
-        if(data && data[0]){
-          resolve(data[0]);
-        }else{
-          resolve("error");
-        }
-      });
+      resolve("https://api.vase.cl");
     });
   }
   public getEmpresa(){
@@ -58,7 +51,7 @@ export class LoginService {
   }
   async getUser(form){
     this.url = <string>await this.getUrl();
-    this.url = "http://"+this.url;
+    this.url = "https://api.vase.cl";
     return this.http.post<any[]>(`${this.url}/users/login/`,form , {
       headers: new HttpHeaders()
       .set('Authorization','Bearer '+this.token)

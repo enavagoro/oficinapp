@@ -120,8 +120,7 @@ export class HomePage {
         labels: {
           trim: false
 
-        },
-        convertedCatToNumeric: false,
+        },        
         categories: []
       },
       tooltip: {

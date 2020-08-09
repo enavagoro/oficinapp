@@ -39,8 +39,8 @@ export class EmpresaService {
   }
 
   async listar() {
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+
+    this.url = "https://api.vase.cl";
     return this.http.get<any[]>(`${this.url}/empresa/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -49,8 +49,8 @@ export class EmpresaService {
     });
   }
   async getempresa(id){
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+
+    this.url = "https://api.vase.cl";
     return this.http.get<any>(`${this.url}/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -59,8 +59,8 @@ export class EmpresaService {
     });
   }
   async insertar(prod){
-    this.url = <string>await this.login.getUrl();
-    this.url = "http://"+this.url;
+
+    this.url = "https://api.vase.cl";
     return this.http.post<any[]>(`${this.url}/empresa/`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
