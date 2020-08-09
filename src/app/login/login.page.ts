@@ -131,7 +131,7 @@ export class LoginPage implements OnInit {
           })
         })
       },err=>{
-        console.log("capture el error : ",err);        
+        console.log("capture el error : ",err);
       })
     }).catch((err) => {
         // simple logging, but you can do a lot more, see below

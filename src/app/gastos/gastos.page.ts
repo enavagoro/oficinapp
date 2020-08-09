@@ -26,7 +26,7 @@ export class GastosPage implements OnInit {
   arregloInputs=[];
 
   constructor(
-    private login : LoginService,
+      private login : LoginService,
       public storage : Storage,
       public actionSheetController: ActionSheetController,
       private tipoGastoService : TipoGastoService,
