@@ -41,7 +41,7 @@ export class GastoService {
   guardar(form){
     //console.log(form);
     form.append('idEmpresa',this.login.getEmpresa());
-    this.http.post(this.url+":8050/subidas", form, {reportProgress: true, observe: 'events'})
+    this.http.post(this.url+"/subidas", form, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
             //console.log(event);
         });

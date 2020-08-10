@@ -75,8 +75,6 @@ export class DocumentoPage implements OnInit {
       await alert.present();
     }
     sendEmail(to,datos){
-      datos.fechaEmision = datos.fechaEmision.split("T")[0];
-      datos.fechaCaducidad = datos.fechaCaducidad.split("T")[0];
       let subject = "Cotización realizada por "+datos.nombreEmpresa
       let mess = 'Esta cotización ha sido enviada de forma automatica por <a href="jazmin.vase.cl" >jazmín</a><br>';
       mess += 'Informate <a href="vase.cl/jazmin">aquí</a> ';
