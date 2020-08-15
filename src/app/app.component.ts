@@ -3,11 +3,13 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Storage } from '@ionic/storage';
 import { AppUtilService } from './_servicios/app-util.service';
 import { StorageService } from './_servicios/storage.service';
 //import { NotificationService } from './_servicios/notification.service';
+import { UsuarioService } from './_servicios/usuario.service';
 import { LoginService } from './_servicios/login.service';
 
 @Component({
@@ -16,6 +18,9 @@ import { LoginService } from './_servicios/login.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  subscription: Subscription;
+  public appPages = [];
+  /*
   public appPages = [
     {
       title: 'Inicio',
@@ -46,17 +51,19 @@ export class AppComponent {
       title: 'Tienda',
       url: '/tienda',
       icon: 'cart'
-    },*/
+    },
     {
       title: 'Administrar',
       url: '/administrar',
       icon: 'cog'
     },
-  ];
+
+  ];*/
 
   constructor(
     //private notificacion : NotificationService,
     private loginService : LoginService,
+    private usuarioService : UsuarioService,
     private sService : StorageService,
     private storage : Storage,
     private router : Router,
@@ -67,6 +74,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
     var self = this;
+
     /*
     notificacion.setSocket().then(servicio=>{
       console.log(servicio);
@@ -88,25 +96,24 @@ export class AppComponent {
   }
   initializeApp() {
     this.platform.ready().then(() => {
-      //this.checkFingerPrint();
-      /*
-      this.storage.get('idUsuario')
-        .then((val) => {
-          alert("idUsuario "+val);
-        });
-
-
-      if(sessionStorage.getItem('idUsuario')){
-        this.router.navigate(['/home'])
-      }else{
-        this.router.navigate(['/login'])
-      }
-      */
       this.storage.get('usuarios').then((val) => {
         console.log(val);
         if(!val){
           this.router.navigate(['/login'], {replaceUrl: true})
         }else{
+          this.appPages.push({title: 'Inicio',url: '/home',icon: 'home'});
+          this.subscription = this.usuarioService.getMenu().subscribe(data => {
+            if (data) {
+              this.appPages.push(data.menu);
+            } else {
+              this.appPages = [];
+            }
+          });
+          for(var menu of val['menu']){
+            if(menu.permission.r && menu.principal){
+              this.usuarioService.addMenu(menu)
+            }
+          }
           this.loginService.setToken(val['token']);
           this.loginService.setEmpresa(val['empresa']);
         }
@@ -126,5 +133,8 @@ export class AppComponent {
         console.error('fingerprint : ', 'error');
       });
     }
+  }
+  ngOnDestroy() {
+      this.subscription.unsubscribe();
   }
 }

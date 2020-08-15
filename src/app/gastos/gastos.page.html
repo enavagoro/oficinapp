@@ -29,11 +29,11 @@
 
     <ion-item>
       <ion-label>Tipo Gasto Existente</ion-label>
-      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
+      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente" [disabled]="bandera==true"></ion-toggle>
     </ion-item>
 
     <ion-item *ngIf="!banderaExistente">
-      <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();">Nuevo Tipo Gasto</ion-button>
+      <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();" [disabled]="bandera==true">Nuevo Tipo Gasto</ion-button>
     </ion-item>
 
     <ion-item *ngIf="banderaExistente">
@@ -105,8 +105,8 @@
       <ion-button class="ion-button-card" *ngIf="gasto.id == 0 " size="small" (click)="vaciarArchivo()">cancelar</ion-button>
     </ion-item>
 
-    <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ">Guardar</ion-button>
-    <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ">Actualizar</ion-button>
+    <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ) && !permission.c ">Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ) && !permission.u">Actualizar</ion-button>
     <ion-button class="ion-button-cancelar" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
     <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../_servicios/cliente.service';
+import { Storage } from '@ionic/storage';
 import { ModalController } from '@ionic/angular';
 
 interface Cliente {
@@ -21,8 +21,17 @@ interface Cliente {
 })
 
 export class AdministrarPage implements OnInit {
+  menus = [];
+  filterPAth = "administrar/";
+  constructor(private storage : Storage) {
 
-  constructor() { }
+    this.storage.get('usuarios').then((val) => {
+      if(val){
+        var menu = val.menu;
+        this.menus = menu.filter( m => { return m.url.includes(this.filterPAth) })
+      }
+    })
+  }
 
   ngOnInit() {
   }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { GastoService } from '../_servicios/gasto.service';
+import { PERMISSION,UsuarioService } from '../_servicios/usuario.service';
 import { TipoGastoService } from '../_servicios/tipo-gasto.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { CrearTipogastoPage } from './crear-tipogasto/crear-tipogasto.page';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gastos',
@@ -23,17 +24,33 @@ export class GastosPage implements OnInit {
   url : string;
   cargando : boolean = false;
   bandera = false;
+  permission : PERMISSION = {c:false,r:false,u:false,d:false};
   arregloInputs=[];
 
   constructor(
     private login : LoginService,
       public storage : Storage,
+      private usuarioService : UsuarioService,
       public actionSheetController: ActionSheetController,
       private tipoGastoService : TipoGastoService,
       private gastoService:GastoService,
+      private router : Router,
       private toastController : ToastController,
       private alertController :AlertController,
-      private modalCtrl : ModalController) { }
+      private modalCtrl : ModalController) {
+        this.storage.get('usuarios').then((val) => {
+          if(val){
+            var permission = this.usuarioService.tienePermiso(val,'gastos');
+            if(permission){
+              this.permission = permission;
+              if(!permission.r){
+                this.storage.clear();
+                this.router.navigate(['/login'], {replaceUrl: true});
+              }
+            }
+          }
+        })
+      }
 
   ngOnInit() {
     this.tipoGastoService.listar().then(servicio=>{
@@ -204,61 +221,71 @@ export class GastosPage implements OnInit {
     }
     this.deshabilitarInputs(false);
     this.bandera=false;
+    var ver = {
+      text: 'Ver',
+      icon: 'eye',
+      handler: () => {
+        gasto.tipo=''+gasto.tipo;
+        this.gasto = gasto;
+        this.deshabilitarInputs(true);
+        this.bandera=true;
+        var value = this.login.getEmpresa();
+        this.url = this.URL+"/"+value+"/"+gasto.img;
+      }};
+    var actualizar = {
+      text: 'Actualizar',
+      icon: 'sync',
+      handler: () => {
+        this.bandera=false;
+        this.gasto = gasto;
+        var value = this.login.getEmpresa();
+        this.url = this.URL+"/"+value+"/"+gasto.img;
+        this.url = this.URL+"/"+value+"/"+gasto.img;
+      }
+    };
+    var duplicar = {
+      text: 'Duplicar',
+      icon: 'albums',
+      handler: () => {
+        this.bandera=false;
+        gasto.id == 0;
+        this.gasto = gasto;
+        this.gasto.id = 0;
+        //console.log(this.gasto);
+      }
+    };
+    var borrar = {
+      text: opcion,
+      role: 'destructive',
+      icon: 'trash',
+      handler: () => {
+        this.bandera=false;
+        this.gasto = gasto;
+        this.eliminar(opcion);
+      }
+    };
+    var cancelar = {
+      text: 'Cancelar',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        //console.log('Cancel clicked');
+      }
+    }
+    var botones = [ver];
+    if(this.permission.u){
+      botones.push(actualizar)
+    }
+    if(this.permission.c){
+      botones.push(duplicar)
+    }
+    if(this.permission.d){
+      botones.push(borrar);
+    }
+    botones.push(cancelar)
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
-      buttons: [{
-        text: 'Ver',
-        icon: 'eye',
-        handler: () => {
-          gasto.tipo=''+gasto.tipo;
-          this.gasto = gasto;
-          //console.log(gasto);
-          //console.log('bandera',this.bandera);
-          this.deshabilitarInputs(true);
-          this.bandera=true;
-          var value = this.login.getEmpresa();
-          this.url = this.URL+"/"+value+"/"+gasto.img;
-
-        }
-      },{
-        text: 'Actualizar',
-        icon: 'sync',
-        handler: () => {
-          this.bandera=false;
-          this.gasto = gasto;
-          var value = this.login.getEmpresa();
-          this.url = this.URL+"/"+value+"/"+gasto.img;
-          this.url = this.URL+"/"+value+"/"+gasto.img;
-
-          //console.log(gasto);
-        }
-      },{
-        text: 'Duplicar',
-        icon: 'albums',
-        handler: () => {
-          this.bandera=false;
-          gasto.id == 0;
-          this.gasto = gasto;
-          this.gasto.id = 0;
-          //console.log(this.gasto);
-        }
-      }, {
-        text: opcion,
-        role: 'destructive',
-        icon: 'trash',
-        handler: () => {
-          this.bandera=false;
-          this.gasto = gasto;
-          this.eliminar(opcion);
-        }
-      }, {
-        text: 'Cancelar',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          //console.log('Cancel clicked');
-        }
-      }]
+      buttons: botones
     });
     await actionSheet.present();
   }

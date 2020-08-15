@@ -37,6 +37,8 @@
               },
               {
                 "input": "src/global.scss"
+              },{
+                "input": "node_modules/ngx-tree-dnd/styles-tree-dnd.css"
               }
             ],
             "scripts": []

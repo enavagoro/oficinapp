@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class RegistrarPage implements OnInit {
   flag=false;
-  public usuario : Usuario = {id:0,nombre:'',apellido:'',correo:'',clave:'',estado:0};
+  public usuario : Usuario = {id:0,nombre:'',apellido:'',correo:'',clave:'',estado:0,menu:[]};
   usuarios=[];
   bandera=0;
   empresas=[];
@@ -65,7 +65,7 @@ export class RegistrarPage implements OnInit {
 
   registroUsuarios(variable){
     if(!variable){
-      this.usuario = {id:0,nombre:'',apellido:'',correo:'',clave:'',estado:0};
+      this.usuario = {id:0,nombre:'',apellido:'',correo:'',clave:'',estado:0,menu:[]};
     }
   }
 
@@ -96,7 +96,7 @@ export class RegistrarPage implements OnInit {
       servicio.subscribe(usuario=>{
         this.mostrarToast();
         this.router.navigate(['/login'], {replaceUrl: true});
-        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
       })
     })
   }
