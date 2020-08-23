@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
   }
 
   async login(){
-    this.usuarioService.dropMenu();    
+    this.usuarioService.dropMenu();
     this.usuarioService.addMenu({title: 'Inicio',url: '/home',icon: 'home',principal:true,permission:{c:true,r:true,u:true,d:true}});
       this.auth.logUser(this.loginForm.value).then(servicio=>{
         servicio.subscribe(d=>{
@@ -83,10 +83,15 @@ export class LoginPage implements OnInit {
             lservice.subscribe(r=>{
               console.log(r);
               for(var usuario of r){
-                for(var menu of usuario.menu){
-                  if(menu.permission.r && menu.principal){
-                    this.usuarioService.addMenu(menu)
+                if(usuario.menu){
+                  for(var menu of usuario.menu){
+                    if(menu.permission.r && menu.principal){
+                      this.usuarioService.addMenu(menu)
+                    }
                   }
+                }else{
+                  console.log("lol algo debe tener su menu creo sho");
+
                 }
                 usuario.token = d['accessToken'];
                 this.loginService.setUser(usuario);
