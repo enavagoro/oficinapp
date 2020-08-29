@@ -37,6 +37,7 @@ export class VentasPage implements OnInit {
     {nombre:'30 dias',valor:1},
     {nombre:'60 dias',valor:2}];
   detalle = [];
+  totalVentas : number = 0;
   bandera = false;
   flag = false;
   banderaOpciones = false;
@@ -395,10 +396,11 @@ export class VentasPage implements OnInit {
   }
 
   filtrarVentas(){
-
+    this.totalVentas = 0;
     var ventas = [];
     for(let i = 0 ; i < this.ventas.length ; i ++){
       if(this.ventas[i].estado){
+        this.ventas[i].detalle.map( detalle => { this.totalVentas +=  detalle.cantidad * detalle.precio });
         ventas.push(this.ventas[i]);
       }
     }
