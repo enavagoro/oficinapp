@@ -11,14 +11,22 @@
     <ion-title>Mi Empresa</ion-title>
   </ion-toolbar>
 
-  <ion-item lines="none" *ngIf="!img">
-    <div class="contenedor-imagen">
-      <ion-avatar class="ion-avatar">
-        <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
-      </ion-avatar>
-    </div>
-  </ion-item>
+  <div class="contenedor-spinner" *ngIf="cargandoImagen">
+    <ion-spinner name="crescent" color="tertiary"></ion-spinner>
+    <p class="texto-spinner">Cargando imagen</p>
+  </div>
 
+  <div *ngIf="!cargandoImagen">
+    <ion-item lines="none" *ngIf="!img">
+      <div class="contenedor-imagen">
+        <ion-avatar class="ion-avatar">
+          <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
+        </ion-avatar>
+      </div>
+    </ion-item>
+  </div>
+
+  <div *ngIf="!cargandoImagen">
     <ion-item lines="none" *ngIf="img">
       <div class="contenedor-imagen">
         <ion-avatar class="ion-avatar">
@@ -26,11 +34,12 @@
         </ion-avatar>
       </div>
     </ion-item>
+  </div>
 
   <div *ngIf="bandera==true">
     <div class="contenedor-boton">
       <div class="contenedor-texto">
-        <ion-label>Recuerda: La foto que utilicés aparecerá en tus cotizaciones</ion-label>
+        <ion-label>Recuerda: La foto que utilices aparecerá en tus cotizaciones</ion-label>
       </div>
       <div class="upload-btn-wrapper">
         <button class="btn">Subir un archivo</button>

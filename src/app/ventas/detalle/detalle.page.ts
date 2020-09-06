@@ -33,7 +33,8 @@ export class DetallePage implements OnInit {
 
   constructor(private navParams : NavParams, private stockService : StockService ,private productoService: ProductoService,private modalCtrl : ModalController) {
       var ps = navParams.get("detalle");
-      //console.log(ps);
+      console.log(ps);
+      
       if(ps){
         this.detalle = ps;
       }

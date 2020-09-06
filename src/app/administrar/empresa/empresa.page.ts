@@ -22,6 +22,8 @@ export class EmpresaPage implements OnInit {
   empresaTemporal = {id:'',nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',url:'',estado:true};
   public empresa  = {id:'',nombre:'',rut:'',giro:'',direccion:'',ciudad:'', comuna:'',contacto:'',url:'',estado:true};
 
+  cargandoImagen : boolean = false;
+
   constructor(
               public storage : Storage,
               public login : LoginService,
@@ -32,11 +34,20 @@ export class EmpresaPage implements OnInit {
               private alertController :AlertController,) { }
 
   ngOnInit() {
+    this.cargandoImagen = true;
+
     this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
       servicio.subscribe(e=>{
           this.empresa = e;
           console.log(this.empresa);
-          this.img = this.empresaService.url+"/"+this.empresa['id']+"/"+this.empresa['url'];
+
+          console.log('antes');
+          setTimeout(()=>{
+          console.log('dentro');
+            this.img = this.empresaService.url+"/"+this.empresa['id']+"/"+this.empresa['url'];
+            this.cargandoImagen = false;
+          }, 1800)
+
           console.log(this.empresa['url']);
           console.log(this.img);
       })

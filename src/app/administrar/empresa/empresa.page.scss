@@ -10,6 +10,22 @@ ion-toolbar{
   width: 0% !important;
 }
 
+/* spinner */
+
+.contenedor-spinner{
+  width: 60%;
+  margin-left: 20%;
+
+  ion-spinner{
+    margin-top: 5%;
+    width: 100%;
+  }
+
+  .texto-spinner{
+    text-align: center;
+  }
+}
+
 ion-title{
   --color: black;
   font-family: 'Roboto', sans-serif;
