@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { TreeModule } from '@circlon/angular-tree-component';
+
+
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -28,7 +31,7 @@ import { CrearClienteVentaPage } from './ventas/crear-cliente-venta/crear-client
 import { CrearTipogastoPage } from './gastos/crear-tipogasto/crear-tipogasto.page'
 import { CrearTipoproductoPage } from './administrar/producto/crear-tipoproducto/crear-tipoproducto.page'
 import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
-
+import { PermisosPage } from './administrar/usuario/permisos/permisos.page';
 //pages
 import { ReportePage } from './reportes/reporte/reporte.page';
 import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
@@ -51,14 +54,15 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
-  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,PermisosPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,PermisosPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     NgApexchartsModule,
     NgxDocViewerModule,
+    TreeModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
     FormsModule,

@@ -1,0 +1,246 @@
+/*
+ Copyright (C) 2018 Yaroslav Kikot
+ This project is licensed under the terms of the MIT license.
+ https://github.com/Zicrael/ngx-tree-dnd
+ */
+
+/* Tree main styles */
+.root-title {
+    padding-bottom: 5px;
+}
+.root-text {
+    margin-right: 5px;
+}
+.tree-child {
+    user-select: none;
+    width: fit-content;
+    box-sizing: border-box;
+    position: relative;
+}
+.tree-title {
+    position: relative;
+    padding-left: 21px;
+    align-items: center;
+    border: 1px solid transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+.tree-title::before {
+    position: absolute;
+    left: -1px;
+    top: calc(50% - 0.5px);
+    background-color: #444;
+    height: 3px;
+    width: 20px;
+    align-items: center;
+    content: '';
+}
+
+.destenationTop {
+    border-top: 5px solid rgba(255, 0, 0, 0.5);
+}
+.destenationBottom {
+    border-bottom: 5px solid rgba(255, 0, 0, 0.5);
+}
+
+.tree-content {
+    margin-left: 50px;
+    border-left: 3px solid #444 ;
+    position: relative;
+}
+.tree-content-main {
+    margin-left: 20px;
+    border-left: 3px solid #444 ;
+    position: relative;
+}
+
+.draggable-item {
+    margin-right: 5px;
+}
+
+.child-drop-place {
+    display: flex;
+    align-items: center;
+    color: #ccc ;
+    justify-content: center;
+    background-color: transparent;
+    border:none;
+    border-radius: 2px;
+    outline-color: none;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.child-drop-place fa-icon {
+    pointer-events: none;
+}
+
+.buttons-bar > div{
+    align-items: center;
+}
+.tree-btn {
+    display: flex;
+    align-items: center;
+    color: #ccc ;
+    justify-content: center;
+    background-color: transparent;
+    border:none;
+    border-radius: 2px;
+    outline-color: none;
+    cursor: pointer;
+    padding: 0;
+    padding: 3px;
+    transition: color 0.2s ease-in-out;
+}
+
+.add-btn:hover, .submit-btn:hover {
+    color: green;
+}
+
+.edit-btn:hover {
+    color: skyblue;
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+.show-btn, .hide-btn {
+    background-color: #ccc;
+    color: #000;
+    height: 18px;
+    width: 18px;
+    padding: 0;
+    font-size: 14px;
+    align-items: center;
+    display: flex;
+}
+
+/* childrens styles */
+.input-rename {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0 15px 0 0;
+    font-weight: inherit;
+    max-width: 200px;
+    font-family: inherit;
+    outline: none;
+}
+.show-hide-switch {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    left: -10px;
+}
+.error-edit-wrap {
+    margin-left: 5px;
+    color: #d33;
+}
+.addOpacity {
+    opacity: 0.5;
+}
+.hidden {
+    display: none !important;
+}
+/* tool classes styles */
+.d-flex {
+    display: flex;
+}
+.d-inline-flex {
+    display: inline-flex;
+}
+.text-center {
+    text-align: center;
+}
+.pos-relative {
+    position: relative;
+}
+
+ion-toolbar{
+  /*
+  --background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
+  */
+
+  --background: #283593;
+  --color: white !important;
+  font-family: 'Roboto';
+  text-align: center;
+}
+
+.contenedor-imagen{
+  background: #3949ab;
+}
+
+.imagen-drag{
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+ion-item{/*
+  --background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
+  */
+  --background-focused:#f5f5f5;
+  --background-hover:#f5f5f5;
+}
+
+ion-content {
+  --background: white;
+
+  /*
+  --color:white!important;
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+  */
+}
+
+ion-card{
+  --background: white;
+}
+
+.header-card{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  ion-item{
+  --background: transparent;
+  --color: white;
+  --border-color: transparent;
+  }
+}
+
+.card-gradiente{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --color: white !important;
+}
+
+ion-fab{
+  --background: rgba(128,222,234,1);
+}
+
+ion-button{
+  margin-top: 10%;
+  --background: #283593 !important;
+  --background-activated: #283593 !important;
+  --background-hover: #283593 !important;
+  width: 70% !important;
+  margin-left: 15% !important;
+}
+
+.probando{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
+  color: #03a9f4 !important;
+}
+
+@media (max-width: 900px) {
+
+  .probando{
+    width: 100%;
+    margin-left: 0% !important;
+    margin-top: 0%;
+  }
+ }

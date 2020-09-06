@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
+import { PERMISSION,UsuarioService } from '../_servicios/usuario.service';
 import { CotizacionService } from '../_servicios/cotizacion.service';
 import { DetalleCotizacionPage } from './detalle-cotizacion/detalle-cotizacion.page';
 import { DocumentoPage } from './documento/documento.page';
@@ -9,6 +10,7 @@ import { CrearClientePage } from './crear-cliente/crear-cliente.page';
 import { EmpresaService } from '../_servicios/empresa.service';
 import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 //import { ModalPage } from '../modal/modal.page';
 const URL = "https://api.vase.cl";
 
@@ -30,6 +32,7 @@ export class CotizacionesPage implements OnInit {
   nombreCliente = "";
   clientesFiltrado = [];
   cotizaciones = [];
+  permission : PERMISSION = {c:false,r:false,u:false,d:false};
   public cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0,url:'', idUsuario:0};
   public datosPdf = {id:0, nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
                                 idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0,url:''};
@@ -39,11 +42,25 @@ export class CotizacionesPage implements OnInit {
               private clienteService: ClienteService,
               private empresaService : EmpresaService,
               private storage : Storage,
+              private router : Router,
+              private usuarioService : UsuarioService,
               private cotizacionService: CotizacionService,
               private detalleService:DetalleService,
               private toastController : ToastController,
               private alertController :AlertController,
               private modalCtrl : ModalController) {
+                this.storage.get('usuarios').then((val) => {
+                  if(val){
+                    var permission = this.usuarioService.tienePermiso(val,'gastos');
+                    if(permission){
+                      this.permission = permission;
+                      if(!permission.r){
+                        this.storage.clear();
+                        this.router.navigate(['/login'], {replaceUrl: true});
+                      }
+                    }
+                  }
+                })
               }
 
   ngOnInit() {
@@ -375,17 +392,9 @@ export class CotizacionesPage implements OnInit {
           cotizacion.tipo=''+cotizacion.tipo;
           this.cotizacion = cotizacion;
           console.log(cotizacion);
-
-          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
-          this.traerCliente(cotizacion.id_cliente);
-          /*this.detalleService.listar(cotizacion.id).subscribe(detalle=>{
-            console.log(detalle);
-
-            cotizacion.detalles = detalle;
-            this.detalle = detalle;
-          })*/
+          this.traerCliente(cotizacion.id_cliente);          
         }
       },
       {

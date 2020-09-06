@@ -23,6 +23,9 @@ export class DetallePage implements OnInit {
   private detalle = [];
   cantidad : Number = undefined;
   flag = false;
+  valorActual : number ;
+  editarValor : boolean = false;
+  index : number = 99;
   productos : Producto[] = [];
   productosIventariables = [];
   productosNoIventariables = [];
@@ -74,6 +77,7 @@ export class DetallePage implements OnInit {
   insertar(){
   this.flag = true;
   }
+
   limpiar(){
     this.producto = undefined;
   }
@@ -110,17 +114,30 @@ export class DetallePage implements OnInit {
   }
 
   borrar(index){
-    //console.log(index);
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
       if(i != index){
         nuevo.push(this.detalle[i]);
       }
     }
-    //console.log(nuevo);
     this.detalle = nuevo;
   }
+  editar(index){
+    this.index = index;
+    this.editarValor = true;
+  }
+  confirmar(index){
+    this.index = 999;
+    this.editarValor = false;
+    let prod = this.detalle[index];
 
+    if(prod.precio){
+      prod.precio = this.valorActual;
+    }else{
+      prod['venta'] = this.valorActual;
+    }
+    console.log(this.detalle[index]);
+  }
   guardar(){
     this.modalCtrl.dismiss(this.detalle);
   }

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Flujos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+
+  <div class="probando">
+    <div class='title'>
+
+        <lib-ngx-tree-component
+        [treeData]="myTree"
+        (ondragstart)="onDragStart($event)"
+        (ondragenter)="onDragEnter($event)"
+        (ondragleave)="onDragLeave($event)"
+        (ondrop)="onDrop($event)"
+        (onallowdrop)="onAllowDrop($event)"
+        (onadditem)="onAddItem($event)"
+        (onStartDeleteItem)="onStartDeleteItem($event)"
+        (onFinishDeleteItem)="onFinishDeleteItem($event)"
+        (onCancelDeleteItem)="onCancelDeleteItem($event)"
+        (onStartRenameItem)="onStartRenameItem($event)"
+        (onFinishRenameItem)="onFinishRenameItem($event)"
+        [config]='config'>
+        </lib-ngx-tree-component>
+        <!-- =================================== -->
+        <div class='event' >Evento : <span>{{currentEvent}}</span>
+      </div>
+    </div>
+
+  </div>
+  <hr>
+  <p>
+    <ion-chip *ngFor="let tag of tags">
+      <ion-label>{{tag}}</ion-label>
+    </ion-chip>
+  </p>
+  <hr>
+  <div class="" *ngIf="!myTree">
+    No existen datos
+  </div>
+
+  <ion-button  size="medium" (click)="saveTree();">Guardar</ion-button>
+  <ion-button  size="medium" (click)="getLastSelected()">Obtener tags</ion-button>
+
+
+  <ion-segment style="height: 10%;" color="secondary">
+    <ion-segment-button *ngIf="this.pasos.length > 0" (click)="volver()">
+      <ion-icon name="arrow-back" style="font-size:25px;"  ></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)"  style="background:#20d1c2" >
+      <ion-label style="blanco">{{nodo.name}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <h3 style="text-align:center">{{mensaje}}</h3>
+
+
+
+</ion-content>

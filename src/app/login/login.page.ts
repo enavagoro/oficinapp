@@ -30,7 +30,6 @@ export class LoginPage implements OnInit {
     private auth: AuthService,
     private appUtil: AppUtilService,
     public alertController: AlertController,
-    //private nativeStorage:NativeStorage,
     public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
       this.loginForm = this.formBuilder.group({
         correo : ['',[Validators.required,ValidationService.emailValidator]],
@@ -38,22 +37,18 @@ export class LoginPage implements OnInit {
       })
     }
     ngAfterViewInit(){
-      console.log("visible?");
       var menu = document.querySelector('ion-menu');
       menu.hidden = true;
     }
   ngOnInit() {
-
     this.storage.get('idUsuario')
       .then(
         data => {
-          //this.router.navigate(['/gastos'])
           if(data){
               this.permitirDedo = true;
           }
         }
       );
-
   }
 
   loginWithFingerprint() {
@@ -61,7 +56,6 @@ export class LoginPage implements OnInit {
     if (this.appUtil.isFingerprintAvailable) {
       this.appUtil.presentFingerPrint()
       .then((result: any) => {
-        //window.location.href = "/gastos";
         this.router.navigate(['/home'], {replaceUrl: true});
       })
       .catch((error: any) => {
@@ -79,6 +73,8 @@ export class LoginPage implements OnInit {
   }
 
   async login(){
+    this.usuarioService.dropMenu();
+    this.usuarioService.addMenu({title: 'Inicio',url: '/home',icon: 'home',principal:true,permission:{c:true,r:true,u:true,d:true}});
       this.auth.logUser(this.loginForm.value).then(servicio=>{
         servicio.subscribe(d=>{
           console.log(d);
@@ -87,6 +83,16 @@ export class LoginPage implements OnInit {
             lservice.subscribe(r=>{
               console.log(r);
               for(var usuario of r){
+                if(usuario.menu){
+                  for(var menu of usuario.menu){
+                    if(menu.permission.r && menu.principal){
+                      this.usuarioService.addMenu(menu)
+                    }
+                  }
+                }else{
+                  console.log("lol algo debe tener su menu creo sho");
+
+                }
                 usuario.token = d['accessToken'];
                 this.loginService.setUser(usuario);
                 this.loginService.setEmpresa(usuario.empresa);
@@ -112,31 +118,4 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
 
-  /*
-  async login(){
-    this.auth.logUser(this.loginForm.value).then(servicio=>{
-      servicio.subscribe(d=>{
-        console.log(d);
-        this.loginService.setToken(d['accessToken']);
-        this.loginService.getUser(this.loginForm.value).then(lservice=>{
-          lservice.subscribe(r=>{
-            console.log(r);
-            for(var usuario of r){
-              usuario.token = d['accessToken'];
-              this.loginService.setUser(usuario);
-              this.loginService.setEmpresa(usuario.empresa);
-              this.router.navigate(['/home']);
-            }
-
-          })
-        })
-      },err=>{
-        console.log("capture el error : ",err);
-      })
-    }).catch((err) => {
-        // simple logging, but you can do a lot more, see below
-        console.error('An error occurred:', err);
-      });
-  }
-  */
 }

@@ -71,6 +71,13 @@ ion-content{
     --border-radius: 0%;
   }
 
+  .boton-editar{
+    --background: #554fc7;
+    --background-activated: #554fc7;
+    --background-focused: #554fc7;
+    --background-hover: #554fc7;
+    margin-left: 7%;
+  }
   .boton-borrar{
     --background: #fb745b;
     --background-activated: #fb745b;

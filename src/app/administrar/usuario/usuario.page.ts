@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { UsuarioService, Usuario} from '../../_servicios/usuario.service';
+import { PermisosPage } from './permisos/permisos.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-usuario',
@@ -9,11 +11,12 @@ import { UsuarioService, Usuario} from '../../_servicios/usuario.service';
 })
 export class UsuarioPage implements OnInit {
   usuarios = [];
-  public usuario : Usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+  public usuario : Usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
   bandera = false;
   flag = false;
 
   constructor(private usuarioService : UsuarioService,
+              private storage : Storage,
               public actionSheetController: ActionSheetController,
               private toastController : ToastController,
               private alertController :AlertController,
@@ -34,7 +37,7 @@ export class UsuarioPage implements OnInit {
       servicio.subscribe(usuario=>{
         //console.log('entra2');
         this.ngOnInit();
-        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+        this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
       })
     })
 
@@ -44,7 +47,7 @@ export class UsuarioPage implements OnInit {
     this.usuarioService.actualizar(this.usuario,this.usuario.id).subscribe(usuario=>{
       //console.log(usuario);
       this.ngOnInit();
-      this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+      this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
     })
   }
   public eliminacionLogica(){
@@ -63,7 +66,7 @@ export class UsuarioPage implements OnInit {
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
-    this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:''};
+    this.usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
   }
   async eliminar(opcion) {
     //console.log(this.usuario);
@@ -141,7 +144,6 @@ export class UsuarioPage implements OnInit {
     await alert.present();
   }
   async opciones(usuario) {
-    //console.log(usuario)
     var opcion = "Borrar";
     if(usuario.estado == 0){
       opcion = "Recuperar"
@@ -156,8 +158,6 @@ export class UsuarioPage implements OnInit {
         handler: () => {
           usuario.tipo=''+usuario.tipo;
           this.usuario = usuario;
-          //console.log(usuario);
-          //console.log('bandera',this.bandera);
           this.deshabilitarInputs(true);
           this.bandera=true;
         }
@@ -167,19 +167,15 @@ export class UsuarioPage implements OnInit {
         handler: () => {
           this.bandera=false;
           this.usuario = usuario;
-          //console.log(usuario);
         }
-      },/*{
-        text: 'Duplicar',
+      },{
+        text: 'Permisos',
         icon: 'albums',
         handler: () => {
-          this.bandera=false;
-          usuario.id == 0;
           this.usuario = usuario;
-          this.usuario.id = 0;
-          //console.log(this.usuario);
+          this.mostrarPermisos();
         }
-      },*/ {
+      },{
         text: opcion,
         role: 'destructive',
         icon: 'trash',
@@ -199,6 +195,36 @@ export class UsuarioPage implements OnInit {
     });
     await actionSheet.present();
   }
+  async mostrarPermisos(){
+    const modal = await this.modalCtrl.create({
+      component: PermisosPage,
+      cssClass: 'modals',
+      componentProps:{
+        'usuario' : this.usuario
+      }
+    });
+    modal.onDidDismiss().then(modal=>{
+      console.log(modal);
+      if(modal.data){
+        this.usuario.menu = modal.data;
+        this.storage.get('usuarios').then((val) => {
+          if( val['_id'] == this.usuario['_id'] ){
+            this.usuarioService.dropMenu();
+            this.usuarioService.addMenu({title: 'Inicio',url: '/home',icon: 'home',principal:true,permission:{c:true,r:true,u:true,d:true}});
+            for(var menu of this.usuario.menu ){
+              if(menu.permission.r && menu.principal){
+                this.usuarioService.addMenu(menu)
+              }
+            }
+            this.storage.set('usuarios',this.usuario);
+          }
+        })
+        this.actualizarUsuario();
+      }
+    });
+    return await modal.present();
+  }
+
   filtrarUsuarios(){
     var usuarios = [];
     for(let i = 0 ; i < this.usuarios.length ; i ++){
@@ -208,5 +234,4 @@ export class UsuarioPage implements OnInit {
     }
     return usuarios;
   }
-
 }

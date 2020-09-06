@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrarModal();" color="dark">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>permisos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item >
+      <ion-label>
+        Titulo
+      </ion-label>
+      <ion-label style="text-align: -webkit-right;">
+        <ion-text color="secondary">
+          Mostrar ~
+        </ion-text>
+        <ion-text color="dark">
+          Crear ~
+        </ion-text>
+        <ion-text color="primary">
+          Editar ~
+        </ion-text>
+        <ion-text color="danger">
+          Borrar
+        </ion-text>
+
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let menu of menus">
+      <ion-label >{{menu.title}}</ion-label>
+      <ion-toggle color="secondary" [(ngModel)]="menu.permission.r"></ion-toggle>
+      <ion-toggle color="dark" [(ngModel)]="menu.permission.c"></ion-toggle>
+      <ion-toggle color="primary" [(ngModel)]="menu.permission.u"></ion-toggle>
+      <ion-toggle color="danger" [(ngModel)]="menu.permission.d"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" color="tertiary" (click)="guardarPermisos()">
+    Guardar Permisos
+  </ion-button>
+</ion-content>
