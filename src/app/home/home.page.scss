@@ -55,6 +55,14 @@ ion-card{
   margin-bottom: 10%;
 }
 
+.titulo-producto{
+  font-size: 19px;
+}
+
+.subtitulo-producto{
+
+}
+
 .derecha{
   width: 50%;
 }
@@ -78,6 +86,10 @@ ion-card{
 
 .contenedor-estadisticas{
   width: 50% !important;
+}
+
+ion-avatar{
+  --border-radius: 0px;
 }
 
 @media (max-width: 1000px){

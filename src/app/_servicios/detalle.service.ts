@@ -20,6 +20,7 @@ export class DetalleService {
   constructor(private http: HttpClient) { }
 
   listar(id) {
+    this.url = "https://api.vase.cl";
     return this.http.get<Detalle[]>(`${this.url}/api/ventas/detalle/${id}`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

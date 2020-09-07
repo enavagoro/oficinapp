@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, OnInit} from '@angular/core';
 import { ProductoService } from '../_servicios/producto.service';
 import { GastoService } from '../_servicios/gasto.service';
 import { VentaService } from '../_servicios/venta.service';
@@ -52,31 +52,132 @@ export class HomePage {
     speed: 400
   };
   tipoActual = "bar";
+
   productos = [];
   gastos = [];
   clientes = [];
   ventas = [];
-  ventasMensuales = 0;
-  ventasTotales = 0;
-  gastosMensuales = 0;
-  gastosAnuales = 0;
+
+  ventasMensuales = {"valor":Number(null),"cantidad":Number(null)};
+  ventasAnuales = {"valor":Number(null),"cantidad":Number(null)};
+  ventasTotales = {"valor":Number(null),"cantidad":Number(null)};
+
+  gastosMensuales = {"valor":Number(null),"cantidad":Number(null)};
+  gastosAnuales = {"valor":Number(null),"cantidad":Number(null)};
+  gastosTotales = {"valor":Number(null),"cantidad":Number(null)};
+  gastoMayor = {"monto":Number(null)};
+  productoMayor = {"cantidad":Number(null)};
+
+
   detalles = [];
   listaProductos = [];
   listaGastos = [];
   labels = [];
   valores = [];
   tiposGastos = [];
+
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"];
   private chart1: Chart;
 
-  arreglo1 = [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10];
-  arreglo2 = [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35];
+  arreglo1 = [Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null)];
+  arreglo2 = [Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null), Number(null)];
+
   @ViewChild("apexchart",{static: false}) chartApex: ChartComponent;
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
   @ViewChild("chartCanvas",{static: false}) chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
   constructor(public notif : NotificationService,public router:Router,public storage:Storage,public tService :TipoGastoService,public cService:ClienteService,public gService:GastoService,public pService : ProductoService, public vService:VentaService, public dService:DetalleService) {
+
+    let fechai = "2020-06-01";
+    let fechaf = "2020-06-27";
+    console.log(fechai)
+    var fechasChart = [];
+    var gastosChart = [];
+    var ventasChart = [];
+
+    //console.log("constructor");
+
+
+    var menu = document.querySelector('ion-menu')
+    menu.hidden = false;
+
+  }
+
+  ngOnInit(){
+    var fechaTemporal = 0;
+    let fecha = new Date();
+
+    this.vService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.ventas = v.filter(this.filtros);
+
+          for(var venta of this.ventas){
+            let fechaTemporal = new Date(venta.fecha);
+            /*
+            console.log('fecha venta:', fechaTemporal);
+            console.log('fecha hoy',fecha);
+            */
+            this.rellenarValoresGrafico(venta,'venta');
+
+            if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.ventasMensuales.cantidad++;
+              //calculos
+              this.calculoValorVenta(venta,'mes');
+            }
+            if(fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.ventasAnuales.cantidad++;
+              //calculos
+              this.calculoValorVenta(venta,'año');
+            }
+
+            this.productoMasVendido(venta);
+          }
+
+        })
+
+    })
+
+    this.gService.listar().then(servicio=>{
+      servicio.subscribe(g=>{
+          this.gastos = g.filter(this.filtros);
+
+          for(var gasto of this.gastos){
+            this.rellenarValoresGrafico(gasto,'gasto');
+            let fechaTemporal = new Date(gasto.fecha);
+            if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.gastosMensuales.cantidad++;
+
+              //calculos
+              this.gastosMensuales.valor += gasto.monto;
+            }
+            if(fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.gastosAnuales.cantidad++;
+
+              //calculos
+              this.gastosAnuales.valor += gasto.monto;
+            }
+            if(gasto.monto > this.gastoMayor.monto){
+              this.gastoMayor = gasto;
+            }
+          }
+      })
+    })
+
+    this.pService.listar().then(servicio=>{
+      servicio.subscribe(ps =>{
+        this.productos = ps.filter(this.filtros);
+        console.log('productos',this.productos);
+      })
+    })
+
+    this.cService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes = c.filter(this.filtros);
+      })
+    })
+
+
     this.chartOptions = {
       series: [
         {
@@ -93,11 +194,14 @@ export class HomePage {
         type: "area"
       },
       dataLabels: {
-        enabled: false
+        style: {
+          colors: ['#039be5', '#f44336']
+        }
       },
+      colors: ["#039be5", "#f44336"],
       stroke: {
         width: 5,
-        curve: "straight",
+        curve: "smooth",
         dashArray: [0, 8, 5]
       },
       legend: {
@@ -120,22 +224,22 @@ export class HomePage {
         labels: {
           trim: false
 
-        },        
+        },
         categories: []
       },
-      tooltip: {
+    tooltip: {
         y: [
           {
             title: {
               formatter: function(val) {
-                return val + " del dia ";
+                return val + " del mes ";
               }
             }
           },
           {
             title: {
               formatter: function(val) {
-                return val + " del dia";
+                return val + " del mes";
               }
             }
           },
@@ -152,125 +256,8 @@ export class HomePage {
         borderColor: "#f1f1f1"
       }
     };
-    let fechai = "2020-06-01";
-    let fechaf = "2020-06-27";
-    console.log(fechai)
-    var fechasChart = [];
-    var gastosChart = [];
-    var ventasChart = [];
-    var flag = 0;
-    gService.reporte(fechai,fechaf).then(servicio=>{
-      servicio.subscribe(ps=>{
-        var datos = ps['result'];
-        if(datos){
-          var indice = 1;
-          datos.map(data => {
-            indice += 3;
-            var fecha = new Date(data.createdAt).toISOString().split("T")[0];
-            var index  = fechasChart.indexOf(fecha) ;
-            if(index != -1){
-              gastosChart[index] += parseInt(data.monto);
-            }else{
-              gastosChart.push(parseInt(data.monto));
-              ventasChart.push(12500 * indice)
-              fechasChart.push(fecha)
-            }
-          })
-          this.chartOptions.series[0].data = ventasChart;
-          this.chartOptions.series[1].data = gastosChart;
-          this.chartOptions.xaxis.categories = fechasChart;
-          var htmlChart = document.querySelector('#apexchart');
-          if(htmlChart){
-            var chart = new ApexCharts(htmlChart, this.chartOptions);
-            chart.render();
-          }
-          flag++;
-          if(flag == 2){
-            alert("ahora tengo los datos");
-          }
-        }else{
-          flag++;
-        }
-
-      })
-    })
-    //console.log("constructor");
-    pService.listar().then(servicio=>{
-      servicio.subscribe(ps =>{
-        this.productos = ps.filter(this.filtros);
-      })
-    })
-    tService.listar().then(servicio=>{
-      servicio.subscribe(g=>{
-        this.gastos = g.filter(this.filtros);
-        for(let gasto of this.gastos){
-          var fechaTemporal = new Date(gasto.fecha);
-          let fecha = new Date();
-          if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-            this.gastosMensuales += gasto.monto;
-          }
-          this.gastosAnuales += gasto.monto;
-          var lista = this.listaGastos[gasto.titulo];
-          if(lista){
-            this.listaGastos[gasto.titulo] += 1;
-          }else{
-            this.listaGastos[gasto.titulo] = 0;
-            this.listaGastos[gasto.titulo] += 1;
-          }
-        }
-      })
-    })
-
-    cService.listar().then(servicio=>{
-      servicio.subscribe(c=>{
-          this.clientes = c.filter(this.filtros);
-      })
-    })
-
-    var menu = document.querySelector('ion-menu')
-    menu.hidden = false;
-    var contador = 0;
-    vService.listar().then(servicio=>{
-      servicio.subscribe(v=>{
-          this.ventas = v.filter(this.filtros);
-          for (let i=0; i<this.ventas.length; i++)
-          {
-  /*
-            //console.log("entre");
-            dService.listar(this.ventas[i].id).subscribe(ds=>{
-              //console.log("esto es el ds:",ds);
-              var fechaTemporal = new Date(this.ventas[contador].fecha);
-              let fecha= new Date();
-              contador ++;
-              for(let j =0; j < ds.length; j++)
-              {
-                var producto = this.listaProductos[ds[j].titulo];
-                if(producto){
-                  this.listaProductos[ds[j].titulo] += ds[j].cantidad;
-                }else{
-                  this.listaProductos[ds[j].titulo] = 0;
-                  this.listaProductos[ds[j].titulo] += ds[j].cantidad;
-                }
-                if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-                  this.ventasMensuales += ds[j].cantidad * ds[j].precio;
-                }
-                if(fechaTemporal.getFullYear()==fecha.getFullYear()){
-                  this.ventasTotales += ds[j].cantidad * ds[j].precio;
-                }
-
-              }
-              //console.log('lista producto:',this.listaProductos);
-              if(contador == this.ventas.length){
-                  this.dibujarGrafico();
-              }
-            })
-            */
-          }
-
-        })
-    })
-
   }
+
   mostrarNot(){
     this.notif.mostrarNotificacion("Gracias por permitir notificaciones!");
   }
@@ -294,8 +281,13 @@ export class HomePage {
     //this.chartOptions.chart.render();
   //  this.chartOptions.chart.toggleSeries("series-1");
   }
-  productoMasVendido(){
 
+  productoMasVendido(producto){
+
+    if(producto.cantidad > this.productoMayor.cantidad){
+      this.productoMayor = producto;
+    }
+/*
     var mayor = 0;
     var p = "No hay vendidos";
     this.labels = []
@@ -312,7 +304,9 @@ export class HomePage {
     }
 
     return p+" vendido "+mayor+" veces";
+*/
   }
+/*
   gastoMasRecurrente(){
     var mayor = 0;
     var g = " No hay gastos";
@@ -324,8 +318,8 @@ export class HomePage {
     }
     return g+" gastado "+mayor+" veces";
   }
-
   filtrarVentaMes(){
+    console.log('entre a la venta del mes');
     let mes= new Date();
     let arregloTemporal = [];
     let fechaTemporal = new Date();
@@ -340,7 +334,6 @@ export class HomePage {
     }
     return arregloTemporal.length;
   }
-
   filtrarVentaYear(){
     let año= new Date();
     let arregloTemporal = [];
@@ -356,7 +349,6 @@ export class HomePage {
     }
     return arregloTemporal.length;
   }
-
   filtrarProductoVendido(){
     let arregloTemporal = [];
 
@@ -366,6 +358,20 @@ export class HomePage {
       //console.log('detalle:',this.detalles[i]);
     }
   }
+*/
+  calculoValorVenta(venta,tipo){
+    for(var d of venta.detalle){
+      if(tipo=='mes'){
+        this.ventasMensuales.valor += d.precio * d.cantidad;
+      }
+      if(tipo=='año'){
+        this.ventasAnuales.valor += d.precio * d.cantidad;
+      }
+      this.productoMasVendido(d);
+    }
+
+  }
+
 
   addActivos(original,arr){
     for(let i = 0 ; i < arr.length ; i++){
@@ -384,6 +390,23 @@ export class HomePage {
     var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
     //console.log(rgb)
     return rgb;
+  }
+
+  rellenarValoresGrafico(dato,tipo){
+    console.log('dato',dato);
+    let fechaTemporal = new Date(dato.fecha);
+
+    if(tipo=='venta'){
+      let valorVenta = Number(null);
+
+      for(var d of dato.detalle){
+        valorVenta += d.cantidad * d.precio;
+      }
+        this.arreglo1[fechaTemporal.getMonth()]+=valorVenta;
+      }
+      if(tipo=='gasto'){
+        this.arreglo2[fechaTemporal.getMonth()]+=dato.monto;
+      }
   }
 
   dibujarGrafico(){
