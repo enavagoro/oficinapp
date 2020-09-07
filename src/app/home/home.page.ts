@@ -39,6 +39,7 @@ export type ChartOptions = {
   grid: ApexGrid;
   legend: ApexLegend;
   title: ApexTitleSubtitle;
+  colors: any; 
 };
 
 @Component({

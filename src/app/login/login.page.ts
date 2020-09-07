@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
   clave = "";
   permitirDedo = false;
   loginForm;
-
+  banderaMostrar = false;
+  
   constructor(
     private loginService : LoginService,
     private fingerAuth: FingerprintAIO,
@@ -118,4 +119,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
 
+    cambiarBandera(){
+      this.banderaMostrar = !this.banderaMostrar;
+    }
 }

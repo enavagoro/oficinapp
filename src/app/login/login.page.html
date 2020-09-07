@@ -54,8 +54,19 @@
        </ion-item>
 
        <ion-item class="item-login">
-         <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
-          <ion-input type="password" autocomplete="off" formControlName="clave" placeholder="Contraseña"></ion-input>
+         <ion-buttons slot="end" *ngIf="!banderaMostrar">
+           <ion-button (click)="cambiarBandera();">
+             <ion-icon slot="icon-only" name="eye-off" class="deseleccionado"></ion-icon>
+           </ion-button>
+         </ion-buttons>
+         <ion-buttons slot="end" *ngIf="banderaMostrar">
+           <ion-button (click)="cambiarBandera();">
+             <ion-icon slot="icon-only" name="eye" class="seleccionado"></ion-icon>
+           </ion-button>
+         </ion-buttons>
+          <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
+          <ion-input *ngIf="!banderaMostrar" type="password" formControlName="clave" placeholder="Contraseña"></ion-input>
+          <ion-input *ngIf="banderaMostrar" type="text" formControlName="clave" placeholder="Contraseña"></ion-input>
         </ion-item>
     </form>
     <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
