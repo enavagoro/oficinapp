@@ -96,17 +96,13 @@ export class HomePage {
     var fechasChart = [];
     var gastosChart = [];
     var ventasChart = [];
-
-    //console.log("constructor");
-
-
     var menu = document.querySelector('ion-menu')
     menu.hidden = false;
 
   }
 
   ngOnInit(){
-    var fechaTemporal = 0;
+      
     let fecha = new Date();
 
     this.vService.listar().then(servicio=>{
@@ -115,10 +111,7 @@ export class HomePage {
 
           for(var venta of this.ventas){
             let fechaTemporal = new Date(venta.fecha);
-            /*
-            console.log('fecha venta:', fechaTemporal);
-            console.log('fecha hoy',fecha);
-            */
+            
             this.rellenarValoresGrafico(venta,'venta');
 
             if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){

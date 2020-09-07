@@ -100,6 +100,13 @@ export class AppComponent {
         console.log(val);
         if(!val){
           this.router.navigate(['/login'], {replaceUrl: true})
+          this.subscription = this.usuarioService.getMenu().subscribe(data => {
+            if (data) {
+              this.appPages.push(data.menu);
+            } else {
+              this.appPages = [];
+            }
+          });
         }else{
           this.appPages.push({title: 'Inicio',url: '/home',icon: 'home'});
           this.subscription = this.usuarioService.getMenu().subscribe(data => {
