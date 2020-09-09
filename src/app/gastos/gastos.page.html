@@ -32,11 +32,11 @@
       <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente" [disabled]="bandera==true"></ion-toggle>
     </ion-item>
 
-    <ion-item *ngIf="!banderaExistente">
+    <ion-item *ngIf="banderaExistente">
       <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();" [disabled]="bandera==true">Nuevo Tipo Gasto</ion-button>
     </ion-item>
 
-    <ion-item *ngIf="banderaExistente">
+    <ion-item *ngIf="!banderaExistente">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
       </ion-avatar>

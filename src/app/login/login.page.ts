@@ -39,7 +39,9 @@ export class LoginPage implements OnInit {
     private auth: AuthService,
     private appUtil: AppUtilService,
     public alertController: AlertController,
-    public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
+    public router: Router,
+    public usuarioService : UsuarioService,
+    private formBuilder : FormBuilder) {
       this.loginForm = this.formBuilder.group({
         correo : ['',[Validators.required,ValidationService.emailValidator]],
         clave : ['',Validators.required]

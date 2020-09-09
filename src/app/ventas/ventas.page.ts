@@ -8,6 +8,7 @@ import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
 
 
