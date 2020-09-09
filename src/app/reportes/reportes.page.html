@@ -1,7 +1,4 @@
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<ion-content>  
 <!--
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
@@ -12,29 +9,42 @@
     <ion-title>Reportes</ion-title>
   </ion-toolbar>
   -->
+  <ul>
+    <li draggable  [dragData]="ventas" >Ventas</li>
+    <li draggable  [dragData]="gastos" >Gastos</li>
+    <li draggable  [dragData]="clientes" >Clientes</li>
+    <li draggable  [dragData]="productos" >Productos</li>
+  </ul>
+    
+
+    
+   
+  <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'X')">
+    <p>Para las X </p>
+  </div>     
+  
+  <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'Y')">
+    <p>Para las Y </p>
+  </div>   
+
+  <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'DATA')">
+    <p>Para El data </p>
+  </div>   
+  Ventas
+  <ul class="contenedor-card" >
+    <li draggable  [dragData]="ventas" >Fecha </li>
+    <li draggable  [dragData]="ventas" >Dato 1 </li>
+    <li draggable  [dragData]="ventas" >Cliente </li>
+  </ul>
 
   <div class="parte-arriba celular">
-    <ion-slides pager="true" [options]="slideOpts">
-      <ion-slide>
-        <div class="contenedor-card">
-          <div class="card">
-            <ion-item lines="none">
-              <ion-avatar slot="start">
-                <img src="/assets/icon/ventas.svg">
-              </ion-avatar>
-              <ion-label>
-                <h3>Ventas</h3>
-                <p>{{ventas.length}}</p>
-              </ion-label>
-            </ion-item>
-          </div>
-        </div>
-      </ion-slide>
+     
+    <ion-slides pager="true" [options]="slideOpts">      
 
-      <ion-slide>
+      <ion-slide draggable>
         <div class="contenedor-card">
           <div class="card">
-            <ion-item lines="none">
+            <ion-item lines="none" >
               <ion-avatar slot="start">
                 <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
               </ion-avatar>
@@ -47,7 +57,7 @@
         </div>
       </ion-slide>
 
-      <ion-slide>
+      <ion-slide draggable  [dragData]="ventas">
         <div class="contenedor-card">
           <div class="card">
             <ion-item lines="none">
@@ -64,7 +74,7 @@
       </ion-slide>
 
       <ion-slide>
-        <div class="contenedor-card">
+        <div class="contenedor-card" draggable  [dragData]="ventas">
           <div class="card">
             <ion-item lines="none">
               <ion-avatar slot="start">

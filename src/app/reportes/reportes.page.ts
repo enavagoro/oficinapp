@@ -124,7 +124,10 @@ export class ReportesPage implements OnInit {
 
   ngOnInit() {
   }
-
+  dropPlace(event,elemento){
+    console.log(event);
+    console.log(elemento);
+  }
   refrescar(event) {
     setTimeout(() => {
 
