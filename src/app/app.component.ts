@@ -19,7 +19,11 @@ import { LoginService } from './_servicios/login.service';
 })
 export class AppComponent {
   subscription: Subscription;
-  public appPages = [];
+  public appPages = [    {
+        title: 'Reportes',
+        url: '/reportes',
+        icon: 'stats'
+      },];
   /*
   public appPages = [
     {
@@ -41,12 +45,9 @@ export class AppComponent {
       title: 'Cotizaciones',
       url: '/cotizaciones',
       icon: 'paper'
-    },/*
-    {
-      title: 'Reportes',
-      url: '/reportes',
-      icon: 'stats'
     },
+
+    /*
     {
       title: 'Tienda',
       url: '/tienda',

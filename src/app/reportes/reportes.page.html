@@ -1,4 +1,4 @@
-<ion-content>  
+<ion-content>
 <!--
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
@@ -15,21 +15,21 @@
     <li draggable  [dragData]="clientes" >Clientes</li>
     <li draggable  [dragData]="productos" >Productos</li>
   </ul>
-    
 
-    
-   
+
+
+
   <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'X')">
     <p>Para las X </p>
-  </div>     
-  
+  </div>
+
   <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'Y')">
     <p>Para las Y </p>
-  </div>   
+  </div>
 
   <div droppable  [dragOverClass]="'dropPlace'" (onDrop)="dropPlace($event,'DATA')">
     <p>Para El data </p>
-  </div>   
+  </div>
   Ventas
   <ul class="contenedor-card" >
     <li draggable  [dragData]="ventas" >Fecha </li>
@@ -38,8 +38,8 @@
   </ul>
 
   <div class="parte-arriba celular">
-     
-    <ion-slides pager="true" [options]="slideOpts">      
+
+    <ion-slides pager="true" [options]="slideOpts">
 
       <ion-slide draggable>
         <div class="contenedor-card">
@@ -196,7 +196,7 @@
           </ion-avatar>
 
           <ion-label>Ventas</ion-label>
-          <ion-button class="boton-reporte" (click)="abrirReporte(2)">Ver Reporte</ion-button>
+          <ion-button class="boton-reporte" routerLink="/reportes/reporte-venta" routerDirection="root">Ver Reporte</ion-button>
         </ion-item>
 
         <ion-item>
