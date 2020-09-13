@@ -32,8 +32,10 @@ import { CrearTipogastoPage } from './gastos/crear-tipogasto/crear-tipogasto.pag
 import { CrearTipoproductoPage } from './administrar/producto/crear-tipoproducto/crear-tipoproducto.page'
 import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
 import { PermisosPage } from './administrar/usuario/permisos/permisos.page';
+
 //pages
 import { ReportePage } from './reportes/reporte/reporte.page';
+
 import { DetalleCotizacionPage } from './cotizaciones/detalle-cotizacion/detalle-cotizacion.page';
 import { DocumentoPage } from './cotizaciones/documento/documento.page';
 import { PlanesPage } from './tienda/planes/planes.page';
