@@ -85,7 +85,7 @@ export class VentasPage implements OnInit {
       })
     })
   }
-  traerCliente(id){
+  a(id){
     var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
     console.log(clientes);
     if(clientes.length > 0 ){
@@ -421,7 +421,11 @@ export class VentasPage implements OnInit {
 
     modal.onDidDismiss().then(modal=>{
       console.log("haciendo pruebas");
-      this.ngOnInit();
+      this.clienteService.listar().then(servicio=>{
+        servicio.subscribe(c=>{
+              this.clientes = c;
+        })
+      })
     });
 
     return await modal.present();
