@@ -35,7 +35,7 @@ export type ChartOptions = {
   colors: string[];
 };
 
-export type RadioOptions ={
+export type RadioOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
@@ -51,23 +51,14 @@ export type RadioOptions ={
 
 export class ReporteVentaPage implements OnInit {
   public chartGrafico1 : Partial<ChartOptions>;
-<<<<<<< HEAD
+
   public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options4: Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options7 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-=======
-  public options1 : Partial<ChartOptions>;
-  public options2 : Partial<ChartOptions>;
-  public options3 : Partial<ChartOptions>;
-  public options4: Partial<ChartOptions>;
-  public options5 : Partial<ChartOptions>;
-  public options6 : Partial<ChartOptions>;
-  public options7 : Partial<RadioOptions>;
->>>>>>> d1d1c89139c32fcd4af5519b8bdf74bd2411c605
+  public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},responsive: [],labels: []};  
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   nombreGrafico1 = "Gastos";
@@ -142,50 +133,7 @@ export class ReporteVentaPage implements OnInit {
     }
     };
   }
-<<<<<<< HEAD
   ngAfterViewInit(){    
-=======
-
-  ngOnInit() {
-    console.log('ventas semanales',this.ventasSemanales);
-    let fecha = new Date();
-    console.log('la fecha tal cual',fecha);
-    console.log('esta fecha pero el día',fecha.getDay());
-    let fechaAnterior = fecha.getDay();
-    console.log('esta fecha pero 6 días antes', new Date(fechaAnterior));
-
-    this.clienteService.listar().then(servicio=>{
-      servicio.subscribe(c=>{
-          this.clientes = c.filter(this.filtros);
-          console.log('clientes',this.clientes);
-        })
-    })
-
-    this.ventaService.listar().then(servicio=>{
-      servicio.subscribe(v=>{
-          this.ventas = v.filter(this.filtros);
-
-          for(var venta of this.ventas){
-
-            let fechaTemporal = new Date(venta.fecha);
-
-            console.log('fecha temporal',fechaTemporal.getMonth());
-            console.log('fecha',fecha.getMonth());
-            if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-              this.calculoValorVenta(venta,'mes');
-            }
-            if(fechaTemporal.getFullYear()==fecha.getFullYear()){
-              this.calculoValorVenta(venta,'año');
-            }
-
-          }
-          this.calculoClientesVenta();
-          this.calcularMetodoPago();
-          this.productoMasVendido();
-        })
-
-    })
->>>>>>> d1d1c89139c32fcd4af5519b8bdf74bd2411c605
 
     this.options1 = {
       series: [{
@@ -502,7 +450,7 @@ export class ReporteVentaPage implements OnInit {
     }
 
   }
-<<<<<<< HEAD
+
   renderizarGraficos(){    
     this.ngAfterViewInit()    
   }
@@ -519,9 +467,7 @@ export class ReporteVentaPage implements OnInit {
     return Math.ceil((((this - onejan) /millisecsInDay) + onejan.getDay()+1)/7);
 };
 */
-=======
 
->>>>>>> d1d1c89139c32fcd4af5519b8bdf74bd2411c605
     productoMasVendido(){
       var productosAgrupados = [];
 
