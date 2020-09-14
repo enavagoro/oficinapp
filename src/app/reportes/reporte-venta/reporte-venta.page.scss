@@ -30,6 +30,14 @@ ion-content{
   margin-left: 10%;
 }
 
+.card{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: white;
+  border-radius: 5px;
+}
+
 .card-izquierda{
   width: 95%;
   margin-left: 2.5%;
@@ -147,4 +155,33 @@ ion-content{
   font-size: 18px;
   font-weight: 700;
   margin-left: 5%;
+}
+
+.celular{
+  display: none;
+}
+
+@media (max-width:900px){
+  .celular{
+    display: block;
+  }
+
+  .escritorio{
+    display: none;
+  }
+
+  .card-principal-arriba{
+    width: 100%;
+    display: block;
+  }
+
+  .titulo-grafico-grande{
+    width: 100%;
+    text-align: center !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 5%;
+    margin-left: 0%;
+  }
 }
