@@ -13,7 +13,9 @@ import {
   ApexYAxis,
   ApexGrid,
   ApexTitleSubtitle,
-  ApexLegend
+  ApexLegend,
+  ApexNonAxisChartSeries,
+  ApexResponsive
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -33,6 +35,13 @@ export type ChartOptions = {
   colors: string[];
 };
 
+export type RadioOptions ={
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+}
+
 
 @Component({
   selector: 'app-reporte-venta',
@@ -48,7 +57,7 @@ export class ReporteVentaPage implements OnInit {
   public options4: Partial<ChartOptions>;
   public options5 : Partial<ChartOptions>;
   public options6 : Partial<ChartOptions>;
-  public options7 : Partial<ChartOptions>;
+  public options7 : Partial<RadioOptions>;
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   nombreGrafico1 = "Gastos";
@@ -83,6 +92,8 @@ export class ReporteVentaPage implements OnInit {
   clientes = [];
   clientesVentas = {"nombres":[],"cantidades":[]};
   clientesDetalle = [];
+
+  metodoUtilizado = {"nombres":['Efectivo','Debito','Credito'],"frecuencia":[]};
 
 
   constructor(public ventaService: VentaService,public clienteService: ClienteService) {
@@ -139,10 +150,8 @@ export class ReporteVentaPage implements OnInit {
     this.ventaService.listar().then(servicio=>{
       servicio.subscribe(v=>{
           this.ventas = v.filter(this.filtros);
-          console.log('ventas',this.ventas);
 
           for(var venta of this.ventas){
-            console.log('venta',venta);
 
             let fechaTemporal = new Date(venta.fecha);
 
@@ -157,8 +166,8 @@ export class ReporteVentaPage implements OnInit {
 
           }
           this.calculoClientesVenta();
+          this.calcularMetodoPago();
           this.productoMasVendido();
-
         })
 
     })
@@ -302,16 +311,16 @@ export class ReporteVentaPage implements OnInit {
 
     this.options6 = {
       series: [{
-      name: 'cantidad de veces vendidas ',
+      name: 'Cantidad de veces vendidas ',
       data: this.clientesVentas.cantidades,
     }],
       chart: {
-      height: 350,
+      height: 300,
       type: 'radar',
     },
     xaxis: {
       categories: this.clientesVentas.nombres
-    }/*,
+    },
     plotOptions: {
         radar: {
           size: 140,
@@ -322,30 +331,16 @@ export class ReporteVentaPage implements OnInit {
             }
           }
         }
-      },*/
+      },
     };
 
     this.options7 = {
-      series: [{
-      data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
-    }],
+      series: this.metodoUtilizado.frecuencia,
       chart: {
-      type: 'bar',
-      height: 250
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    xaxis: {
-      categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
-        'United States', 'China', 'Germany'
-      ],
-    }
+        type: "pie",
+        height: 220
+      },
+      labels: this.metodoUtilizado.nombres,
     };
 
   }
@@ -356,7 +351,7 @@ export class ReporteVentaPage implements OnInit {
     let valorVenta = Number(null);
 
     for(var p of venta.detalle){
-      valorVenta += p.cantidad * p.precio;
+      valorVenta = p.cantidad * p.precio;
       if(tipo=='mes'){
         this.ventasMensuales.valor += p.precio * p.cantidad;
       }
@@ -369,18 +364,7 @@ export class ReporteVentaPage implements OnInit {
 
   }
 
-/*
-  Date.prototype.getWeek = function() {
-    var onejan = new Date(this.getFullYear(),0,1);
-    var millisecsInDay = 86400000;
-    return Math.ceil((((this - onejan) /millisecsInDay) + onejan.getDay()+1)/7);
-};
-*/
     productoMasVendido(){
-      /*
-      console.log('entré');
-      console.log('productos a revisar',this.productosDetalle);
-      */
       var productosAgrupados = [];
 
       this.productosDetalle.map(producto=>{
@@ -410,12 +394,6 @@ export class ReporteVentaPage implements OnInit {
         return 0;
       })
 
-/*
-      console.log('productos agrupados luego de ordenar',productosAgrupados);
-      console.log('productos vendidos',this.productosVendidos);
-      console.log('productos vendidos',this.productosVendidos.nombres);
-*/
-
       for(let i=0; i< this.productosVendidos.nombres.length; i++){
         this.productosVendidos.nombres[i] = productosAgrupados[i].titulo;
         this.productosVendidos.cantidades[i]= productosAgrupados[i].cantidad;
@@ -425,7 +403,6 @@ export class ReporteVentaPage implements OnInit {
 
     calculoClientesVenta(){
       var clientesAgrupados = [];
-      var contador = [];
       this.ventas.map(venta=>{
         venta['cantidadCliente']=1;
         var indice = -1;
@@ -444,10 +421,11 @@ export class ReporteVentaPage implements OnInit {
       console.log('clientes agrupados',clientesAgrupados);
 
       clientesAgrupados.sort(function (a,b) {
-        if(a.cantidadCliente < b.cantidadcantidadCliente){
+
+        if(a.cantidadCliente < b.cantidadCliente){
           return 1;
         }
-        if(a.cantidadcantidadCliente > b.cantidadcantidadCliente){
+        if(a.cantidadCliente > b.cantidadCliente){
           return -1;
         }
         return 0;
@@ -462,6 +440,40 @@ export class ReporteVentaPage implements OnInit {
         }
       })
 
+    }
+
+    calcularMetodoPago(){
+      console.log('entre');
+      var metodosAgrupados = [];
+
+      this.ventas.map(venta=>{
+        console.log('esta es la venta',venta);
+        venta['cantidadMetodo']=1;
+        var indice = -1;
+        for(var i = 0 ; i < metodosAgrupados.length ; i++){
+            if(venta.metodo == metodosAgrupados[i].metodo){
+              indice = i;
+              metodosAgrupados[i].cantidadMetodo++;
+            }
+        }
+        if(indice === -1){
+          metodosAgrupados.push(venta);
+        }
+      })
+
+      metodosAgrupados.sort(function (a,b) {
+        if(a.metodo > b.metodo){
+          return 1;
+        }
+        if(a.metodo < b.metodo){
+          return -1;
+        }
+        return 0;
+      })
+
+      for(let x=0;x<metodosAgrupados.length;x++){
+        this.metodoUtilizado.frecuencia[x]=metodosAgrupados[x].cantidadMetodo
+      }
     }
 
     filtros(venta){

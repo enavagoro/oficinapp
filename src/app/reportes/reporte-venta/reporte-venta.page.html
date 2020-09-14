@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="contenedor-resumenes">
+  <div class="contenedor-resumenes escritorio">
     <div class="card-izquierda">
       <h1 class="monto-card">$1000</h1>
       <h1 class="titulo-card">Ultimos 7 días</h1>
@@ -34,6 +34,40 @@
         <apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
       </div>
     </div>
+  </div>
+
+  <div class="contenedor-resumenes celular">
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide>
+        <div class="card">
+          <h1 class="monto-card">$1000</h1>
+          <h1 class="titulo-card">Ultimos 7 días</h1>
+          <div class="grafico">
+            <apx-chart [series]="options1.series" [chart]="options1.chart" [title]="title"></apx-chart>
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="card">
+          <h1 class="monto-card">${{this.ventasMensuales.valor | number}}</h1>
+          <h1 class="titulo-card">Este mes</h1>
+          <div class="grafico">
+            <apx-chart [series]="options2.series" [chart]="options2.chart" [title]="title"></apx-chart>
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="card">
+          <h1 class="monto-card">${{this.ventasAnuales.valor | number}}</h1>
+          <h1 class="titulo-card">Este año</h1>
+          <div class="grafico">
+            <apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
   </div>
 
   <div class="contenedor-principal">
@@ -63,8 +97,13 @@
 
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Método de pago más frecuente</h1>
-        <div class="grafico">
-          <apx-chart [series]="options7.series" [chart]="options7.chart" [title]="title"></apx-chart>
+        <div class="grafico-grande">
+          <apx-chart
+            [series]="options7.series"
+            [chart]="options7.chart"
+            [labels]="options7.labels"
+            [responsive]="options7.responsive"
+          ></apx-chart>
         </div>
       </div>
     </div>
