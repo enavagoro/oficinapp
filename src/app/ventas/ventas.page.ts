@@ -323,7 +323,7 @@ export class VentasPage implements OnInit {
         this.banderaOpciones=true;
         this.deshabilitarInputs(true);
         this.bandera=true;
-        this.traerCliente(venta.idCliente);
+     //   this.traerCliente(venta.idCliente);
         venta.detalles = venta.detalle;
         this.detalle = venta.detalle;
       }
@@ -334,7 +334,7 @@ export class VentasPage implements OnInit {
       handler: () => {
         this.bandera=false;
         this.venta = venta;
-        this.traerCliente(venta.idCliente);
+ //      this.traerCliente(venta.idCliente);
         this.detalleService.listar(venta.id).subscribe(detalle=>{
             venta.detalles = detalle;
             this.detalle = detalle;
