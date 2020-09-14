@@ -42,21 +42,22 @@ export type ChartOptions = {
 
 export class ReporteVentaPage implements OnInit {
   public chartGrafico1 : Partial<ChartOptions>;
-  public options1 : Partial<ChartOptions>;
-  public options2 : Partial<ChartOptions>;
-  public options3 : Partial<ChartOptions>;
-  public options4: Partial<ChartOptions>;
-  public options5 : Partial<ChartOptions>;
-  public options6 : Partial<ChartOptions>;
-  public options7 : Partial<ChartOptions>;
+  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options4: Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options7 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   nombreGrafico1 = "Gastos";
   dataGrafico1 = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   categoriasGrafico1 = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
-
   ventas = [];
-
+  sales = [];
+  lastSevenDays = [];
+  mesEnCurso = [];
   ventasSemanales = {"valor":Number(null),"cantidad":Number(null),"dias":[Number(null),Number(null),Number(null),Number(null),Number(null),Number(null)]};
 
   ventasMensuales = {"valor":Number(null),"cantidad":Number(null),"meses":[{"Enero":Number(null)},
@@ -120,52 +121,11 @@ export class ReporteVentaPage implements OnInit {
     }
     };
   }
-
-  ngOnInit() {
-    console.log('ventas semanales',this.ventasSemanales);
-    let fecha = new Date();
-    console.log('la fecha tal cual',fecha);
-    console.log('esta fecha pero el día',fecha.getDay());
-    let fechaAnterior = fecha.getDay();
-    console.log('esta fecha pero 6 días antes', new Date(fechaAnterior));
-
-    this.clienteService.listar().then(servicio=>{
-      servicio.subscribe(c=>{
-          this.clientes = c.filter(this.filtros);
-          console.log('clientes',this.clientes);
-        })
-    })
-
-    this.ventaService.listar().then(servicio=>{
-      servicio.subscribe(v=>{
-          this.ventas = v.filter(this.filtros);
-          console.log('ventas',this.ventas);
-
-          for(var venta of this.ventas){
-            console.log('venta',venta);
-
-            let fechaTemporal = new Date(venta.fecha);
-
-            console.log('fecha temporal',fechaTemporal.getMonth());
-            console.log('fecha',fecha.getMonth());
-            if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
-              this.calculoValorVenta(venta,'mes');
-            }
-            if(fechaTemporal.getFullYear()==fecha.getFullYear()){
-              this.calculoValorVenta(venta,'año');
-            }
-
-          }
-          this.calculoClientesVenta();
-          this.productoMasVendido();
-
-        })
-
-    })
+  ngAfterViewInit(){    
 
     this.options1 = {
       series: [{
-      data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
+      data: this.lastSevenDays
     }],
       chart: {
       type: 'line',
@@ -173,6 +133,9 @@ export class ReporteVentaPage implements OnInit {
       sparkline: {
         enabled: true
       }
+    },
+    stroke: {
+      curve: 'smooth'
     },
     tooltip: {
       fixed: {
@@ -193,10 +156,11 @@ export class ReporteVentaPage implements OnInit {
       }
     }
     };
-
+        
+      
     this.options2 = {
       series: [{
-      data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
+      data: this.sales
     }],
       chart: {
       type: 'line',
@@ -205,12 +169,15 @@ export class ReporteVentaPage implements OnInit {
         enabled: true
       }
     },
+    stroke: {
+      curve: 'smooth'
+    },
     tooltip: {
       fixed: {
         enabled: false
       },
       x: {
-        show: false
+        show: true
       },
       y: {
         title: {
@@ -347,6 +314,123 @@ export class ReporteVentaPage implements OnInit {
       ],
     }
     };
+    
+    try {
+      var apex1 = document.querySelector('#chart1');
+      var apex2 = document.querySelector('#chart2');
+      var apex3 = document.querySelector('#chart3');
+      var apex4 = document.querySelector('#chart4');
+      var apex5 = document.querySelector('#chart5');
+      var apex6 = document.querySelector('#chart6');
+      var apex7 = document.querySelector('#chart7');
+      if(apex1){
+        var chart = new ApexCharts(apex1, this.options1);
+        chart.render();
+      }
+      if(apex2){
+        var chart = new ApexCharts(apex2, this.options2);
+        chart.render();    
+        console.log("sales al final ",this.sales)    
+      }
+      if(apex3){
+        var chart = new ApexCharts(apex3, this.options3);
+        chart.render();
+      }
+      if(apex4){
+        var chart = new ApexCharts(apex4, this.options4);
+        chart.render();
+      }
+      if(apex5){
+        var chart = new ApexCharts(apex5, this.options5);
+        chart.render();
+      }
+      if(apex6){
+        var chart = new ApexCharts(apex6, this.options6);
+        chart.render();
+      }
+      if(apex7){
+        var chart = new ApexCharts(apex7, this.options7);
+        chart.render();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  
+  }
+  ngOnInit() {
+    console.log('ventas semanales',this.ventasSemanales);
+    var fecha = new Date();
+    console.log('la fecha tal cual',fecha);
+    console.log('esta fecha pero el día',fecha.getDay());
+    var fechaAnterior = fecha.getDay();
+    console.log('esta fecha pero 6 días antes', new Date(fechaAnterior));
+    this.sales = []
+    this.lastSevenDays = [];
+    
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+          this.clientes = c.filter(this.filtros);          
+        })
+    })
+
+    this.ventaService.listar().then(servicio=>{
+      servicio.subscribe(v=>{
+          this.mesEnCurso = v.filter(this.filterByCurrentMonth);
+          console.log("Mes en Curso",this.mesEnCurso);
+          console.log('clientes',this.clientes);
+          
+          this.ventas = v.filter(this.filtros);
+          console.log('ventas',this.ventas);
+
+          for(var venta of this.ventas){
+            console.log('venta',venta);
+
+            let fechaTemporal = new Date(venta.fecha);
+
+            console.log('fecha temporal',fechaTemporal.getMonth());
+            console.log('fecha',fecha.getMonth());
+            if(fechaTemporal.getMonth()==fecha.getMonth() && fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.calculoValorVenta(venta,'mes');
+            }
+            if(fechaTemporal.getFullYear()==fecha.getFullYear()){
+              this.calculoValorVenta(venta,'año');
+            }
+
+          }          
+    
+          for(var venta of this.mesEnCurso){
+            var f = new Date(venta.fecha)
+            var dia = f.getDate()
+            venta.detalle.map(detalle=>{
+              var total = detalle.precio * detalle.cantidad;
+              if(!this.sales[dia]){
+                this.sales[dia] = 0;
+              }
+              this.sales[dia] += total;        
+            })      
+          }
+          for(var i  = 0  ; i < 31 ;i ++){
+            if(!this.sales[i]){
+              this.sales[i] = 0;
+            }
+          }
+          for(var i = 7; i > 0 ; i-- ){
+            if(this.sales[dia - i] && (dia - i) >= 0){
+              this.lastSevenDays.push(this.sales[dia - i])
+            }else{
+              this.lastSevenDays.push(0);
+            }
+          }
+    console.log("las sales",this.lastSevenDays);
+
+          this.calculoClientesVenta();
+          this.productoMasVendido();
+          this.renderizarGraficos();
+        })
+
+    })
+
+    
 
   }
 
@@ -368,7 +452,15 @@ export class ReporteVentaPage implements OnInit {
     }
 
   }
-
+  renderizarGraficos(){    
+    this.ngAfterViewInit()    
+  }
+  filterByCurrentMonth(venta){
+    let mesActual = new Date().getMonth()
+    let fecha = new Date(venta.fecha);
+    let mes = fecha.getMonth();
+    return mes == mesActual;
+  }
 /*
   Date.prototype.getWeek = function() {
     var onejan = new Date(this.getFullYear(),0,1);

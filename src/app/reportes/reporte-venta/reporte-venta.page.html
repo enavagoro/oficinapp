@@ -14,7 +14,7 @@
     <div class="card-izquierda">
       <h1 class="monto-card">$1000</h1>
       <h1 class="titulo-card">Ultimos 7 días</h1>
-      <div class="grafico">
+      <div class="grafico" id="chart1">
         <apx-chart [series]="options1.series" [chart]="options1.chart" [title]="title"></apx-chart>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="card-medio">
       <h1 class="monto-card">${{this.ventasMensuales.valor | number}}</h1>
       <h1 class="titulo-card">Este mes</h1>
-      <div class="grafico">
+      <div class="grafico" id="chart2">
         <apx-chart [series]="options2.series" [chart]="options2.chart" [title]="title"></apx-chart>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="card-derecha">
       <h1 class="monto-card">${{this.ventasAnuales.valor | number}}</h1>
       <h1 class="titulo-card">Este año</h1>
-      <div class="grafico">
+      <div class="grafico" id="chart3">
         <apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
       </div>
     </div>
@@ -40,14 +40,14 @@
     <div class="card-principal-arriba">
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Ventas anuales ($)</h1>
-        <div class="grafico-grande">
+        <div class="grafico-grande" id="chart4">
           <apx-chart [xaxis]="options4.xaxis" [series]="options4.series" [chart]="options4.chart" [title]="title"></apx-chart>
         </div>
       </div>
 
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Productos mas vendidos</h1>
-        <div class="grafico-grande">
+        <div class="grafico-grande" id="chart5">
           <apx-chart [xaxis]="options5.xaxis" [series]="options5.series" [chart]="options5.chart" [colors]="options5.colors"></apx-chart>
         </div>
       </div>
@@ -56,14 +56,14 @@
     <div class="card-principal-arriba">
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Clientes con más ventas</h1>
-        <div class="grafico-grande">
+        <div class="grafico-grande" id="chart6">
           <apx-chart [xaxis]="options6.xaxis" [series]="options6.series" [chart]="options6.chart" [title]="title"></apx-chart>
         </div>
       </div>
 
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Método de pago más frecuente</h1>
-        <div class="grafico">
+        <div class="grafico" id="chart7">
           <apx-chart [series]="options7.series" [chart]="options7.chart" [title]="title"></apx-chart>
         </div>
       </div>
