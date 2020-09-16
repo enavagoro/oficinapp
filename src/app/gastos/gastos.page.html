@@ -144,7 +144,7 @@
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
+        <ion-label>{{g.fecha}}:{{g.titulo}}</ion-label>
         ${{g.monto| number}}
       </ion-item>
       <h2 *ngIf="gastos.length == 0">No hay Gastos aún...</h2>
@@ -158,7 +158,7 @@
         <ion-avatar slot="start" *ngIf="!g.estado">
           <img class="grayscale" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
+        <ion-label>{{g.fecha}}:{{g.titulo}}</ion-label>
         ${{g.monto| number}}
       </ion-item>
       <h2 *ngIf="gastos.length == 0">No hay Gastos aún...</h2>

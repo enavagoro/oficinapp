@@ -35,7 +35,7 @@ export type ChartOptions = {
   colors: string[];
 };
 
-export type RadioOptions = {
+export type RadioOptions ={
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
@@ -55,10 +55,10 @@ export class ReporteVentaPage implements OnInit {
   public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options4: Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},responsive: [],labels: []};  
+  public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},responsive: [],labels: []};
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   nombreGrafico1 = "Gastos";
@@ -68,6 +68,7 @@ export class ReporteVentaPage implements OnInit {
   sales = [];
   lastSevenDays = [];
   mesEnCurso = [];
+
   ventasSemanales = {"valor":Number(null),"cantidad":Number(null),"dias":[Number(null),Number(null),Number(null),Number(null),Number(null),Number(null)]};
 
   ventasMensuales = {"valor":Number(null),"cantidad":Number(null),"meses":[{"Enero":Number(null)},
@@ -99,48 +100,16 @@ export class ReporteVentaPage implements OnInit {
 
 
   constructor(public ventaService: VentaService,public clienteService: ClienteService) {
-    this.options5 = {
-      series: [{
-      name: 'Producto',
-      data: this.productosVendidos.cantidades
-    }],
-      chart: {
-      type: 'bar',
-      height: 350
-    },
-    colors: ['#2196f3', '#9c27b0', '#e91e63','#8bc34a','#ffeb3b','#ffc107','#ff9800'],
-    plotOptions: {
-      bar: {
-        horizontal: true,
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      textAnchor: "start",
-      style: {
-        colors: ["#fff"]
-      },
-      formatter: function(val, opt) {
-        return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
-      },
-      offsetX: 0,
-      dropShadow: {
-        enabled: true
-      }
-    },
-    xaxis: {
-      categories: this.productosVendidos.nombres
-    }
-    };
+
   }
-  ngAfterViewInit(){    
+  ngAfterViewInit(){
 
     this.options1 = {
       series: [{
       data: this.lastSevenDays
     }],
       chart: {
-      type: 'line',
+      type: 'area',
       height: 35,
       sparkline: {
         enabled: true
@@ -168,14 +137,13 @@ export class ReporteVentaPage implements OnInit {
       }
     }
     };
-        
-      
+
     this.options2 = {
       series: [{
       data: this.sales
     }],
       chart: {
-      type: 'line',
+      type: 'area',
       height: 35,
       sparkline: {
         enabled: true
@@ -304,6 +272,40 @@ export class ReporteVentaPage implements OnInit {
       },
     };
 
+    this.options5 = {
+      series: [{
+      name: 'Producto',
+      data: this.productosVendidos.cantidades
+    }],
+      chart: {
+      type: 'bar',
+      height: 350
+    },
+    colors: ['#2196f3', '#9c27b0', '#e91e63','#8bc34a','#ffeb3b','#ffc107','#ff9800'],
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      textAnchor: "start",
+      style: {
+        colors: ["#fff"]
+      },
+      formatter: function(val, opt) {
+        return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
+      },
+      offsetX: 0,
+      dropShadow: {
+        enabled: true
+      }
+    },
+    xaxis: {
+      categories: this.productosVendidos.nombres
+    }
+    };
+
     this.options7 = {
       series: this.metodoUtilizado.frecuencia,
       chart: {
@@ -312,7 +314,7 @@ export class ReporteVentaPage implements OnInit {
       },
       labels: this.metodoUtilizado.nombres,
     };
-    
+
     try {
       var apex1 = document.querySelector('#chart1');
       var apex2 = document.querySelector('#chart2');
@@ -327,8 +329,8 @@ export class ReporteVentaPage implements OnInit {
       }
       if(apex2){
         var chart = new ApexCharts(apex2, this.options2);
-        chart.render();    
-        console.log("sales al final ",this.sales)    
+        chart.render();
+        console.log("sales al final ",this.sales)
       }
       if(apex3){
         var chart = new ApexCharts(apex3, this.options3);
@@ -353,7 +355,7 @@ export class ReporteVentaPage implements OnInit {
     } catch (error) {
       console.log(error)
     }
-  
+
   }
   ngOnInit() {
     console.log('ventas semanales',this.ventasSemanales);
@@ -364,10 +366,10 @@ export class ReporteVentaPage implements OnInit {
     console.log('esta fecha pero 6 días antes', new Date(fechaAnterior));
     this.sales = []
     this.lastSevenDays = [];
-    
+
     this.clienteService.listar().then(servicio=>{
       servicio.subscribe(c=>{
-          this.clientes = c.filter(this.filtros);          
+          this.clientes = c.filter(this.filtros);
         })
     })
 
@@ -376,7 +378,7 @@ export class ReporteVentaPage implements OnInit {
           this.mesEnCurso = v.filter(this.filterByCurrentMonth);
           console.log("Mes en Curso",this.mesEnCurso);
           console.log('clientes',this.clientes);
-          
+
           this.ventas = v.filter(this.filtros);
           console.log('ventas',this.ventas);
 
@@ -394,8 +396,8 @@ export class ReporteVentaPage implements OnInit {
               this.calculoValorVenta(venta,'año');
             }
 
-          }          
-    
+          }
+
           for(var venta of this.mesEnCurso){
             var f = new Date(venta.fecha)
             var dia = f.getDate()
@@ -404,8 +406,8 @@ export class ReporteVentaPage implements OnInit {
               if(!this.sales[dia]){
                 this.sales[dia] = 0;
               }
-              this.sales[dia] += total;        
-            })      
+              this.sales[dia] += total;
+            })
           }
           for(var i  = 0  ; i < 31 ;i ++){
             if(!this.sales[i]){
@@ -413,6 +415,8 @@ export class ReporteVentaPage implements OnInit {
             }
           }
           for(var i = 7; i > 0 ; i-- ){
+            var f = new Date();
+            var dia = f.getDate();
             if(this.sales[dia - i] && (dia - i) >= 0){
               this.lastSevenDays.push(this.sales[dia - i])
             }else{
@@ -428,7 +432,7 @@ export class ReporteVentaPage implements OnInit {
 
     })
 
-    
+
 
   }
 
@@ -451,8 +455,8 @@ export class ReporteVentaPage implements OnInit {
 
   }
 
-  renderizarGraficos(){    
-    this.ngAfterViewInit()    
+  renderizarGraficos(){
+    this.ngAfterViewInit()
   }
   filterByCurrentMonth(venta){
     let mesActual = new Date().getMonth()

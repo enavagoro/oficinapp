@@ -187,7 +187,7 @@
             <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
           </ion-avatar>
           <ion-label>Clientes</ion-label>
-          <ion-button class="boton-reporte" (click)="abrirReporte(1)">Ver Reporte</ion-button>
+          <ion-button class="boton-reporte" routerLink="/reportes/reporte-clientes" routerDirection="root">Ver Reporte</ion-button>
         </ion-item>
 
         <ion-item>
@@ -205,7 +205,7 @@
           </ion-avatar>
 
           <ion-label>Gastos</ion-label>
-          <ion-button class="boton-reporte" (click)="abrirReporte(3)">Ver Reporte</ion-button>
+          <ion-button class="boton-reporte" routerLink="/reportes/reporte-gastos" routerDirection="root">Ver Reporte</ion-button>
         </ion-item>
 
         <ion-item>
@@ -213,9 +213,10 @@
             <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
           </ion-avatar>
           <ion-label>Productos</ion-label>
-          <ion-button class="boton-reporte" (click)="abrirReporte(4)">Ver Reporte</ion-button>
+          <ion-button class="boton-reporte" routerLink="/reportes/reporte-productos" routerDirection="root">Ver Reporte</ion-button>
         </ion-item>
 
+      <!--
         <ion-item lines="none">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/608/608905.svg">
@@ -223,6 +224,7 @@
           <ion-label>Cotizaciones</ion-label>
           <ion-button class="boton-reporte" (click)="abrirReporte(5)">Ver Reporte</ion-button>
         </ion-item>
+        -->
       </div>
     </div>
 

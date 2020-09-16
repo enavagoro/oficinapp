@@ -214,7 +214,7 @@ export class GastosPage implements OnInit {
     await alert.present();
   }
   async opciones(gasto) {
-    //console.log(gasto)
+    console.log(gasto)
     var opcion = "Borrar";
     if(gasto.estado == 0){
       opcion = "Recuperar"
