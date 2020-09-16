@@ -52,13 +52,13 @@ export type RadioOptions ={
 export class ReporteVentaPage implements OnInit {
   public chartGrafico1 : Partial<ChartOptions>;
 
-  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'line'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},responsive: [],labels: []};
+  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'bar'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'radar'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},labels: []};
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
   nombreGrafico1 = "Gastos";
