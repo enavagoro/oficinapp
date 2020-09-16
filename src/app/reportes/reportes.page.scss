@@ -1,13 +1,12 @@
 ion-content{
   --background: #f5f5f5;
 }
-/*
+
 ion-toolbar{
-  --background: url("/assets/icon/lago.png")  no-repeat center / 100%;
-  --opacity: 0.9;
-  padding-bottom: 15%;
+  --background: #f5f5f5;
+  padding-bottom: 0%;
 }
-*/
+
 .header-md::after{
   width: 0% !important;
 }
@@ -81,6 +80,10 @@ ion-card{
 
 ion-item{
   width: 100% !important;
+}
+
+ion-item-divider{
+  background: #f5f5f5;
 }
 
 ion-avatar{
@@ -164,8 +167,80 @@ ion-avatar{
   font-size: 32px;
 }
 
+.contenedor-imagen-informe{
+  width: 40%;
+  margin-left: 30%;
+}
+
 .celular{
   display: none;
+}
+
+#_Informe_{
+  animation: girar 3s ease infinite;
+  transform-origin: center;
+}
+
+.contenedor-texto-final{
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+}
+
+.contenedor-boton{
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 2.5%;
+  margin-bottom: 5%;
+}
+
+.titulo{
+  font-size: 20px;
+  color: #7b7bec;
+}
+
+.subtitulo{
+  font-size: 20px;
+  color: #7b7bec;
+}
+
+ion-button{
+  --background: #7b7bec;
+
+  ion-icon{
+    width: 30px;
+    margin-right: 2%;
+  }
+}
+
+/*
+#_Tuerca-c_{
+  animation: girar2 1s linear infinite;
+  transform-origin: center center;
+}
+
+#_Tuerca-g_{
+  animation: girar2 3s linear infinite;
+  transform-origin: center center;
+}
+*/
+
+@keyframes girar{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes girar2{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width:900px){
@@ -182,6 +257,66 @@ ion-avatar{
   }
 
   .card{
+    width: 90%;
+    margin-left: 5%;
     margin-bottom: 10%;
+  }
+
+  .card-resumenes{
+    width: 90%;
+    background: white;
+    margin-top: 10%;
+    margin-left: 5%;
+    margin-right: 2.5%;
+    margin-bottom: 5%;
+    padding-top: 0.5%;
+    padding-bottom: 2.5%;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+    box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+    border-radius: 5px;
+  }
+
+  .contenedor-imagen-informe{
+    width: 50%;
+    margin-left: 25%;
+  }
+
+  #_Informe_{
+    animation: girar 3s ease infinite;
+    transform-origin: center;
+  }
+
+  .contenedor-texto-final{
+    width: 100%;
+    margin-left: 0%;
+    text-align: center;
+  }
+
+  .contenedor-boton{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 2.5%;
+    margin-bottom: 5%;
+  }
+
+  .titulo{
+    font-size: 25px;
+    color: #7b7bec;
+  }
+
+  .subtitulo{
+    width: 100%;
+    font-size: 20px;
+    color: #7b7bec;
+  }
+
+  ion-button{
+    --background: #7b7bec;
+
+    ion-icon{
+      width: 30px;
+      margin-right: 2%;
+    }
   }
 }

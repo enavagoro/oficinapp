@@ -1,4 +1,12 @@
 <ion-content>
+  <ion-toolbar class="toolbar celular">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button style="--color:black;"></ion-menu-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+
 <!--
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
@@ -8,7 +16,8 @@
     </ion-buttons>
     <ion-title>Reportes</ion-title>
   </ion-toolbar>
-  -->
+
+  <!--
   <ul>
     <li draggable  [dragData]="ventas" >Ventas</li>
     <li draggable  [dragData]="gastos" >Gastos</li>
@@ -36,12 +45,12 @@
     <li draggable  [dragData]="ventas" >Dato 1 </li>
     <li draggable  [dragData]="ventas" >Cliente </li>
   </ul>
-
+-->
   <div class="parte-arriba celular">
 
-    <ion-slides pager="true" [options]="slideOpts">
+    <ion-slides pager="true">
 
-      <ion-slide draggable>
+      <ion-slide>
         <div class="contenedor-card">
           <div class="card">
             <ion-item lines="none" >
@@ -57,7 +66,7 @@
         </div>
       </ion-slide>
 
-      <ion-slide draggable  [dragData]="ventas">
+      <ion-slide>
         <div class="contenedor-card">
           <div class="card">
             <ion-item lines="none">
@@ -74,7 +83,7 @@
       </ion-slide>
 
       <ion-slide>
-        <div class="contenedor-card" draggable  [dragData]="ventas">
+        <div class="contenedor-card">
           <div class="card">
             <ion-item lines="none">
               <ion-avatar slot="start">
@@ -157,7 +166,7 @@
               <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
             </ion-avatar>
             <ion-label>
-              <h3>Productos</h3>
+              <h3>Productos/Servicios</h3>
               <p>{{productos.length}}</p>
             </ion-label>
           </ion-item>
@@ -208,13 +217,14 @@
           <ion-button class="boton-reporte" routerLink="/reportes/reporte-gastos" routerDirection="root">Ver Reporte</ion-button>
         </ion-item>
 
-        <ion-item>
+        <ion-item lines="none">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
           </ion-avatar>
-          <ion-label>Productos</ion-label>
-          <ion-button class="boton-reporte" routerLink="/reportes/reporte-productos" routerDirection="root">Ver Reporte</ion-button>
+          <ion-label>Productos/Servicios</ion-label>
+          <ion-button class="boton-reporte" disabled>Proximamente</ion-button><!--routerLink="/reportes/reporte-productos" routerDirection="root"-->
         </ion-item>
+
 
       <!--
         <ion-item lines="none">
@@ -231,51 +241,131 @@
 
       <div class="contenedor-card-resumenes">
         <div class="card-resumenes">
-          <div class="contenedor-segmentos">
-            <!--
-            <div class="contenedor-segmento">
-              <div class="segmento-ventas">
-                <img class="imagen-segmento" src="/assets/icon/ventas.svg">
-                <ion-label>Ventas</ion-label>
-              </div>
-            </div>
-            <div class="contenedor-segmento">
-              <div class="segmento-gastos">
-                <img class="imagen-segmento" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-                <ion-label>Gastos</ion-label>
-              </div>
-            </div>-->
+          <div class="contenedor-texto-final">
+            <h1 class="titulo">Generador de reportes automáticos</h1>
+          </div>
+          <div class="contenedor-imagen-informe">
+            <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
+                <defs>
+                    <style>
+                        .cls-1,
+                        .cls-2 {
+                            fill: url(#Degradado_sin_nombre);
+                        }
+                        .cls-2 {
+                            opacity: 0.7;
+                            isolation: isolate;
+                        }
+                        .cls-3 {
+                            fill: #209ad9;
+                        }
+                        .cls-4 {
+                            fill-opacity: 0;
+                            fill: url(#Degradado_sin_nombre_3);
+                        }
+                        .cls-5 {
+                            fill: #82afec;
+                        }
+                        .cls-6 {
+                            fill: #588dc6;
+                        }
+                        .cls-7 {
+                            fill: #f3f3f3;
+                        }
+                        .cls-8 {
+                            fill: #a9dbf5;
+                        }
+                        .cls-9 {
+                            fill: #88c3e0;
+                        }
+                        .cls-10 {
+                            fill: #43809f;
+                        }
+                        .cls-11 {
+                            fill: #7be492;
+                        }
+                        .cls-12 {
+                            fill: #45d987;
+                        }
+                        .cls-13 {
+                            fill: #f78e36;
+                        }
+                        .cls-14 {
+                            fill: #f86f1b;
+                        }
+                        .cls-15 {
+                            fill: #29cef6;
+                        }
+                        .cls-16 {
+                            fill: #22b5ed;
+                        }
+                    </style>
+                    <linearGradient id="Degradado_sin_nombre" x1="14.92" y1="238.75" x2="471.05" y2="238.75" gradientTransform="matrix(1, 0, 0, -1, 0, 502)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0.01" stop-color="#dcfdee" />
+                        <stop offset="0.78" stop-color="#ccddfb" />
+                        <stop offset="1" stop-color="#c7d3ff" />
+                    </linearGradient>
+                    <linearGradient id="Degradado_sin_nombre_3" x1="-0.02" y1="252" x2="499.98" y2="252" gradientTransform="matrix(1, 0, 0, -1, 0.02, 502)" xlink:href="#Degradado_sin_nombre" />
+                </defs>
+                <title>informe</title>
+                <g id="grupo2">
+                    <path
+                        class="cls-1"
+                        d="M345.18,436.75s-71.06,34.82-147.73.9S75.75,324.24,37.58,260.79s-27-133.63,25.06-171S157,94,234.73,87.46,332.2,67.37,401,104.27s91.05,140,48.15,222.94S345.18,436.75,345.18,436.75Z"
+                        transform="translate(0.02 0)"
+                    />
+                    <path
+                        class="cls-2"
+                        d="M345.18,436.75s-71.06,34.82-147.73.9S75.75,324.24,37.58,260.79s-27-133.63,25.06-171S157,94,234.73,87.46,332.2,67.37,401,104.27s91.05,140,48.15,222.94S345.18,436.75,345.18,436.75Z"
+                        transform="translate(0.02 0)"
+                    />
+                </g>
+                <path id="cruz2" class="cls-3" d="M49,41H46.38V38.37a4,4,0,0,0-8,0V41H35.75a4,4,0,0,0,0,8h2.63v2.61a4,4,0,0,0,8,0V49H49a4,4,0,0,0,0-8Z" transform="translate(0.02 0)" />
+                <path id="cruz1" class="cls-3" d="M382.22,462.87h-2.61v-2.58a4,4,0,0,0-8,0v2.61H369a4,4,0,0,0,0,8h2.61v2.6a4,4,0,0,0,8,0v-2.6h2.61a4,4,0,0,0,0-8Z" transform="translate(0.02 0)" />
+                <rect class="cls-4" width="500" height="500" />
+                <g id="_Informe_" data-name="&lt;Informe&gt;">
+                    <path class="cls-5" d="M345,385.92H154.93a19.29,19.29,0,0,1-19.29-19.3v-262a19.29,19.29,0,0,1,19.29-19.29H345a19.3,19.3,0,0,1,19.3,19.29v262A19.3,19.3,0,0,1,345,385.92Z" transform="translate(0.02 0)" />
+                    <path class="cls-6" d="M345.05,85.31V385.92a19.3,19.3,0,0,0,19.28-19.31v-262A19.3,19.3,0,0,0,345.05,85.31Z" transform="translate(0.02 0)" />
+                    <path class="cls-7" d="M154.91,364.11v-257a2.5,2.5,0,0,1,2.5-2.5H342.55a2.49,2.49,0,0,1,2.5,2.5v257a2.49,2.49,0,0,1-2.5,2.5H157.41a2.5,2.5,0,0,1-2.5-2.5Z" transform="translate(0.02 0)" />
+                    <path class="cls-8" d="M313.71,85.31H186.25a3.86,3.86,0,0,1-3.86-3.86V69.86A3.86,3.86,0,0,1,186.25,66H313.71a3.86,3.86,0,0,1,3.86,3.86V81.45A3.86,3.86,0,0,1,313.71,85.31Z" transform="translate(0.02 0)" />
+                    <path class="cls-9" d="M313.71,66H294.4a3.86,3.86,0,0,1,3.86,3.86V81.45a3.86,3.86,0,0,1-3.86,3.86h19.31a3.86,3.86,0,0,0,3.86-3.86V69.86A3.86,3.86,0,0,0,313.71,66Z" transform="translate(0.02 0)" />
+                    <path
+                        class="cls-10"
+                        d="M299.54,80.62a4.69,4.69,0,0,0-4.68,4.69,30.1,30.1,0,0,1-30.07,30.07H235.17A30.1,30.1,0,0,1,205.1,85.31a4.69,4.69,0,1,0-9.37,0,39.49,39.49,0,0,0,39.44,39.45h29.62a39.49,39.49,0,0,0,39.44-39.45A4.69,4.69,0,0,0,299.54,80.62Z"
+                        transform="translate(0.02 0)"
+                    />
+                    <path class="cls-11" d="M230.67,339.89H192.05V306.42a5.15,5.15,0,0,1,5.15-5.15h28.32a5.16,5.16,0,0,1,5.15,5.15v33.47Z" transform="translate(0.02 0)" />
+                    <path class="cls-12" d="M225.52,301.27H211.36v38.62h19.31V306.42A5.16,5.16,0,0,0,225.52,301.27Z" transform="translate(0.02 0)" />
+                    <path class="cls-13" d="M307.91,339.89H269.29V287.11a5.15,5.15,0,0,1,5.15-5.15h28.32a5.15,5.15,0,0,1,5.15,5.15v52.78Z" transform="translate(0.02 0)" />
+                    <path class="cls-14" d="M302.76,282H288.6v57.93h19.31V287.11A5.15,5.15,0,0,0,302.76,282Z" transform="translate(0.02 0)" />
+                    <path class="cls-15" d="M269.29,339.89H230.67V261.36a5.15,5.15,0,0,1,5.15-5.15h28.32a5.15,5.15,0,0,1,5.15,5.15v78.53Z" transform="translate(0.02 0)" />
+                    <path class="cls-16" d="M264.14,256.21H250v83.68h19.31V261.36a5.15,5.15,0,0,0-5.15-5.15Z" transform="translate(0.02 0)" />
+                    <path class="cls-10" d="M316.84,335.21H183.12a4.69,4.69,0,0,0,0,9.37H316.84a4.69,4.69,0,0,0,0-9.37Z" transform="translate(0.02 0)" />
+                </g>
+                <g id="_Tuerca-c_" data-name="&lt;Tuerca-c&gt;">
+                    <path
+                        class="cls-5"
+                        d="M234.32,206l-5.08-4a20.47,20.47,0,0,0,.17-2.35,20.15,20.15,0,0,0-.17-2.35l5.09-4a1.2,1.2,0,0,0,.29-1.54l-4.82-8.34a1.18,1.18,0,0,0-1.46-.52l-6,2.42a18.13,18.13,0,0,0-4.07-2.37l-.9-6.38a1.23,1.23,0,0,0-1.2-1h-9.63a1.21,1.21,0,0,0-1.19,1l-.91,6.38a17.54,17.54,0,0,0-4.06,2.37l-6-2.42a1.2,1.2,0,0,0-1.47.52l-4.81,8.34a1.21,1.21,0,0,0,.29,1.54l5.08,4a18.18,18.18,0,0,0-.17,2.35,18.44,18.44,0,0,0,.17,2.35l-5.08,4a1.2,1.2,0,0,0-.29,1.54l4.81,8.34a1.2,1.2,0,0,0,1.47.52l6-2.42a18.29,18.29,0,0,0,4.06,2.37l.91,6.38a1.21,1.21,0,0,0,1.19,1h9.63a1.22,1.22,0,0,0,1.19-1l.9-6.38a17.76,17.76,0,0,0,4.07-2.37l6,2.42a1.21,1.21,0,0,0,1.47-.52l4.82-8.34A1.21,1.21,0,0,0,234.32,206Zm-23,2.09a8.43,8.43,0,1,1,8.43-8.42A8.41,8.41,0,0,1,211.35,208.08Z"
+                        transform="translate(0.02 0)"
+                    />
+                </g>
+                <g id="_Tuerca-g_" data-name="&lt;Tuerca-g&gt;">
+                    <path
+                        class="cls-5"
+                        d="M321.35,188.67,314.11,183a23.5,23.5,0,0,0,0-6.7l7.26-5.68a1.72,1.72,0,0,0,.41-2.2l-6.87-11.9a1.7,1.7,0,0,0-2.09-.74l-8.55,3.46a26.23,26.23,0,0,0-5.8-3.39l-1.29-9.1a1.78,1.78,0,0,0-1.72-1.44H281.73a1.73,1.73,0,0,0-1.7,1.44l-1.29,9.1a25.05,25.05,0,0,0-5.8,3.39l-8.55-3.46a1.72,1.72,0,0,0-2.1.74l-6.87,11.9a1.71,1.71,0,0,0,.42,2.2l7.24,5.68a23.5,23.5,0,0,0,0,6.7l-7.24,5.68a1.71,1.71,0,0,0-.42,2.2l6.87,11.9a1.71,1.71,0,0,0,2.1.73l8.55-3.45a25.78,25.78,0,0,0,5.8,3.39l1.29,9.1a1.73,1.73,0,0,0,1.7,1.44h13.73a1.74,1.74,0,0,0,1.7-1.44l1.29-9.1a25.47,25.47,0,0,0,5.8-3.39l8.55,3.45a1.72,1.72,0,0,0,2.1-.73l6.86-11.9A1.72,1.72,0,0,0,321.35,188.67Zm-32.76,3a12,12,0,1,1,12-12A12,12,0,0,1,288.59,191.66Z"
+                        transform="translate(0.02 0)"
+                    />
+                </g>
+            </svg>
+          </div>
 
-          <ion-segment mode="md">
-            <ion-segment-button value="ventas" mode="md" (click)="tipo=0;">
-              <ion-label>Ventas</ion-label>
-              <img class="imagen-segmento" src="/assets/icon/ventas.svg">
-            </ion-segment-button>
-            <ion-segment-button value="gastos" mode="md" (click)="tipo=1;">
-              <ion-label>Gastos</ion-label>
-              <img class="imagen-segmento" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-            </ion-segment-button>
-          </ion-segment>
-        </div>
-        <div class="contenedor-selector">
-          <ion-item lines="none">
-            <ion-label>Periodo</ion-label>
-            <ion-select placeholder="Seleciona un Periodo" name="periodo" [(ngModel)]="periodo" (ionChange)="filtrarValor(tipo,periodo);">
-              <ion-select-option value="0">Año</ion-select-option>
-              <ion-select-option value="1">Mes</ion-select-option>
-              <ion-select-option value="2">Día</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </div>
-        <div class="contenedor-texto">
-          <h1>($){{valorFinal}}</h1>
-        </div>
-        <div class="contenedor-imagen">
-          <img class="imagen-resumen" src="/assets/icon/grafico-rojo.svg">
-        </div>
+          <div class="contenedor-texto-final">
+            <div class="contenedor-boton">
+              <ion-button disabled><ion-icon name="star"></ion-icon>Proximamente</ion-button>
+            </div>
+          </div>
       </div>
     </div>
   </div>
-
 
 </ion-content>
