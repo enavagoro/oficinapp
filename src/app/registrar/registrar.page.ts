@@ -110,7 +110,18 @@ export class RegistrarPage implements OnInit {
       })
     })
   }
-
+  validarCorreo(event){
+    console.log(event)
+    this.usuarioService.existe(this.usuario.correo).subscribe(res=>{
+      if(res['size']){
+        this.usuario.correo = "";
+        alert("Este correo ya se encuentra en uso");
+      }else{
+        console.log("super!");
+        
+      }
+    })
+  }
   async confirmar() {
     //console.log(this.producto);
 

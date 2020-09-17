@@ -19,11 +19,7 @@ import { LoginService } from './_servicios/login.service';
 })
 export class AppComponent {
   subscription: Subscription;
-  public appPages = [    {
-        title: 'Reportes',
-        url: '/reportes',
-        icon: 'stats'
-      },];
+  public appPages = [ ];
   /*
   public appPages = [
     {
@@ -122,9 +118,11 @@ export class AppComponent {
               this.usuarioService.addMenu(menu)
             }
           }
+          
           this.loginService.setToken(val['token']);
           this.loginService.setEmpresa(val['empresa']);
         }
+        this.appPages.push({title: 'Reportes',url: '/reportes',icon: 'stats'});
       });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
