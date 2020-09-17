@@ -432,4 +432,9 @@ export class VentasPage implements OnInit {
 
 }
 
+escanearVenta(){
+  console.log('venta',this.venta);
+
+}
+
 }

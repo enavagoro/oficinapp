@@ -22,6 +22,7 @@ export class GastosPage implements OnInit {
   URL = "http://161.35.98.48";
   tiposGastos = [];
   url : string;
+  banderaUrl = false;
   cargando : boolean = false;
   bandera = false;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
@@ -133,7 +134,7 @@ export class GastosPage implements OnInit {
 
   public cancelar(){
     this.bandera=false;
-    this.url = "";
+    this.vaciarArchivo();
     this.deshabilitarInputs(false);
     this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
@@ -230,7 +231,9 @@ export class GastosPage implements OnInit {
         this.deshabilitarInputs(true);
         this.bandera=true;
         var value = this.login.getEmpresa();
-        this.url = this.URL+"/"+value+"/"+gasto.img;
+        if(gasto.img!='Sin Imagen'){
+          this.url = this.URL+"/"+value+"/"+gasto.img;
+        }
       }};
     var actualizar = {
       text: 'Actualizar',
@@ -239,8 +242,9 @@ export class GastosPage implements OnInit {
         this.bandera=false;
         this.gasto = gasto;
         var value = this.login.getEmpresa();
-        this.url = this.URL+"/"+value+"/"+gasto.img;
-        this.url = this.URL+"/"+value+"/"+gasto.img;
+        if(gasto.img!='Sin Imagen'){
+          this.url = this.URL+"/"+value+"/"+gasto.img;
+        }
       }
     };
     var duplicar = {
@@ -325,6 +329,7 @@ export class GastosPage implements OnInit {
 
   public vaciarArchivo(){
     this.file = 0;
+    this.url = '';
   }
 
   uploadFile(actualizar){

@@ -97,7 +97,10 @@
         <img class="imagen" [src]="url">
         <ion-card-header>
           <ion-card-subtitle>Comprobante</ion-card-subtitle>
-          <!--<ion-card-title>{{(file.name||url)}}</ion-card-title>-->
+          <ion-label *ngIf="gasto.img == 'Sin imagen'">
+            <br>
+            Este gasto no posee ninguna imagen
+          </ion-label><!--<ion-card-title>{{(file.name||url)}}</ion-card-title>-->
         </ion-card-header>
       </ion-card>
     </ion-item>

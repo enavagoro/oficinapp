@@ -2,6 +2,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <ion-header>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-buttons slot="start">
@@ -10,7 +11,8 @@
     </ion-buttons>
     <ion-title> Ventas </ion-title>
   </ion-toolbar>
-
+  </ion-header>
+  
   <ion-list-header>
     Ingrese una venta
   </ion-list-header>
@@ -18,27 +20,112 @@
   <form>
     <ion-item>
       <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+        <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
       </ion-avatar>
-
-      <ion-label>Tipo de Documento</ion-label>
-      <ion-select [(ngModel)]="venta.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
-        <ion-select-option>Boleta</ion-select-option>
-        <ion-select-option selected>Factura</ion-select-option>
-      </ion-select>
+      <ion-label>Fecha de Emisión</ion-label>
+      <ion-datetime placeholder="Select Date" name="fecha" [(ngModel)]="venta.fecha" required [disabled]="bandera==true" ></ion-datetime>
     </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/3142/3142013.svg">
-      </ion-avatar>
-
-      <ion-label>Metódo de pago</ion-label>
+    <ion-item lines="none">
+      <ion-label style="text-aling:center; width:100%;">Tipo de Documento</ion-label>
+<!--
       <ion-select [(ngModel)]="venta.metodo" name="metodo" required [disabled]="bandera==true">
         <ion-select-option *ngFor="let metodo of metodos;" value="{{metodo.valor}}">{{metodo.nombre}}</ion-select-option>
       </ion-select>
+-->
     </ion-item>
 
+    <ion-radio-group [(ngModel)]="venta.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
+      <ion-item>
+        <ion-label>Boleta</ion-label>
+        <ion-radio slot="start" value="0" (click)="escanearVenta();" selected></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Factura</ion-label>
+        <ion-radio slot="start" value="1" (click)="escanearVenta();"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/1897/1897132.svg">
+        </ion-avatar>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-item lines="none">
+      <ion-label style="text-aling:center;">Metódo de pago</ion-label>
+<!--
+      <ion-select [(ngModel)]="venta.metodo" name="metodo" required [disabled]="bandera==true">
+        <ion-select-option *ngFor="let metodo of metodos;" value="{{metodo.valor}}">{{metodo.nombre}}</ion-select-option>
+      </ion-select>
+-->
+    </ion-item>
+
+    <ion-radio-group [(ngModel)]="venta.metodo" name="metodo" required [disabled]="bandera==true">
+
+      <ion-item>
+        <ion-label>Efectivo</ion-label>
+        <ion-radio slot="start" value="0" (click)="escanearVenta();"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/3142/3142013.svg">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Debito</ion-label>
+        <ion-radio slot="start" value="1" (click)="escanearVenta();"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/3394/3394012.svg">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Credito</ion-label>
+        <ion-radio slot="start" value="2" (click)="escanearVenta();"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/747/747156.svg">
+        </ion-avatar>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-item lines="none">
+
+      <ion-label style="text-aling:center;">Tiempo de Pago</ion-label>
+<!--
+      <ion-select [(ngModel)]="venta.metodo" name="metodo" required [disabled]="bandera==true">
+        <ion-select-option *ngFor="let metodo of metodos;" value="{{metodo.valor}}">{{metodo.nombre}}</ion-select-option>
+      </ion-select>
+-->
+    </ion-item>
+
+    <ion-radio-group [(ngModel)]="venta.dia" name="dia" required [disabled]="bandera==true">
+
+      <ion-item>
+        <ion-label>En el momento</ion-label>
+        <ion-radio slot="start" value="0"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/2972/2972554.svg">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>30 días</ion-label>
+        <ion-radio slot="start" value="1"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/2972/2972531.svg">
+        </ion-avatar>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>60 días</ion-label>
+        <ion-radio slot="start" value="2"></ion-radio>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/2784/2784459.svg">
+        </ion-avatar>
+      </ion-item>
+    </ion-radio-group>
+<!--
     <ion-item>
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/2784/2784459.svg">
@@ -49,14 +136,7 @@
         <ion-select-option *ngFor="let dia of dias;" value="{{dia.valor}}">{{dia.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
-      </ion-avatar>
-      <ion-label>Fecha de Emisión</ion-label>
-      <ion-datetime placeholder="Select Date" name="fecha" [(ngModel)]="venta.fecha" required [disabled]="bandera==true" ></ion-datetime>
-    </ion-item>
+-->
   </form>
 
   <ion-item>
