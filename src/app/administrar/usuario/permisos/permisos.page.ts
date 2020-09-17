@@ -22,8 +22,8 @@ export class PermisosPage implements OnInit {
 
   constructor(private modalCtrl : ModalController,private navParams : NavParams) {
     var usuario = navParams.get("usuario");
-    var menu = usuario.menu;
-    if(menu){
+    var menu = usuario.menu;    
+    if(menu && menu.length){
       this.menus = menu;
     }
   }
