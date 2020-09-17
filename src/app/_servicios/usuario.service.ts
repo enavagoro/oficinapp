@@ -78,6 +78,13 @@ export class UsuarioService {
         .set('empresaId' , this.login.getEmpresa())
       });
   }
+  existe(correo){
+    let obj = {correo:correo};
+    return this.http.post<any[]>(`${this.url}/users/login`,obj , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')      
+    });
+  }
   tienePermiso(usuario,path){
     if(usuario.menu){
       var currentMenu = {};

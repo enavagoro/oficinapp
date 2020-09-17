@@ -87,6 +87,7 @@ export class LoginPage implements OnInit {
     this.banderaMostrar = false;
     this.usuarioService.dropMenu();
     this.usuarioService.addMenu({title: 'Inicio',url: '/home',icon: 'home',principal:true,permission:{c:true,r:true,u:true,d:true}});
+    
       this.auth.logUser(this.loginForm.value).then(servicio=>{
         servicio.subscribe(d=>{
           console.log(d);
@@ -104,12 +105,12 @@ export class LoginPage implements OnInit {
                 }else{
                   console.log("lol algo debe tener su menu creo sho");
 
-                }
-                usuario.token = d['accessToken'];
+                }                                                
                 this.loginService.setUser(usuario);
                 this.loginService.setEmpresa(usuario.empresa);
                 this.router.navigate(['/home']);
-              }
+              }              
+              this.usuarioService.addMenu({title: 'Reportes',url: '/reportes',icon: 'stats',principal:true,permission:{c:true,r:true,u:true,d:true}});
 
             })
           })
