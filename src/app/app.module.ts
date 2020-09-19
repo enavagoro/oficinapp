@@ -25,6 +25,12 @@ import { VentaService } from './_servicios/venta.service';
 import { CotizacionService } from './_servicios/cotizacion.service';
 import { DetalleService } from './_servicios/detalle.service';
 import { NotificationService } from './_servicios/notification.service';
+
+//Servicios farmaciapp
+
+import { SucursalService } from './_servicios/sucursales.service';
+import { StockService } from './_servicios/stock.service';
+
 //pages modales
 import { DetallePage } from './ventas/detalle/detalle.page';
 import { CrearClienteVentaPage } from './ventas/crear-cliente-venta/crear-cliente-venta.page'
@@ -87,10 +93,15 @@ import { NgApexchartsModule } from "ng-apexcharts";
     GastoService,
     EmailService,
     StorageService,
+    //servicios farmaciapp - bodegapp
+    StockService,
+    SucursalService,
+
     //Storage,
     VentaService,
     CotizacionService,
     DetalleService,
+    SucursalService,
     //servicios
     ValidationService,
 

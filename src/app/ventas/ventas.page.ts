@@ -154,7 +154,8 @@ export class VentasPage implements OnInit {
       component: DetallePage,
       cssClass: 'modals',
       componentProps:{
-        'detalle' : this.detalle
+        'detalle' : this.detalle,
+        'bandera' : this.bandera,
       }
     });
 
@@ -313,6 +314,7 @@ export class VentasPage implements OnInit {
     }
     this.deshabilitarInputs(false);
     this.bandera=false;
+    this.detalle = [];
     var ver = {
       text: 'Ver',
       icon: 'eye',
@@ -335,10 +337,14 @@ export class VentasPage implements OnInit {
         this.bandera=false;
         this.venta = venta;
  //      this.traerCliente(venta.idCliente);
+        venta.detalle = venta.detalle;
+        this.detalle = venta.detalle;
+ /*
         this.detalleService.listar(venta.id).subscribe(detalle=>{
             venta.detalles = detalle;
             this.detalle = detalle;
         })
+        */
       }
     }
     var duplicar = {
