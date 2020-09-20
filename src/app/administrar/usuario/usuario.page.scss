@@ -6,9 +6,11 @@ ion-toolbar{
   */
 }
 
+/*
 .header-md::after{
   width: 0% !important;
 }
+*/
 
 ion-title{
   --color: black;
@@ -70,3 +72,44 @@ ion-avatar{
 }
 
 .grayscale { filter: grayscale(80%) !important; }
+
+.ion-list-header{
+  margin-top: 2.5%;
+}
+
+.contenedor-item-fecha{
+  width: 100%;
+  display: flex;
+}
+
+.item-fecha{
+  width:95%;
+}
+
+.item-boton{
+  width: 5%;
+
+  ion-buttons{
+    width: 100%;
+  }
+}
+
+.sin-usuarios{
+  font-size: 18px;
+  margin-left: 4%;
+}
+
+@media (max-width:900px){
+
+  .item-fecha{
+    width:85%;
+  }
+
+  .item-boton{
+    width: 15%;
+
+    ion-buttons{
+      width: 100%;
+    }
+  }
+}

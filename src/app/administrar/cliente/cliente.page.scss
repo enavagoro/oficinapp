@@ -37,6 +37,8 @@ ion-title{
   margin-bottom: 5%;
 }
 
+//historial
+
 ion-avatar{
   --border-radius: 0%;
 }
@@ -60,8 +62,6 @@ ion-avatar{
   margin-top: 2.5%;
 }
 
-//historial
-
 .contenedor-item-fecha{
   width: 100%;
   display: flex;
@@ -83,25 +83,6 @@ ion-avatar{
   font-size: 18px;
   margin-left: 4%;
 }
-/*
-.contenedor-formulario{
-  z-index: 999 !important;
-}
-
-.contenedor-historial{
-  animation: bajar 1s ease-out;
-  z-index: -999 !important;
-}
-
-@keyframes bajar{
-  from{
-    transform: translateY(-100%);
-  }
-  to{
-    transform: translateY(0%);
-  }
-}
-*/
 
 @media (max-width:900px){
 

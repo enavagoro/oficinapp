@@ -2,18 +2,21 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button routerLink="/administrar" routerDirection="root" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Crear Tipo de Gasto</ion-title>
-  </ion-toolbar>
+  <ion-header>
+    <ion-toolbar class="toolbar">
+      <ion-buttons slot="start">
+        <ion-button routerLink="/administrar" routerDirection="root" color="dark">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Crear Tipo de Gasto</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
   <ion-list-header>
     <ion-label>Datos del Tipo de Gasto</ion-label>
   </ion-list-header>
+  <div class="contenedor-formulario">
     <form>
       <ion-item>
         <ion-avatar slot="start">
@@ -37,27 +40,75 @@
       <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
     </form>
 
-  <ion-list-header>
-    Lista de Tipos de Gastos
-  </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cambiarBandera()">
+            <ion-icon slot="icon-only" name="list"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
 
-  <ion-item>
-    <ion-label *ngIf="verTodos">Todos los Tipos de Gastos</ion-label>
-    <ion-label *ngIf="!verTodos">Tipos de Gastos Activos</ion-label>
-    <label *ngIf="verTodos" slot="end"><ion-badge>{{tipoGastos.length}}</ion-badge></label>
-    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarTipoGastos().length}}</ion-badge></label>
-    <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
-  </ion-item>
+
+  <div class="contenedor-historial" *ngIf="banderaHistorial==true">
+    <ion-item>
+      <ion-label *ngIf="verTodos">Todos los Tipos de Gastos</ion-label>
+      <ion-label *ngIf="!verTodos">Tipos de Gastos Activos</ion-label>
+      <label *ngIf="verTodos" slot="end"><ion-badge>{{tipoGastos.length}}</ion-badge></label>
+      <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarTipoGastos().length}}</ion-badge></label>
+      <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+    </ion-item>
+
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Desde</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('menor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Hasta</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('mayor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <ion-list-header  class="ion-list-header">
+      Lista de Tipos de Gastos
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
+      </ion-avatar>
+      <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+    </ion-item>
 
     <ion-list *ngIf="!verTodos">
       <ion-item class="item-lista" *ngFor="let g of filtrarTipoGastos()" (click)="opciones(g)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
+        <ion-label>{{g.titulo}}<br style="margin-top: 1%;color:#f5f5f5;">Creado el {{g.createdAt}}</ion-label>
         {{g.codigo}}
       </ion-item>
-      <h2 *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h2>
+      <h1 class="sin-clientes" *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h1>
     </ion-list>
 
     <ion-list *ngIf="verTodos">
@@ -68,10 +119,10 @@
         <ion-avatar slot="start" *ngIf="!g.estado">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg" class="grayscale">
         </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
+        <ion-label>{{g.titulo}}<br style="margin-top: 1%;color:#f5f5f5;">Creado el {{g.createdAt}}</ion-label>
         {{g.codigo}}
       </ion-item>
-      <h2 *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h2>
+      <h1 class="sin-clientes" *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h1>
     </ion-list>
-
+  </div>
 </ion-content>
