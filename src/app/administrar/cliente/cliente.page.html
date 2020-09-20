@@ -2,90 +2,100 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button routerLink="/administrar" routerDirection="root" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Crear Cliente</ion-title>
-  </ion-toolbar>
-
+  <ion-header>
+    <ion-toolbar class="toolbar">
+      <ion-buttons slot="start">
+        <ion-button routerLink="/administrar" routerDirection="root" color="dark">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Crear Cliente</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <ion-list-header>
     Datos de Identificación
   </ion-list-header>
+  <div class="contenedor-formulario">
+    <form>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Nombre Cliente<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.nombre" name="nombre" required></ion-input>
+      </ion-item>
 
-  <form>
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Nombre Cliente<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.nombre" name="nombre" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Rut<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.rut" name="rut" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/599/599210.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Rut<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.rut" name="rut" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Giro<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.giro" name="giro" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/977/977961.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Giro<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.giro" name="giro" required></ion-input>
-    </ion-item>
+      <ion-list-header>
+        Datos de Contacto
+      </ion-list-header>
 
-    <ion-list-header>
-      Datos de Contacto
-    </ion-list-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Direccion<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.direccion" name="direccion" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1244/1244506.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Direccion<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.direccion" name="direccion" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Comuna<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.comuna" name="comuna" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1309/1309132.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Comuna<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.comuna" name="comuna" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Ciudad<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.ciudad" name="ciudad" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1175/1175011.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Ciudad<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.ciudad" name="ciudad" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Correo de contacto<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input  [(ngModel)]="cliente.contacto" type="email" name="contacto" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/148/148990.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Correo de contacto<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input  [(ngModel)]="cliente.contacto" type="email" name="contacto" required></ion-input>
-    </ion-item>
+      <ion-button class="ion-button" *ngIf="cliente.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
+      <ion-button class="ion-button" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Actualizar</ion-button>
+      <ion-button class="ion-button-cancelar" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 
-    <ion-button class="ion-button" *ngIf="cliente.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Guardar</ion-button>
-    <ion-button class="ion-button" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="cliente.nombre == '' || cliente.rut=='' || cliente.giro == '' || cliente.direccion == '' || cliente.comuna == '' || cliente.ciudad == '' || cliente.contacto == '' ">Actualizar</ion-button>
-    <ion-button class="ion-button-cancelar" *ngIf="cliente.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+    </form>
 
-  </form>
-  <ion-list-header>
-    Lista de Clientes
-  </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cambiarBandera()">
+            <ion-icon slot="icon-only" name="list"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
 
+  <div class="contenedor-historial" *ngIf="banderaHistorial==true">
   <ion-item>
     <ion-label *ngIf="verTodos">Todos los clientes</ion-label>
     <ion-label *ngIf="!verTodos">Clientes Activos</ion-label>
@@ -93,16 +103,61 @@
     <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarClientes().length}}</ion-badge></label>
     <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
   </ion-item>
+<!--
+  <div class="barra-buscar">
+    <ion-input placeholder="Buscar"></ion-input> (keyup)="filtrarListaProductos();" [(ngModel)]="buscar" (ionFocus)="cambiarBarra();" (ionBlur)="cambiarBarra();">
+  </div>
+  <ion-item-divider>
+  </ion-item-divider>
+  -->
+  <div class="contenedor-item-fecha">
+    <ion-item class="item-fecha">
+      <ion-label class="label">Desde</ion-label>
+      <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+    </ion-item>
+    <div class="item-boton" lines="none">
+      <ion-buttons>
+        <ion-button (click)="limpiarFecha('menor')">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </div>
+
+  <div class="contenedor-item-fecha">
+    <ion-item class="item-fecha">
+      <ion-label class="label">Hasta</ion-label>
+      <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+    </ion-item>
+    <div class="item-boton" lines="none">
+      <ion-buttons>
+        <ion-button (click)="limpiarFecha('mayor')">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </div>
+
+  <ion-list-header class="ion-list-header">
+    Lista de Clientes
+  </ion-list-header>
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
+    </ion-avatar>
+    <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+  </ion-item>
 
     <ion-list *ngIf="!verTodos">
       <ion-item class="item-lista" *ngFor="let c of filtrarClientes()" (click)="opciones(c)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
-        <ion-label>{{c.nombre}}</ion-label>
+        <ion-label>{{c.nombre}} <br style="margin-top: 1%;color:#f5f5f5;">Creado el {{c.createdAt}}</ion-label>
         {{c.rut}}
       </ion-item>
-      <h2 *ngIf="clientes.length == 0">No hay Clientes aún...</h2>
+      <h1 class="sin-clientes" *ngIf="clientes.length == 0">No hay Clientes aún...</h1>
     </ion-list>
 
     <ion-list *ngIf="verTodos">
@@ -113,10 +168,10 @@
         <ion-avatar slot="start" *ngIf="!c.estado">
           <img class="grayscale" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
-        <ion-label>{{c.nombre}}</ion-label>
+        <ion-label>{{c.nombre}} <br style="margin-top: 1%;color:#f5f5f5;">Creado el {{c.createdAt}}</ion-label>
         {{c.rut}}
       </ion-item>
-      <h2 *ngIf="clientes.length == 0">No hay Clientes aún...</h2>
+      <h1 class="sin-clientes" *ngIf="clientes.length == 0">No hay Clientes aún...</h1>
     </ion-list>
-
+  </div>
 </ion-content>
