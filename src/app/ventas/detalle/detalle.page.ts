@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,NavParams } from '@ionic/angular';
 import { ProductoService } from '../../_servicios/producto.service';
+import { LoginService } from '../../_servicios/login.service';
 import { StockService } from '../../_servicios/stock.service';
+import { SucursalService } from '../../_servicios/sucursales.service';
 
 interface Producto{
   id:number;
@@ -30,14 +32,25 @@ export class DetallePage implements OnInit {
   productosIventariables = [];
   productosNoIventariables = [];
   banderaProductos = true;
+  banderaVer = false;
+  banderaInventario = false; //esta bandera o lo que sea deberia activarse a la hora de pagar
+  sucursales = [];
+  sucursalId = {};
 
-  constructor(private navParams : NavParams, private stockService : StockService ,private productoService: ProductoService,private modalCtrl : ModalController) {
+  constructor(private login : LoginService, private navParams : NavParams, private productoService: ProductoService,private modalCtrl : ModalController, private stockService : StockService , private sucursalService : SucursalService,) {
       var ps = navParams.get("detalle");
+      var bd = navParams.get("bandera");
       console.log(ps);
-      
+
       if(ps){
         this.detalle = ps;
       }
+
+      if(bd){
+        this.banderaVer = bd;
+      }
+
+      console.log('bandera',this.banderaVer);
 
   }
 
@@ -58,15 +71,16 @@ export class DetallePage implements OnInit {
       })
     })
 
-    this.stockService.listar().then(servicio=>{
-      servicio.subscribe(p=>{
-        var ps = p.filter(this.filtros);;
-        for(var producto of ps){
-          this.productos.push(producto);
-          this.productosIventariables.push(producto);
-        }
+    //Consultar al cristopher sobre el uso del login service y como trabajarlo mejor, dado que al usarlo el token en venta puede estar caido pero en detalle no
+    this.login.getFirstTimeEmpresa().then(val=>{
+      console.log(val);
+      this.sucursalService.listar().subscribe(s=>{
+        this.sucursales = s;
+        console.log(this.sucursales);
       })
     })
+
+
   }
   filtros(gasto){
     if(gasto.estado){
@@ -81,6 +95,18 @@ export class DetallePage implements OnInit {
   limpiar(){
     this.producto = undefined;
   }
+
+  seleccionaSucursal(s){
+    this.stockService.listarPorSucursal(s).then(servicio=>{
+      servicio.subscribe(p=>{
+        console.log('entré',p);
+        var ps = p.filter(this.filtros);
+          this.productosIventariables=ps;
+          this.productos=ps;
+      })
+    })
+  }
+
   seleccionaProducto(){
       var prod = this.productos[this.producto];
       console.log(prod);

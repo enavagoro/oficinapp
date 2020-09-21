@@ -18,6 +18,14 @@ export class ProductoPage implements OnInit {
   banderaMantenedor = true;
   banderaMensaje = true;
 
+  banderaHistorial = false;
+  fechaMenor;
+  fechaMayor;
+  productosRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
+
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
               private productoService : ProductoService,
@@ -43,6 +51,7 @@ export class ProductoPage implements OnInit {
     this.productoService.listar().then(servicio=>{
       servicio.subscribe(p=>{
           this.productos = p;
+          this.productosRespaldo = p;
           console.log(this.productos);
       })
     })
@@ -255,5 +264,107 @@ export class ProductoPage implements OnInit {
 
       return await modal.present();
 
+  }
+
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.productos = this.productosRespaldo;
+    var arregloFiltrado = [];
+
+      for(let producto of this.productos){
+        let fechaProducto = new Date(producto.createdAt);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaProducto >= fechaMenor && fechaProducto <= fechaMayor){
+            arregloFiltrado.push(producto);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaProducto <= fechaMayor){
+            arregloFiltrado.push(producto);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaProducto >= fechaMenor){
+            arregloFiltrado.push(producto);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.productos = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.productos = this.productosRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.productos = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let producto of this.arregloFiltrado){
+
+        for(var indice in producto){
+
+          if(typeof(producto[indice]) == "string" ){
+            if(producto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.productos.push(producto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let producto of this.productosRespaldo){
+
+        for(var indice in producto){
+
+          if(typeof(producto[indice]) == "string" ){
+            if(producto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.productos.push(producto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+  asignarFechaString(producto){
+    var texto = new Date(producto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+producto.titulo+")";
   }
 }

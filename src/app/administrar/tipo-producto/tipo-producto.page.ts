@@ -12,6 +12,13 @@ export class TipoProductoPage implements OnInit {
   tipoProductos= [];
   public tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
+  banderaHistorial = false;
+  fechaMenor;
+  fechaMayor;
+  tipoProductosRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -23,6 +30,7 @@ export class TipoProductoPage implements OnInit {
     this.tipoProductoService.listar().then(servicio=>{
       servicio.subscribe(g=>{
           this.tipoProductos = g;
+          this.tipoProductosRespaldo = this.tipoProductos;
       })
     })
   }
@@ -214,4 +222,106 @@ export class TipoProductoPage implements OnInit {
     }
     return tipoProductos;
   }
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.tipoProductos = this.tipoProductosRespaldo;
+    var arregloFiltrado = [];
+
+      for(let tipoProducto of this.tipoProductos){
+        let fechaTipoProducto = new Date(tipoProducto.createdAt);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaTipoProducto >= fechaMenor && fechaTipoProducto <= fechaMayor){
+            arregloFiltrado.push(tipoProducto);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaTipoProducto <= fechaMayor){
+            arregloFiltrado.push(tipoProducto);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaTipoProducto >= fechaMenor){
+            arregloFiltrado.push(tipoProducto);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.tipoProductos = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.tipoProductos = this.tipoProductosRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.tipoProductos = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let tipoProducto of this.arregloFiltrado){
+
+        for(var indice in tipoProducto){
+
+          if(typeof(tipoProducto[indice]) == "string" ){
+            if(tipoProducto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.tipoProductos.push(tipoProducto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let tipoProducto of this.tipoProductosRespaldo){
+
+        for(var indice in tipoProducto){
+
+          if(typeof(tipoProducto[indice]) == "string" ){
+            if(tipoProducto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.tipoProductos.push(tipoProducto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+  asignarFechaString(tipoProducto){
+    var texto = new Date(tipoProducto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+tipoProducto.titulo+")";
+  }
+
 }

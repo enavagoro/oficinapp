@@ -43,6 +43,14 @@ export class VentasPage implements OnInit {
   flag = false;
   banderaOpciones = false;
   usuario : any;
+//historial
+  banderaHistorial = false;
+  fechaMenor;
+  fechaMayor;
+  ventasRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
@@ -81,6 +89,7 @@ export class VentasPage implements OnInit {
     this.ventaService.listar().then(servicio=>{
       servicio.subscribe(v=>{
           this.ventas = v;
+          this.ventasRespaldo = this.ventas;
           console.log(v);
       })
     })
@@ -154,7 +163,8 @@ export class VentasPage implements OnInit {
       component: DetallePage,
       cssClass: 'modals',
       componentProps:{
-        'detalle' : this.detalle
+        'detalle' : this.detalle,
+        'bandera' : this.bandera,
       }
     });
 
@@ -313,6 +323,7 @@ export class VentasPage implements OnInit {
     }
     this.deshabilitarInputs(false);
     this.bandera=false;
+    this.detalle = [];
     var ver = {
       text: 'Ver',
       icon: 'eye',
@@ -335,10 +346,14 @@ export class VentasPage implements OnInit {
         this.bandera=false;
         this.venta = venta;
  //      this.traerCliente(venta.idCliente);
+        venta.detalle = venta.detalle;
+        this.detalle = venta.detalle;
+ /*
         this.detalleService.listar(venta.id).subscribe(detalle=>{
             venta.detalles = detalle;
             this.detalle = detalle;
         })
+        */
       }
     }
     var duplicar = {
@@ -430,11 +445,105 @@ export class VentasPage implements OnInit {
 
     return await modal.present();
 
-}
+  }
 
-escanearVenta(){
-  console.log('venta',this.venta);
+  escanearVenta(){
+    console.log('venta',this.venta);
+  }
 
-}
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.ventas = this.ventasRespaldo;
+    var arregloFiltrado = [];
+
+      for(let venta of this.ventas){
+        let fechaVenta = new Date(venta.fecha);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaVenta >= fechaMenor && fechaVenta <= fechaMayor){
+            arregloFiltrado.push(venta);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaVenta <= fechaMayor){
+            arregloFiltrado.push(venta);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaVenta >= fechaMenor){
+            arregloFiltrado.push(venta);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.ventas = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.ventas = this.ventasRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.ventas = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let venta of this.arregloFiltrado){
+        for(var indice in venta){
+          if(typeof(venta[indice]) == "string" ){
+            if(venta[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.ventas.push(venta);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let venta of this.ventasRespaldo){
+        for(var indice in venta){
+          if(typeof(venta[indice]) == "string" ){
+            if(venta[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.ventas.push(venta);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+
 
 }
