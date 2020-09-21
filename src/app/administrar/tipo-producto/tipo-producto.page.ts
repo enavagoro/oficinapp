@@ -319,4 +319,9 @@ export class TipoProductoPage implements OnInit {
     }
   }
 
+  asignarFechaString(tipoProducto){
+    var texto = new Date(tipoProducto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+tipoProducto.titulo+")";
+  }
+
 }

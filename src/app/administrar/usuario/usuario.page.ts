@@ -339,4 +339,9 @@ export class UsuarioPage implements OnInit {
       this.filtrarPorFecha();
     }
   }
+
+  asignarFechaString(usuario){
+    var texto = new Date(usuario.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+usuario.nombre+")";
+  }
 }

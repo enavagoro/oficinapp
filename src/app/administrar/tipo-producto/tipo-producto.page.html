@@ -105,8 +105,7 @@
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1311/1311359.svg">
         </ion-avatar>
-        <ion-label>{{p.titulo}}<br style="margin-top: 1%;color:#f5f5f5;">Creado el {{p.createdAt}}</ion-label>
-        {{p.codigo}}
+        <ion-label>{{asignarFechaString(p)}}</ion-label>
       </ion-item>
       <h1 class="sin-tipoProductos" *ngIf="tipoProductos.length == 0">No hay Tipos de Productos aún...</h1>
     </ion-list>
@@ -119,8 +118,7 @@
         <ion-avatar slot="start" *ngIf="!p.estado">
           <img src="https://image.flaticon.com/icons/svg/1311/1311359.svg" class="grayscale">
         </ion-avatar>
-        <ion-label>{{p.titulo}} <br style="margin-top: 1%;color:#f5f5f5;">Creado el {{p.createdAt}}</ion-label>
-        {{p.codigo}}
+        <ion-label>{{asignarFechaString(p)}}</ion-label>
       </ion-item>
       <h1 class="sin-tipoProductos" *ngIf="tipoProductos.length == 0">No hay Tipos de Productos aún...</h1>
     </ion-list>

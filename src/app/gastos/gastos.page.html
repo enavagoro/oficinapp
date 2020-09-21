@@ -178,13 +178,19 @@
       <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
     </ion-item>
 
+    <ion-item class="item-lista" >
+      <ion-label> Monto Total ${{totalGastos | number}}</ion-label>
+      <ion-avatar slot="end">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/2933/2933116.svg">
+      </ion-avatar>
+    </ion-item>
+
       <ion-list *ngIf="!verTodos">
         <ion-item class="item-lista" *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
           </ion-avatar>
-          <ion-label>{{g.titulo}} <br>{{g.fecha}}</ion-label>
-          ${{g.monto| number}}
+          <ion-label>{{asignarFechaString(g)}}</ion-label>
         </ion-item>
         <h1 class="sin-gastos" *ngIf="gastos.length == 0">No hay Gastos aún...</h1>
       </ion-list>
@@ -197,8 +203,7 @@
           <ion-avatar slot="start" *ngIf="!g.estado">
             <img class="grayscale" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
           </ion-avatar>
-          <ion-label>{{g.titulo}} <br> {{g.fecha}}</ion-label>
-          ${{g.monto| number}}
+          <ion-label>{{asignarFechaString(g)}}</ion-label>
         </ion-item>
         <h1 class="sin-gastos" *ngIf="gastos.length == 0">No hay Gastos aún...</h1>
       </ion-list>

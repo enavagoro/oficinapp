@@ -27,6 +27,7 @@ export class GastosPage implements OnInit {
   bandera = false;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   arregloInputs=[];
+  totalGastos : number = 0;
 
   banderaHistorial = false;
   fechaMenor;
@@ -303,9 +304,12 @@ export class GastosPage implements OnInit {
     await actionSheet.present();
   }
   filtrarGastos(){
+    this.totalGastos = 0;
+
     var gastos = [];
     for(let i = 0 ; i < this.gastos.length ; i ++){
       if(this.gastos[i].estado){
+        this.totalGastos += this.gastos[i].monto;
         gastos.push(this.gastos[i]);
       }
     }
@@ -499,4 +503,8 @@ export class GastosPage implements OnInit {
     }
   }
 
+  asignarFechaString(gasto){
+    var texto = new Date(gasto.fecha).toLocaleDateString() + " : $"+gasto.monto.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    return texto +" ("+gasto.titulo+")";
+  }
 }

@@ -156,8 +156,7 @@
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
-        <ion-label>{{c.nombre}} <br style="margin-top: 1%;color:#f5f5f5;">Creado el {{c.createdAt}}</ion-label>
-        {{c.rut}}
+        <ion-label>{{asignarFechaString(c)}}</ion-label>
       </ion-item>
       <h1 class="sin-clientes" *ngIf="clientes.length == 0">No hay Clientes aún...</h1>
     </ion-list>
@@ -170,8 +169,7 @@
         <ion-avatar slot="start" *ngIf="!c.estado">
           <img class="grayscale" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
         </ion-avatar>
-        <ion-label>{{c.nombre}} <br style="margin-top: 1%;color:#f5f5f5;">Creado el {{c.createdAt}}</ion-label>
-        {{c.rut}}
+        <ion-label>{{asignarFechaString(c)}}</ion-label>
       </ion-item>
       <h1 class="sin-clientes" *ngIf="clientes.length == 0">No hay Clientes aún...</h1>
     </ion-list>

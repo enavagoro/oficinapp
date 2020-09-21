@@ -325,6 +325,11 @@ export class ClientePage implements OnInit {
     }
   }
 
+  asignarFechaString(cliente){
+    var texto = new Date(cliente.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+cliente.nombre+")";
+  }
+
 /* no funca esta verga
   subir(){
     console.log('windows',window);

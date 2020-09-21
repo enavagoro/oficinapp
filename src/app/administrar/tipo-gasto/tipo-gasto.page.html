@@ -105,8 +105,7 @@
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>
-        <ion-label>{{g.titulo}}<br style="margin-top: 1%;color:#f5f5f5;">Creado el {{g.createdAt}}</ion-label>
-        {{g.codigo}}
+        <ion-label>{{asignarFechaString(g)}}</ion-label>
       </ion-item>
       <h1 class="sin-clientes" *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h1>
     </ion-list>
@@ -119,8 +118,7 @@
         <ion-avatar slot="start" *ngIf="!g.estado">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg" class="grayscale">
         </ion-avatar>
-        <ion-label>{{g.titulo}}<br style="margin-top: 1%;color:#f5f5f5;">Creado el {{g.createdAt}}</ion-label>
-        {{g.codigo}}
+        <ion-label>{{asignarFechaString(g)}}</ion-label>
       </ion-item>
       <h1 class="sin-clientes" *ngIf="tipoGastos.length == 0">No hay Tipos de Gastos aún...</h1>
     </ion-list>

@@ -362,4 +362,9 @@ export class ProductoPage implements OnInit {
       this.filtrarPorFecha();
     }
   }
+
+  asignarFechaString(producto){
+    var texto = new Date(producto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+producto.titulo+")";
+  }
 }

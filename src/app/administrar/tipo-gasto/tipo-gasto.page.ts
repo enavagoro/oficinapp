@@ -317,4 +317,9 @@ export class TipoGastoPage implements OnInit {
     }
   }
 
+  asignarFechaString(tipoGasto){
+    var texto = new Date(tipoGasto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+tipoGasto.titulo+")";
+  }
+
 }
