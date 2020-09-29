@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Panel Fisalis</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="parte-arriba celular">
+
+    <ion-slides pager="true">
+
+      <ion-slide>
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none" >
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/770/770080.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Sucursales</h3>
+               <!--  <p>{{clientes.length}}</p> -->
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Productos</h3>
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/608/608905.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Cotizaciones</h3>
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="parte-arriba escritorio">
+      <div class="contenedor-card">
+        <div class="card">
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src="https://image.flaticon.com/icons/svg/770/770080.svg">
+            </ion-avatar>
+            <ion-label>
+              <h3>Sucursales</h3>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Productos</h3>
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Ingresos</h3>
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="contenedor-card">
+          <div class="card">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+              </ion-avatar>
+              <ion-label>
+                <h3>Egresos</h3>
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
+  </div>
+
+  <div>
+    <ion-list-header style="margin-top:2.5%; margin-bottom:2.5%;">
+      <ion-label class="titulo-sucursales">Ingresos y egresos de productos por sucursal</ion-label>
+    </ion-list-header>
+
+    <div class="card-informacion-principal">
+      <!--<h1 class="titulo-grafico-grande"></h1>-->
+      <div class="grafico-grande" id="chart4">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedor-sucursales" style="margin-top:2%;">
+    <ion-list-header>
+      <ion-label class="titulo-sucursales">Sucursales activas</ion-label>
+    </ion-list-header>
+
+    <ion-item > <!--(click)="crearSucursal()"-->
+      <ion-avatar>
+        <img src="https://image.flaticon.com/icons/svg/808/808423.svg">
+      </ion-avatar>
+      <ion-label class="texto-lista">Agregar nueva sucursal</ion-label>
+    </ion-item>
+
+    <ion-list>
+
+        <div *ngFor="let sucursal of sucursales;index as i" class="contenedor-item">
+          <ion-item lines="none">
+            <ion-avatar>
+              <img src="https://image.flaticon.com/icons/svg/770/770080.svg">
+            </ion-avatar>
+
+            <ion-label>
+              <h2>{{sucursal.titulo}}</h2>
+              <p>Encargado : {{sucursal.encargado}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+
+      </ion-list>
+    </div>
+</ion-content>

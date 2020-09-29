@@ -53,6 +53,14 @@ const routes: Routes = [
   {
     path: 'tienda',
     loadChildren: () => import('./tienda/tienda.module').then( m => m.TiendaPageModule)
+  },
+  {
+    path: 'panel-lirio',
+    loadChildren: () => import('./panel-lirio/panel-lirio.module').then( m => m.PanelLirioPageModule)
+  },
+  {
+    path: 'panel-fisalis',
+    loadChildren: () => import('./panel-fisalis/panel-fisalis.module').then( m => m.PanelFisalisPageModule)
   }
 
 ];
