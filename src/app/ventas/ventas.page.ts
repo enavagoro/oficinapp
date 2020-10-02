@@ -28,7 +28,7 @@ export class VentasPage {
   ventasFiltradas = [];
   clientExist = true;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
-  public venta  = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:0,tipoDocumento:0,idEmpresa:0,idUsuario:''};
+  public venta  = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
   metodos = [
     {nombre:"Efectivo",valor:0},
     {nombre:"Debito",valor:1},
@@ -186,7 +186,7 @@ export class VentasPage {
         this.detalle = [];
         this.cliente = undefined;
         this.nombreCliente = "";
-        this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:0,tipoDocumento:0,idEmpresa:0,idUsuario:''};
+        this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
       })
     }
   }
@@ -218,7 +218,7 @@ export class VentasPage {
   public actualizarVenta(){
     this.ventaService.actualizar(this.venta,this.venta.id).subscribe(venta=>{
       this.cargaInicial();
-      this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:0,tipoDocumento:0,idEmpresa:0,idUsuario:''};
+      this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],tipoDocumento:'0',dia:'0',metodo:'0',idEmpresa:0,idUsuario:''};
       this.limpiar();
     })
   }
@@ -241,7 +241,7 @@ export class VentasPage {
     this.detalle = [];
     this.cliente = undefined;
     this.nombreCliente = "";
-    this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:0,tipoDocumento:0,idEmpresa:0,idUsuario:''};
+    this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
   }
 
   async eliminar(opcion) {
