@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService } from '../_servicios/cliente.service';
 import { PERMISSION,UsuarioService } from '../_servicios/usuario.service';
@@ -18,7 +18,7 @@ import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta
   styleUrls: ['./ventas.page.scss'],
 })
 
-export class VentasPage implements OnInit {
+export class VentasPage {
 
   nombreCliente = "";
   clientesFiltrado = [];
@@ -66,6 +66,7 @@ export class VentasPage implements OnInit {
 
                 this.storage.get('usuarios').then((val) => {
                   if(val){
+                    this.cargaInicial();
                     this.usuario = val;
                     console.log(val);
                     var permission = this.usuarioService.tienePermiso(val,'ventas');
@@ -76,21 +77,23 @@ export class VentasPage implements OnInit {
                         this.router.navigate(['/login'], {replaceUrl: true});
                       }
                     }
-                  }
-                })
-                clienteService.listar().then(servicio=>{
-                    servicio.subscribe(c=>{
-                          this.clientes = c;
-                    })
-                  })
+                  }else{          
+                    this.router.navigate(['/login'], {replaceUrl: true});          
+                  }                  
+                })                
               }
 
-  ngOnInit() {
+  cargaInicial() {
     this.ventaService.listar().then(servicio=>{
       servicio.subscribe(v=>{
           this.ventas = v;
           this.ventasRespaldo = this.ventas;
           console.log(v);
+      })
+    })
+    this.clienteService.listar().then(servicio=>{
+      servicio.subscribe(c=>{
+            this.clientes = c;
       })
     })
   }
@@ -120,7 +123,7 @@ export class VentasPage implements OnInit {
   }
 
   public traerclientes(){
-    this.ngOnInit();
+    this.cargaInicial();
   }
   cambiarFecha(d){
     console.log(d);
@@ -179,7 +182,7 @@ export class VentasPage implements OnInit {
   public ejecutarInsercion(indice,tam){
     if(indice == tam){
       this.ventaService.insertar(this.venta).subscribe(data=>{
-        this.ngOnInit();
+        this.cargaInicial();
         this.detalle = [];
         this.cliente = undefined;
         this.nombreCliente = "";
@@ -214,14 +217,14 @@ export class VentasPage implements OnInit {
 
   public actualizarVenta(){
     this.ventaService.actualizar(this.venta,this.venta.id).subscribe(venta=>{
-      this.ngOnInit();
+      this.cargaInicial();
       this.venta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:0,tipoDocumento:0,idEmpresa:0,idUsuario:''};
       this.limpiar();
     })
   }
   public eliminacionLogica(){
     this.ventaService.eliminar(this.venta,this.venta.id).subscribe(datos=>{
-      this.ngOnInit();
+      this.cargaInicial();
     })
   }
   public deshabilitarInputs(estado){
@@ -436,11 +439,14 @@ export class VentasPage implements OnInit {
 
     modal.onDidDismiss().then(modal=>{
       console.log("haciendo pruebas");
+
       this.clienteService.listar().then(servicio=>{
         servicio.subscribe(c=>{
               this.clientes = c;
+              this.cargaInicial();
         })
       })
+
     });
 
     return await modal.present();

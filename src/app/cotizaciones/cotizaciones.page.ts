@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { ClienteService } from '../_servicios/cliente.service';
 import { DetalleService } from '../_servicios/detalle.service';
@@ -20,7 +20,7 @@ const URL = "https://api.vase.cl";
   styleUrls: ['./cotizaciones.page.scss'],
 })
 
-export class CotizacionesPage implements OnInit {
+export class CotizacionesPage  {
   flag = false;
   img: string;
   bandera = false;
@@ -51,6 +51,7 @@ export class CotizacionesPage implements OnInit {
               private modalCtrl : ModalController) {
                 this.storage.get('usuarios').then((val) => {
                   if(val){
+                    this.cargaInicial();
                     var permission = this.usuarioService.tienePermiso(val,'gastos');
                     if(permission){
                       this.permission = permission;
@@ -59,11 +60,13 @@ export class CotizacionesPage implements OnInit {
                         this.router.navigate(['/login'], {replaceUrl: true});
                       }
                     }
+                  }else{
+                    this.router.navigate(['/login'], {replaceUrl: true});          
                   }
                 })
               }
 
-  ngOnInit() {
+  cargaInicial() {
     console.log("entre");
     this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
       servicio.subscribe(e=>{
@@ -74,6 +77,8 @@ export class CotizacionesPage implements OnInit {
           console.log(this.img);
       })
     })
+    console.log("cotizaciones?");
+    
     this.cotizacionService.listar().then(servicio=>{
       servicio.subscribe(cotizaciones=>{
           this.cotizaciones = cotizaciones;
@@ -108,7 +113,7 @@ export class CotizacionesPage implements OnInit {
   }
 
   public traerClientes(){
-    this.ngOnInit();
+    this.cargaInicial();
   }
 
   refrescar(event) {
@@ -159,7 +164,7 @@ export class CotizacionesPage implements OnInit {
 
     modal.onDidDismiss().then(modal=>{
       console.log("haciendo pruebas");
-      this.ngOnInit();
+      this.cargaInicial();
     });
 
     return await modal.present();
@@ -195,7 +200,7 @@ export class CotizacionesPage implements OnInit {
     this.cotizacion.detalle = this.detalle;
     this.cotizacionService.insertar(this.cotizacion).subscribe(data=>{
       //console.log(data);
-      this.ngOnInit();
+      this.cargaInicial();
       this.detalle = [];
       this.cliente = undefined;
       this.nombreCliente = "";
@@ -235,7 +240,7 @@ export class CotizacionesPage implements OnInit {
       console.log("abrir documento");
       this.datosPdf['docto'] = data['docto'];
       this.abrirDocumento(data['docto'],this.datosPdf);
-      this.ngOnInit();
+      this.cargaInicial();
       this.detalle = [];
       this.nombreCliente = "";
       this.cliente = undefined;
@@ -272,14 +277,14 @@ export class CotizacionesPage implements OnInit {
   public actualizarCotizacion(){
     this.cotizacionService.actualizar(this.cotizacion,this.cotizacion.id).subscribe(cotizacion=>{
       //console.log(cotizacion);
-      this.ngOnInit();
+      this.cargaInicial();
       this.cotizacion = {nota:'',url:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
     })
   }
   public eliminacionLogica(){
     this.cotizacionService.eliminar(this.cotizacion,this.cotizacion.id).subscribe(datos=>{
       //console.log(datos);
-      this.ngOnInit();
+      this.cargaInicial();
     })
   }
   public deshabilitarInputs(estado){
