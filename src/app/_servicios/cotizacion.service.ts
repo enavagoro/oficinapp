@@ -23,7 +23,7 @@ export class CotizacionService {
   }
   insertarPdf(datosPdf ){
       datosPdf.url = this.url +"/"+datosPdf.idEmpresa+"/"+datosPdf.url;
-      return this.http.post<any[]>(`${this.url}/cotizacion/`,datosPdf, {
+      return this.http.post<any[]>(`${this.url}/preview-cotizacion/`,datosPdf, {
         headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
       });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController ,ToastController,AlertController,ActionSheetController} from '@ionic/angular';
 import { GastoService } from '../_servicios/gasto.service';
 import { PERMISSION,UsuarioService } from '../_servicios/usuario.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./gastos.page.scss'],
 })
 
-export class GastosPage implements OnInit {
+export class GastosPage {
   file = File = null;
   gastos = [];
 
@@ -40,6 +40,7 @@ export class GastosPage implements OnInit {
       private modalCtrl : ModalController) {
         this.storage.get('usuarios').then((val) => {
           if(val){
+            this.cargaInicial();
             var permission = this.usuarioService.tienePermiso(val,'gastos');
             if(permission){
               this.permission = permission;
@@ -48,11 +49,14 @@ export class GastosPage implements OnInit {
                 this.router.navigate(['/login'], {replaceUrl: true});
               }
             }
+          }else{          
+              this.router.navigate(['/login'], {replaceUrl: true});          
           }
         })
       }
 
-  ngOnInit() {
+  cargaInicial() {
+    
     this.tipoGastoService.listar().then(servicio=>{
       servicio.subscribe(t=>{
             this.tiposGastos = t.filter(this.filtros);
@@ -84,7 +88,7 @@ export class GastosPage implements OnInit {
     this.gasto.img = img;
     this.gastoService.insertar(this.gasto).subscribe(gasto=>{
       //console.log('entra2');
-      this.ngOnInit();
+      this.cargaInicial();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
       this.url = "";
     })
@@ -94,7 +98,7 @@ export class GastosPage implements OnInit {
     this.gasto.img = img;
     this.gastoService.actualizar(this.gasto.id,this.gasto).subscribe(gasto=>{
       //console.log(gasto);
-      this.ngOnInit();
+      this.cargaInicial();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
@@ -104,14 +108,14 @@ export class GastosPage implements OnInit {
 
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
 
-      this.ngOnInit();
+      this.cargaInicial();
 
     })
   }
   public verGasto(){
     this.gastoService.actualizar(this.gasto,this.gasto.id).subscribe(gasto=>{
       //console.log(gasto);
-      this.ngOnInit();
+      this.cargaInicial();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
@@ -225,6 +229,7 @@ export class GastosPage implements OnInit {
       text: 'Ver',
       icon: 'eye',
       handler: () => {
+        console.log("gasto",gasto);
         gasto.tipo=''+gasto.tipo;
         this.gasto = gasto;
         this.deshabilitarInputs(true);
@@ -379,7 +384,7 @@ export class GastosPage implements OnInit {
 
       modal.onDidDismiss().then(modal=>{
         console.log("haciendo pruebas");
-        this.ngOnInit();
+        this.cargaInicial();
       });
 
       return await modal.present();
