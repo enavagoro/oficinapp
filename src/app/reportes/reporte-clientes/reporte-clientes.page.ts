@@ -47,9 +47,9 @@ export type RadioOptions ={
   styleUrls: ['./reporte-clientes.page.scss'],
 })
 export class ReporteClientesPage implements OnInit {
-  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
   public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
 
   clientes = [];

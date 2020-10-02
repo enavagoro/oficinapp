@@ -15,7 +15,7 @@ export class ClientePage implements OnInit {
   public cliente  = {estado:0,id:0,nombre:'',rut:'',giro:'',direccion:'',comuna:'',ciudad:'',contacto:'',tipoCompra:0,detalle : [],idEmpresa:0,idUsuario:0};
   public producto  = {estado:0,id:0,titulo:'',precio:0,codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   clientesRespaldo = [];

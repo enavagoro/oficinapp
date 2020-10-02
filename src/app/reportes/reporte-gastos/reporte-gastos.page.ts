@@ -49,9 +49,9 @@ export type RadioOptions ={
 })
 export class ReporteGastosPage implements OnInit {
 
-  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
   public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'bar'},colors: [],plotOptions: {},dataLabels: {},legend:{}, grid:{}, xaxis: {}, yaxis: {} };
   public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},labels: []};
@@ -184,7 +184,7 @@ export class ReporteGastosPage implements OnInit {
         enabled: false
       },
       x: {
-        show: false
+        show: true
       },
       y: {
         title: {
@@ -252,7 +252,7 @@ export class ReporteGastosPage implements OnInit {
         enabled: false
       },
       x: {
-        show: false
+        show: true
       },
       y: {
         title: {

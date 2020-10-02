@@ -29,7 +29,7 @@ export class GastosPage implements OnInit {
   arregloInputs=[];
   totalGastos : number = 0;
 
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   gastosRespaldo = [];

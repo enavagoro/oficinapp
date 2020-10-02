@@ -12,7 +12,7 @@ export class TipoProductoPage implements OnInit {
   tipoProductos= [];
   public tipoProducto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   tipoProductosRespaldo = [];

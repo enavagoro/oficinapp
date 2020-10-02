@@ -18,7 +18,7 @@ export class ProductoPage implements OnInit {
   banderaMantenedor = true;
   banderaMensaje = true;
 
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   productosRespaldo = [];

@@ -44,7 +44,7 @@ export class VentasPage implements OnInit {
   banderaOpciones = false;
   usuario : any;
 //historial
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   ventasRespaldo = [];

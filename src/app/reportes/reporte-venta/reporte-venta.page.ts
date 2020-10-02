@@ -50,14 +50,12 @@ export type RadioOptions ={
 })
 
 export class ReporteVentaPage implements OnInit {
-  public chartGrafico1 : Partial<ChartOptions>;
-
-  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options1 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options2 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
+  public options3 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},stroke: {},tooltip: {}};
   public options4 : Partial<ChartOptions> = {series: [],chart: {type: 'area'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
   public options5 : Partial<ChartOptions> = {series: [],chart: {type: 'bar'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
-  public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'radar'},colors: [],plotOptions: {},dataLabels: {},xaxis: {} };
+  public options6 : Partial<ChartOptions> = {series: [],chart: {type: 'radar'},plotOptions: {},xaxis: {}};
   public options7 : Partial<RadioOptions> = {series: [],chart: {type: 'pie'},labels: []};
 
   arreglo = [1000,20000,3000,4000,2000,25000,1500,30000,10000,15000,2500,3000];
@@ -68,6 +66,7 @@ export class ReporteVentaPage implements OnInit {
   sales = [];
   lastSevenDays = [];
   mesEnCurso = [];
+  sieteUltimosDiasValor = Number(null);
 
   ventasSemanales = {"valor":Number(null),"cantidad":Number(null),"dias":[Number(null),Number(null),Number(null),Number(null),Number(null),Number(null)]};
 
@@ -247,31 +246,6 @@ export class ReporteVentaPage implements OnInit {
       }
     };
 
-    this.options6 = {
-      series: [{
-      name: 'Cantidad de veces vendidas ',
-      data: this.clientesVentas.cantidades,
-    }],
-      chart: {
-      height: 300,
-      type: 'radar',
-    },
-    xaxis: {
-      categories: this.clientesVentas.nombres
-    },
-    plotOptions: {
-        radar: {
-          size: 140,
-          polygons: {
-            strokeColor: "#e9e9e9",
-            fill: {
-              colors: ["#f8f8f8", "#fff"]
-            }
-          }
-        }
-      },
-    };
-
     this.options5 = {
       series: [{
       name: 'Producto',
@@ -306,6 +280,31 @@ export class ReporteVentaPage implements OnInit {
     }
     };
 
+    this.options6 = {
+      series: [{
+      name: 'Cantidad de veces vendidas ',
+      data: this.clientesVentas.cantidades,
+    }],
+      chart: {
+      height: 300,
+      type: 'radar',
+    },
+    xaxis: {
+      categories: this.clientesVentas.nombres
+    },
+    plotOptions: {
+        radar: {
+          size: 140,
+          polygons: {
+            strokeColor: "#e9e9e9",
+            fill: {
+              colors: ["#f8f8f8", "#fff"]
+            }
+          }
+        }
+      },
+    };
+
     this.options7 = {
       series: this.metodoUtilizado.frecuencia,
       chart: {
@@ -323,35 +322,43 @@ export class ReporteVentaPage implements OnInit {
       var apex5 = document.querySelector('#chart5');
       var apex6 = document.querySelector('#chart6');
       var apex7 = document.querySelector('#chart7');
+
       if(apex1){
         var chart = new ApexCharts(apex1, this.options1);
         chart.render();
       }
+
       if(apex2){
         var chart = new ApexCharts(apex2, this.options2);
         chart.render();
         console.log("sales al final ",this.sales)
       }
+
       if(apex3){
         var chart = new ApexCharts(apex3, this.options3);
         chart.render();
       }
+
       if(apex4){
         var chart = new ApexCharts(apex4, this.options4);
         chart.render();
       }
+
       if(apex5){
         var chart = new ApexCharts(apex5, this.options5);
         chart.render();
       }
+
       if(apex6){
         var chart = new ApexCharts(apex6, this.options6);
         chart.render();
       }
+
       if(apex7){
         var chart = new ApexCharts(apex7, this.options7);
         chart.render();
       }
+
     } catch (error) {
       console.log(error)
     }
@@ -419,6 +426,7 @@ export class ReporteVentaPage implements OnInit {
             var dia = f.getDate();
             if(this.sales[dia - i] && (dia - i) >= 0){
               this.lastSevenDays.push(this.sales[dia - i])
+              this.sieteUltimosDiasValor+=this.sales[dia - i].monto
             }else{
               this.lastSevenDays.push(0);
             }
@@ -427,6 +435,7 @@ export class ReporteVentaPage implements OnInit {
 
           this.calculoClientesVenta();
           this.productoMasVendido();
+          this.calcularMetodoPago();
           this.renderizarGraficos();
         })
 
@@ -503,8 +512,11 @@ export class ReporteVentaPage implements OnInit {
       })
 
       for(let i=0; i< this.productosVendidos.nombres.length; i++){
-        this.productosVendidos.nombres[i] = productosAgrupados[i].titulo;
-        this.productosVendidos.cantidades[i]= productosAgrupados[i].cantidad;
+        console.log('productos agrupados',productosAgrupados[i]);
+        if(productosAgrupados[i]){
+          this.productosVendidos.nombres[i] = productosAgrupados[i].titulo;
+          this.productosVendidos.cantidades[i]= productosAgrupados[i].cantidad;
+        }
       }
 
     }
@@ -545,6 +557,8 @@ export class ReporteVentaPage implements OnInit {
             this.clientesVentas.nombres.push(this.clientes[i].nombre);
             this.clientesVentas.cantidades.push(venta.cantidadCliente);
           }
+          console.log('clientes ventas',this.clientesVentas);
+
         }
       })
 
@@ -581,6 +595,8 @@ export class ReporteVentaPage implements OnInit {
 
       for(let x=0;x<metodosAgrupados.length;x++){
         this.metodoUtilizado.frecuencia[x]=metodosAgrupados[x].cantidadMetodo
+        console.log('metodo',this.metodoUtilizado);
+
       }
     }
 

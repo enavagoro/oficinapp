@@ -15,15 +15,15 @@
       <h1 class="monto-card">+{{this.sieteUltimosDiasValor}}</h1>
       <h1 class="titulo-card">Clientes nuevos los ultimos 7 días</h1>
       <div class="grafico" id="chart1">
-        <apx-chart [series]="options1.series" [chart]="options1.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
+        <!--<apx-chart [series]="options1.series" [chart]="options1.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
       </div>
     </div>
 
     <div class="card-medio">
       <h1 class="monto-card">+{{clientesMensuales.cantidad}}</h1>
       <h1 class="titulo-card">Clientes nuevos este mes</h1>
-      <div class="grafico" id="chart1">
-        <apx-chart [series]="options2.series" [chart]="options2.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
+      <div class="grafico" id="chart2">
+        <!--<apx-chart [series]="options2.series" [chart]="options2.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
       </div>
     </div>
 
@@ -31,7 +31,7 @@
       <h1 class="monto-card">+{{clientesAnuales.cantidad}}</h1>
       <h1 class="titulo-card">Clientes nuevos este año</h1>
       <div class="grafico" id="chart3">
-        <apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>
+        <!--<apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
       </div>
     </div>
   </div>
@@ -40,30 +40,30 @@
     <ion-slides pager="true" [options]="slideOpts">
       <ion-slide>
         <div class="card">
-          <h1 class="monto-card">$1000</h1>
+          <h1 class="monto-card">+{{this.sieteUltimosDiasValor}}</h1>
           <h1 class="titulo-card">Clientes nuevos los ultimos 7 días</h1>
-          <div class="grafico">
-
+          <div class="grafico" id="chart1">
+            <!--<apx-chart [series]="options1.series" [chart]="options1.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
           </div>
         </div>
       </ion-slide>
 
       <ion-slide>
         <div class="card">
-          <h1 class="monto-card">$1000</h1>
+          <h1 class="monto-card">+{{clientesMensuales.cantidad}}</h1>
           <h1 class="titulo-card">Clientes nuevos este mes</h1>
-          <div class="grafico">
-
+          <div class="grafico" id="chart2">
+            <!--<apx-chart [series]="options2.series" [chart]="options2.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
           </div>
         </div>
       </ion-slide>
 
       <ion-slide>
         <div class="card">
-          <h1 class="monto-card">$1000</h1>
+          <h1 class="monto-card">+{{clientesAnuales.cantidad}}</h1>
           <h1 class="titulo-card">Clientes nuevos este año</h1>
-          <div class="grafico">
-
+          <div class="grafico" id="chart3">
+            <!--<apx-chart [series]="options3.series" [chart]="options3.chart" [title]="title" style="padding-bottom:5%;"></apx-chart>-->
           </div>
         </div>
       </ion-slide>
@@ -75,7 +75,7 @@
       <div class="card-informacion-principal">
         <h1 class="titulo-grafico-grande">Ingreso de nuevos clientes durante el año</h1>
         <div class="grafico-grande" id="chart4">
-          <apx-chart [xaxis]="options4.xaxis" [series]="options4.series" [chart]="options4.chart" [title]="title"></apx-chart>
+          <!--<apx-chart [xaxis]="options4.xaxis" [series]="options4.series" [chart]="options4.chart" [title]="title"></apx-chart>-->
         </div>
       </div>
     </div>

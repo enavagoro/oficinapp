@@ -14,7 +14,7 @@ export class UsuarioPage implements OnInit {
   public usuario : Usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
   bandera = false;
   flag = false;
-  banderaHistorial = false;
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   usuariosRespaldo = [];

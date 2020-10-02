@@ -12,7 +12,7 @@ export class TipoGastoPage implements OnInit {
   tipoGastos= [];
   public tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
-  banderaHistorial
+  banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   tipoGastosRespaldo = [];
