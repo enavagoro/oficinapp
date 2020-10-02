@@ -47,7 +47,7 @@
 
         <ion-label>Tipo de gasto</ion-label>
         <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo" name="tipo" required [disabled]="bandera==true">
-          <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{i}}">{{p.titulo}}</ion-select-option>
+          <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{p.id}}">{{p.titulo}}</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -112,7 +112,7 @@
         <ion-button class="ion-button-card" *ngIf="gasto.id == 0 " size="small" (click)="vaciarArchivo()">cancelar</ion-button>
       </ion-item>
 
-      <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ) && !permission.c ">Guardar</ion-button>
+      <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ) || !permission.c ">Guardar</ion-button>
       <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ) && !permission.u">Actualizar</ion-button>
       <ion-button class="ion-button-cancelar" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
       <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
