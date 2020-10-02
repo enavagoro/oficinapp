@@ -105,7 +105,8 @@ export class LoginPage implements OnInit {
                 }else{
                   console.log("lol algo debe tener su menu creo sho");
 
-                }                                                
+                }                                
+                usuario.token = d['accessToken'];
                 this.loginService.setUser(usuario);
                 this.loginService.setEmpresa(usuario.empresa);
                 this.router.navigate(['/home']);
