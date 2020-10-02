@@ -199,20 +199,24 @@ export class VentasPage {
 
     var i = 0;
     var inventariados = this.venta.detalle.filter(prod=>{return prod.tipo == 1})
-    for(var producto of this.venta.detalle){
-      if(producto.tipo == 1){
-        this.stock.descontar(producto.cantidad,producto['id']).subscribe(d=>{
-          console.log(d);
-          if(d['error']){
-            alert(d['error']);
-          }else{
-            i++;
-            this.ejecutarInsercion(i,inventariados.length);
-          }
-        })
+    if(inventariados.length == 0){
+      this.ejecutarInsercion(i,inventariados.length);
+    }else{    
+      for(var producto of this.venta.detalle){
+        if(producto.tipo == 1){
+          this.stock.descontar(producto.cantidad,producto['id']).subscribe(d=>{
+            console.log(d);
+            if(d['error']){
+              alert(d['error']);
+            }else{
+              i++;
+              this.ejecutarInsercion(i,inventariados.length);
+            }
+          })
+        }     
       }
     }
-
+    
   }
 
   public actualizarVenta(){

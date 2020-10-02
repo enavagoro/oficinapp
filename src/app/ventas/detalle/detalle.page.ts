@@ -72,13 +72,12 @@ export class DetallePage implements OnInit {
     })
 
     //Consultar al cristopher sobre el uso del login service y como trabajarlo mejor, dado que al usarlo el token en venta puede estar caido pero en detalle no
-    this.login.getFirstTimeEmpresa().then(val=>{
-      console.log(val);
-      this.sucursalService.listar().subscribe(s=>{
-        this.sucursales = s;
-        console.log(this.sucursales);
-      })
+    
+    this.sucursalService.listar().subscribe(s=>{
+      this.sucursales = s;
+      console.log(this.sucursales);
     })
+  
 
 
   }

@@ -29,14 +29,7 @@ export class LoginService {
   }
   public getEmpresa(){
     return this.empresa;
-  }
-  async getFirstTimeEmpresa(){
-    this.storage.get('usuarios').then((val) => {
-      this.setEmpresa(val['empresa']);
-      this.setToken(val['token']);
-      return val.empresa;
-    })
-  }
+  }  
   public setEmpresa(em){
     this.empresa = em;
   }
