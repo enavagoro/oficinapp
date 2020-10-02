@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ReportesPageRoutingModule } from './reportes-routing.module';
-
+import { NgDragDropModule } from 'ng-drag-drop';
 import { ReportesPage } from './reportes.page';
 
 @NgModule({
@@ -13,7 +13,8 @@ import { ReportesPage } from './reportes.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ReportesPageRoutingModule
+    ReportesPageRoutingModule,
+    NgDragDropModule.forRoot()
   ],
   declarations: [ReportesPage]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { UsuarioService } from '../_servicios/usuario.service';
 import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
@@ -17,13 +17,21 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    let codigoEnter = 13;
+
+    if(event.keyCode == codigoEnter){
+      this.login();
+    }
+  }
+
   usuario = "";
   fingerprintOptions : FingerprintOptions;
   clave = "";
   permitirDedo = false;
   loginForm;
   banderaMostrar = false;
-  
+
   constructor(
     private loginService : LoginService,
     private fingerAuth: FingerprintAIO,
@@ -31,7 +39,9 @@ export class LoginPage implements OnInit {
     private auth: AuthService,
     private appUtil: AppUtilService,
     public alertController: AlertController,
-    public router: Router,public usuarioService : UsuarioService,private formBuilder : FormBuilder) {
+    public router: Router,
+    public usuarioService : UsuarioService,
+    private formBuilder : FormBuilder) {
       this.loginForm = this.formBuilder.group({
         correo : ['',[Validators.required,ValidationService.emailValidator]],
         clave : ['',Validators.required]
@@ -74,8 +84,10 @@ export class LoginPage implements OnInit {
   }
 
   async login(){
+    this.banderaMostrar = false;
     this.usuarioService.dropMenu();
     this.usuarioService.addMenu({title: 'Inicio',url: '/home',icon: 'home',principal:true,permission:{c:true,r:true,u:true,d:true}});
+    
       this.auth.logUser(this.loginForm.value).then(servicio=>{
         servicio.subscribe(d=>{
           console.log(d);
@@ -93,12 +105,12 @@ export class LoginPage implements OnInit {
                 }else{
                   console.log("lol algo debe tener su menu creo sho");
 
-                }
-                usuario.token = d['accessToken'];
+                }                                                
                 this.loginService.setUser(usuario);
                 this.loginService.setEmpresa(usuario.empresa);
                 this.router.navigate(['/home']);
-              }
+              }              
+              this.usuarioService.addMenu({title: 'Reportes',url: '/reportes',icon: 'stats',principal:true,permission:{c:true,r:true,u:true,d:true}});
 
             })
           })

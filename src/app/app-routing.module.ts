@@ -55,7 +55,6 @@ const routes: Routes = [
     loadChildren: () => import('./tienda/tienda.module').then( m => m.TiendaPageModule)
   }
 
-
 ];
 
 @NgModule({

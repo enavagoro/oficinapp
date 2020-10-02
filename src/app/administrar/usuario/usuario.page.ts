@@ -14,6 +14,13 @@ export class UsuarioPage implements OnInit {
   public usuario : Usuario = {estado:0,id:0,nombre:'',apellido:'',correo:'',clave:'',menu:[]};
   bandera = false;
   flag = false;
+  banderaHistorial = true;
+  fechaMenor;
+  fechaMayor;
+  usuariosRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(private usuarioService : UsuarioService,
               private storage : Storage,
@@ -27,6 +34,7 @@ export class UsuarioPage implements OnInit {
     this.usuarioService.listar().then(servicio=>{
       servicio.subscribe(u=>{
         this.usuarios= u;
+        this.usuariosRespaldo= u;
       })
     })
   }
@@ -233,5 +241,107 @@ export class UsuarioPage implements OnInit {
       }
     }
     return usuarios;
+  }
+
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.usuarios = this.usuariosRespaldo;
+    var arregloFiltrado = [];
+
+      for(let usuario of this.usuarios){
+        let fechaUsuario = new Date(usuario.createdAt);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaUsuario >= fechaMenor && fechaUsuario <= fechaMayor){
+            arregloFiltrado.push(usuario);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaUsuario <= fechaMayor){
+            arregloFiltrado.push(usuario);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaUsuario >= fechaMenor){
+            arregloFiltrado.push(usuario);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.usuarios = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.usuarios = this.usuariosRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.usuarios = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let usuario of this.arregloFiltrado){
+
+        for(var indice in usuario){
+
+          if(typeof(usuario[indice]) == "string" ){
+            if(usuario[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.usuarios.push(usuario);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let usuario of this.usuariosRespaldo){
+
+        for(var indice in usuario){
+
+          if(typeof(usuario[indice]) == "string" ){
+            if(usuario[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.usuarios.push(usuario);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+  asignarFechaString(usuario){
+    var texto = new Date(usuario.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+usuario.nombre+")";
   }
 }

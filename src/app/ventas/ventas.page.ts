@@ -8,6 +8,7 @@ import { DetalleService } from '../_servicios/detalle.service';
 import { VentaService} from '../_servicios/venta.service';
 import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
 
 
@@ -42,6 +43,14 @@ export class VentasPage {
   flag = false;
   banderaOpciones = false;
   usuario : any;
+//historial
+  banderaHistorial = true;
+  fechaMenor;
+  fechaMayor;
+  ventasRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService:ClienteService,
@@ -78,6 +87,7 @@ export class VentasPage {
     this.ventaService.listar().then(servicio=>{
       servicio.subscribe(v=>{
           this.ventas = v;
+          this.ventasRespaldo = this.ventas;
           console.log(v);
       })
     })
@@ -87,7 +97,7 @@ export class VentasPage {
       })
     })
   }
-  traerCliente(id){
+  a(id){
     var clientes = this.clientes.filter( (cliente)=>cliente.id == id );
     console.log(clientes);
     if(clientes.length > 0 ){
@@ -156,7 +166,8 @@ export class VentasPage {
       component: DetallePage,
       cssClass: 'modals',
       componentProps:{
-        'detalle' : this.detalle
+        'detalle' : this.detalle,
+        'bandera' : this.bandera,
       }
     });
 
@@ -315,6 +326,7 @@ export class VentasPage {
     }
     this.deshabilitarInputs(false);
     this.bandera=false;
+    this.detalle = [];
     var ver = {
       text: 'Ver',
       icon: 'eye',
@@ -325,7 +337,7 @@ export class VentasPage {
         this.banderaOpciones=true;
         this.deshabilitarInputs(true);
         this.bandera=true;
-        this.traerCliente(venta.idCliente);
+     //   this.traerCliente(venta.idCliente);
         venta.detalles = venta.detalle;
         this.detalle = venta.detalle;
       }
@@ -336,11 +348,15 @@ export class VentasPage {
       handler: () => {
         this.bandera=false;
         this.venta = venta;
-        this.traerCliente(venta.idCliente);
+ //      this.traerCliente(venta.idCliente);
+        venta.detalle = venta.detalle;
+        this.detalle = venta.detalle;
+ /*
         this.detalleService.listar(venta.id).subscribe(detalle=>{
             venta.detalles = detalle;
             this.detalle = detalle;
         })
+        */
       }
     }
     var duplicar = {
@@ -423,11 +439,117 @@ export class VentasPage {
 
     modal.onDidDismiss().then(modal=>{
       console.log("haciendo pruebas");
-      this.cargaInicial();
+
+      this.clienteService.listar().then(servicio=>{
+        servicio.subscribe(c=>{
+              this.clientes = c;
+              this.cargaInicial();
+        })
+      })
+
     });
 
     return await modal.present();
 
-}
+  }
+
+  escanearVenta(){
+    console.log('venta',this.venta);
+  }
+
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.ventas = this.ventasRespaldo;
+    var arregloFiltrado = [];
+
+      for(let venta of this.ventas){
+        let fechaVenta = new Date(venta.fecha);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaVenta >= fechaMenor && fechaVenta <= fechaMayor){
+            arregloFiltrado.push(venta);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaVenta <= fechaMayor){
+            arregloFiltrado.push(venta);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaVenta >= fechaMenor){
+            arregloFiltrado.push(venta);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.ventas = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.ventas = this.ventasRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.ventas = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let venta of this.arregloFiltrado){
+        for(var indice in venta){
+          if(typeof(venta[indice]) == "string" ){
+            if(venta[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.ventas.push(venta);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let venta of this.ventasRespaldo){
+        for(var indice in venta){
+          if(typeof(venta[indice]) == "string" ){
+            if(venta[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.ventas.push(venta);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+
 
 }

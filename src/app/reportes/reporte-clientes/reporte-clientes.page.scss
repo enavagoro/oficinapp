@@ -1,0 +1,187 @@
+ion-content{
+  --background: #f5f5f5;
+}
+
+.contenedor-resumenes{
+  margin-top: 2.5%;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  background: #f5f5f5;
+}
+
+.monto-card{
+  width: 100%;
+  text-align: center !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 0%;
+}
+
+.titulo-card{
+  width: 100%;
+  text-align: center !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 0%;
+}
+
+.card{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: white;
+  border-radius: 5px;
+}
+
+.card-izquierda{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: white;
+  border-radius: 5px;
+}
+
+.card-medio{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: white;
+  border-radius: 5px;
+}
+
+.card-derecha{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background: white;
+  border-radius: 5px;
+}
+
+.grafico{
+  width: 70%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 15%;
+}
+
+.parte-superior{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  background: #82afec;
+  padding-top: 0% !important;
+  height: 30% !important;
+  color: white;
+}
+
+.titulo-superior{
+  width: 100%;
+  text-align: center !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* parte de los gráficos grandes */
+
+.contenedor-principal{
+  width: 100% !important;
+  margin-top: 5%;
+  background: #eff4f7;
+}
+
+.card-principal-arriba{
+  width: 100%;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.card-informacion-principal{
+  width: 95%;
+  background: white;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-bottom: 2.5%;
+  border-radius: 5px;
+
+}
+
+/* parte de los gráficos grandes */
+
+.contenedor-principal{
+  width: 100% !important;
+  margin-top: 5%;
+  background: #eff4f7;
+}
+
+.card-principal-arriba{
+  width: 100%;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.card-informacion-principal{
+  width: 95%;
+  background: white;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-bottom: 2.5%;
+  border-radius: 5px;
+
+}
+
+.grafico-grande{
+  width: 90%;
+  margin-left: 5%;
+}
+
+.titulo-grafico-grande{
+  width: 100%;
+  text-align: left !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 5%;
+}
+
+.celular{
+  display: none;
+}
+
+@media (max-width:900px){
+  .celular{
+    display: block;
+  }
+
+  .escritorio{
+    display: none;
+  }
+
+  .card-principal-arriba{
+    width: 100%;
+    display: block;
+  }
+
+  .titulo-grafico-grande{
+    width: 100%;
+    text-align: center !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 5%;
+    margin-left: 0%;
+  }
+}

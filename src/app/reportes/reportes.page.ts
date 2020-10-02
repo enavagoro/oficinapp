@@ -44,87 +44,56 @@ export class ReportesPage implements OnInit {
               public dService:DetalleService,
               public ctService: CotizacionService,
               private modalCtrl : ModalController) {
-                this.storage.get('usuarios').then((val) => {
-                  if(!val){
-                    this.router.navigate(['/login'], {replaceUrl: true});
-                  }
-                  /*
-                  AQUI PONER TUS FUNCIOONES
-                  */
+  this.storage.get('usuarios').then((val) => {
+    if(!val){
+      this.router.navigate(['/login'], {replaceUrl: true});
+    }
+    /*
+    AQUI PONER TUS FUNCIOONES
+    */
 
 
-    gService.listar().then(servicio=>{
-      servicio.subscribe(g =>{
-            this.gastos = g.filter(this.filtros);
+      gService.listar().then(servicio=>{
+        servicio.subscribe(g =>{
+              this.gastos = g.filter(this.filtros);
 
-            for(let i=0; i<this.gastos.length; i++){
-              var fechaTemporal = new Date(this.gastos[i].fecha);
-              if(this.periodos.mes==fechaTemporal.getMonth() && this.periodos.año==fechaTemporal.getFullYear()){
-                this.gastoMensual+=this.gastos[i].monto;
-              }
-              if(this.periodos.año==fechaTemporal.getFullYear())
-              {
-                this.gastoAnual+=this.gastos[i].monto;
-              }
-              if(this.periodos.dia==fechaTemporal.getDay())
-              {
-                this.gastoDiario+=this.gastos[i].monto;
-              }
-            }
-            console.log('Gasto Anual:',this.gastoAnual);
-            console.log('Gasto Mensual: ',this.gastoMensual);
-            console.log('Gasto Diario:',this.gastoDiario);
-            console.log('gastos :' ,this.gastos);
+
+        })
       })
-    })
 
-    cService.listar().then(servicio=>{
-      servicio.subscribe(cs=>{
-            this.clientes = cs.filter(this.filtros);
-            console.log(cs);
-            console.log('clientes :' ,this.clientes);
+      cService.listar().then(servicio=>{
+        servicio.subscribe(cs=>{
+              this.clientes = cs.filter(this.filtros);
+        })
       })
-    })
 
-    vService.listar().then(servicio=>{
-      servicio.subscribe(vs=>{
-            this.ventas = vs.filter(this.filtros);
-            console.log(vs);
-            console.log('ventas :' ,this.ventas);
-            /*
-            for (let i=0; i<this.ventas.length; i++)
-            {
-              dService.listar(this.ventas[i].id).subscribe(ds=>{
-                this.detalle = ds;
-                console.log('detalle :' ,this.clientes);
-              })
-            }
-            */
+      vService.listar().then(servicio=>{
+        servicio.subscribe(vs=>{
+              this.ventas = vs.filter(this.filtros);
+        })
       })
-    })
 
-    pService.listar().then(servicio=>{
-      servicio.subscribe(ps=>{
-            this.productos = ps.filter(this.filtros);
-            console.log(ps);
-            console.log('productos :' ,this.productos);
+      pService.listar().then(servicio=>{
+        servicio.subscribe(ps=>{
+              this.productos = ps.filter(this.filtros);
+        })
       })
-    })
 
-    ctService.listar().then(servicio=>{
-      servicio.subscribe(ct=>{
-            this.cotizaciones = ct.filter(this.filtros);
-            console.log(ct);
-            console.log('cotizaciones: ',this.cotizaciones);
+      ctService.listar().then(servicio=>{
+        servicio.subscribe(ct=>{
+              this.cotizaciones = ct.filter(this.filtros);
+        })
       })
-    })
 
-    })
-  }
+      })
+    }
 
   ngOnInit() {
   }
-
+  dropPlace(event,elemento){
+    console.log(event);
+    console.log(elemento);
+  }
   refrescar(event) {
     setTimeout(() => {
 
@@ -137,16 +106,6 @@ export class ReportesPage implements OnInit {
       return true;
     }
     return false;
-  }
-
-  filtrarValor(tipo,periodo){
-    var matrizValores = [[1, 2, 3],[this.gastoAnual,this.gastoMensual, this.gastoDiario]];
-    if(periodo && tipo){
-      this.valorFinal= matrizValores[tipo][periodo];
-    }
-    else{
-      this.valorFinal=0;
-    }
   }
 
   async abrirReporte(tipo) {

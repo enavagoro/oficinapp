@@ -12,6 +12,13 @@ export class TipoGastoPage implements OnInit {
   tipoGastos= [];
   public tipoGasto = {estado:0,id:0,titulo:'',codigo:'',idEmpresa:0,idUsuario:0};
   bandera = false;
+  banderaHistorial = true;
+  fechaMenor;
+  fechaMayor;
+  tipoGastosRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoGastoService : TipoGastoService,
@@ -23,7 +30,12 @@ export class TipoGastoPage implements OnInit {
     var self = this;
     this.tipoGastoService.listar().then(servicio=>{
       servicio.subscribe(results=>{
+            for(let tipoGasto of results){
+              let fecha = new Date(tipoGasto.createdAt);
+              tipoGasto.createdAt = fecha;
+            }
             self.tipoGastos = results;
+            self.tipoGastosRespaldo = results;
       })
     })
   }
@@ -213,4 +225,101 @@ export class TipoGastoPage implements OnInit {
     }
     return tipoGastos;
   }
+  cambiarBandera(){
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.tipoGastos = this.tipoGastosRespaldo;
+    var arregloFiltrado = [];
+
+      for(let tipoGasto of this.tipoGastos){
+        //let fechaTipoGasto = new Date(tipoGasto.createdAt);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(tipoGasto.createdAt >= fechaMenor && tipoGasto.createdAt <= fechaMayor){
+            arregloFiltrado.push(tipoGasto);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(tipoGasto.createdAt <= fechaMayor){
+            arregloFiltrado.push(tipoGasto);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(tipoGasto.createdAt >= fechaMenor){
+            arregloFiltrado.push(tipoGasto);
+          }
+        }
+    }
+
+    this.arregloFiltrado = arregloFiltrado;
+    this.tipoGastos = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.tipoGastos = this.tipoGastosRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.tipoGastos = [];
+
+
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let tipoGasto of this.arregloFiltrado){
+        for(var indice in tipoGasto){
+          if(typeof(tipoGasto[indice]) == "string"){
+            if(tipoGasto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.tipoGastos.push(tipoGasto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let tipoGasto of this.tipoGastosRespaldo){
+        for(var indice in tipoGasto){
+          if(typeof(tipoGasto[indice]) == "string" ){
+            if(tipoGasto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.tipoGastos.push(tipoGasto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+  asignarFechaString(tipoGasto){
+    var texto = new Date(tipoGasto.createdAt).toLocaleDateString();
+    return "Creado el: "+ texto +" ("+tipoGasto.titulo+")";
+  }
+
 }

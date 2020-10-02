@@ -22,10 +22,20 @@ export class GastosPage {
   URL = "http://161.35.98.48";
   tiposGastos = [];
   url : string;
+  banderaUrl = false;
   cargando : boolean = false;
   bandera = false;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   arregloInputs=[];
+  totalGastos : number = 0;
+
+  banderaHistorial = true;
+  fechaMenor;
+  fechaMayor;
+  gastosRespaldo = [];
+  respaldoBuscar = [];
+  buscar = '';
+  arregloFiltrado = [];
 
   constructor(
       private login : LoginService,
@@ -66,7 +76,8 @@ export class GastosPage {
       this.URL = this.gastoService.traerIp();
       console.log(this.url);
       servicio.subscribe(g=>{
-            this.gastos = g;
+        this.gastos = g;
+        this.gastosRespaldo = this.gastos;
       })
     })
   }
@@ -137,7 +148,7 @@ export class GastosPage {
 
   public cancelar(){
     this.bandera=false;
-    this.url = "";
+    this.vaciarArchivo();
     this.deshabilitarInputs(false);
     this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
   }
@@ -218,7 +229,7 @@ export class GastosPage {
     await alert.present();
   }
   async opciones(gasto) {
-    //console.log(gasto)
+    console.log(gasto)
     var opcion = "Borrar";
     if(gasto.estado == 0){
       opcion = "Recuperar"
@@ -235,7 +246,9 @@ export class GastosPage {
         this.deshabilitarInputs(true);
         this.bandera=true;
         var value = this.login.getEmpresa();
-        this.url = this.URL+"/"+value+"/"+gasto.img;
+        if(gasto.img!='Sin Imagen'){
+          this.url = this.URL+"/"+value+"/"+gasto.img;
+        }
       }};
     var actualizar = {
       text: 'Actualizar',
@@ -244,8 +257,9 @@ export class GastosPage {
         this.bandera=false;
         this.gasto = gasto;
         var value = this.login.getEmpresa();
-        this.url = this.URL+"/"+value+"/"+gasto.img;
-        this.url = this.URL+"/"+value+"/"+gasto.img;
+        if(gasto.img!='Sin Imagen'){
+          this.url = this.URL+"/"+value+"/"+gasto.img;
+        }
       }
     };
     var duplicar = {
@@ -295,9 +309,12 @@ export class GastosPage {
     await actionSheet.present();
   }
   filtrarGastos(){
+    this.totalGastos = 0;
+
     var gastos = [];
     for(let i = 0 ; i < this.gastos.length ; i ++){
       if(this.gastos[i].estado){
+        this.totalGastos += this.gastos[i].monto;
         gastos.push(this.gastos[i]);
       }
     }
@@ -330,6 +347,7 @@ export class GastosPage {
 
   public vaciarArchivo(){
     this.file = 0;
+    this.url = '';
   }
 
   uploadFile(actualizar){
@@ -391,4 +409,107 @@ export class GastosPage {
 
   }
 
+  cambiarBandera(){
+    console.log('entré');
+    this.banderaHistorial = !this.banderaHistorial;
+  }
+
+  filtrarPorFecha(){
+    this.gastos = this.gastosRespaldo;
+    var arregloFiltrado = [];
+
+      for(let gasto of this.gastos){
+        let fechaGasto = new Date(gasto.fecha);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaGasto >= fechaMenor && fechaGasto <= fechaMayor){
+            arregloFiltrado.push(gasto);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaGasto <= fechaMayor){
+            arregloFiltrado.push(gasto);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaGasto >= fechaMenor){
+            arregloFiltrado.push(gasto);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.gastos = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.gastos = this.gastosRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.gastos = [];
+
+    console.log('este es el buscar',this.buscar);
+//esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let gasto of this.arregloFiltrado){
+        console.log('este es el gasto',gasto);
+        for(var indice in gasto){
+          console.log('este es el indice y el indice del gasto',indice,'gasto',gasto[indice]);
+
+          if(typeof(gasto[indice]) == "string" ){
+            if(gasto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.gastos.push(gasto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let gasto of this.gastosRespaldo){
+        console.log('este es el gasto',gasto);
+        for(var indice in gasto){
+          console.log('este es el indice y el indice del gasto',indice,'gasto',gasto[indice]);
+
+          if(typeof(gasto[indice]) == "string" ){
+            if(gasto[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.gastos.push(gasto);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
+  }
+
+  asignarFechaString(gasto){
+    var texto = new Date(gasto.fecha).toLocaleDateString() + " : $"+gasto.monto.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    return texto +" ("+gasto.titulo+")";
+  }
 }
