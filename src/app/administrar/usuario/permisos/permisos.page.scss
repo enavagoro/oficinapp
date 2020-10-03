@@ -1,4 +1,4 @@
-ion-toolbar{
+.ion-toolbar{
   --background: #82afec;
 }
 
@@ -37,10 +37,35 @@ ion-label{
 }
 
 .titulo-permisos{
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
+  padding-bottom: 2%;
+}
+
+.item-lista{
+  cursor: pointer;
+}
+
+.item-divider{
+  background: red;
+  margin-top: 0% !important;
+  padding-top: 0% !important;
+}
+
+.linea-final{
+  width: 100%;
+  border-bottom: solid 1px;
+  border-color: #dedede;
+}
+
+.item-toggles{
+  width: 60%;
+  margin-left: 30%;
 }
 
 @media (max-width:900px){
-
+  .item-toggles{
+    width: 80%;
+    margin-left: 10%;
+  }
 }

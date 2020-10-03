@@ -1,16 +1,19 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="ion-toolbar">
     <ion-buttons slot="start">
       <ion-button (click)="cerrarModal();" style="color:white;">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Permisos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cambiarBandera()" style="color:white;">
+        <ion-icon slot="icon-only" name="options"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-list>
+  <ion-toolbar>
     <div class="contenedor-titulo">
       <div class="parte-abajo">
         <h1 class="titulo-permisos" style="text-align:-webkit-center;">
@@ -29,18 +32,55 @@
         </h1>
       </div>
     </div>
+    <div class="contenedor-opciones" *ngIf="banderaOpciones">
+      <ion-item class="item-lista" lines="none">
+        <ion-label>Cambiar Opciones de Forma Masiva</ion-label>
+      </ion-item>
 
-    <ion-item-divider>
-    </ion-item-divider>
+      <div>
+        <ion-item class="item-toggles" lines="none">
+          <ion-toggle color="secondary" (ionChange)="cambioMasivo('r')"></ion-toggle>
+          <ion-toggle color="dark" (ionChange)="cambioMasivo('c')"></ion-toggle>
+          <ion-toggle color="primary" (ionChange)="cambioMasivo('u')"></ion-toggle>
+          <ion-toggle color="danger" (ionChange)="cambioMasivo('d')"></ion-toggle>
+          <!--
+          <ion-buttons slot="end">
+            <ion-button (click)="cancelar();" style="color:black;">
+              <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          -->
+        </ion-item>
+      </div>
+    </div>
+  </ion-toolbar>
 
-    <ion-item *ngFor="let menu of menus">
-      <ion-label >{{menu.title}}</ion-label>
-      <ion-toggle color="secondary" [(ngModel)]="menu.permission.r"></ion-toggle>
-      <ion-toggle color="dark" [(ngModel)]="menu.permission.c"></ion-toggle>
-      <ion-toggle color="primary" [(ngModel)]="menu.permission.u"></ion-toggle>
-      <ion-toggle color="danger" [(ngModel)]="menu.permission.d"></ion-toggle>
-    </ion-item>
+</ion-header>
+
+<ion-content>
+  <ion-list-header>
+    Lista de Permisos por Página
+  </ion-list-header>
+  <hr class="linea-final">
+
+  <ion-list>
+    <div *ngFor="let menu of menus; index as i">
+      <ion-item class="item-lista" (click)="banderas[i]=!banderas[i]" lines="none">
+        <ion-label >{{menu.title}}</ion-label>
+      </ion-item>
+
+      <div *ngIf="banderas[i]==true">
+        <ion-item class="item-toggles" lines="none">
+          <ion-toggle color="secondary" [(ngModel)]="menu.permission.r"></ion-toggle>
+          <ion-toggle color="dark" [(ngModel)]="menu.permission.c"></ion-toggle>
+          <ion-toggle color="primary" [(ngModel)]="menu.permission.u"></ion-toggle>
+          <ion-toggle color="danger" [(ngModel)]="menu.permission.d"></ion-toggle>
+        </ion-item>
+      </div>
+      <hr class="linea-final">
+    </div>
   </ion-list>
+
   <ion-button class="ion-button" color="tertiary" (click)="guardarPermisos()">
     Guardar Permisos
   </ion-button>

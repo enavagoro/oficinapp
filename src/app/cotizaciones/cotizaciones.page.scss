@@ -155,3 +155,31 @@ ion-avatar{
 }
 
 .grayscale { filter: grayscale(100%) !important; }
+
+//historial
+
+.ion-list-header{
+  margin-top: 2.5%;
+}
+
+.contenedor-item-fecha{
+  width: 100%;
+  display: flex;
+}
+
+.item-fecha{
+  width:95%;
+}
+
+.item-boton{
+  width: 5%;
+
+  ion-buttons{
+    width: 100%;
+  }
+}
+
+.sin-cotizacion{
+  font-size: 18px;
+  margin-left: 4%;
+}
