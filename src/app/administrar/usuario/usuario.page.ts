@@ -152,6 +152,7 @@ export class UsuarioPage implements OnInit {
     await alert.present();
   }
   async opciones(usuario) {
+    delete usuario.clave;
     var opcion = "Borrar";
     if(usuario.estado == 0){
       opcion = "Recuperar"

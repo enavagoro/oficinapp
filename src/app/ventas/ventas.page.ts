@@ -21,6 +21,7 @@ import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta
 export class VentasPage {
 
   nombreCliente = "";
+  cantidadVisible : number = 10;
   clientesFiltrado = [];
   private clientes  = [];
   cliente ;
@@ -417,12 +418,17 @@ export class VentasPage {
     }
     this.detalle = nuevo;
   }
-
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
+  }
   filtrarVentas(){
     this.totalVentas = 0;
     var ventas = [];
     for(let i = 0 ; i < this.ventas.length ; i ++){
-      if(this.ventas[i].estado){
+      if(this.ventas[i].estado && i < this.cantidadVisible){
         this.ventas[i].detalle.map( detalle => { this.totalVentas +=  detalle.cantidad * detalle.precio });
         ventas.push(this.ventas[i]);
       }

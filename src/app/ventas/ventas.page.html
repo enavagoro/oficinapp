@@ -314,7 +314,7 @@
       <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
     </ion-item>
 
-    <ion-item class="item-lista" >
+    <ion-item  >
       <ion-label> Monto Total ${{totalVentas | number}}</ion-label>
       <ion-avatar slot="end">
         <img src="https://www.flaticon.com/svg/static/icons/svg/2933/2933116.svg">
@@ -329,6 +329,8 @@
         <ion-label>{{encontrarCliente(v)}}</ion-label>
       </ion-item>
       <h1 class="sin-ventas" *ngIf="ventas.length == 0">No hay Ventas aún...</h1>
+      <button (click)="aumentarCantidad()">Aumentar</button>
+      <button (click)="disminuirCantidad()">Disminuir</button>
     </ion-list>
 
     <ion-list *ngIf="verTodos">
