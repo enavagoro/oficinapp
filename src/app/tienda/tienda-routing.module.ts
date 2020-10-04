@@ -10,6 +10,10 @@ const routes: Routes = [
   },  {
     path: 'planes',
     loadChildren: () => import('./planes/planes.module').then( m => m.PlanesPageModule)
+  },
+  {
+    path: 'carrito',
+    loadChildren: () => import('./carrito/carrito.module').then( m => m.CarritoPageModule)
   }
 
 ];

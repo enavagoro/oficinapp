@@ -1,3 +1,7 @@
+ion-content{
+  --overflow: hidden;
+}
+
 ion-toolbar{
   --background: url("/assets/icon/tienda.svg")  repeat 30%;
   --opacity: 0.9;
@@ -15,6 +19,82 @@ ion-title{
   font-size: 24px;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  margin-top: 2% !important;
+  margin-right: 2%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+//Este es el contenedor principal que engloba las cards y el carrito
+.contenedor{
+  display: flex;
+}
+
+//Este es el contenedor de las cards
+
+.contenedor-principal{
+  width: 100%;
+  background: #fafafe;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+//cards de los productoService
+
+.cards-servicios{
+  width: 90%;
+  margin: 0 auto;
+  text-align: center
+  }
+
+  .card-servicio{
+    margin-top: 2%;
+    height: 280px;
+    width: 235px;
+    background: #f8e5e9;
+    border-radius: 10px;
+  }
+
+  .containerCard{
+      height: 300px;
+      width: 250px;
+      margin-left: 10px !important;
+      padding-right: 10px !important;
+      padding-left: 10px !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      display: inline-flex;
+      cursor: pointer;
+  }
+
+  .imagen-servicio{
+    width: 40%;
+    margin-left: 0%;
+  }
+
+  .numero-abajo{
+    color:#f5f5f5;
+  }
+//
+
+
 .card{
   width: 80%;
   margin-left: 10%;
@@ -28,6 +108,8 @@ ion-title{
 }
 
 .titulo-mensaje{
+  width: 80%;
+  margin-left: 10%;
   color: white;
   font-family: 'Roboto', sans-serif;
   text-align: center;
@@ -44,6 +126,8 @@ ion-title{
   margin-left: 35%;
   margin-bottom: 2%;
 }
+
+/*
 
 .contenedor-cards{
   width: 100%;
@@ -81,7 +165,7 @@ ion-title{
     margin-left: 5%;
   }
 }
-
+*/
 .imagen-card{
   width: 80%;
   margin-left: 2.5%;
@@ -89,8 +173,19 @@ ion-title{
 
 .contenedor-logo-azul{
   width: 100%;
-  margin-top: 3%;
+  padding-right: 0%;
+  margin-top: 0%;
+  padding-bottom: 0%;
   display: flex;
+}
+
+.contenedor-interior{
+  width: 95%;
+  display: flex;
+  background: none;
+  margin-left: 2.5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .logo-azul{
@@ -98,9 +193,25 @@ ion-title{
   margin-left: 10%;
 }
 
+.contenedor-texto-lista{
+  width: 80%;
+  margin-left: 5%;
+}
+
+.titulo-lista{
+  font-size: 25px;
+  text-align: left;
+  color: #7b7bec;
+}
+
 .contenedor-texto-titulo{
   width: 80%;
   margin-left: 10%;
+}
+
+.contenedor-titulo-precio{
+  width: 100%;
+  margin-left: 0%;
 }
 
 .titulo{
@@ -189,6 +300,56 @@ ion-button:hover{
   }
 }
 
+.elemento-final{
+  height: 20vh;
+}
+
+//Este el codigo del carrito de la Tienda
+
+.carrito-tienda{
+  width: 50%;
+  height: 100vh;
+  background: white; //ojo aqui
+  position: relative;
+  overflow-y: auto;
+}
+
+.linea-final{
+  width: 100%;
+  border-bottom: solid 1px;
+  border-color: #dedede;
+}
+
+.item-final{
+  padding-bottom: 30vh;
+}
+
+.footer{
+  width: 38% !important;
+  background: white; //ojo aqui
+  position: fixed !important;
+  z-index: 2 !important;
+  height: 20%;
+  top: 80%;
+}
+
+.contenedor-boton{
+  width: 70%;
+}
+
+.boton-pago{
+  --background: #7b7bec;
+  --background-activated: #7b7bec;
+  --background-focused: #7b7bec;
+  --background-hover: #7b7bec;
+  width: 60% !important;
+  margin-left: 0% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+
+
 @media (max-width: 900px){
   .imagen{
     width: 60%;
@@ -212,31 +373,50 @@ ion-button:hover{
     display: block;
   }
 
+  .contenedor-interior{
+    width: 95%;
+    display: block;
+    background: none;
+    margin-left: 2.5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
   .logo-azul{
     width: 30%;
     margin-left: 35%;
   }
-
-  .contenedor-cards{
-    width: 100%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    display: block;
+  .carrito-tienda{
+     position: fixed; /* Stay in place */
+     left: 0;
+     top: 10%;
+     width: 100% !important; /* Full width */
+     height: 90% !important; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     z-index: 2 !important;
+     background: white;
+     animation: subir 0s ease-in;
   }
 
-  .titulo-card{
-    font-size: 24px;
-    padding-top: 5%;
+  .footer{
+    width: 100% !important;
+    background: white; //ojo aqui
+    position: fixed !important;
+    z-index: 3 !important;
+    height: 20%;
+    top: 80%;
   }
 
-  .imagen-card{
-    width: 50%;
-    margin-left: 0%;
+  .contenedor-boton{
+    width: 70%;
   }
 
-  .titulo{
-    font-size: 25px;
-    color: #7b7bec;
+  .boton-pago{
+    --background: #7b7bec;
+    --background-activated: #7b7bec;
+    --background-focused: #7b7bec;
+    --background-hover: #7b7bec;
+    width: 70% !important;
+    margin-left: 0% !important;
   }
-
 }

@@ -6,6 +6,9 @@ import { ModalController ,NavParams } from '@ionic/angular';
   styleUrls: ['./planes.page.scss'],
 })
 export class PlanesPage implements OnInit {
+  detalle = [];
+  totalSubscripcion = Number(null);
+  totalFinal = Number(null);
 
   banderaSeccion = 1;
   valorPeriodo = 1;
@@ -21,6 +24,7 @@ export class PlanesPage implements OnInit {
    }
 
   ngOnInit() {
+    this.calcularSubscripcion();
   }
 
   AvanzarSeccion(){
@@ -33,5 +37,15 @@ export class PlanesPage implements OnInit {
 
   cerrarModal(){
     this.modalCtrl.dismiss();
+  }
+
+  calcularSubscripcion(){
+    var valor = Number(null);
+    for(let elemento of this.detalle){
+      valor += elemento.precio;
+    }
+
+    this.totalSubscripcion = valor;
+    console.log('totalSubscripcion',this.totalSubscripcion);
   }
 }
