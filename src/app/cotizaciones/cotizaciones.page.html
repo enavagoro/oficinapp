@@ -2,19 +2,22 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
+  <ion-header>
+    <ion-toolbar class="toolbar">
       <ion-buttons slot="start">
-        <ion-menu-button style="--color:black;"></ion-menu-button>
+        <ion-buttons slot="start">
+          <ion-menu-button style="--color:black;"></ion-menu-button>
+        </ion-buttons>
       </ion-buttons>
-    </ion-buttons>
-    <ion-title>Cotizaciones</ion-title>
-  </ion-toolbar>
+      <ion-title>Cotizaciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
   <ion-list-header>
     Ingrese una Cotización
   </ion-list-header>
 
+  <div class="contenedor-formulario">
   <form>
     <ion-item>
       <ion-avatar slot="start">
@@ -48,11 +51,11 @@
       <ion-toggle [(ngModel)]="pepperoni" (click)="limpiar();"></ion-toggle>
     </ion-item>
 
-    <ion-item *ngIf="!pepperoni">
+    <ion-item *ngIf="pepperoni">
       <ion-button size="medium" class="ion-button-cliente" (click)="abrirCliente();">Nuevo Cliente</ion-button>
     </ion-item>
 
-    <ion-item *ngIf="pepperoni">
+    <ion-item *ngIf="!pepperoni">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
       </ion-avatar>
@@ -151,10 +154,18 @@
     <ion-button class="ion-button-cancelar" *ngIf="cotizacion.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
     <ion-button class="ion-button-cancelar" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 
-    <ion-list-header>
-      Lista de Cotizaciones
-    </ion-list-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cambiarBandera()">
+            <ion-icon slot="icon-only" name="list"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
 
+  <div class="contenedor-historial" *ngIf="banderaHistorial">
     <ion-item>
       <ion-label *ngIf="verTodos">Todos las Cotizaciones</ion-label>
       <ion-label *ngIf="!verTodos">Cotizaciones Activas</ion-label>
@@ -163,16 +174,56 @@
       <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
     </ion-item>
 
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Desde</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('menor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Hasta</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('mayor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <ion-list-header class="ion-list-header">
+      Lista de Cotizaciones Enviadas
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
+      </ion-avatar>
+      <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+    </ion-item>
+
       <ion-list *ngIf="!verTodos">
         <ion-item *ngFor="let c of filtrarCotizaciones()" (click)="opciones(c)">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/608/608905.svg">
           </ion-avatar>
-          <ion-label>{{encontrarCliente(c.idCliente)}}</ion-label>
+          <ion-label>{{encontrarCliente(c)}}</ion-label>
         </ion-item>
-        <h2 *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h2>
+        <h1 class="sin-cotizacion" *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h1>
       </ion-list>
-
 
       <ion-list *ngIf="verTodos">
         <ion-item *ngFor="let c of cotizaciones" (click)="opciones(c)">
@@ -182,9 +233,9 @@
           <ion-avatar slot="start" *ngIf="!c.estado">
             <img class="grayscale" src="https://image.flaticon.com/icons/svg/608/608905.svg">
           </ion-avatar>
-          <ion-label>{{encontrarCliente(c.idCliente)}}</ion-label>
+          <ion-label>{{encontrarCliente(c)}}</ion-label>
         </ion-item>
-        <h2 *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h2>
+        <h1 class="sin-cotizacion" *ngIf="cotizaciones.length == 0">No hay Cotizaciones aún...</h1>
       </ion-list>
-
+    </div>
 </ion-content>

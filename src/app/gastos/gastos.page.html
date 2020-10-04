@@ -2,165 +2,210 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
+  <ion-header>
+    <ion-toolbar class="toolbar">
       <ion-buttons slot="start">
-        <ion-menu-button style="--color:black;"></ion-menu-button>
+        <ion-buttons slot="start">
+          <ion-menu-button style="--color:black;"></ion-menu-button>
+        </ion-buttons>
       </ion-buttons>
-    </ion-buttons>
-    <ion-title>Gastos</ion-title>
-  </ion-toolbar>
+      <ion-title>Gastos</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
   <ion-list-header>
     Ingrese un Gasto
   </ion-list-header>
-  <form>
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
-      </ion-avatar>
 
-      <ion-label>Tipo de Documento</ion-label>
-      <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
-        <ion-select-option value="1">Boleta</ion-select-option>
-        <ion-select-option value="2">Factura</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <div class="contenedor-formulario">
+    <form>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
+        </ion-avatar>
 
-    <ion-item>
-      <ion-label>Tipo Gasto Existente</ion-label>
-      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente" [disabled]="bandera==true"></ion-toggle>
-    </ion-item>
+        <ion-label>Tipo de Documento</ion-label>
+        <ion-select [(ngModel)]="gasto.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true">
+          <ion-select-option value="1">Boleta</ion-select-option>
+          <ion-select-option value="2">Factura</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item *ngIf="!banderaExistente">
-      <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();" [disabled]="bandera==true">Nuevo Tipo Gasto</ion-button>
-    </ion-item>
+      <ion-item>
+        <ion-label>Tipo Gasto Existente</ion-label>
+        <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente" [disabled]="bandera==true"></ion-toggle>
+      </ion-item>
 
-    <ion-item *ngIf="banderaExistente">
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
-      </ion-avatar>
+      <ion-item *ngIf="banderaExistente">
+        <ion-button size="medium" class="ion-button-gastos" (click)="abrirTipoGasto();" [disabled]="bandera==true">Nuevo Tipo Gasto</ion-button>
+      </ion-item>
 
-      <ion-label>Tipo de gasto</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo" name="tipo" required [disabled]="bandera==true">
-        <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{i}}">{{p.titulo}}</ion-select-option>
-      </ion-select>
-    </ion-item>
+      <ion-item *ngIf="!banderaExistente">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
+        </ion-avatar>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Nombre del Gasto<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="gasto.titulo" name="titulo" required></ion-input>
-    </ion-item>
+        <ion-label>Tipo de gasto</ion-label>
+        <ion-select placeholder="Selecciona" [(ngModel)]="gasto.tipo" name="tipo" required [disabled]="bandera==true">
+          <ion-select-option  *ngFor="let p of tiposGastos;index as i" value="{{p.id}}">{{p.titulo}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1907/1907591.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Descripcion<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="gasto.descripcion" name="descripcion" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
-      </ion-avatar>
-      <ion-label position="stacked">Monto<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="gasto.monto" name="monto" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
-      </ion-avatar>
-      <ion-label>Fecha</ion-label>
-      <ion-datetime placeholder="Select Date" [(ngModel)]="gasto.fecha" name="gasto" required [disabled]="bandera==true"></ion-datetime>
-    </ion-item>
-
-    <ion-item class="item-archivo" for="input-archivo">
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/423/423804.svg">
-      </ion-avatar>
-      <input class="input-archivo" type="file" name="input-archivo" id="input-archivo" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)">
-      <label id="seleccionador-archivo" class="seleccionador-archivo" for="input-archivo">Subir una imagen Comprobante (Opcional)</label>
-      <!--<label class="texto-complementario" for="input-archivo">Sube una foto</label>-->
-    </ion-item>
-
-    <ion-item *ngIf="!url">
-      <ion-label class="ion-label">...No has subido ningún comprobante</ion-label>
-    </ion-item>
-
-    <ion-item *ngIf="url" class="item-card">
-      <ion-card class="card">
-        <img class="imagen" [src]="url">
-        <ion-card-header>
-          <ion-card-subtitle>Comprobante</ion-card-subtitle>
-          <!--<ion-card-title>{{(file.name||url)}}</ion-card-title>-->
-        </ion-card-header>
-      </ion-card>
-    </ion-item>
-    <ion-item *ngIf="file">
-      <ion-button class="ion-button-card" *ngIf="gasto.id == 0 " size="small" (click)="vaciarArchivo()">cancelar</ion-button>
-    </ion-item>
-
-    <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ) && !permission.c ">Guardar</ion-button>
-    <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ) && !permission.u">Actualizar</ion-button>
-    <ion-button class="ion-button-cancelar" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
-
-  </form>
-
-<!--
-  <ion-list>
-    <ion-list-header>
-      Lista de Gastos
-    </ion-list-header>
-    <ion-item *ngFor="let v of gastos">
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-      </ion-avatar>
-      <ion-label>{{v.titulo}}</ion-label>
-      ${{v.monto| number}}
-    </ion-item>
-    <h2 *ngIf="gastos.length == 0">No hay gastos aun...</h2>
-  </ion-list>
--->
-<ion-list-header>
-  Lista de Gastos
-</ion-list-header>
-
-  <ion-item>
-    <ion-label *ngIf="verTodos">Todos los gastos</ion-label>
-    <ion-label *ngIf="!verTodos">Gastos Activos</ion-label>
-    <label *ngIf="verTodos" slot="end"><ion-badge>{{gastos.length}}</ion-badge></label>
-    <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarGastos().length}}</ion-badge></label>
-    <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
-  </ion-item>
-
-    <ion-list *ngIf="!verTodos">
-      <ion-item class="item-lista" *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
+      <ion-item>
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
         </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
-        ${{g.monto| number}}
+        <ion-label position="stacked">Nombre del Gasto<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input [(ngModel)]="gasto.titulo" name="titulo" required></ion-input>
       </ion-item>
-      <h2 *ngIf="gastos.length == 0">No hay Gastos aún...</h2>
-    </ion-list>
 
-    <ion-list *ngIf="verTodos">
-      <ion-item class="item-lista" *ngFor="let g of gastos" (click)="opciones(g)">
-        <ion-avatar slot="start" *ngIf="g.estado">
-          <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1907/1907591.svg">
         </ion-avatar>
-        <ion-avatar slot="start" *ngIf="!g.estado">
-          <img class="grayscale" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
-        </ion-avatar>
-        <ion-label>{{g.titulo}}</ion-label>
-        ${{g.monto| number}}
+        <ion-label position="stacked">Descripcion<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input [(ngModel)]="gasto.descripcion" name="descripcion" required></ion-input>
       </ion-item>
-      <h2 *ngIf="gastos.length == 0">No hay Gastos aún...</h2>
-    </ion-list>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1306/1306532.svg">
+        </ion-avatar>
+        <ion-label position="stacked">Monto<ion-text color="danger">*</ion-text></ion-label>
+        <ion-input [(ngModel)]="gasto.monto" name="monto" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/470/470326.svg">
+        </ion-avatar>
+        <ion-label>Fecha</ion-label>
+        <ion-datetime placeholder="Select Date" [(ngModel)]="gasto.fecha" name="gasto" required [disabled]="bandera==true"></ion-datetime>
+      </ion-item>
+
+      <ion-item class="item-archivo" for="input-archivo">
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/423/423804.svg">
+        </ion-avatar>
+        <input class="input-archivo" type="file" name="input-archivo" id="input-archivo" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)">
+        <label id="seleccionador-archivo" class="seleccionador-archivo" for="input-archivo">Subir una imagen Comprobante (Opcional)</label>
+        <!--<label class="texto-complementario" for="input-archivo">Sube una foto</label>-->
+      </ion-item>
+
+      <ion-item *ngIf="!url">
+        <ion-label class="ion-label">...No has subido ningún comprobante</ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="url" class="item-card">
+        <ion-card class="card">
+          <img class="imagen" [src]="url">
+          <ion-card-header>
+            <ion-card-subtitle>Comprobante</ion-card-subtitle>
+            <ion-label *ngIf="gasto.img == 'Sin imagen'">
+              <br>
+              Este gasto no posee ninguna imagen
+            </ion-label><!--<ion-card-title>{{(file.name||url)}}</ion-card-title>-->
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
+      <ion-item *ngIf="file">
+        <ion-button class="ion-button-card" *ngIf="gasto.id == 0 " size="small" (click)="vaciarArchivo()">cancelar</ion-button>
+      </ion-item>
+
+      <ion-button class="ion-button" *ngIf="gasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == 0 || gasto.monto == 'null' || gasto.fecha == '' ) || !permission.c ">Guardar</ion-button>
+      <ion-button class="ion-button" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="(gasto.tipoDocumento == '' || gasto.tipo=='' || gasto.descripcion == '' || gasto.monto == '' || gasto.fecha == '' ) && !permission.u">Actualizar</ion-button>
+      <ion-button class="ion-button-cancelar" *ngIf="gasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+
+    </form>
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cambiarBandera()">
+            <ion-icon slot="icon-only" name="list"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+
+  <div class="contenedor-historial" *ngIf="banderaHistorial">
+    <ion-item>
+      <ion-label *ngIf="verTodos">Todos los gastos</ion-label>
+      <ion-label *ngIf="!verTodos">Gastos Activos</ion-label>
+      <label *ngIf="verTodos" slot="end"><ion-badge>{{gastos.length}}</ion-badge></label>
+      <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarGastos().length}}</ion-badge></label>
+      <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+    </ion-item>
+
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Desde</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('menor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <div class="contenedor-item-fecha">
+      <ion-item class="item-fecha">
+        <ion-label class="label">Hasta</ion-label>
+        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+      </ion-item>
+      <div class="item-boton" lines="none">
+        <ion-buttons>
+          <ion-button (click)="limpiarFecha('mayor')">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <ion-list-header class="ion-list-header">
+      Lista de Gastos
+    </ion-list-header>
+
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
+      </ion-avatar>
+      <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+    </ion-item>
+
+    <ion-item class="item-lista" >
+      <ion-label> Monto Total ${{totalGastos | number}}</ion-label>
+      <ion-avatar slot="end">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/2933/2933116.svg">
+      </ion-avatar>
+    </ion-item>
+
+      <ion-list *ngIf="!verTodos">
+        <ion-item class="item-lista" *ngFor="let g of filtrarGastos()" (click)="opciones(g)">
+          <ion-avatar slot="start">
+            <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+          </ion-avatar>
+          <ion-label>{{asignarFechaString(g)}}</ion-label>
+        </ion-item>
+        <h1 class="sin-gastos" *ngIf="gastos.length == 0">No hay Gastos aún...</h1>
+      </ion-list>
+
+      <ion-list *ngIf="verTodos">
+        <ion-item class="item-lista" *ngFor="let g of gastos" (click)="opciones(g)">
+          <ion-avatar slot="start" *ngIf="g.estado">
+            <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+          </ion-avatar>
+          <ion-avatar slot="start" *ngIf="!g.estado">
+            <img class="grayscale" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
+          </ion-avatar>
+          <ion-label>{{asignarFechaString(g)}}</ion-label>
+        </ion-item>
+        <h1 class="sin-gastos" *ngIf="gastos.length == 0">No hay Gastos aún...</h1>
+      </ion-list>
+    </div>
 </ion-content>

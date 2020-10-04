@@ -38,6 +38,7 @@
     "core-js": "^2.5.4",
     "jspdf": "^1.5.3",
     "ng-apexcharts": "^1.2.3",
+    "ng-drag-drop": "^5.0.0",
     "ngx-doc-viewer": "^1.0.4",
     "ngx-tree-dnd": "^2.6.0",
     "push.js": "^1.0.12",

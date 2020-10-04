@@ -148,7 +148,7 @@
           <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
         </ion-avatar>
         <ion-label position="stacked">Correo</ion-label>
-        <ion-input [(ngModel)]="usuario.correo" name="correo" required></ion-input>
+        <ion-input [(ngModel)]="usuario.correo" name="correo" required (ionBlur)="validarCorreo($event)"></ion-input>
       </ion-item>
 
       <ion-item>

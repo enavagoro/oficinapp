@@ -19,7 +19,7 @@ import { LoginService } from './_servicios/login.service';
 })
 export class AppComponent {
   subscription: Subscription;
-  public appPages = [];
+  public appPages = [ ];
   /*
   public appPages = [
     {
@@ -41,12 +41,9 @@ export class AppComponent {
       title: 'Cotizaciones',
       url: '/cotizaciones',
       icon: 'paper'
-    },/*
-    {
-      title: 'Reportes',
-      url: '/reportes',
-      icon: 'stats'
     },
+
+    /*
     {
       title: 'Tienda',
       url: '/tienda',
@@ -121,9 +118,11 @@ export class AppComponent {
               this.usuarioService.addMenu(menu)
             }
           }
+          
           this.loginService.setToken(val['token']);
           this.loginService.setEmpresa(val['empresa']);
         }
+        this.appPages.push({title: 'Reportes',url: '/reportes',icon: 'stats'});
       });
       this.statusBar.styleDefault();
       this.splashScreen.hide();

@@ -8,11 +8,11 @@
     <ion-title>Detalle</ion-title>
   </ion-toolbar>
 
-  <ion-list-header>
+  <ion-list-header *ngIf="!banderaVer">
     Ingresar Productos/Servicios
   </ion-list-header>
 
-  <ion-segment color="secondary" value="no-inventariable" mode="md">
+  <ion-segment color="secondary" value="no-inventariable" mode="md" *ngIf="!banderaVer">
     <ion-segment-button value="no-inventariable" (click)="banderaProductos=true; limpiar();">
       <ion-label>No Inventariable</ion-label>
     </ion-segment-button>
@@ -21,7 +21,7 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div class="contenedor-no-inventariable" *ngIf="banderaProductos==true;">
+  <div class="contenedor-no-inventariable" *ngIf="banderaProductos==true && !banderaVer">
     <ion-item>
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
@@ -40,12 +40,22 @@
     </ion-item>
   </div>
 
-  <div class="contenedor-inventariable" *ngIf="banderaProductos==false;">
+  <div class="contenedor-inventariable" *ngIf="banderaProductos==false && !banderaVer">
+    <div class="contenedor-activado" *ngIf="!banderaInventario">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/770/770080.svg">
+      </ion-avatar>
+      <ion-label>Sucursales</ion-label>
+      <ion-select placeholder="Selecciona" [(ngModel)]="sucursal" name="sucursal" (ionChange)="seleccionaSucursal(sucursal)">
+        <ion-select-option  *ngFor="let s of sucursales" value="{{s.id}}">{{s.titulo}} {{s.codigo}}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
-      <ion-label>Producto Inventariable</ion-label>
+      <ion-label >Producto Inventariable</ion-label>
       <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto" (ionChange)="seleccionaProducto()">
         <ion-select-option  *ngFor="let p of productosIventariables;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
@@ -57,6 +67,10 @@
       <ion-input type="number" placeholder="{{textoSugerido}}" max="max" [(ngModel)]="cantidad" name="cantidad"></ion-input>
       <ion-button class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto || cantidad > max">agregar</ion-button>
     </ion-item>
+    </div>
+    <div class="contenedor-desactivado" *ngIf="banderaInventario"><!--aqui tiene que ir el permiso-->
+      <br><br>Contrata jazmín para la utilización de tu inventario
+    </div>
   </div>
 
     <ion-list-header>
@@ -67,23 +81,23 @@
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
     </ion-avatar>
-    <span>
+    <span style="margin-top:3%; margin-bottom:3%">
       Producto: {{p.titulo}}<br>
       Precio: {{p.precio | number}} <br>
       Cantidad Vendida: {{p.cantidad | number}}<br>
-      <p *ngIf="index > 0 && !editarValor && index != i">
+      <p *ngIf="(index > 0 && !editarValor && index != i) && !banderaVer">
          Total: {{p.precio * p.cantidad | number }}
       </p>
       <br>
-      <p *ngIf="editarValor && index == i">Total : <small>ingresar en el campo inferior</small>
+      <p *ngIf="(editarValor && index == i) && !banderaVer">Total : <small>ingresar en el campo inferior</small>
        <ion-input [(ngModel)]="valorActual" placeholder="Valor unitario" type="number"></ion-input>
       </p>
 
     </span>
 
-       <ion-button class="boton-editar" (click)="editar(i)" slot="end" *ngIf="!editarValor && index != i">Editar</ion-button>
-       <ion-button class="boton-editar" (click)="confirmar(i)" slot="end" *ngIf="editarValor && index == i">Confirmar</ion-button>
-    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end">borrar</ion-button>
+       <ion-button class="boton-editar" (click)="editar(i)" slot="end" *ngIf="(!editarValor && index != i) && !banderaVer">Editar</ion-button>
+       <ion-button class="boton-editar" (click)="confirmar(i)" slot="end" *ngIf="(editarValor && index == i) && !banderaVer">Confirmar</ion-button>
+    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end" *ngIf="!banderaVer">borrar</ion-button>
   </ion-item>
 </ion-content>
 

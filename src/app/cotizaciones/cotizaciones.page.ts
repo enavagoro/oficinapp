@@ -37,6 +37,16 @@ export class CotizacionesPage  {
   public datosPdf = {id:0, nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
                                 idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0,url:''};
                                 //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
+
+  //historial
+    banderaHistorial = true;
+    fechaMenor;
+    fechaMayor;
+    cotizacionesRespaldo = [];
+    respaldoBuscar = [];
+    buscar = '';
+    arregloFiltrado = [];
+
   constructor(public actionSheetController: ActionSheetController,
               private login : LoginService,
               private clienteService: ClienteService,
@@ -61,7 +71,7 @@ export class CotizacionesPage  {
                       }
                     }
                   }else{
-                    this.router.navigate(['/login'], {replaceUrl: true});          
+                    this.router.navigate(['/login'], {replaceUrl: true});
                   }
                 })
               }
@@ -78,10 +88,11 @@ export class CotizacionesPage  {
       })
     })
     console.log("cotizaciones?");
-    
+
     this.cotizacionService.listar().then(servicio=>{
       servicio.subscribe(cotizaciones=>{
           this.cotizaciones = cotizaciones;
+          this.cotizacionesRespaldo = this.cotizaciones;
           console.log(cotizaciones);
       })
     })
@@ -102,13 +113,17 @@ export class CotizacionesPage  {
     }
   }
 
-  encontrarCliente(id_cliente){
+  encontrarCliente(cotizacion){
+    var idCliente = cotizacion.idCliente;
+    var texto = new Date(cotizacion.fechaEmision).toLocaleDateString();
+
     for(let i = 0 ; i < this.clientes.length;i++){
       let cli = this.clientes[i];
-      if(cli.id == id_cliente){
-        return cli.nombre;
+      if(cli.id == idCliente){
+        return texto +"("+cli.nombre+")";
       }
     }
+    
     return "cliente no existe";
   }
 
@@ -399,7 +414,7 @@ export class CotizacionesPage  {
           console.log(cotizacion);
           this.deshabilitarInputs(true);
           this.bandera=true;
-          this.traerCliente(cotizacion.id_cliente);          
+          this.traerCliente(cotizacion.id_cliente);
         }
       },
       {
@@ -455,5 +470,94 @@ export class CotizacionesPage  {
   limpiar(){
     this.cliente = undefined;
     this.nombreCliente = "";
+  }
+
+
+  filtrarPorFecha(){
+    this.cotizaciones = this.cotizacionesRespaldo;
+    var arregloFiltrado = [];
+
+      for(let cotizacion of this.cotizaciones){
+        let fechaCotizacion = new Date(cotizacion.fechaEmision);
+        if(this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaCotizacion >= fechaMenor && fechaCotizacion <= fechaMayor){
+            arregloFiltrado.push(cotizacion);
+          }
+        }
+        if(this.fechaMayor && !this.fechaMenor)
+        {
+          let fechaMayor = new Date(this.fechaMayor);
+          if(fechaCotizacion <= fechaMayor){
+            arregloFiltrado.push(cotizacion);
+          }
+        }
+        if(!this.fechaMayor && this.fechaMenor)
+        {
+          let fechaMenor = new Date(this.fechaMenor);
+          if(fechaCotizacion >= fechaMenor){
+            arregloFiltrado.push(cotizacion);
+          }
+        }
+    }
+    console.log('arreglo filtrado',arregloFiltrado);
+    this.arregloFiltrado = arregloFiltrado;
+    this.cotizaciones = arregloFiltrado;
+
+    if(!this.fechaMayor && !this.fechaMenor){
+      this.cotizaciones = this.cotizacionesRespaldo;
+    }
+  }
+
+  limpiarFecha(tipo){
+    console.log('entré',tipo);
+
+    if(tipo=='mayor'){
+      console.log('entré más adentro esta es la fecha a borrar',this.fechaMayor);
+      this.fechaMayor = undefined;
+      this.filtrarPorFecha();
+    }
+    if(tipo=='menor'){
+      this.fechaMenor = undefined;
+      this.filtrarPorFecha();
+    }
+  }
+
+  filtrarLista(){
+    this.cotizaciones = [];
+
+    console.log('este es el buscar',this.buscar);
+    //esto es de la funcion de fecha
+    if(this.arregloFiltrado.length > 0){
+      for(let cotizacion of this.arregloFiltrado){
+        for(var indice in cotizacion){
+          if(typeof(cotizacion[indice]) == "string" ){
+            if(cotizacion[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.cotizaciones.push(cotizacion);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.arregloFiltrado.length == 0){
+      for(let cotizacion of this.cotizacionesRespaldo){
+        for(var indice in cotizacion){
+          if(typeof(cotizacion[indice]) == "string" ){
+            if(cotizacion[indice].toUpperCase().includes(this.buscar.toUpperCase())){
+              this.cotizaciones.push(cotizacion);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(this.buscar == ""){
+      this.filtrarPorFecha();
+    }
   }
 }
