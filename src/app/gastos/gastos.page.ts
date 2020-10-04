@@ -76,7 +76,7 @@ export class GastosPage {
       this.URL = this.gastoService.traerIp();
       console.log(this.url);
       servicio.subscribe(g=>{
-        this.gastos = g;
+        this.gastos = g.reverse();
         this.gastosRespaldo = this.gastos;
       })
     })

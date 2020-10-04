@@ -87,7 +87,7 @@ export class VentasPage {
   cargaInicial() {
     this.ventaService.listar().then(servicio=>{
       servicio.subscribe(v=>{
-          this.ventas = v;
+          this.ventas = v.reverse();
           this.ventasRespaldo = this.ventas;
           console.log(v);
       })

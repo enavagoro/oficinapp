@@ -80,7 +80,7 @@ export class CotizacionesPage  {
     console.log("entre");
     this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
       servicio.subscribe(e=>{
-          this.empresa= e;
+          this.empresa= e.reverse();
           console.log(this.empresa);
           this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
           console.log(this.empresa['url']);
