@@ -59,14 +59,14 @@ export class GastosPage {
                 this.router.navigate(['/login'], {replaceUrl: true});
               }
             }
-          }else{          
-              this.router.navigate(['/login'], {replaceUrl: true});          
+          }else{
+              this.router.navigate(['/login'], {replaceUrl: true});
           }
         })
       }
 
   cargaInicial() {
-    
+
     this.tipoGastoService.listar().then(servicio=>{
       servicio.subscribe(t=>{
             this.tiposGastos = t.filter(this.filtros);
@@ -97,13 +97,13 @@ export class GastosPage {
     //console.log('entra');
     this.gasto.id = 0 + (this.gastos.length + 1);
     this.gasto.img = img;
+    //console.log('este es el gasto',this.gasto);
     this.gastoService.insertar(this.gasto).subscribe(gasto=>{
       //console.log('entra2');
       this.cargaInicial();
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
-      this.url = "";
+      this.vaciarArchivo();
     })
-
   }
   public actualizarGasto(img){
     this.gasto.img = img;
@@ -113,6 +113,7 @@ export class GastosPage {
       this.gasto = {img:'',estado:0,id:0,titulo:'',tipo:0,descripcion:'',monto:0,fecha:new Date(), documento: 0,idEmpresa:0,idUsuario:0,tipoDocumento:0};
     })
   }
+
   public eliminacionLogica(){
     this.gastoService.eliminar(this.gasto,this.gasto.id).subscribe(datos=>{
       //console.log(datos);

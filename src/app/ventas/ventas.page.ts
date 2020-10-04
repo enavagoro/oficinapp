@@ -78,10 +78,10 @@ export class VentasPage {
                         this.router.navigate(['/login'], {replaceUrl: true});
                       }
                     }
-                  }else{          
-                    this.router.navigate(['/login'], {replaceUrl: true});          
-                  }                  
-                })                
+                  }else{
+                    this.router.navigate(['/login'], {replaceUrl: true});
+                  }
+                })
               }
 
   cargaInicial() {
@@ -202,7 +202,7 @@ export class VentasPage {
     var inventariados = this.venta.detalle.filter(prod=>{return prod.tipo == 1})
     if(inventariados.length == 0){
       this.ejecutarInsercion(i,inventariados.length);
-    }else{    
+    }else{
       for(var producto of this.venta.detalle){
         if(producto.tipo == 1){
           this.stock.descontar(producto.cantidad,producto['id']).subscribe(d=>{
@@ -214,10 +214,10 @@ export class VentasPage {
               this.ejecutarInsercion(i,inventariados.length);
             }
           })
-        }     
+        }
       }
     }
-    
+
   }
 
   public actualizarVenta(){
@@ -528,7 +528,7 @@ export class VentasPage {
     this.ventas = [];
 
     console.log('este es el buscar',this.buscar);
-//esto es de la funcion de fecha
+    //esto es de la funcion de fecha
     if(this.arregloFiltrado.length > 0){
       for(let venta of this.arregloFiltrado){
         for(var indice in venta){

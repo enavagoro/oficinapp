@@ -1,0 +1,71 @@
+.ion-toolbar{
+  --background: #82afec;
+}
+
+/*
+.header-md::after{
+  width: 0% !important;
+}
+*/
+
+ion-title{
+  --color: white;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 24px;
+}
+
+.ion-button{
+  width: 70% !important;
+  margin-left: 15% !important;
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+
+.parte-arriba{
+  width: 100%;
+}
+
+.parte-abajo{
+  width: 100%;
+}
+
+ion-label{
+  width: 100%;
+  text-align: center;
+}
+
+.titulo-permisos{
+  font-size: 16px;
+  text-align: center;
+  padding-bottom: 2%;
+}
+
+.item-lista{
+  cursor: pointer;
+}
+
+.item-divider{
+  background: red;
+  margin-top: 0% !important;
+  padding-top: 0% !important;
+}
+
+.linea-final{
+  width: 100%;
+  border-bottom: solid 1px;
+  border-color: #dedede;
+}
+
+.item-toggles{
+  width: 60%;
+  margin-left: 30%;
+}
+
+@media (max-width:900px){
+  .item-toggles{
+    width: 80%;
+    margin-left: 10%;
+  }
+}

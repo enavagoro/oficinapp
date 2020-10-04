@@ -278,6 +278,7 @@
         <ion-label class="label">Desde</ion-label>
         <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
+      
       <div class="item-boton" lines="none">
         <ion-buttons>
           <ion-button (click)="limpiarFecha('menor')">
@@ -292,6 +293,7 @@
         <ion-label class="label">Hasta</ion-label>
         <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
+
       <div class="item-boton" lines="none">
         <ion-buttons>
           <ion-button (click)="limpiarFecha('mayor')">
