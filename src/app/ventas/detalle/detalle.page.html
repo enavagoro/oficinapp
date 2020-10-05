@@ -1,71 +1,71 @@
 <ion-content>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="cerrarModal()" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-toolbar class="toolbar" mode="md">
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="cerrarModal()" color="dark" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Detalle</ion-title>
+    <ion-title mode="md">Detalle</ion-title>
   </ion-toolbar>
 
-  <ion-list-header *ngIf="!banderaVer">
+  <ion-list-header *ngIf="!banderaVer" mode="md">
     Ingresar Productos/Servicios
   </ion-list-header>
 
   <ion-segment color="secondary" value="no-inventariable" mode="md" *ngIf="!banderaVer">
-    <ion-segment-button value="no-inventariable" (click)="banderaProductos=true; limpiar();">
+    <ion-segment-button value="no-inventariable" (click)="banderaProductos=true; limpiar();" mode="md">
       <ion-label>No Inventariable</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="inventariable" (click)="banderaProductos=false; limpiar();">
+    <ion-segment-button value="inventariable" (click)="banderaProductos=false; limpiar();" mode="md">
       <ion-label>Inventariable</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <div class="contenedor-no-inventariable" *ngIf="banderaProductos==true && !banderaVer">
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
       <ion-label>Producto/Servicio</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto" (ionChange)="seleccionaProducto()">
-        <ion-select-option  *ngFor="let p of productosNoIventariables;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
+      <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto" (ionChange)="seleccionaProducto()" mode="md">
+        <ion-select-option  *ngFor="let p of productosNoIventariables;index as i" value="{{i}}" mode="md">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
       </ion-avatar>
       <ion-input type="number" placeholder="{{textoSugerido}}" max="max" [(ngModel)]="cantidad" name="cantidad"></ion-input>
-      <ion-button class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto || cantidad > max">agregar</ion-button>
+      <ion-button mode="md" class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto || cantidad > max" >agregar</ion-button>
     </ion-item>
   </div>
 
   <div class="contenedor-inventariable" *ngIf="banderaProductos==false && !banderaVer">
     <div class="contenedor-activado" *ngIf="!banderaInventario">
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/770/770080.svg">
       </ion-avatar>
       <ion-label>Sucursales</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="sucursal" name="sucursal" (ionChange)="seleccionaSucursal(sucursal)">
+      <ion-select placeholder="Selecciona" [(ngModel)]="sucursal" name="sucursal" (ionChange)="seleccionaSucursal(sucursal)" mode="md">
         <ion-select-option  *ngFor="let s of sucursales" value="{{s.id}}">{{s.titulo}} {{s.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
       <ion-label >Producto Inventariable</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto" (ionChange)="seleccionaProducto()">
-        <ion-select-option  *ngFor="let p of productosIventariables;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
+      <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto" (ionChange)="seleccionaProducto()" mode="md">
+        <ion-select-option  *ngFor="let p of productosIventariables;index as i" value="{{i}}" mode="md">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
       </ion-avatar>
-      <ion-input type="number" placeholder="{{textoSugerido}}" max="max" [(ngModel)]="cantidad" name="cantidad"></ion-input>
-      <ion-button class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto || cantidad > max">agregar</ion-button>
+      <ion-input type="number" placeholder="{{textoSugerido}}" max="max" [(ngModel)]="cantidad" name="cantidad" mode="md"></ion-input>
+      <ion-button mode="md" class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto || cantidad > max">agregar</ion-button>
     </ion-item>
     </div>
     <div class="contenedor-desactivado" *ngIf="banderaInventario"><!--aqui tiene que ir el permiso-->
@@ -73,11 +73,11 @@
     </div>
   </div>
 
-    <ion-list-header>
+    <ion-list-header mode="md">
       Productos Ingresados
     </ion-list-header>
 
-  <ion-item *ngFor="let p of detalle;index as i">
+  <ion-item *ngFor="let p of detalle;index as i" mode="md">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
     </ion-avatar>
@@ -90,19 +90,19 @@
       </p>
       <br>
       <p *ngIf="(editarValor && index == i) && !banderaVer">Total : <small>ingresar en el campo inferior</small>
-       <ion-input [(ngModel)]="valorActual" placeholder="Valor unitario" type="number"></ion-input>
+       <ion-input [(ngModel)]="valorActual" placeholder="Valor unitario" type="number" mode="md"></ion-input>
       </p>
 
     </span>
 
-       <ion-button class="boton-editar" (click)="editar(i)" slot="end" *ngIf="(!editarValor && index != i) && !banderaVer">Editar</ion-button>
-       <ion-button class="boton-editar" (click)="confirmar(i)" slot="end" *ngIf="(editarValor && index == i) && !banderaVer">Confirmar</ion-button>
-    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end" *ngIf="!banderaVer">borrar</ion-button>
+       <ion-button class="boton-editar" (click)="editar(i)" slot="end" *ngIf="(!editarValor && index != i) && !banderaVer" mode="md">Editar</ion-button>
+       <ion-button class="boton-editar" (click)="confirmar(i)" slot="end" *ngIf="(editarValor && index == i) && !banderaVer" mode="md">Confirmar</ion-button>
+    <ion-button class="boton-borrar" (click)="borrar(i)" slot="end" *ngIf="!banderaVer" mode="md">borrar</ion-button>
   </ion-item>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-button (click)="guardar()" class="boton-ok" size="block"  [disabled]="cantidad == '' || producto==''">OK</ion-button>
+<ion-footer mode="md">
+  <ion-toolbar mode="md">
+    <ion-button (click)="guardar()" class="boton-ok" size="block"  [disabled]="cantidad == '' || producto==''" mode="md">OK</ion-button>
   </ion-toolbar>
 </ion-footer>

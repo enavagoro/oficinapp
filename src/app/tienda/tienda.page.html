@@ -1,7 +1,7 @@
-<ion-header>
-  <ion-toolbar class="toolbar">
-      <ion-buttons slot="start">
-        <ion-menu-button style="--color:white;"></ion-menu-button>
+<ion-header mode="md">
+  <ion-toolbar class="toolbar" mode="md">
+      <ion-buttons slot="start" mode="md">
+        <ion-menu-button style="--color:white;" mode="md"></ion-menu-button>
       </ion-buttons>
     <ion-title>Tienda</ion-title>
     <!--
@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content mode="md">
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button style="color:#82afec;" (click)="activarCarrito()">
       <ion-icon name="cart"></ion-icon>
@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      <ion-item-divider>
+      <ion-item-divider mode="md">
       </ion-item-divider>
       <!--
       <div class="contenedor-logo-azul">
@@ -145,8 +145,8 @@
             <h1 class="titulo" style="color:#6864b9 !important;">Fisalis App - Lleva el control de tu inventario</h1>
             <p class="subtitulo" style="color:black !important;">Código: F-0 <br><br>En Fisalis puedes reducir los costos relacionados a tu inventario, controlar tu producción y organizar de manera más eficiente productos.
               <br><br>*Tu aplicación Fisalis, está integrada a Jazmín, por lo que puedes generar ventas descontando productos directamente de tu inventario*</p>
-            <ion-button (click)="abrirPlanes();"><ion-icon name="help-circle-outline"></ion-icon>Más Información</ion-button>
-            <ion-button (click)="addToCart(0);"><ion-icon name="cart"></ion-icon>Agregar al Carrito</ion-button>
+            <ion-button mode="md" (click)="abrirPlanes();"><ion-icon name="help-circle-outline"></ion-icon>Más Información</ion-button>
+            <ion-button mode="md" (click)="addToCart(0);"><ion-icon name="cart"></ion-icon>Agregar al Carrito</ion-button>
           </div>
         </div>
       </div>
@@ -163,8 +163,8 @@
             <h1 class="titulo" style="color:#9da4d6 !important;">Lirio App - Punto de Venta</h1>
             <p class="subtitulo" style="color:black !important;">Código: L-1 <br><br>Gestiona de manera óptima las interacciones de tu tienda con tus clientes.
               <br><br>*Tu aplicación Lirio, está directamente conectada a Jazmín y Fisalis para llevar automáticamente control de tu inventario y de tus ventas*</p>
-            <ion-button (click)="abrirPlanes();"><ion-icon name="help-circle-outline"></ion-icon>Más Información</ion-button>
-            <ion-button (click)="addToCart(1);"><ion-icon name="cart"></ion-icon>Agregar al Carrito</ion-button>
+            <ion-button mode="md" (click)="abrirPlanes();"><ion-icon name="help-circle-outline"></ion-icon>Más Información</ion-button>
+            <ion-button mode="md" (click)="addToCart(1);"><ion-icon name="cart"></ion-icon>Agregar al Carrito</ion-button>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@
             <h1 class="titulo" style="color:#82afec !important;">Generador de Reportes Automáticos</h1>
             <p class="subtitulo">Gestiona de manera óptima las interacciones de tu tienda con tus clientes.
               <br><br>*Tu aplicación Lirio, está directamente conectada a Jazmín y Fisalis para llevar automáticamente control de tu inventario y de tus ventas*</p>
-            <ion-button (click)="abrirPlanes();" disabled><ion-icon name="help-circle-outline"></ion-icon>Proximamente</ion-button>
+            <ion-button mode="md" (click)="abrirPlanes();" disabled><ion-icon name="help-circle-outline"></ion-icon>Proximamente</ion-button>
           </div>
         </div>
       </div>
@@ -198,10 +198,10 @@
 
     <div class="carrito-tienda" *ngIf="banderaBarra">
       <div class="" *ngFor="let s of carrito;index as i">
-        <ion-item lines="none" mode="md">
-        <ion-buttons slot="end" style="z-index:1 !important;">
-          <ion-button (click)="quitarServicio(i)">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
+        <ion-item mode="md" lines="none" mode="md">
+        <ion-buttons mode="md" slot="end" style="z-index:1 !important;">
+          <ion-button mode="md" (click)="quitarServicio(i)">
+            <ion-icon slot="icon-only" name="close" mode="md"></ion-icon>
           </ion-button>
         </ion-buttons>
         </ion-item>
@@ -212,7 +212,7 @@
         </ion-item>
       </div>
 
-      <ion-item lines="none" class="item-final">
+      <ion-item lines="none" class="item-final" mode="md">
 
       </ion-item>
 

@@ -1,10 +1,10 @@
 <ion-content>
-  <ion-header>
-    <ion-toolbar>
+  <ion-header mode="md">
+    <ion-toolbar mode="md">
       <div class="boton-home">
-      <ion-buttons slot="start">
-        <ion-buttons slot="start">
-          <ion-menu-button style="--color:black;"></ion-menu-button>
+      <ion-buttons slot="start" mode="md">
+        <ion-buttons slot="start" mode="md">
+          <ion-menu-button style="--color:black;" mode="md"></ion-menu-button>
         </ion-buttons>
       </ion-buttons>
       </div>
@@ -12,7 +12,7 @@
           <ion-slide>
             <div class="contenedor-mitades">
               <div class="derecha">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="/assets/icon/ventas.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Ventas del mes</ion-card-title>
@@ -22,7 +22,7 @@
               </div>
               <div class="centro">
 
-                <ion-card class="ion-card card-producto">
+                <ion-card class="ion-card card-producto" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="https://image.flaticon.com/icons/svg/359/359399.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">El más vendido</ion-card-title>
@@ -31,7 +31,7 @@
                 </ion-card>
               </div>
               <div class="izquierda">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="/assets/icon/ventas.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Ventas del año</ion-card-title>
@@ -45,7 +45,7 @@
           <ion-slide>
             <div class="contenedor-mitades">
               <div class="derecha">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="/assets/icon/ventas.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Ventas del año ( $ )</ion-card-title>
@@ -80,7 +80,7 @@
           <ion-slide>
             <div class="contenedor-mitades">
               <div class="derecha">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Gasto más alto ($)</ion-card-title>
@@ -89,7 +89,7 @@
                 </ion-card>
               </div>
               <div class="centro">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Gastos del mes ($)</ion-card-title>
@@ -98,7 +98,7 @@
                 </ion-card>
               </div>
               <div class="izquierda">
-                <ion-card class="ion-card">
+                <ion-card class="ion-card" mode="md">
                   <ion-card-header>
                     <img class="icono-card" src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
                     <ion-card-title style="text-align:center; margin-top:5%;">Gastos del año ($)</ion-card-title>
@@ -114,7 +114,7 @@
 
   <div class="contenedor-cards">
     <div class="contenedor-grafico">
-      <ion-card>
+      <ion-card mode="md">
         <ion-card-header>
           <ion-label>Ventas y Gastos cada mes</ion-label>
         </ion-card-header>
@@ -126,8 +126,8 @@
     </div>
 
     <div class="contenedor-estadisticas">
-      <ion-card>
-        <ion-item>
+      <ion-card mode="md">
+        <ion-item mode="md">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
           </ion-avatar>
@@ -136,7 +136,7 @@
           <ion-label>{{clientes.length}}</ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item mode="md">
           <ion-avatar slot="start">
             <img src="/assets/icon/ventas.svg">
           </ion-avatar>
@@ -145,7 +145,7 @@
           <ion-label>{{ventas.length}}</ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item mode="md">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/1175/1175009.svg">
           </ion-avatar>
@@ -154,7 +154,7 @@
           <ion-label>{{gastos.length}}</ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item mode="md">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
           </ion-avatar>

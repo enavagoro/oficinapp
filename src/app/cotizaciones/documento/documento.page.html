@@ -1,17 +1,17 @@
 <ion-content>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar class="toolbar" mode="md">
 
-    <ion-buttons slot="start">
-      <ion-button color="light" (click)="volver()">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    <ion-buttons slot="start" mode="md">
+      <ion-button color="light" (click)="volver()" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <ion-title>Previsualización</ion-title>
+    <ion-title mode="md">Previsualización</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="descargar()" color="light">
-        <ion-icon style="color:white" slot="icon-only" name="download"></ion-icon>
+    <ion-buttons slot="end" mode="md">
+      <ion-button (click)="descargar()" color="light" mode="md">
+        <ion-icon style="color:white" slot="icon-only" name="download" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
 

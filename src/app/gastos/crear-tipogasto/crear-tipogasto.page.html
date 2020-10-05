@@ -2,39 +2,39 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="cerrarModal();" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-toolbar class="toolbar" mode="md">
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="cerrarModal();" color="dark" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Crear Tipo de Gasto</ion-title>
+    <ion-title mode="md">Crear Tipo de Gasto</ion-title>
   </ion-toolbar>
 
-  <ion-list-header>
+  <ion-list-header mode="md">
     <ion-label>Datos del Tipo de Gasto</ion-label>
   </ion-list-header>
     <form>
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/609/609147.svg">
         </ion-avatar>
         <ion-label position="stacked">Tipo de Gasto<ion-text color="danger">*</ion-text></ion-label>
-        <ion-input name="titulo" [(ngModel)]="tipoGasto.titulo" required></ion-input>
+        <ion-input mode="md" name="titulo" [(ngModel)]="tipoGasto.titulo" required></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
         </ion-avatar>
         <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
-        <ion-input name="codigo" [(ngModel)]="tipoGasto.codigo" required></ion-input>
+        <ion-input name="codigo" [(ngModel)]="tipoGasto.codigo" required mode="md"></ion-input>
       </ion-item>
 
-      <ion-button class="ion-button" *ngIf="tipoGasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Guardar</ion-button>
-      <ion-button class="ion-button" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''">Actualizar</ion-button>
-      <ion-button class="ion-button-cancelar" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+      <ion-button class="ion-button" *ngIf="tipoGasto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''" mode="md">Guardar</ion-button>
+      <ion-button class="ion-button" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoGasto.codigo == '' || tipoGasto.titulo==''" mode="md">Actualizar</ion-button>
+      <ion-button class="ion-button-cancelar" *ngIf="tipoGasto.id != 0 && bandera==false" size="medium" (click)="cancelar()" mode="md">Cancelar Actualizar</ion-button>
+      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()" mode="md">Cancelar Ver</ion-button>
     </form>
 
 </ion-content>

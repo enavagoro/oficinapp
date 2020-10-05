@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar mode="md">
     <div class="contenedor-imagen">
       <img class="imagen-jazmin" src="./assets/icon/logo-jazmin.svg">
     </div>
-    <ion-buttons slot="start" class="boton">
-      <ion-button (click)="cerrarModal()" color="light">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+    <ion-buttons slot="start" class="boton" mode="md">
+      <ion-button (click)="cerrarModal()" color="light" mode="md">
+        <ion-icon slot="icon-only" name="close" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,38 +21,38 @@
     <h1 class="texto-pago" *ngIf="banderaSeccion==1 || banderaSeccion==2">Proceso de Confirmación</h1>
   </div>
 
-  <ion-item-divider>
+  <ion-item-divider mode="md">
   </ion-item-divider>
 
   <div class="compra" *ngIf="banderaSeccion==1">
     <div class="contenedor-pago">
       <h1 class="texto-pago">Elige una Subscripción (Valor de Subscripción: {{totalSubscripcion}} UF)</h1>
-      <ion-radio-group value="año">
-        <ion-item>
+      <ion-radio-group value="año" mode="md">
+        <ion-item mode="md">
           <ion-label>Anual</ion-label>
-          <ion-radio slot="start" value="año" (click)="valorPeriodo=1" selected></ion-radio>
+          <ion-radio slot="start" value="año" (click)="valorPeriodo=1" selected mode="md"></ion-radio>
           <ion-label slot="end">{{totalSubscripcion*12}} UF</ion-label>
         </ion-item>
 
-        <ion-item>
+        <ion-item mode="md">
           <ion-label>Mensual</ion-label>
-          <ion-radio slot="start" value="mes" (click)="valorPeriodo=2"></ion-radio>
+          <ion-radio slot="start" value="mes" (click)="valorPeriodo=2" mode="md"></ion-radio>
           <ion-label slot="end">{{totalSubscripcion}} UF</ion-label>
         </ion-item>
       </ion-radio-group>
     </div>
 
-    <ion-item class="ion-item-total" lines="none">
+    <ion-item class="ion-item-total" lines="none" mode="md">
       <ion-label>Total: </ion-label>
         <ion-label class="numero" *ngIf="valorPeriodo==1">{{totalSubscripcion*12}} UF al Año</ion-label>
         <ion-label class="numero" *ngIf="valorPeriodo==2">{{totalSubscripcion}} UF por Mes</ion-label>
     </ion-item>
 
-    <ion-item-divider>
+    <ion-item-divider mode="md">
     </ion-item-divider>
 
     <div class="contenedor-boton">
-      <ion-button class="ion-button" (click)="AvanzarSeccion()">Seleccionar Subscripción</ion-button>
+      <ion-button class="ion-button" (click)="AvanzarSeccion()" mode="md">Seleccionar Subscripción</ion-button>
     </div>
   </div>
 
@@ -60,13 +60,13 @@
     <h1 class="texto-pago">Elige un método de pago</h1>
 
     <div class="contenedor-boton">
-      <ion-button class="ion-button" (click)="AvanzarSeccion()">PayPal</ion-button>
-      <ion-button class="ion-button" (click)="AvanzarSeccion()">Tarjeta de Crédito</ion-button>
+      <ion-button class="ion-button" (click)="AvanzarSeccion()" mode="md">PayPal</ion-button>
+      <ion-button class="ion-button" (click)="AvanzarSeccion()" mode="md">Tarjeta de Crédito</ion-button>
 
-      <ion-item-divider>
+      <ion-item-divider mode="md">
       </ion-item-divider>
 
-      <ion-button class="ion-button-volver" (click)="RetrocederSeccion()">Volver atrás</ion-button>
+      <ion-button class="ion-button-volver" (click)="RetrocederSeccion()" mode="md">Volver atrás</ion-button>
     </div>
   </div>
 
@@ -75,11 +75,11 @@
     <div class="contenedor-imagen-navegador">
       <img class="" src="./assets/icon/navegador.svg">
     </div>
-    <ion-button class="ion-button">Volver a abrir ventana</ion-button>
+    <ion-button class="ion-button" mode="md">Volver a abrir ventana</ion-button>
 
-    <ion-item-divider>
+    <ion-item-divider mode="md">
     </ion-item-divider>
 
-    <ion-button class="ion-button-volver" (click)="RetrocederSeccion()">volver atrás</ion-button>
+    <ion-button mode="md" class="ion-button-volver" (click)="RetrocederSeccion()">volver atrás</ion-button>
   </div>
 </ion-content>
