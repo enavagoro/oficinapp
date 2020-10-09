@@ -1,22 +1,22 @@
 <ion-content>
 
-  <ion-header>
-    <ion-toolbar class="toolbar">
-      <ion-buttons slot="start">
-        <ion-buttons slot="start">
-          <ion-menu-button style="--color:black;"></ion-menu-button>
+  <ion-header mode="md">
+    <ion-toolbar class="toolbar" mode="md">
+      <ion-buttons slot="start" mode="md">
+        <ion-buttons slot="start" mode="md">
+          <ion-menu-button style="--color:black;" mode="md"></ion-menu-button>
         </ion-buttons>
       </ion-buttons>
       <ion-title>Administrar</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list class="ion-list" lines="none">
-    <ion-list-header>
+  <ion-list class="ion-list" lines="none" mode="md">
+    <ion-list-header mode="md">
       <ion-label>Perfil</ion-label>
     </ion-list-header>
 
-    <ion-item routerLink="/administrar/empresa" routerDirection="root">
+    <ion-item routerLink="/administrar/empresa" routerDirection="root" mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
       </ion-avatar>
@@ -24,12 +24,12 @@
     </ion-item>
   </ion-list>
 
-  <ion-list class="ion-list" lines="none">
-    <ion-list-header>
+  <ion-list class="ion-list" lines="none" mode="md">
+    <ion-list-header mode="md">
       <ion-label>Crear</ion-label>
     </ion-list-header>
     <div class="" *ngFor="let menu of menus">
-      <ion-item *ngIf="menu.permission.r" routerLink="{{menu.url.replace(filterPAth,'')}}" routerDirection="root" >
+      <ion-item *ngIf="menu.permission.r" routerLink="{{menu.url.replace(filterPAth,'')}}" routerDirection="root" mode="md">
         <ion-avatar slot="start">
           <img [src]="menu.icon">
         </ion-avatar>

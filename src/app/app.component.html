@@ -1,7 +1,7 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
-      <ion-header class="titulo-menu">
+      <ion-header class="titulo-menu" mode="md">
         <ion-toolbar class="ion-top-toolbar">
           <div class="contenedor-image">
             <img class="imagen-logo" src="./assets/icon/icono-jazmin.png">
@@ -12,9 +12,9 @@
       <ion-content>
         <div class="lista">
           <ion-list>
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-              <ion-item class="item-menu" [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon" color="ligth"></ion-icon>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages" mode="md">
+              <ion-item class="item-menu" [routerDirection]="'root'" [routerLink]="[p.url]" mode="md">
+                <ion-icon slot="start" [name]="p.icon" color="ligth" mode="md"></ion-icon>
                 <ion-label>
                   {{p.title}}
                 </ion-label>
@@ -23,8 +23,8 @@
           </ion-list>
         </div>
         <div>
-          <ion-item class="item-menu" (click)="cerrarSesion()">
-            <ion-icon class="icono-apagar" slot="start" name="power" color="ligth"></ion-icon>
+          <ion-item class="item-menu" (click)="cerrarSesion()" mode="md">
+            <ion-icon class="icono-apagar" slot="start" name="power" color="ligth" mode="md"></ion-icon>
             <ion-label class="cerrar-sesion">Cerrar Sesión</ion-label>
           </ion-item>
         </div>

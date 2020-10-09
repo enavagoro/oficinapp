@@ -1,74 +1,74 @@
 <ion-content>
-  <ion-header>
-    <ion-toolbar class="toolbar">
-      <ion-buttons slot="start">
-        <ion-button routerLink="/administrar" routerDirection="root" color="dark">
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-header mode="md">
+    <ion-toolbar class="toolbar" mode="md">
+      <ion-buttons slot="start" mode="md">
+        <ion-button routerLink="/administrar" routerDirection="root" color="dark" mode="md">
+          <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
         </ion-button>
       </ion-buttons>
       <ion-title>Crear Usuario</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list-header>
+  <ion-list-header mode="md">
     Datos de Identificación
   </ion-list-header>
 
   <div class="contenedor-formulario">
     <form>
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/726/726580.svg">
         </ion-avatar>
         <ion-label position="stacked">Correo</ion-label>
-        <ion-input [(ngModel)]="usuario.correo" name="correo" required ></ion-input>
+        <ion-input mode="md" [(ngModel)]="usuario.correo" name="correo" required ></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
         </ion-avatar>
         <ion-label position="stacked">Nombre Usuario</ion-label>
-        <ion-input [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
+        <ion-input mode="md" [(ngModel)]="usuario.nombre" name="nombre" required></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item mode="md">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/1077/1077012.svg">
         </ion-avatar>
         <ion-label position="stacked">Apellido</ion-label>
-        <ion-input [(ngModel)]="usuario.apellido" name="apellido" required></ion-input>
+        <ion-input mode="md" [(ngModel)]="usuario.apellido" name="apellido" required></ion-input>
       </ion-item>
 
-      <ion-item *ngIf="flag == false">
+      <ion-item mode="md" *ngIf="flag == false">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
         </ion-avatar>
         <!-- <ion-label position="stacked">Clave</ion-label> -->
-        <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña" type="password"></ion-input>
-        <ion-button class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar Contraseña</ion-button>
+        <ion-input mode="md" [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña" type="password"></ion-input>
+        <ion-button mode="md" class="boton-cerrar" (click)="flag = true;" [disabled]="usuario.clave == '' ">Mostrar Contraseña</ion-button>
       </ion-item>
 
-      <ion-item *ngIf="flag == true">
+      <ion-item mode="md" *ngIf="flag == true">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/673/673069.svg">
         </ion-avatar>
         <!-- <ion-label position="stacked">Clave</ion-label> -->
-        <ion-input [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña " type="text"></ion-input>
-        <ion-button class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar Contraseña</ion-button>
+        <ion-input mode="md" [(ngModel)]="usuario.clave" name="clave" required placeholder="Contraseña " type="text"></ion-input>
+        <ion-button mode="md" class="boton-cerrar" (click)="flag = false;" [disabled]="usuario.clave == '' ">Ocultar Contraseña</ion-button>
       </ion-item>
 
-      <ion-button class="ion-button" *ngIf="usuario.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Guardar</ion-button>
-      <ion-button class="ion-button" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Actualizar</ion-button>
-      <ion-button class="ion-button-cancelar" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-      <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+      <ion-button mode="md" class="ion-button" *ngIf="usuario.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Guardar</ion-button>
+      <ion-button mode="md" class="ion-button" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="usuario.correo == '' || usuario.nombre =='' || usuario.apellido == '' || usuario.clave == ''">Actualizar</ion-button>
+      <ion-button mode="md" class="ion-button-cancelar" *ngIf="usuario.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+      <ion-button mode="md" class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
     </form>
 
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="end">
-          <ion-button (click)="cambiarBandera()">
-            <ion-icon slot="icon-only" name="list"></ion-icon>
+    <ion-header mode="md">
+      <ion-toolbar mode="md">
+        <ion-buttons mode="md" slot="end">
+          <ion-button mode="md" (click)="cambiarBandera()">
+            <ion-icon mode="md" slot="icon-only" name="list"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -76,55 +76,55 @@
   </div>
 
   <div class="contenedor-historial" *ngIf="banderaHistorial">
-    <ion-item>
+    <ion-item mode="md">
       <ion-label *ngIf="verTodos">Todos los usuarios</ion-label>
       <ion-label *ngIf="!verTodos">Usuarios Activos</ion-label>
       <label *ngIf="verTodos" slot="end"><ion-badge>{{usuarios.length}}</ion-badge></label>
       <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarUsuarios().length}}</ion-badge></label>
-      <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+      <ion-toggle mode="md" [(ngModel)]="verTodos"></ion-toggle>
     </ion-item>
 
     <div class="contenedor-item-fecha">
-      <ion-item class="item-fecha">
+      <ion-item  mode="md"class="item-fecha">
         <ion-label class="label">Desde</ion-label>
         <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
       <div class="item-boton" lines="none">
-        <ion-buttons>
-          <ion-button (click)="limpiarFecha('menor')">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-buttons mode="md">
+          <ion-button mode="md" (click)="limpiarFecha('menor')">
+            <ion-icon mode="md" slot="icon-only" name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>
       </div>
     </div>
 
     <div class="contenedor-item-fecha">
-      <ion-item class="item-fecha">
+      <ion-item mode="md" class="item-fecha">
         <ion-label class="label">Hasta</ion-label>
-        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+        <ion-datetime mode="md" class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
       <div class="item-boton" lines="none">
-        <ion-buttons>
-          <ion-button (click)="limpiarFecha('mayor')">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-buttons mode="md">
+          <ion-button mode="md" (click)="limpiarFecha('mayor')">
+            <ion-icon mode="md" slot="icon-only" name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>
       </div>
     </div>
 
-    <ion-list-header class="ion-list-header">
+    <ion-list-header mode="md" class="ion-list-header">
       Lista de Usuarios
     </ion-list-header>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
       </ion-avatar>
-      <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+      <ion-input mode="md" type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
     </ion-item>
 
-      <ion-list *ngIf="!verTodos">
-        <ion-item class="item-lista" *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
+      <ion-list mode="md" *ngIf="!verTodos">
+        <ion-item mode="md" class="item-lista" *ngFor="let u of filtrarUsuarios()" (click)="opciones(u)">
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
           </ion-avatar>
@@ -133,8 +133,8 @@
         <h1 class="sin-usuarios" *ngIf="usuarios.length == 0">No hay Usuarios aún...</h1>
       </ion-list>
 
-      <ion-list *ngIf="verTodos">
-        <ion-item class="item-lista" *ngFor="let u of usuarios" (click)="opciones(u)">
+      <ion-list mode="md" *ngIf="verTodos">
+        <ion-item mode="md" class="item-lista" *ngFor="let u of usuarios" (click)="opciones(u)">
           <ion-avatar slot="start" *ngIf="u.estado">
             <img src="https://image.flaticon.com/icons/svg/1602/1602721.svg">
           </ion-avatar>

@@ -1,39 +1,39 @@
 <ion-content>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="cerrarModal()" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-toolbar class="toolbar" mode="md">
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="cerrarModal()" color="dark" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Detalle</ion-title>
+    <ion-title mode="md">Detalle</ion-title>
   </ion-toolbar>
 
-  <ion-list-header>
+  <ion-list-header mode="md">
     Ingresar Productos
   </ion-list-header>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
       </ion-avatar>
       <ion-label>Producto</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="producto" name="producto">
-        <ion-select-option  *ngFor="let p of productos;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
+      <ion-select mode="md" placeholder="Selecciona" [(ngModel)]="producto" name="producto">
+        <ion-select-option  mode="md" *ngFor="let p of productos;index as i" value="{{i}}">{{p.titulo}} {{p.codigo}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1656/1656469.svg">
       </ion-avatar>
-      <ion-input type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad" name="cantidad"></ion-input>
-      <ion-button class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto">agregar</ion-button>
+      <ion-input mode="md" type="number" placeholder="Cantidad vendida" [(ngModel)]="cantidad" name="cantidad"></ion-input>
+      <ion-button mode="md" class="boton-cerrar" (click)="add();flag = false;" [disabled]="(cantidad <= 0  || !cantidad) || !producto">agregar</ion-button>
     </ion-item>
 
-    <ion-list-header>
+    <ion-list-header mode="md">
       Productos Ingresados
     </ion-list-header>
 
-  <ion-item *ngFor="let p of detalle;index as i">
+  <ion-item *ngFor="let p of detalle;index as i" mode="md">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
     </ion-avatar>
@@ -47,8 +47,8 @@
 
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-  <ion-button (click)="guardar()" class="boton-ok" size="block"  [disabled]="cantidad == '' || producto==''">OK</ion-button>
+<ion-footer mode="md">
+  <ion-toolbar mode="md">
+  <ion-button mode="md" (click)="guardar()" class="boton-ok" size="block"  [disabled]="cantidad == '' || producto==''">OK</ion-button>
   </ion-toolbar>
 </ion-footer>

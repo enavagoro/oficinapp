@@ -48,20 +48,20 @@
     -->
 
     <form [formGroup]="loginForm">
-      <ion-item class="item-login">
+      <ion-item class="item-login" mode="md">
         <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('correo')"></control-messages></ion-label>
          <ion-input type="email" autocomplete="off" formControlName="correo" placeholder="Correo"></ion-input>
        </ion-item>
 
-       <ion-item class="item-login">
-         <ion-buttons slot="end" *ngIf="!banderaMostrar">
+       <ion-item class="item-login" mode="md">
+         <ion-buttons slot="end" *ngIf="!banderaMostrar" mode="md">
            <ion-button (click)="cambiarBandera();">
-             <ion-icon slot="icon-only" name="eye-off" class="deseleccionado"></ion-icon>
+             <ion-icon slot="icon-only" name="eye-off" class="deseleccionado" mode="md"></ion-icon>
            </ion-button>
          </ion-buttons>
-         <ion-buttons slot="end" *ngIf="banderaMostrar">
+         <ion-buttons slot="end" *ngIf="banderaMostrar" mode="md">
            <ion-button (click)="cambiarBandera();">
-             <ion-icon slot="icon-only" name="eye" class="seleccionado"></ion-icon>
+             <ion-icon slot="icon-only" name="eye" class="seleccionado" mode="md"></ion-icon>
            </ion-button>
          </ion-buttons>
           <ion-label position="stacked" class="stacked"><control-messages [control]="loginForm.get('clave')"></control-messages></ion-label>
@@ -69,7 +69,7 @@
           <ion-input *ngIf="banderaMostrar" type="text" formControlName="clave" placeholder="Contraseña"></ion-input>
         </ion-item>
     </form>
-    <ion-button class="ion-button" size="medium" (click)="login()">Ingresar</ion-button>
+    <ion-button class="ion-button" size="medium" (click)="login()" mode="md">Ingresar</ion-button>
     <div>
       <img class="imagen-finger-print" (click)="loginWithFingerprint()" *ngIf="permitirDedo" src="/assets/icon/fingerprint.svg">
     </div>
@@ -78,7 +78,7 @@
 
   <div class="contenedor">
     <ion-label color="light">¿No tienes cuenta?</ion-label>
-    <ion-button class="ion-button" size="medium" routerLink="/registrar" routerDirection="root">Regístrate Gratis</ion-button>
+    <ion-button class="ion-button" size="medium" routerLink="/registrar" routerDirection="root" mode="md">Regístrate Gratis</ion-button>
   </div>
 
 </ion-content>

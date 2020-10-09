@@ -1,19 +1,19 @@
 <ion-header>
-  <ion-toolbar class="ion-toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="cerrarModal();" style="color:white;">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-toolbar class="ion-toolbar" mode="md">
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="cerrarModal();" style="color:white;" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Permisos</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cambiarBandera()" style="color:white;">
-        <ion-icon slot="icon-only" name="options"></ion-icon>
+    <ion-title mode="md">Permisos</ion-title>
+    <ion-buttons slot="end" mode="md">
+      <ion-button (click)="cambiarBandera()" style="color:white;" mode="md">
+        <ion-icon slot="icon-only" name="options" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-toolbar>
+  <ion-toolbar mode="md">
     <div class="contenedor-titulo">
       <div class="parte-abajo">
         <h1 class="titulo-permisos" style="text-align:-webkit-center;">
@@ -33,16 +33,16 @@
       </div>
     </div>
     <div class="contenedor-opciones" *ngIf="banderaOpciones">
-      <ion-item class="item-lista" lines="none">
+      <ion-item mode="md" class="item-lista" lines="none">
         <ion-label>Cambiar Opciones de Forma Masiva</ion-label>
       </ion-item>
 
       <div>
-        <ion-item class="item-toggles" lines="none">
-          <ion-toggle color="secondary" (ionChange)="cambioMasivo('r')"></ion-toggle>
-          <ion-toggle color="dark" (ionChange)="cambioMasivo('c')"></ion-toggle>
-          <ion-toggle color="primary" (ionChange)="cambioMasivo('u')"></ion-toggle>
-          <ion-toggle color="danger" (ionChange)="cambioMasivo('d')"></ion-toggle>
+        <ion-item mode="md" class="item-toggles" lines="none">
+          <ion-toggle mode="md" color="secondary" (ionChange)="cambioMasivo('r')"></ion-toggle>
+          <ion-toggle mode="md" color="dark" (ionChange)="cambioMasivo('c')"></ion-toggle>
+          <ion-toggle mode="md" color="primary" (ionChange)="cambioMasivo('u')"></ion-toggle>
+          <ion-toggle mode="md" color="danger" (ionChange)="cambioMasivo('d')"></ion-toggle>
           <!--
           <ion-buttons slot="end">
             <ion-button (click)="cancelar();" style="color:black;">
@@ -58,30 +58,30 @@
 </ion-header>
 
 <ion-content>
-  <ion-list-header>
+  <ion-list-header mode="md">
     Lista de Permisos por Página
   </ion-list-header>
   <hr class="linea-final">
 
   <ion-list>
     <div *ngFor="let menu of menus; index as i">
-      <ion-item class="item-lista" (click)="banderas[i]=!banderas[i]" lines="none">
+      <ion-item mode="md" class="item-lista" (click)="banderas[i]=!banderas[i]" lines="none">
         <ion-label >{{menu.title}}</ion-label>
       </ion-item>
 
       <div *ngIf="banderas[i]==true">
-        <ion-item class="item-toggles" lines="none">
-          <ion-toggle color="secondary" [(ngModel)]="menu.permission.r"></ion-toggle>
-          <ion-toggle color="dark" [(ngModel)]="menu.permission.c"></ion-toggle>
-          <ion-toggle color="primary" [(ngModel)]="menu.permission.u"></ion-toggle>
-          <ion-toggle color="danger" [(ngModel)]="menu.permission.d"></ion-toggle>
+        <ion-item mode="md" class="item-toggles" lines="none">
+          <ion-toggle mode="md" color="secondary" [(ngModel)]="menu.permission.r"></ion-toggle>
+          <ion-toggle mode="md" color="dark" [(ngModel)]="menu.permission.c"></ion-toggle>
+          <ion-toggle mode="md" color="primary" [(ngModel)]="menu.permission.u"></ion-toggle>
+          <ion-toggle mode="md" color="danger" [(ngModel)]="menu.permission.d"></ion-toggle>
         </ion-item>
       </div>
       <hr class="linea-final">
     </div>
   </ion-list>
 
-  <ion-button class="ion-button" color="tertiary" (click)="guardarPermisos()">
+  <ion-button mode="md" class="ion-button" color="tertiary" (click)="guardarPermisos()">
     Guardar Permisos
   </ion-button>
 </ion-content>

@@ -2,17 +2,17 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-header>
-    <ion-toolbar class="toolbar">
-      <ion-buttons slot="start">
-        <ion-button routerLink="/administrar" routerDirection="root" color="dark">
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-header mode="md">
+    <ion-toolbar class="toolbar" mode="md">
+      <ion-buttons slot="start" mode="md">
+        <ion-button routerLink="/administrar" routerDirection="root" color="dark" mode="md">
+          <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title>Crear Producto/Servicio</ion-title>
-      <ion-buttons slot="end" *ngIf="banderaMensaje==false">
-        <ion-button (click)="banderaMensaje=true">
-          <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+      <ion-title mode="md">Crear Producto/Servicio</ion-title>
+      <ion-buttons mode="md" slot="end" *ngIf="banderaMensaje==false">
+        <ion-button mode="md" (click)="banderaMensaje=true">
+          <ion-icon mode="md" slot="icon-only" name="help-circle"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -31,11 +31,11 @@
 -->
 <!--<div class="contenedor-mantenedor-producto" *ngIf="banderaMantenedor">-->
 
-  <ion-item *ngIf="banderaMensaje==true">
+  <ion-item *ngIf="banderaMensaje==true" mode="md">
 
-    <ion-buttons slot="start">
-      <ion-button (click)="banderaMensaje=false">
-        <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="banderaMensaje=false" mode="md">
+        <ion-icon slot="icon-only" name="help-circle" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -59,33 +59,33 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list-header>
+  <ion-list-header mode="md">
     Datos del Producto/Servicio
   </ion-list-header>
 
   <div class="contenedor-formulario">
     <form>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-label>Tipo Producto Existente</ion-label>
-      <ion-toggle [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
+      <ion-toggle mode="md" [(ngModel)]="banderaExistente" name="banderaExistente"></ion-toggle>
     </ion-item>
 
-    <ion-item *ngIf="banderaExistente">
-      <ion-button size="medium" class="ion-button-tipoGasto" (click)="abrirTipoProducto();">Nuevo Tipo Producto</ion-button>
+    <ion-item mode="md" *ngIf="banderaExistente">
+      <ion-button mode="md" size="medium" class="ion-button-tipoGasto" (click)="abrirTipoProducto();">Nuevo Tipo Producto</ion-button>
     </ion-item>
 
-    <ion-item *ngIf="!banderaExistente">
+    <ion-item mode="md" *ngIf="!banderaExistente">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1311/1311359.svg">
       </ion-avatar>
       <ion-label>Tipo de Producto</ion-label>
-      <ion-select placeholder="Selecciona" [(ngModel)]="producto.codigo" name="tipo-producto" required [disabled]="bandera==true">
-        <ion-select-option  *ngFor="let p of tiposProductos;index as i" value="{{p.codigo}}">{{p.titulo}}</ion-select-option>
+      <ion-select mode="md" placeholder="Selecciona" [(ngModel)]="producto.codigo" name="tipo-producto" required [disabled]="bandera==true">
+        <ion-select-option  mode="md" *ngFor="let p of tiposProductos;index as i" value="{{p.codigo}}">{{p.titulo}}</ion-select-option>
       </ion-select>
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-label position="stacked">Producto/Servicio<ion-text color="danger">*</ion-text></ion-label>
       <ion-input [(ngModel)]="producto.titulo" name="titulo" required></ion-input>
       <ion-avatar slot="start">
@@ -93,82 +93,82 @@
       </ion-avatar>
     </ion-item>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/755/755193.svg">
       </ion-avatar>
       <ion-label position="stacked">Precio<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input type="number" [(ngModel)]="producto.precio" name="precio" required></ion-input>
+      <ion-input mode="md" type="number" [(ngModel)]="producto.precio" name="precio" required></ion-input>
     </ion-item>
 
-    <ion-button class="ion-button" *ngIf="producto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="producto.codigo == '' || producto.titulo=='' || producto.precio == 0 || producto.precio == null">Guardar</ion-button>
-    <ion-button class="ion-button" *ngIf="producto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="producto.codigo == '' || producto.titulo=='' || producto.precio == 0 || producto.precio == null">Actualizar</ion-button>
-    <ion-button class="ion-button-cancelar" *ngIf="producto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-    <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+    <ion-button mode="md" class="ion-button" *ngIf="producto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="producto.codigo == '' || producto.titulo=='' || producto.precio == 0 || producto.precio == null">Guardar</ion-button>
+    <ion-button mode="md" class="ion-button" *ngIf="producto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="producto.codigo == '' || producto.titulo=='' || producto.precio == 0 || producto.precio == null">Actualizar</ion-button>
+    <ion-button mode="md" class="ion-button-cancelar" *ngIf="producto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+    <ion-button mode="md" class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 
     </form>
 
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="end">
-          <ion-button (click)="cambiarBandera()">
-            <ion-icon slot="icon-only" name="list"></ion-icon>
+    <ion-header mode="md">
+      <ion-toolbar mode="md">
+        <ion-buttons mode="md" slot="end">
+          <ion-button mode="md" (click)="cambiarBandera()">
+            <ion-icon mode="md"slot="icon-only" name="list"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
   </div>
 
-  <div class="contenedor-historial" *ngIf="banderaHistorial">
-    <ion-item>
+  <div class="contenedor-historial" *ngIf="banderaHistorial" mode="md">
+    <ion-item mode="md">
       <ion-label *ngIf="verTodos">Todos los productos</ion-label>
       <ion-label *ngIf="!verTodos">Productos Activos</ion-label>
       <label *ngIf="verTodos" slot="end"><ion-badge>{{productos.length}}</ion-badge></label>
       <label *ngIf="!verTodos" slot="end"><ion-badge color="secondary">{{filtrarProductos().length}}</ion-badge></label>
-      <ion-toggle [(ngModel)]="verTodos"></ion-toggle>
+      <ion-toggle mode="md" [(ngModel)]="verTodos"></ion-toggle>
     </ion-item>
 
     <div class="contenedor-item-fecha">
-      <ion-item class="item-fecha">
+      <ion-item mode="md" class="item-fecha">
         <ion-label class="label">Desde</ion-label>
-        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+        <ion-datetime mode="md" class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMenor" name="fechaMenor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
       <div class="item-boton" lines="none">
-        <ion-buttons>
-          <ion-button (click)="limpiarFecha('menor')">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-buttons mode="md">
+          <ion-button mode="md" (click)="limpiarFecha('menor')">
+            <ion-icon mode="md" slot="icon-only" name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>
       </div>
     </div>
 
     <div class="contenedor-item-fecha">
-      <ion-item class="item-fecha">
+      <ion-item mode="md" class="item-fecha">
         <ion-label class="label">Hasta</ion-label>
-        <ion-datetime class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
+        <ion-datetime mode="md" class="date-time" displayFormat="DD MM YY" placeholder="Selecciona un Fecha" [(ngModel)]="fechaMayor" name="fechaMayor" (ionChange)="filtrarPorFecha()"></ion-datetime>
       </ion-item>
       <div class="item-boton" lines="none">
-        <ion-buttons>
-          <ion-button (click)="limpiarFecha('mayor')">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        <ion-buttons mode="md">
+          <ion-button mode="md" (click)="limpiarFecha('mayor')">
+            <ion-icon mode="md" slot="icon-only" name="trash"></ion-icon>
           </ion-button>
         </ion-buttons>
       </div>
     </div>
 
-    <ion-list-header class="ion-list-header">
+    <ion-list-header mode="md" class="ion-list-header">
       Lista de Productos
     </ion-list-header>
 
-    <ion-item>
+    <ion-item mode="md">
       <ion-avatar slot="start">
         <img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg">
       </ion-avatar>
-      <ion-input type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
+      <ion-input mode="md" type="text" placeholder="Buscar por todo" (keyup)="filtrarLista();" [(ngModel)]="buscar"></ion-input>
     </ion-item>
 
-    <ion-list *ngIf="!verTodos">
-      <ion-item class="item-lista" *ngFor="let p of filtrarProductos()" (click)="opciones(p)">
+    <ion-list mode="md" *ngIf="!verTodos">
+      <ion-item mode="md" class="item-lista" *ngFor="let p of filtrarProductos()" (click)="opciones(p)">
         <ion-avatar slot="start">
           <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
         </ion-avatar>
@@ -177,8 +177,8 @@
       <h1 class="sin-productos" *ngIf="productos.length == 0">No hay productos aun...</h1>
     </ion-list>
 
-    <ion-list *ngIf="verTodos">
-      <ion-item class="item-lista" *ngFor="let p of productos" (click)="opciones(p)">
+    <ion-list mode="md" *ngIf="verTodos">
+      <ion-item mode="md" class="item-lista" *ngFor="let p of productos" (click)="opciones(p)">
         <ion-avatar slot="start" *ngIf="p.estado">
           <img src="https://image.flaticon.com/icons/svg/359/359399.svg">
         </ion-avatar>

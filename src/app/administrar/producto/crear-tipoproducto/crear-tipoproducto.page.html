@@ -2,40 +2,40 @@
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="cerrarModal();" color="dark">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  <ion-toolbar class="toolbar" mode="md">
+    <ion-buttons slot="start" mode="md">
+      <ion-button (click)="cerrarModal();" color="dark" mode="md">
+        <ion-icon slot="icon-only" name="arrow-back" mode="md"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Crear Tipo de Producto/Servicio</ion-title>
+    <ion-title mode="md">Crear Tipo de Producto/Servicio</ion-title>
   </ion-toolbar>
 
-  <ion-list-header>
+  <ion-list-header mode="md">
     <ion-label>Datos del Tipo de Producto/Servicio</ion-label>
   </ion-list-header>
 
 <form id="form">
-  <ion-item>
+  <ion-item mode="md">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1311/1311359.svg">
     </ion-avatar>
     <ion-label position="stacked">Tipo de Producto/Servicio<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input name="titulo" [(ngModel)]="tipoProducto.titulo" required></ion-input>
+    <ion-input mode="md" name="titulo" [(ngModel)]="tipoProducto.titulo" required></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item mode="md">
     <ion-avatar slot="start">
       <img src="https://image.flaticon.com/icons/svg/1495/1495706.svg">
     </ion-avatar>
     <ion-label position="stacked">Codigo<ion-text color="danger">*</ion-text></ion-label>
-    <ion-input name="codigo" [(ngModel)]="tipoProducto.codigo" required></ion-input>
+    <ion-input mode="md" name="codigo" [(ngModel)]="tipoProducto.codigo" required></ion-input>
   </ion-item>
 
-  <ion-button class="ion-button" *ngIf="tipoProducto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="tipoProducto.codigo == '' || tipoProducto.titulo==''">Guardar</ion-button>
-  <ion-button class="ion-button" *ngIf="tipoProducto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoProducto.codigo == '' || tipoProducto.titulo==''">Actualizar</ion-button>
-  <ion-button class="ion-button-cancelar" *ngIf="tipoProducto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
-  <ion-button class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
+  <ion-button mode="md" class="ion-button" *ngIf="tipoProducto.id == 0 && bandera==false" size="medium" (click)="confirmar()" [disabled]="tipoProducto.codigo == '' || tipoProducto.titulo==''">Guardar</ion-button>
+  <ion-button mode="md" class="ion-button" *ngIf="tipoProducto.id != 0 && bandera==false" size="medium" (click)="confirmarActualizar()" [disabled]="tipoProducto.codigo == '' || tipoProducto.titulo==''">Actualizar</ion-button>
+  <ion-button mode="md" class="ion-button-cancelar" *ngIf="tipoProducto.id != 0 && bandera==false" size="medium" (click)="cancelar()">Cancelar Actualizar</ion-button>
+  <ion-button mode="md" class="ion-button" *ngIf="bandera==true" size="medium" (click)="cancelar()">Cancelar Ver</ion-button>
 </form>
 
 </ion-content>
