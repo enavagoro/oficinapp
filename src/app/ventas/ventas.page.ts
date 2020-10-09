@@ -338,6 +338,9 @@ export class VentasPage {
       handler: () => {
         venta.tipo=''+venta.tipo;
         this.venta = venta;
+        this.venta.dia = (this.venta.dia == "undefined" || !this.venta.dia ? '0' : this.venta.dia )  ;
+        this.venta.metodo = (this.venta.metodo == "undefined" || !this.venta.metodo ? '0' : this.venta.metodo )  ;
+        this.venta.tipoDocumento = (this.venta.tipoDocumento == "undefined" || !this.venta.tipoDocumento ? '0' : this.venta.tipoDocumento )  ;
         console.log(venta);
         this.banderaOpciones=true;
         this.deshabilitarInputs(true);

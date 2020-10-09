@@ -39,7 +39,8 @@
       <ion-radio-group [(ngModel)]="venta.tipoDocumento" name="tipoDocumento" required [disabled]="bandera==true" mode="md">
         <ion-item mode="md">
           <ion-label>Boleta</ion-label>
-          <ion-radio mode="md" slot="start" value="0" (click)="escanearVenta();" selected></ion-radio>
+          <ion-radio mode="md" slot="start" value="0" (click)="escanearVenta();" selected [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/1546/1546570.svg">
           </ion-avatar>
@@ -47,7 +48,9 @@
 
         <ion-item mode="md">
           <ion-label>Factura</ion-label>
-          <ion-radio mode="md" slot="start" value="1" (click)="escanearVenta();"></ion-radio>
+
+          <ion-radio mode="md" slot="start" value="1" (click)="escanearVenta();" [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/1897/1897132.svg">
           </ion-avatar>
@@ -67,7 +70,9 @@
 
         <ion-item mode="md">
           <ion-label>Efectivo</ion-label>
-          <ion-radio mode="md" slot="start" value="0" (click)="escanearVenta();"></ion-radio>
+
+          <ion-radio mode="md" slot="start" value="0" (click)="escanearVenta();" [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/3142/3142013.svg">
           </ion-avatar>
@@ -75,7 +80,9 @@
 
         <ion-item mode="md">
           <ion-label>Debito</ion-label>
-          <ion-radio mode="md" slot="start" value="1" (click)="escanearVenta();"></ion-radio>
+
+          <ion-radio mode="md" slot="start" value="1" (click)="escanearVenta();" [disabled]="bandera"></ion-radio>
+          
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/3394/3394012.svg">
           </ion-avatar>
@@ -83,7 +90,9 @@
 
         <ion-item mode="md">
           <ion-label>Credito</ion-label>
-          <ion-radio mode="md" slot="start" value="2" (click)="escanearVenta();"></ion-radio>
+
+          <ion-radio mode="md"  slot="start" value="2" (click)="escanearVenta();" [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/747/747156.svg">
           </ion-avatar>
@@ -100,11 +109,12 @@
   -->
       </ion-item>
 
-      <ion-radio-group [(ngModel)]="venta.dia" name="dia" required [disabled]="bandera==true" mode="md">
+      <ion-radio-group mode="md [(ngModel)]="venta.dia" name="dia" required [disabled]="bandera">
 
         <ion-item mode="md">
           <ion-label>En el momento</ion-label>
-          <ion-radio slot="start" value="0" mode="md"></ion-radio>
+          <ion-radio mode="md" slot="start" value="0" [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/2972/2972554.svg">
           </ion-avatar>
@@ -112,7 +122,9 @@
 
         <ion-item mode="md">
           <ion-label>30 días</ion-label>
-          <ion-radio slot="start" value="1" mode="md"></ion-radio>
+
+          <ion-radio mode="md" slot="start" value="1" [disabled]="bandera"></ion-radio>
+                                                                          
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/2972/2972531.svg">
           </ion-avatar>
@@ -120,7 +132,9 @@
 
         <ion-item mode="md">
           <ion-label>60 días</ion-label>
-          <ion-radio slot="start" value="2" mode="md"></ion-radio>
+
+          <ion-radio mode="md" slot="start" value="2" [disabled]="bandera"></ion-radio>
+
           <ion-avatar slot="start">
             <img src="https://image.flaticon.com/icons/svg/2784/2784459.svg">
           </ion-avatar>

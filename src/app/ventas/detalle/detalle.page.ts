@@ -55,7 +55,7 @@ export class DetallePage implements OnInit {
   }
 
   ngOnInit() {
-    this.traerDatos();
+    this.traerDatos();    
   }
 
   traerDatos(){
@@ -93,6 +93,8 @@ export class DetallePage implements OnInit {
 
   limpiar(){
     this.producto = undefined;
+    this.textoSugerido = "";
+    this['cantidad'] = undefined;
   }
 
   seleccionaSucursal(s){
