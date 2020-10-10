@@ -49,6 +49,7 @@ export class VentasPage {
   fechaMenor;
   fechaMayor;
   ventasRespaldo = [];
+  ventasActivas = [];
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
@@ -89,7 +90,7 @@ export class VentasPage {
       servicio.subscribe(v=>{
           this.ventas = v.reverse();
           this.ventasRespaldo = this.ventas;
-          console.log(v);
+          this.calcularVentasActivas();
       })
     })
     this.clienteService.listar().then(servicio=>{
@@ -421,12 +422,15 @@ export class VentasPage {
     }
     this.detalle = nuevo;
   }
+
   aumentarCantidad(){
     this.cantidadVisible += 10;
   }
+
   disminuirCantidad(){
     this.cantidadVisible -= 10;
   }
+
   filtrarVentas(){
     this.totalVentas = 0;
     var ventas = [];
@@ -438,6 +442,7 @@ export class VentasPage {
     }
     return ventas;
   }
+
   limpiar(){
     this.cliente = undefined;
     this.nombreCliente = "";
@@ -563,6 +568,13 @@ export class VentasPage {
     }
   }
 
-
+  calcularVentasActivas(){
+    for(var venta of this.ventasRespaldo){
+      console.log('venta ventas activas:',venta);
+      if(venta.estado){
+        this.ventasActivas.push(venta);
+      }
+    }
+  }
 
 }

@@ -28,11 +28,12 @@ export class GastosPage {
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   arregloInputs=[];
   totalGastos : number = 0;
-
+  cantidadVisible : number = 10;
   banderaHistorial = true;
   fechaMenor;
   fechaMayor;
   gastosRespaldo = [];
+  gastosActivos = [];
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
@@ -78,6 +79,7 @@ export class GastosPage {
       servicio.subscribe(g=>{
         this.gastos = g.reverse();
         this.gastosRespaldo = this.gastos;
+        this.calcularGastosActivos();
       })
     })
   }
@@ -314,7 +316,7 @@ export class GastosPage {
 
     var gastos = [];
     for(let i = 0 ; i < this.gastos.length ; i ++){
-      if(this.gastos[i].estado){
+      if(this.gastos[i].estado && i < this.cantidadVisible){
         this.totalGastos += this.gastos[i].monto;
         gastos.push(this.gastos[i]);
       }
@@ -512,5 +514,22 @@ export class GastosPage {
   asignarFechaString(gasto){
     var texto = new Date(gasto.fecha).toLocaleDateString() + " : $"+gasto.monto.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     return texto +" ("+gasto.titulo+")";
+  }
+
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
+  }
+
+  calcularGastosActivos(){
+    for(var gasto of this.gastosRespaldo){
+      console.log('venta ventas activas:',gasto);
+      if(gasto.estado){
+        this.gastosActivos.push(gasto);
+      }
+    }
   }
 }
