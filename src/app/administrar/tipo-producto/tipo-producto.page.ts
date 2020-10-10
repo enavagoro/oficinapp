@@ -19,6 +19,7 @@ export class TipoProductoPage implements OnInit {
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
+  cantidadVisible : number = 10;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -216,7 +217,7 @@ export class TipoProductoPage implements OnInit {
   filtrarTipoProductos(){
     var tipoProductos = [];
     for(let i = 0 ; i < this.tipoProductos.length ; i ++){
-      if(this.tipoProductos[i].estado){
+      if(this.tipoProductos[i].estado && i < this.cantidadVisible){
         tipoProductos.push(this.tipoProductos[i]);
       }
     }
@@ -322,6 +323,14 @@ export class TipoProductoPage implements OnInit {
   asignarFechaString(tipoProducto){
     var texto = new Date(tipoProducto.createdAt).toLocaleDateString();
     return "Creado el: "+ texto +" ("+tipoProducto.titulo+")";
+  }
+
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
   }
 
 }

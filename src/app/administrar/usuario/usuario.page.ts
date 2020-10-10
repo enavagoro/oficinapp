@@ -21,6 +21,7 @@ export class UsuarioPage implements OnInit {
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
+  cantidadVisible : number = 10;
 
   constructor(private usuarioService : UsuarioService,
               private storage : Storage,
@@ -237,7 +238,7 @@ export class UsuarioPage implements OnInit {
   filtrarUsuarios(){
     var usuarios = [];
     for(let i = 0 ; i < this.usuarios.length ; i ++){
-      if(this.usuarios[i].estado){
+      if(this.usuarios[i].estado && i < this.cantidadVisible){
         usuarios.push(this.usuarios[i]);
       }
     }
@@ -344,5 +345,13 @@ export class UsuarioPage implements OnInit {
   asignarFechaString(usuario){
     var texto = new Date(usuario.createdAt).toLocaleDateString();
     return "Creado el: "+ texto +" ("+usuario.nombre+")";
+  }
+
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
   }
 }

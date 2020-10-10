@@ -99,6 +99,39 @@ ion-avatar{
   margin-left: 4%;
 }
 
+//paginación
+
+.contenedor-botones{
+  width: 100%;
+  display: flex;
+}
+
+.parte-izquierda{
+  width: 35%;
+}
+
+.parte-medio{
+  width: 30%;
+}
+
+.parte-derecha{
+  width: 35%;
+}
+
+.boton-parte{
+  width: 60% !important;
+  margin-left: 20% !important;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.titulo-cantidad{
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: 16px;
+}
+
+
 @media (max-width:900px){
 
   .item-fecha{
@@ -111,5 +144,12 @@ ion-avatar{
     ion-buttons{
       width: 100%;
     }
+  }
+
+  .boton-parte{
+    width: 90% !important;
+    margin-left: 10% !important;
+    margin-top: 2%;
+    margin-bottom: 2%;
   }
 }

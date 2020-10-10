@@ -32,6 +32,7 @@ export class CotizacionesPage  {
   nombreCliente = "";
   clientesFiltrado = [];
   cotizaciones = [];
+  cantidadVisible : number = 10;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   public cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0,url:'', idUsuario:0};
   public datosPdf = {id:0, nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
@@ -461,7 +462,7 @@ export class CotizacionesPage  {
   filtrarCotizaciones(){
     var cotizaciones = [];
     for(let i = 0 ; i < this.cotizaciones.length ; i ++){
-      if(this.cotizaciones[i].estado){
+      if(this.cotizaciones[i].estado && i < this.cantidadVisible){
         cotizaciones.push(this.cotizaciones[i]);
       }
     }
@@ -560,5 +561,13 @@ export class CotizacionesPage  {
     if(this.buscar == ""){
       this.filtrarPorFecha();
     }
+  }
+
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
   }
 }

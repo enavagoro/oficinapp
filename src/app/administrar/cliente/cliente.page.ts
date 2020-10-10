@@ -22,6 +22,7 @@ export class ClientePage implements OnInit {
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
+  cantidadVisible : number = 10;
 
   constructor(public actionSheetController: ActionSheetController,
               private clienteService : ClienteService,
@@ -220,7 +221,7 @@ export class ClientePage implements OnInit {
   filtrarClientes(){
     var clientes = [];
     for(let i = 0 ; i < this.clientes.length ; i ++){
-      if(this.clientes[i].estado){
+      if(this.clientes[i].estado && i < this.cantidadVisible){
         clientes.push(this.clientes[i]);
       }
     }
@@ -337,5 +338,11 @@ export class ClientePage implements OnInit {
     window.focus();
   }
   */
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
 
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
+  }
 }

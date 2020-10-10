@@ -25,6 +25,7 @@ export class ProductoPage implements OnInit {
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
+  cantidadVisible : number = 10;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoProductoService : TipoProductoService,
@@ -239,7 +240,7 @@ export class ProductoPage implements OnInit {
   filtrarProductos(){
     var productos = [];
     for(let i = 0 ; i < this.productos.length ; i ++){
-      if(this.productos[i].estado){
+      if(this.productos[i].estado && i < this.cantidadVisible){
         productos.push(this.productos[i]);
       }
     }
@@ -366,5 +367,13 @@ export class ProductoPage implements OnInit {
   asignarFechaString(producto){
     var texto = new Date(producto.createdAt).toLocaleDateString();
     return "Creado el: "+ texto +" ("+producto.titulo+")";
+  }
+
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
+
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
   }
 }

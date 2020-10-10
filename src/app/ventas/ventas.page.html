@@ -345,13 +345,13 @@
       <h1 class="sin-ventas" *ngIf="ventas.length == 0">No hay Ventas aún...</h1>
       <div class="contenedor-botones" *ngIf="ventas.length != 0">
         <div class="parte-izquierda">
-          <ion-item mode="md"><ion-button mode="md" class="boton-parte" (click)="disminuirCantidad()">Disminuir</ion-button></ion-item>
+          <ion-item mode="md"><ion-button mode="md" class="boton-parte" (click)="disminuirCantidad()">Ver menos</ion-button></ion-item>
         </div>
         <div class="parte-medio">
-          <h1 class="titulo-cantidad">{{filtrarVentas().length}}/{{this.ventasActivas.length}}</h1>
+          <!--<h1 class="titulo-cantidad">{{filtrarVentas().length}}/{{this.ventasActivas.length}}</h1>-->
         </div>
         <div class="parte-derecha">
-          <ion-item mode="md"><ion-button mode="md" class="boton-parte" (click)="aumentarCantidad()">Aumentar</ion-button></ion-item>
+          <ion-item mode="md"><ion-button mode="md" class="boton-parte" (click)="aumentarCantidad()">Ver más</ion-button></ion-item>
         </div>
       </div>
     </ion-list>

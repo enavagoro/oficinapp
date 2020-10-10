@@ -19,6 +19,7 @@ export class TipoGastoPage implements OnInit {
   respaldoBuscar = [];
   buscar = '';
   arregloFiltrado = [];
+  cantidadVisible : number = 10;
 
   constructor(public actionSheetController: ActionSheetController,
               private tipoGastoService : TipoGastoService,
@@ -219,7 +220,7 @@ export class TipoGastoPage implements OnInit {
   filtrarTipoGastos(){
     var tipoGastos = [];
     for(let i = 0 ; i < this.tipoGastos.length ; i ++){
-      if(this.tipoGastos[i].estado){
+      if(this.tipoGastos[i].estado && i < this.cantidadVisible){
         tipoGastos.push(this.tipoGastos[i]);
       }
     }
@@ -321,5 +322,11 @@ export class TipoGastoPage implements OnInit {
     var texto = new Date(tipoGasto.createdAt).toLocaleDateString();
     return "Creado el: "+ texto +" ("+tipoGasto.titulo+")";
   }
+  aumentarCantidad(){
+    this.cantidadVisible += 10;
+  }
 
+  disminuirCantidad(){
+    this.cantidadVisible -= 10;
+  }
 }
