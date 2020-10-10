@@ -82,7 +82,7 @@
           <ion-label>Debito</ion-label>
 
           <ion-radio mode="md" slot="start" value="1" (click)="escanearVenta();" [disabled]="bandera"></ion-radio>
-          
+
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/3394/3394012.svg">
           </ion-avatar>
@@ -109,7 +109,7 @@
   -->
       </ion-item>
 
-      <ion-radio-group mode="md [(ngModel)]="venta.dia" name="dia" required [disabled]="bandera">
+      <ion-radio-group mode="md" [(ngModel)]="venta.dia" name="dia" required [disabled]="bandera">
 
         <ion-item mode="md">
           <ion-label>En el momento</ion-label>
@@ -124,7 +124,7 @@
           <ion-label>30 días</ion-label>
 
           <ion-radio mode="md" slot="start" value="1" [disabled]="bandera"></ion-radio>
-                                                                          
+
           <ion-avatar slot="start">
             <img src="https://www.flaticon.com/svg/static/icons/svg/2972/2972531.svg">
           </ion-avatar>

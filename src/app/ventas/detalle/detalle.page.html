@@ -12,6 +12,10 @@
     Ingresar Productos/Servicios
   </ion-list-header>
 
+  <ion-list-header *ngIf="banderaVer" mode="md">
+    Ingresar Productos Inventariables
+  </ion-list-header>
+
   <ion-segment color="secondary" value="no-inventariable" mode="md" *ngIf="!banderaVer">
     <ion-segment-button value="no-inventariable" (click)="banderaProductos=true; limpiar();" mode="md">
       <ion-label>No Inventariable</ion-label>

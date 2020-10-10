@@ -80,7 +80,7 @@ export class CotizacionesPage  {
     console.log("entre");
     this.empresaService.getempresa(this.login.getEmpresa()).then(servicio=>{
       servicio.subscribe(e=>{
-          this.empresa= e.reverse();
+          this.empresa= e;
           console.log(this.empresa);
           this.img = URL+"/"+this.empresa['id']+"/"+this.empresa['url'];
           console.log(this.empresa['url']);
@@ -91,7 +91,7 @@ export class CotizacionesPage  {
 
     this.cotizacionService.listar().then(servicio=>{
       servicio.subscribe(cotizaciones=>{
-          this.cotizaciones = cotizaciones;
+          this.cotizaciones = cotizaciones.reverse();
           this.cotizacionesRespaldo = this.cotizaciones;
           console.log(cotizaciones);
       })
@@ -123,7 +123,7 @@ export class CotizacionesPage  {
         return texto +"("+cli.nombre+")";
       }
     }
-    
+
     return "cliente no existe";
   }
 
@@ -239,6 +239,7 @@ export class CotizacionesPage  {
     this.datosPdf.ciudadCliente = this.cliente.ciudad;
     this.datosPdf.contactoCliente = this.cliente.contacto;
     this.datosPdf.nota = this.cotizacion.nota;
+    console.log(this.empresa,'id empresa');
 
     this.datosPdf['idEmpresa'] = this.empresa['id'];
     this.datosPdf['url'] = this.empresa['url'];
@@ -405,7 +406,7 @@ export class CotizacionesPage  {
     this.bandera=false;
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
-      buttons: [{
+      buttons: [/*{
         text: 'Ver',
         icon: 'eye',
         handler: () => {
@@ -416,7 +417,7 @@ export class CotizacionesPage  {
           this.bandera=true;
           this.traerCliente(cotizacion.id_cliente);
         }
-      },
+      },*/
       {
         text: 'Ver documento',
         icon: 'document',

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,NavParams } from '@ionic/angular';
 import { ProductoService } from '../../_servicios/producto.service';
+import { LoginService } from '../../_servicios/login.service';
 import { StockService } from '../../_servicios/stock.service';
+import { SucursalService } from '../../_servicios/sucursales.service';
 
 interface Producto{
   id:number;
@@ -22,15 +24,27 @@ export class DetalleCotizacionPage implements OnInit {
     private detalle = [];
     cantidad : Number = undefined;
     flag = false;
+    index : number = 99;
     productos : Producto[] = [];
+    productosIventariables = [];
+    productosNoIventariables = [];
+    banderaProductos = true;
+    banderaVer = false;
+    banderaInventario = false; //esta bandera o lo que sea deberia activarse a la hora de pagar
+    sucursales = [];
+    sucursalId = {};
 
-    constructor(private navParams : NavParams, private stockService : StockService ,private productoService: ProductoService,private modalCtrl : ModalController) {
+    constructor(private login : LoginService, private navParams : NavParams, private stockService : StockService ,private productoService: ProductoService,private modalCtrl : ModalController,private sucursalService : SucursalService) {
         var ps = navParams.get("detalle");
+        var bd = navParams.get("bandera");
         //console.log(ps);
         if(ps){
           this.detalle = ps;
         }
 
+        if(bd){
+          this.banderaVer = bd;
+        }
     }
 
     ngOnInit() {
@@ -43,17 +57,17 @@ export class DetalleCotizacionPage implements OnInit {
             var ps = p.filter(this.filtros);;
             for(var producto of ps){
               this.productos.push(producto);
+              this.productosNoIventariables.push(producto);
             }
         })
       })
-      this.stockService.listar().then(servicio=>{
-        servicio.subscribe(p=>{
-          var ps = p.filter(this.filtros);;
-          for(var producto of ps){
-            this.productos.push(producto);
-          }
-        })
+
+      this.sucursalService.listar().subscribe(s=>{
+        this.sucursales = s;
+        console.log(this.sucursales);
       })
+
+
     }
     filtros(gasto){
       if(gasto.estado){
@@ -64,6 +78,22 @@ export class DetalleCotizacionPage implements OnInit {
     insertar(){
     this.flag = true;
     }
+    limpiar(){
+      this.producto = undefined;
+      this.textoSugerido = "";
+      this['cantidad'] = undefined;
+    }
+    seleccionaSucursal(s){
+      this.stockService.listarPorSucursal(s).then(servicio=>{
+        servicio.subscribe(p=>{
+          console.log('entré',p);
+          var ps = p.filter(this.filtros);
+            this.productosIventariables=ps;
+            this.productos=ps;
+        })
+      })
+    }
+
     seleccionaProducto(){
         var prod = this.productos[this.producto];
         console.log(prod);
@@ -74,7 +104,8 @@ export class DetalleCotizacionPage implements OnInit {
           if(prod['cantidad'] === 0){
             this.textoSugerido = "No quedan unidades";
             this.max = 0;
-          }else{
+          }
+          else{
             this.textoSugerido = "No inventariado";
             this.max = 999999999;
           }
