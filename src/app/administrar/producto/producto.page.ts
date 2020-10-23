@@ -40,13 +40,9 @@ export class ProductoPage implements OnInit {
     var self = this;
     this.tipoProductoService.listar().then(servicio=>{
       servicio.subscribe(results=>{
-            self.tiposProductos = results;
-            //console.log(results)
-      })
-    })
-    this.tipoProductoService.listar().then(servicio=>{
-      servicio.subscribe(t=>{
-          this.tiposProductos = t;
+            self.tiposProductos = results.filter(function(prod){
+              return prod.estado;
+          });
       })
     })
     this.productoService.listar().then(servicio=>{

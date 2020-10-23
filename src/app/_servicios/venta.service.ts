@@ -11,7 +11,7 @@ export class VentaService {
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
-    
+
     this.url = "https://api.vase.cl";
     return this.http.get<any[]>(`${this.url}/venta/` , {
       headers: new HttpHeaders()
@@ -21,7 +21,7 @@ export class VentaService {
     });
   }
   async getventa(id){
-    
+
     this.url = "https://api.vase.cl";
     return this.http.get<any[]>(`${this.url}/venta/${id}` , {
       headers: new HttpHeaders()
@@ -31,6 +31,7 @@ export class VentaService {
     });
   }
   insertar(prod){
+    prod.fecha = new Date(prod.fecha);
     return this.http.post<any[]>(`${this.url}/venta/`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

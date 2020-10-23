@@ -83,6 +83,8 @@ export class VentasPage {
                     this.router.navigate(['/login'], {replaceUrl: true});
                   }
                 })
+
+                console.log('venta-con:',this.venta);
               }
 
   cargaInicial() {
