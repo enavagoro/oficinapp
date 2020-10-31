@@ -19,6 +19,67 @@ ion-title{
   font-size: 24px;
 }
 
+/*
+ion-list-header{
+  background: #f5f5f5;
+}
+*/
+
+ion-slides{
+  width: 100%;
+}
+
+ion-slide{
+  width: 100%;
+}
+
+/* Formulario */
+.contenedor-formulario{
+  background: #f5f5f5;
+  padding-top: 2%;
+  width: 100%;
+}
+
+/* */
+.contenedor-cliente{
+  width: 80%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: 0%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  background: white;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  box-shadow: 0px   2px 5px 0px rgba(184,184,184,1);  
+}
+
+.contenedor-documento{
+  width: 80%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: 0%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  background: white;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  box-shadow: 0px   2px 5px 0px rgba(184,184,184,1);  
+}
+
+.contenedor-detalle{
+  width: 80%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-top: 0%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  background: white;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(184,184,184,1);
+  box-shadow: 0px   2px 5px 0px rgba(184,184,184,1);  
+}
+/* */
 .ion-button{
   --background: #1250ad;
   --background-activated:#1250ad;
@@ -140,6 +201,11 @@ ion-avatar{
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+/* contenedor-historial  */
+
+
+/* */
 
 .item-lista{
   cursor: pointer;

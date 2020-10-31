@@ -14,6 +14,10 @@ const routes: Routes = [
   },  {
     path: 'crear-cliente-venta',
     loadChildren: () => import('./crear-cliente-venta/crear-cliente-venta.module').then( m => m.CrearClienteVentaPageModule)
+  },
+  {
+    path: 'ver-venta',
+    loadChildren: () => import('./ver-venta/ver-venta.module').then( m => m.VerVentaPageModule)
   }
 
 ];

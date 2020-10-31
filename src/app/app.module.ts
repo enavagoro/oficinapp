@@ -38,7 +38,7 @@ import { CrearTipogastoPage } from './gastos/crear-tipogasto/crear-tipogasto.pag
 import { CrearTipoproductoPage } from './administrar/producto/crear-tipoproducto/crear-tipoproducto.page'
 import { CrearClientePage } from './cotizaciones/crear-cliente/crear-cliente.page';
 import { PermisosPage } from './administrar/usuario/permisos/permisos.page';
-
+import { VerVentaPage} from './ventas/ver-venta/ver-venta.page'
 //pages
 import { ReportePage } from './reportes/reporte/reporte.page';
 
@@ -62,8 +62,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,PermisosPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
-  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,PermisosPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,VerVentaPage,DocumentoPage,ReportePage,CrearClienteVentaPage,PermisosPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,VerVentaPage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,PermisosPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -10,7 +10,7 @@ import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
-
+import { VerVentaPage } from './ver-venta/ver-venta.page'
 
 @Component({
   selector: 'app-ventas',
@@ -30,6 +30,7 @@ export class VentasPage {
   clientExist = true;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   public venta  = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
+  public verVenta = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
   metodos = [
     {nombre:"Efectivo",valor:0},
     {nombre:"Debito",valor:1},
@@ -183,6 +184,24 @@ export class VentasPage {
     });
     return await modal.present();
   }
+
+
+  async abrirVenta(){
+    const modal = await this.modalCtrl.create({
+      component: VerVentaPage,
+      cssClass: 'modals',
+      componentProps:{
+        'venta' : this.venta,
+      }
+    });
+
+    modal.onDidDismiss().then(modal=>{
+      console.log("haciendo pruebas");
+    });
+
+    return await modal.present();   
+  }
+
   public ejecutarInsercion(indice,tam){
     if(indice == tam){
       this.ventaService.insertar(this.venta).subscribe(data=>{
@@ -339,6 +358,7 @@ export class VentasPage {
       text: 'Ver',
       icon: 'eye',
       handler: () => {
+        this.abrirVenta();
         venta.tipo=''+venta.tipo;
         this.venta = venta;
         this.venta.dia = (this.venta.dia == "undefined" || !this.venta.dia ? '0' : this.venta.dia )  ;
@@ -348,9 +368,12 @@ export class VentasPage {
         this.banderaOpciones=true;
         this.deshabilitarInputs(true);
         this.bandera=true;
+        console.log('entré');
      //   this.traerCliente(venta.idCliente);
         venta.detalles = venta.detalle;
         this.detalle = venta.detalle;
+        console.log('venta detalle',venta.detalles);
+        console.log('detalle',this.detalle);
       }
     };
     var actualizar = {
