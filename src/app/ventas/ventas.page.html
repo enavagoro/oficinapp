@@ -226,7 +226,6 @@
 
     <ion-slide>
       <div class="contenedor-detalle">
-        <!--
         <div class="lista-clientes" *ngIf="cliente && clientesFiltrado.length!=0 && detalle.length>0">
           <ion-list-header mode="md">Detalle Productos</ion-list-header>
           <ion-item *ngFor="let p of detalle;index as i" mode="md">
@@ -240,7 +239,6 @@
             <ion-button class="boton-borrar" [disabled]="bandera" (click)="borrar(i)" slot="end" mode="md">borrar</ion-button>
           </ion-item>
         </div>
-      -->
         <ion-button size="medium" class="ion-button" (click)="abrirDetalle();" [disabled]="( !cliente || bandera ) && !permission.c " mode="md">Detalle</ion-button>        
       </div>
     </ion-slide>

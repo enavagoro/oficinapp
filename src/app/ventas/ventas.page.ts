@@ -186,12 +186,12 @@ export class VentasPage {
   }
 
 
-  async abrirVenta(){
+  async abrirVenta(venta){
     const modal = await this.modalCtrl.create({
       component: VerVentaPage,
       cssClass: 'modals',
       componentProps:{
-        'venta' : this.venta,
+        'venta' : venta,
       }
     });
 
@@ -358,7 +358,7 @@ export class VentasPage {
       text: 'Ver',
       icon: 'eye',
       handler: () => {
-        this.abrirVenta();
+
         venta.tipo=''+venta.tipo;
         this.venta = venta;
         this.venta.dia = (this.venta.dia == "undefined" || !this.venta.dia ? '0' : this.venta.dia )  ;
@@ -368,12 +368,10 @@ export class VentasPage {
         this.banderaOpciones=true;
         this.deshabilitarInputs(true);
         this.bandera=true;
-        console.log('entré');
      //   this.traerCliente(venta.idCliente);
         venta.detalles = venta.detalle;
         this.detalle = venta.detalle;
-        console.log('venta detalle',venta.detalles);
-        console.log('detalle',this.detalle);
+        this.abrirVenta(this.venta);
       }
     };
     var actualizar = {
