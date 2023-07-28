@@ -40,13 +40,13 @@ export class AppUtilService {
   }
 
   presentFingerPrint() {
-    return this.fingerPrintAIO.show({
-      clientId: 'Fingerprint-Demo',
-      clientSecret: 'password', // Only necessary for Android
-      disableBackup: false, // Only for Android(optional)
-      localizedFallbackTitle: 'Use Pin', // Only for iOS
-      localizedReason: 'Favor autenticate' // Only for iOS
-    });
+    // return this.fingerPrintAIO.show({
+    //   //clientId: 'Fingerprint-Demo',
+    //   clientSecret: 'password', // Only necessary for Android
+    //   disableBackup: false, // Only for Android(optional)
+    //   localizedFallbackTitle: 'Use Pin', // Only for iOS
+    //   localizedReason: 'Favor autenticate' // Only for iOS
+    // });
   }
 
   async isFingerprintAvailable() {

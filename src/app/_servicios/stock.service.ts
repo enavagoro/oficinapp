@@ -7,7 +7,7 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class StockService {
-  private url: string = "https://api.vase.cl";
+  private url: string = "https://orca-app-3c9vq.ondigitalocean.app";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {

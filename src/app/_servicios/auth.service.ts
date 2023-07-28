@@ -13,13 +13,13 @@ interface auth {
 
 export class AuthService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://orca-app-3c9vq.ondigitalocean.app";
 
   constructor(private http: HttpClient, private login : LoginService) { }
 
   async logUser(usuario){
     
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.post<auth>(`${this.url}/auth/` , usuario , {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });

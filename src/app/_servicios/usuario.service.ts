@@ -32,7 +32,7 @@ export interface Usuario{
 export class UsuarioService {
 
   private subject = new Subject<any>();
-  private url : string = "https://api.vase.cl";
+  private url : string = "https://orca-app-3c9vq.ondigitalocean.app";
   idEmpresa = '';
   idUsuario = '';
   constructor(private login:LoginService,private http: HttpClient) {

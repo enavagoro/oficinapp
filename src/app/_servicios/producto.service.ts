@@ -7,12 +7,12 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class ProductoService {
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://orca-app-3c9vq.ondigitalocean.app";
   constructor(private login:LoginService,private http:HttpClient) {
   }
   async listar() {
     
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.get<any[]>(`${this.url}/producto/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

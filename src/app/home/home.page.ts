@@ -98,7 +98,7 @@ export class HomePage {
     var ventasChart = [];
     var menu = document.querySelector('ion-menu')
     menu.hidden = false;
-
+    
   }
 
   ngOnInit(){
@@ -127,6 +127,7 @@ export class HomePage {
 
             this.productoMasVendido(venta);
           }
+          this.ngAfterViewInit();
 
         })
 

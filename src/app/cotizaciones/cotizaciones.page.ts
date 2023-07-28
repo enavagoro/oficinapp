@@ -12,7 +12,7 @@ import { LoginService } from '../_servicios/login.service';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 //import { ModalPage } from '../modal/modal.page';
-const URL = "https://api.vase.cl";
+const URL = "https://orca-app-3c9vq.ondigitalocean.app";
 
 @Component({
   selector: 'app-cotizaciones',

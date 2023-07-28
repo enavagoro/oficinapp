@@ -17,9 +17,9 @@
     </ion-list-header>
 
     <ion-item routerLink="/administrar/empresa" routerDirection="root" mode="md">
-      <ion-avatar slot="start">
+      <!-- <ion-avatar slot="start">
         <img src="https://image.flaticon.com/icons/svg/1481/1481492.svg">
-      </ion-avatar>
+      </ion-avatar> -->
       <ion-label class="ion-label">Mi Empresa</ion-label>
     </ion-item>
   </ion-list>
@@ -30,9 +30,9 @@
     </ion-list-header>
     <div class="" *ngFor="let menu of menus">
       <ion-item *ngIf="menu.permission.r" routerLink="{{menu.url.replace(filterPAth,'')}}" routerDirection="root" mode="md">
-        <ion-avatar slot="start">
+        <!-- <ion-avatar slot="start">
           <img [src]="menu.icon">
-        </ion-avatar>
+        </ion-avatar> -->
         <ion-label class="ion-label">{{menu.title}}</ion-label>
       </ion-item>
     </div>

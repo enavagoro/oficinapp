@@ -21,7 +21,7 @@
     <form>
       <ion-item mode="md">
         <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://cdn-icons-png.flaticon.com/512/4814/4814842.png">
         </ion-avatar>
         <ion-label position="stacked">Nombre Cliente<ion-text color="danger">*</ion-text></ion-label>
         <ion-input mode="md" [(ngModel)]="cliente.nombre" name="nombre" required></ion-input>
@@ -154,7 +154,7 @@
     <ion-list *ngIf="!verTodos" mode="md">
       <ion-item mode="md" class="item-lista" *ngFor="let c of filtrarClientes()" (click)="opciones(c)">
         <ion-avatar slot="start">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://cdn-icons-png.flaticon.com/512/4814/4814842.png">
         </ion-avatar>
         <ion-label>{{asignarFechaString(c)}}</ion-label>
       </ion-item>
@@ -175,10 +175,10 @@
     <ion-list *ngIf="verTodos" mode="md">
       <ion-item mode="md" class="item-lista" *ngFor="let c of clientes" (click)="opciones(c)">
         <ion-avatar slot="start" *ngIf="c.estado">
-          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img src="https://cdn-icons-png.flaticon.com/512/4814/4814842.png">
         </ion-avatar>
         <ion-avatar slot="start" *ngIf="!c.estado">
-          <img class="grayscale" src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+          <img class="grayscale" src="https://cdn-icons-png.flaticon.com/512/4814/4814842.png">
         </ion-avatar>
         <ion-label>{{asignarFechaString(c)}}</ion-label>
       </ion-item>

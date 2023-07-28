@@ -26,10 +26,10 @@ export class AdministrarPage implements OnInit {
   constructor(private storage : Storage) {
 
     this.storage.get('usuarios').then((val) => {
-      if(val){
-        var menu = val.menu;
-        this.menus = menu.filter( m => { return m.url.includes(this.filterPAth) })
-      }
+       if(val){
+         var menu = val.menu;
+         this.menus = menu.filter( m => { return m.url.includes(this.filterPAth) })
+       }
     })
   }
 

@@ -20,7 +20,7 @@ export interface Empresa{
 
 export class EmpresaService {
 
-  public url: string = "http://201.239.13.125";
+  public url: string = "https://orca-app-3c9vq.ondigitalocean.app";
   constructor(private login:LoginService,private http:HttpClient) {
 
   }
@@ -40,7 +40,7 @@ export class EmpresaService {
 
   async listar() {
 
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.get<any[]>(`${this.url}/empresa/` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -50,7 +50,7 @@ export class EmpresaService {
   }
   async getempresa(id){
 
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.get<any>(`${this.url}/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -60,7 +60,7 @@ export class EmpresaService {
   }
   async insertar(prod){
 
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.post<any[]>(`${this.url}/empresa/`,prod , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

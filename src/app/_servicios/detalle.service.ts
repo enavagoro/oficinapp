@@ -15,12 +15,12 @@ export interface Detalle {
 
 export class DetalleService {
 
-  private url: string = "http://201.239.13.125";
+  private url: string = "https://orca-app-3c9vq.ondigitalocean.app";
 
   constructor(private http: HttpClient) { }
 
   listar(id) {
-    this.url = "https://api.vase.cl";
+    this.url = "https://orca-app-3c9vq.ondigitalocean.app";
     return this.http.get<Detalle[]>(`${this.url}/api/ventas/detalle/${id}`,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')

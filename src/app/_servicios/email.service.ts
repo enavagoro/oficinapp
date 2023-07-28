@@ -13,7 +13,7 @@ import { Injectable } from '@angular/core';
 
 export class EmailService {
 
-  private url: string = "https://api.vase.cl";
+  private url: string = "https://orca-app-3c9vq.ondigitalocean.app";
 
   constructor(private http: HttpClient) { }
 
