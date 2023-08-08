@@ -28,6 +28,13 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
 
+.alert-wrapper{
+  
+  //max-width: 70% !important;
+  min-width: 70% !important;
+  width: 70% !important;
+}
+
 @media only screen and (min-width: 600px) {
   .largeModal .modal-wrapper {
      --width: 80%!important;
