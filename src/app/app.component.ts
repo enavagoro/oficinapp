@@ -11,6 +11,17 @@ import { StorageService } from './_servicios/storage.service';
 //import { NotificationService } from './_servicios/notification.service';
 import { UsuarioService } from './_servicios/usuario.service';
 import { LoginService } from './_servicios/login.service';
+import { Pipe, PipeTransform} from "@angular/core";
+
+import { DomSanitizer } from "@angular/platform-browser";
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) { }
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-root',
@@ -130,15 +141,15 @@ export class AppComponent {
   }
   checkFingerPrint() {
 
-    if (this.appUtil.isFingerprintAvailable) {
-      this.appUtil.presentFingerPrint()
-      .then((result: any) => {
-        this.router.navigate(['/home']);
-      })
-      .catch((error: any) => {
-        console.error('fingerprint : ', 'error');
-      });
-    }
+    // if (this.appUtil.isFingerprintAvailable) {
+    //   this.appUtil.presentFingerPrint()
+    //   .then((result: any) => {
+    //     this.router.navigate(['/home']);
+    //   })
+    //   .catch((error: any) => {
+    //     console.error('fingerprint : ', 'error');
+    //   });
+    // }
   }
   ngOnDestroy() {
       this.subscription.unsubscribe();

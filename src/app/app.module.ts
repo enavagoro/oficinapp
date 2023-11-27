@@ -8,7 +8,7 @@ import { TreeModule } from '@circlon/angular-tree-component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppComponent } from './app.component';
+import { AppComponent, SafePipe } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 // servicios
@@ -59,11 +59,12 @@ import { StorageService } from './_servicios/storage.service';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { EmailService } from './_servicios/email.service';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { PdfPage } from './ventas/pdf/pdf.page';
 
 
 @NgModule({
-  declarations: [AppComponent,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,PermisosPage,CrearTipogastoPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
-  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,PermisosPage,CrearTipoproductoPage,CrearClientePage,PlanesPage],
+  declarations: [AppComponent,SafePipe,DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,PermisosPage,CrearTipogastoPage,CrearTipoproductoPage,PdfPage,CrearClientePage,PlanesPage],
+  entryComponents: [DetallePage,DetalleCotizacionPage,CrearClientePage,DocumentoPage,ReportePage,CrearClienteVentaPage,CrearTipogastoPage,PermisosPage,CrearTipoproductoPage,PdfPage,CrearClientePage,PlanesPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -73,7 +74,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     TreeModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    FormsModule,
+    FormsModule
   ],
   providers: [
     StatusBar,

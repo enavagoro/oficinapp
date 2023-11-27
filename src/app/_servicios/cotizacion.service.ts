@@ -21,7 +21,8 @@ export class CotizacionService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
-  insertarPdf(datosPdf ){
+  insertarPdf(datosPdf ,hasIva : boolean){
+    datosPdf.hasIva = hasIva;
       datosPdf.url = this.url +"/"+datosPdf.idEmpresa+"/"+datosPdf.url;
       return this.http.post<any[]>(`${this.url}/preview-cotizacion/`,datosPdf, {
         headers: new HttpHeaders()

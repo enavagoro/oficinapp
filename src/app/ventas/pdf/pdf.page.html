@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Orden de despacho</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="pdf" style="height: -webkit-fill-available;">
+    <embed [src]="pdf | safe" style="width: -webkit-fill-available;
+    height: -webkit-fill-available;"/>
+  </div>
+</ion-content>

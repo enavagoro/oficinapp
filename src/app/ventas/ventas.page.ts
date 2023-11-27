@@ -10,6 +10,7 @@ import { DetallePage } from './detalle/detalle.page';
 import { StockService } from '../_servicios/stock.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CrearClienteVentaPage } from './crear-cliente-venta/crear-cliente-venta.page'
+import { PdfPage } from './pdf/pdf.page';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class VentasPage {
   cliente ;
   ventas  = [];
   ventasFiltradas = [];
+  base64STR  : any;
   clientExist = true;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
   public venta  = {estado:0,id:0,idCliente:0,desde:'Jazmin',fecha:new Date().toLocaleDateString(),detalle:[],dia:'0',metodo:'0',tipoDocumento:'0',idEmpresa:0,idUsuario:''};
@@ -44,6 +46,7 @@ export class VentasPage {
   flag = false;
   banderaOpciones = false;
   usuario : any;
+  showPreview = false;
 //historial
   banderaHistorial = true;
   fechaMenor;
@@ -243,6 +246,7 @@ export class VentasPage {
     }
   }
 
+
   public cancelar(){
     this.bandera=false;
     this.deshabilitarInputs(false);
@@ -380,6 +384,57 @@ export class VentasPage {
         this.venta.id = 0;
       }
     };
+    const ordenDespacho =  {
+      text: 'Previsualizar orden despacho',
+      icon: 'cube',
+      handler: () => {
+        this.showPreview = true;
+        delete venta.id;
+        this.venta = venta;
+        const idCliente = venta.idCliente;
+        let cliente ;
+        for(let i = 0 ; i < this.clientes.length;i++){
+          let cli = this.clientes[i];
+          if(cli.id == idCliente){
+            console.log(cli);
+            cliente = cli;
+          }
+        }
+        console.log('this venta',venta)
+        const objeto = {
+            "id": 1,
+            "detalle": this.venta.detalle,
+            "detalles" :this.venta.detalle,
+            "estado": 1,
+            "idUsuario": 0,
+            "idCliente": cliente.id,
+            "nombreCliente": cliente.nombre,
+            "rutCliente": "-",
+            "giroCliente": cliente.giro,
+            "direccionCliente": cliente.direccion,
+            "comunaCliente": cliente.comuna,
+            "ciudadCliente": cliente.ciudad,
+            "contactoCliente": cliente.contacto,
+            "idEmpresa": cliente.empresa,
+            "url": "https://orca-app-3c9vq.ondigitalocean.app/64c4732a4a981c15d5cfe971/1690683560901.png",
+            "nombreEmpresa": "Saturno Click",
+            "rutEmpresa": "77750062-7",
+            "giroEmpresa": "Saturno Click",
+            "direccionEmpresa": "COLINA - VALLE GRANDE",
+            "comunaEmpresa": "COLINA - LAMPA ",
+            "ciudadEmpresa": "SANTIAGO ",
+            "contactoEmpresa": "952201167 - 978856146",
+            "hasIva": false
+        }
+        this.banderaOpciones=false;
+        this.ventaService.mostrarPdf(objeto).subscribe(data=>{                                        
+          
+          const blob = new Blob([data], {type: 'application/pdf'});
+          const pdfurl = window.URL.createObjectURL(blob);
+          this.abrirPDF(pdfurl)
+        });
+      }
+    };
     var borrar = {
       text: opcion,
       role: 'destructive',
@@ -397,7 +452,7 @@ export class VentasPage {
       handler: () => {
       }
     }
-    var botones = [ver];
+    var botones = [ver,ordenDespacho];  
     if(this.permission.u){
       botones.push(actualizar)
     }
@@ -414,7 +469,21 @@ export class VentasPage {
     });
     await actionSheet.present();
   }
+  async abrirPDF(pdf) {
 
+    const modal = await this.modalCtrl.create({
+      component: PdfPage,
+      cssClass: 'my-custom-class',
+      componentProps:{
+        'pdf' : pdf,        
+      }
+    });
+
+    modal.onDidDismiss().then(modal=>{ 
+      this.showPreview = false;     
+    });
+    return await modal.present();
+  }
   borrar(index){
     var nuevo = [];
     for(let i = 0 ; i< this.detalle.length;i++){
@@ -431,8 +500,7 @@ export class VentasPage {
 
   disminuirCantidad(){
     this.cantidadVisible -= 10;
-  }
-
+  }  
   filtrarVentas(){
     this.totalVentas = 0;
     var ventas = [];

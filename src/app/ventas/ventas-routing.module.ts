@@ -14,6 +14,10 @@ const routes: Routes = [
   },  {
     path: 'crear-cliente-venta',
     loadChildren: () => import('./crear-cliente-venta/crear-cliente-venta.module').then( m => m.CrearClienteVentaPageModule)
+  },
+  {
+    path: 'pdf',
+    loadChildren: () => import('./pdf/pdf.module').then( m => m.PdfPageModule)
   }
 
 ];

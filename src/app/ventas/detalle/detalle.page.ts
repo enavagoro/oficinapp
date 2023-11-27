@@ -10,6 +10,7 @@ interface Producto{
   titulo:string;
   precio:number;
   codigo:string;
+  url?:string;
 }
 
 @Component({
@@ -131,7 +132,7 @@ export class DetallePage implements OnInit {
       tipo = 1;
     }
     var precio = prod.precio|| prod['venta'];
-    let d = {id : prod.id, titulo : prod.titulo,precio : precio, cantidad : this['cantidad'], tipo : tipo }
+    let d = {id : prod.id, titulo : prod.titulo,precio : precio, cantidad : this['cantidad'], tipo : tipo, url : prod.url }
     this.detalle.push(d);
     this.productos[this.producto]['cantidad']  =  parseInt(this.productos[this.producto]['cantidad']) - parseInt(""+this['cantidad']);
     this.max = this.productos[this.producto]['cantidad'];

@@ -30,6 +30,18 @@ export class VentaService {
       .set('empresaId' , this.login.getEmpresa())
     });
   }
+  mostrarPdf(payload){
+    const config = {
+      responseType:"arraybuffer",
+      responseEncoding : "binary",
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization' , this.login.getToken())
+      .set('empresaId' , this.login.getEmpresa())      
+    }
+    return this.http.post<any[]>(`http://localhost:3000/cotizacion/ordenDespacho`,payload ,config );
+    
+  }
   insertar(prod){
     prod.fecha = new Date(prod.fecha);
     return this.http.post<any[]>(`${this.url}/venta/`,prod , {

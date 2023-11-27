@@ -64,16 +64,16 @@ export class LoginPage implements OnInit {
 
   loginWithFingerprint() {
 
-    if (this.appUtil.isFingerprintAvailable) {
-      this.appUtil.presentFingerPrint()
-      .then((result: any) => {
-        this.router.navigate(['/home'], {replaceUrl: true});
-      })
-      .catch((error: any) => {
-        alert("ERROR");
-        console.error('fingerprint : ', 'error');
-      });
-    }
+    // if (this.appUtil.isFingerprintAvailable) {
+    //   this.appUtil.presentFingerPrint()
+    //   .then((result: any) => {
+    //     this.router.navigate(['/home'], {replaceUrl: true});
+    //   })
+    //   .catch((error: any) => {
+    //     alert("ERROR");
+    //     console.error('fingerprint : ', 'error');
+    //   });
+    // }
 
   }
 

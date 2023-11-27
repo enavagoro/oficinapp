@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VentasPageRoutingModule } from './ventas-routing.module';
+import { PdfPageRoutingModule } from './pdf-routing.module';
 
-import { VentasPage } from './ventas.page';
-
+import { PdfPage } from './pdf.page';
+import { SafePipe } from '../../app.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VentasPageRoutingModule
+    PdfPageRoutingModule
   ],
-  declarations: [VentasPage]
+  declarations: [PdfPage,SafePipe]
 })
-export class VentasPageModule {}
+export class PdfPageModule {}

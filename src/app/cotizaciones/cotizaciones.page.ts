@@ -24,6 +24,7 @@ export class CotizacionesPage  {
   flag = false;
   img: string;
   bandera = false;
+  IVAIncluded = false;
   detalle = [];
   empresa ;
   productos = [];
@@ -34,7 +35,7 @@ export class CotizacionesPage  {
   cotizaciones = [];
   cantidadVisible : number = 10;
   permission : PERMISSION = {c:false,r:false,u:false,d:false};
-  public cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0,url:'', idUsuario:0};
+  public cotizacion = {nota:'',id:0, idCliente:0,conIva : false, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0,url:'', idUsuario:0};
   public datosPdf = {id:0, nota:'', fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado: 0, idUsuario: 0,
                                 idCliente: 0,  nombreCliente: '', rutCliente: '', giroCliente: '', direccionCliente: '', comunaCliente: '', ciudadCliente: '', contactoCliente: '', idEmpresa: 0,url:''};
                                 //, nombreEmpresa: '',rutEmpreasa: '', giroEmpresa : '', direccionEmpresa: '', comunaEmpresa: '', ciudadEmpresa: '', contactoEmpresa: ''
@@ -220,7 +221,7 @@ export class CotizacionesPage  {
       this.detalle = [];
       this.cliente = undefined;
       this.nombreCliente = "";
-      this.cotizacion = {nota:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0, url :''};
+      this.cotizacion = {nota:'',id:0,conIva : false, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0, url :''};
     })
   }
 
@@ -252,7 +253,7 @@ export class CotizacionesPage  {
     this.datosPdf['ciudadEmpresa'] = this.empresa['ciudad'];
     this.datosPdf['contactoEmpresa'] = this.empresa['contacto'];
 
-    this.cotizacionService.insertarPdf(this.datosPdf).subscribe(data=>{
+    this.cotizacionService.insertarPdf(this.datosPdf,this.cotizacion.conIva).subscribe(data=>{
       //console.log(data);
       console.log("abrir documento");
       this.datosPdf['docto'] = data['docto'];
@@ -295,7 +296,7 @@ export class CotizacionesPage  {
     this.cotizacionService.actualizar(this.cotizacion,this.cotizacion.id).subscribe(cotizacion=>{
       //console.log(cotizacion);
       this.cargaInicial();
-      this.cotizacion = {nota:'',url:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+      this.cotizacion = {nota:'',url:'',conIva : false,id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
     })
   }
   public eliminacionLogica(){
@@ -318,7 +319,7 @@ export class CotizacionesPage  {
     this.detalle = [];
     this.cliente = undefined;
     this.nombreCliente = "";
-    this.cotizacion = {nota:'',url:'',id:0, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
+    this.cotizacion = {nota:'',url:'',id:0,conIva : false, idCliente:0, fechaEmision:new Date(), fechaCaducidad:new Date(), detalle:[], estado:0, idEmpresa:0, idUsuario:0};
   }
 
   async eliminar(opcion) {

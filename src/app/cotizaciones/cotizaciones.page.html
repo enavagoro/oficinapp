@@ -44,7 +44,12 @@
     <ion-item mode="md">
       <ion-textarea mode="md" [(ngModel)]="cotizacion.nota" name="nota"></ion-textarea>
     </ion-item>
+   
   </form>
+  <ion-item mode="md">
+    <ion-label>¿Necesita IVA?</ion-label>
+    <ion-toggle mode="md" [(ngModel)]="cotizacion.conIva" ></ion-toggle>
+  </ion-item>
 
     <ion-item mode="md">
       <ion-label>Cliente Existente</ion-label>
@@ -127,6 +132,7 @@
           </ion-avatar> -->
           <ion-label class="texto-formulario">Contacto: {{cliente.giro}}</ion-label>
         </ion-item>
+
       </div>
 
       <ion-button mode="md" *ngIf="!flag" size="medium" class="ion-button-mas" (click)="flag=true">Ver Más</ion-button>
